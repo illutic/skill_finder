@@ -1,0 +1,14 @@
+{
+  "tests": [
+    {
+      "name": "Test",
+      "setup": "",
+      "run": "ls README.md | wc",
+      "input": "",
+      "output": "1",
+      "comparison": "included",
+      "timeout": 4,
+      "points": null
+    }
+  ]
+}
