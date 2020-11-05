@@ -1,11 +1,11 @@
 {
   "tests": [
     {
-      "name": "Test",
+      "name": "Progress reports / min of one per week",
       "setup": "",
-      "run": "ls README.md | wc",
+      "run": "ls ProgressReports/*.md | wc -l",
       "input": "",
-      "output": "1",
+      "output": "[2-9]",
       "comparison": "included",
       "timeout": 4,
       "points": null
