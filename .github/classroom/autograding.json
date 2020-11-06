@@ -6,7 +6,7 @@
       "run": "ls ProgressReports/*.md | wc -l",
       "input": "",
       "output": "[2-9]",
-      "comparison": "included",
+      "comparison": "regex",
       "timeout": 4,
       "points": null
     }
