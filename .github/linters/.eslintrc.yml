@@ -1,0 +1,7 @@
+#https://github.com/portsoc/eslint-config-portsoc
+# DO NOT CHANGE -- make requests to the repo above
+
+extends: portsoc
+root: true
+env:
+  browser: true
