@@ -15,10 +15,10 @@ name: SuperLinter
 #############################
 on:
   workflow_dispatch: #DO NOT CHANGE
-  push:
-    branches: [master,main]
-    #branches-ignore: [master,main]
-    # Remove the line above to run when pushing to master
+  #push:
+  #  branches: [master,main]
+  #branches-ignore: [master,main]
+  # Remove the line above to run when pushing to master
   #pull_request:
   #  branches: [master]
 
@@ -32,7 +32,10 @@ jobs:
     # Set the agent to run on
     #runs-on: Ubuntu-20.04
     runs-on: [self-hosted, linux, x64]
-
+    container:
+       image: ghcr.io/github/super-linter:v3 # ghcr.io/m30819-2020/setapdocker   # Beware of versioning here GITHUB -- Some kind of magic here
+       env:
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     ##################
     # Load all steps #
     ##################
@@ -50,10 +53,13 @@ jobs:
       #######################################################################
       #  portsoc / eslint-config-portsoc -- eslint config files             #
       #######################################################################
-      - name: portsoc
-        run : npm i --save-dev eslint eslint-config-portsoc
+      #- name: portsoc
+      #  run : npm i --save-dev eslint eslint-config-portsoc
       #npm i --save-dev eslint eslint-config-portsoc
-
+      - name: Remove files before linting
+        run: |
+         rm -vrf .Ossonts
+         rm -v README.md
       ################################
       # Run Linter against code base #
       ################################
