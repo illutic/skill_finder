@@ -5,13 +5,13 @@ import cookieParser from 'cookie-parser';
 
 // Constants
 const PORT = process.env.PORT ?? 8080;
-const __dirname = process.env.PWD;
+const DIRNAME = process.env.PWD;
 const app = express();
 
 // Middleware
 app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'client', 'build')));
+app.use(express.static(path.join(DIRNAME, 'client', 'build')));
 
 // API Routes
 app.get('/', (req, res) => {
@@ -20,7 +20,7 @@ app.get('/', (req, res) => {
 
 // All Other Routes
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+    res.sendFile(path.join(DIRNAME, 'client', 'build', 'index.html'));
 });
 
 // Initialisation
