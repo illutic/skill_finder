@@ -15,13 +15,13 @@ app.use(express.static(path.join(__dirname, 'client', 'build')));
 
 // API Routes
 app.get('/', (req, res) => {
-	res.sendStatus(200);
+    res.sendStatus(200);
 });
 
 // All Other Routes
 app.get('*', (req, res) => {
-	res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+    res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
 });
 
-// Initialization
+// Initialisation
 app.listen(PORT, () => console.log(`Server running at port ${PORT}`));
