@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
 	res.sendStatus(200);
 });
 
-// Static Routes
+// All Other Routes
 app.get('*', (req, res) => {
 	res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
 });
