@@ -27,9 +27,9 @@
     npm install
 ```
 
-## Scripts
+## Available Scripts
 
-- Start the development server for the client code
+- Start the development server for the client code:
 
 ```zsh
     npm run client
@@ -37,7 +37,7 @@
 
 It will start a Browsersync process which should open your browser at http://localhost:3000. This is the development representation of the client code, which will refresh on each client code change.
 
-- Start the API server
+- Start the API server:
 
 ```zsh
     npm run server
@@ -46,7 +46,7 @@ It will start a Browsersync process which should open your browser at http://loc
 It will start an Express server available at http://localhost:8080. That is the server that responds to HTTP requests, communicates with the database, etc.
 
 
-- Run both servers
+- Run both servers:
 
 ```zsh
     npm run dev
@@ -54,7 +54,7 @@ It will start an Express server available at http://localhost:8080. That is the 
 
 It will run both the development server for the client code and the API server.
 
-- Build client code
+- Build client code:
 
 ```zsh
     npm run build
@@ -64,9 +64,9 @@ It will compile the development version of the client code into a production ver
 
 ## How to work on this project
 
-- If you only work on the API functionality, use the API server (npm run server) without the development server.
+- If you only work on the API functionality, use the API server (npm run server).
 
-- If you only work on the UI part of the application, use the development server (npm run server).
+- If you only work on the UI part of the application, use the development server (npm run client).
 
 - If you want to work on both sides, run both servers (npm run dev).
 
