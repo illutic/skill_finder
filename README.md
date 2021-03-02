@@ -48,7 +48,7 @@
 6. Put the following code in the .env file:
 
 ```
-    DBURI=postgres://USERNAME:@localhost:5432/setap
+    DB_URI=postgres://USERNAME:@localhost:5432/setap
 ```
 
 - Replace the USERNAME with the one your database uses.
