@@ -57,6 +57,16 @@
 
 - If you named your database other than "setap", change the last bit of the connection URI as well.
 
+7. Test your local version of the project:
+
+```zsh
+    npm run dev
+```
+
+- Wait for http://localhost:3000 to open up in your browser (it might take a while).
+
+- Check if the API server is running at http://localhost:8080/api.
+
 ## Available Scripts
 
 - Start the development server for the client code:
