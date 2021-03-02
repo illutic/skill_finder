@@ -27,9 +27,9 @@
     npm install
 ```
 
-3. Run your local database server.
+3. Run your local PostgreSQL server.
 
-4. Create a PostgreSQL database for the project:
+4. Create a database for the project:
 
 ```zsh
     psql
@@ -55,7 +55,7 @@
 
 - It is probably a username visible at the beginning of the psql command prompt.
 
-- If you named your database other than "setap", change the finishing part of the connection URI as well.
+- If you named your database other than "setap", change the last bit of the connection URI as well.
 
 ## Available Scripts
 
@@ -92,6 +92,26 @@ It will run both the development server for the client code and the API server.
 
 It will compile the development version of the client code into a production version. The output code will appear at the ./client/build directory.
 
+## Directory Structure
+
+```
+    .
+    ├── app.js           # Server initialisation
+    ├── controllers      # Controller functions
+    ├── models           # Database models
+    ├── database         # Database connection
+    ├── routes           # Subrouters
+    ├── constants        # Reusable constants
+    ├── utils            # Reusable functions
+    ├── client           # UI/Front-end code
+    ├── node_modules     # Installed npm packages
+    ├── package.json     # Required npm packages definition
+    ├── .env             # Environmental variables
+    ├── .gitignore       # Files ignored by Git
+    ├── .prettierrc      # Prettier configuration
+    └── .eslintrc.json   # ESLint configuration
+```
+
 ## Know-how
 
 How to work on this project:
@@ -104,9 +124,9 @@ How to work on this project:
 
 - If you only work on the UI part of the application, use the development server (npm run client).
 
-- If you want to work on both sides, run both servers (npm run dev).
+- If you want to work on both sides, run both servers simultaneously (npm run dev).
 
-- When you are done, open a pull request so we can assess your work and potentially merge your branch into the dev branch.
+- When you are done with your work, open a pull request so we check it and merge your branch into the dev branch.
 
 - The build script is only needed for deployment. It does the compilation, minification and other optimation stuff. The output code will eventually end up on a hosting service, such as Heroku.
 
