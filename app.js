@@ -14,8 +14,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(DIRNAME, 'client', 'build')));
 
 // API Routes
-app.get('/', (req, res) => {
-    res.sendStatus(200);
+app.get('/api', (req, res) => {
+    res.send('Server works fine 👍');
 });
 
 // All Other Routes
