@@ -92,7 +92,13 @@ It will run both the development server for the client code and the API server.
 
 It will compile the development version of the client code into a production version. The output code will appear at the ./client/build directory.
 
-## How to work on this project
+## Know-how
+
+How to work on this project:
+
+- Do not push to the main branch. Switch to the dev branch. The main branch should only hold a working, clean production code.
+
+- When you start working on a new feature, create a new branch growing from the dev branch.
 
 - If you only work on the API functionality, use the API server (npm run server).
 
@@ -100,4 +106,8 @@ It will compile the development version of the client code into a production ver
 
 - If you want to work on both sides, run both servers (npm run dev).
 
+- When you are done, open a pull request so we can assess your work and potentially merge your branch into the dev branch.
+
 - The build script is only needed for deployment. It does the compilation, minification and other optimation stuff. The output code will eventually end up on a hosting service, such as Heroku.
+
+- We will merge the dev branch into the main branch from time to time. We will also set up a Heroku process that will automatically deploy the main branch code.
