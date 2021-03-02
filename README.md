@@ -27,6 +27,30 @@
     npm install
 ```
 
+3. Run your local database server
+
+4. Create a PostgreSQL database for the project
+
+```zsh
+    psql
+    CREATE DATABASE setap;
+    \q
+```
+
+5. Create a .env file in the project root directory
+
+- The name must be exact
+
+6. Put the following code in the .env file:
+
+```
+    DBURI=postgres://USERNAME:@localhost:5432/setap
+```
+
+- Replace the USERNAME with the one your database uses.
+
+- It is probably a username visible at the beginning of the psql command prompt.
+
 ## Available Scripts
 
 - Start the development server for the client code:
