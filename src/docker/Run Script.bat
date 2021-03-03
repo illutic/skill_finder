@@ -1,0 +1,1 @@
+docker-compose -f skill-finder-docker-compose.yml up
