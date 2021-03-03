@@ -2,10 +2,8 @@ import express from 'express';
 import path from 'path';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
-import db from './database/db.js';
-
-// Database Check
-db.query('SELECT NOW()', (err, res) => console.log(res));
+import AuthRoutes from './routes/auth-routes.js';
+import APIRoutes from './routes/api-routes.js';
 
 // Constants
 const PORT = process.env.PORT ?? 8081;
@@ -17,10 +15,9 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.static(path.join(DIRNAME, 'client', 'build')));
 
-// API Routes
-app.get('/api', (req, res) => {
-    res.send('Server works fine 👍');
-});
+// Routes
+app.use(AuthRoutes);
+app.use(APIRoutes);
 
 // All Other Routes
 app.get('*', (req, res) => {
