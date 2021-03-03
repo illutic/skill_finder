@@ -2,12 +2,15 @@
 
 - Docker Installation: <https://www.docker.com/get-started>
 
-- Open a terminal and type ``` docker pull docker.pkg.github.com/m30819-2020/cw-code-t33/skill-finder:latest ```
+- Authorize Docker to use Github packages.
 
-- The app as well as all its dependencies should download.
+  - Generate a Personal Access Token. <https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token>
+  - Put your token in a ```TOKEN.txt``` file (case sensitive), copy a script to that location and run it.
 
-- Go to the docker folder in the repo and run the scripts. or alternatively:
+## OR Alternatively
 
-- Open a terminal and change to the local docker folder ```.../src/docker```
+- Type this in a terminal ```cat ~/TOKEN.txt | docker login https://docker.pkg.github.com -u USERNAME --password-stdin```
+
+- Change to the docker folder ```.../src/docker```
 
 - Run the command: ``` docker-compose -f skill-finder-docker-compose.yml up ```
