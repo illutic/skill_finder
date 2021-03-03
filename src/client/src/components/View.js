@@ -1,29 +1,36 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
+import Signup from '../views/Signup';
+import Login from '../views/Login';
+import Profile from '../views/Profile';
+import Settings from '../views/Settings';
+import Chat from '../views/Chat';
+import Messages from '../views/Messages';
+import Home from '../views/Home';
 
 const View = () => {
     return (
         <Switch>
             <Route path="/signup" exact>
-                Signup View
+                <Signup />
             </Route>
             <Route path="/login" exact>
-                Login View
+                <Login />
             </Route>
             <Route path="/profile/:id" exact>
-                Profile View
+                <Profile />
             </Route>
             <Route path="/settings" exact>
-                Settings View
+                <Settings />
             </Route>
             <Route path="/messages/:id" exact>
-                Messages Room View
+                <Chat />
             </Route>
             <Route path="/messages" exact>
-                Messages View
+                <Messages />
             </Route>
             <Route path="/" exact>
-                Home View
+                <Home />
             </Route>
         </Switch>
     );
