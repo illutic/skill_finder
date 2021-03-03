@@ -6,4 +6,4 @@ RUN npm install
 COPY . .
 EXPOSE 8081
 EXPOSE 3000
-CMD ["node", "src/app.js"]
+CMD ["node", "./src/App.js"]
