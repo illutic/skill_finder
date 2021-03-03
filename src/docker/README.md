@@ -8,6 +8,6 @@
 
 - Go to the docker folder in the repo and run the scripts. or alternatively:
 
-- Open a terminal change to the local docker folder ```.../src/docker```
+- Open a terminal and change to the local docker folder ```.../src/docker```
 
 - Run the command: ``` docker-compose -f skill-finder-docker-compose.yml up ```
