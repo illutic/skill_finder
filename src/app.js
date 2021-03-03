@@ -18,8 +18,6 @@ app.use(express.static(path.join(DIRNAME, 'client', 'build')));
 // Routes
 app.use(AuthRoutes);
 app.use(APIRoutes);
-
-// All Other Routes
 app.get('*', (req, res) => {
     res.sendFile(path.join(DIRNAME, 'client', 'build', 'index.html'));
 });
