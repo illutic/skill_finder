@@ -40,7 +40,7 @@
 
 - The name must be exact.
 
-- This file will hold environmental variables that might be different for each of us.
+- This file will hold environment variables that might be different for each of us.
 
 - This file will not (and should not) be pushed into GitHub.
 
@@ -64,7 +64,7 @@
 
 - Wait for http://localhost:3000 to open up in your browser (it might take a while).
 
-- Check if the API server is running at http://localhost:8080/api.
+- Check if the API server is running at http://localhost:8081/api.
 
 ## Available Scripts
 
@@ -115,7 +115,7 @@ It will compile the development version of the client code into a production ver
     ├── client           # UI/Front-end code
     ├── node_modules     # Installed npm packages
     ├── package.json     # Required npm packages definition
-    ├── .env             # Environmental variables
+    ├── .env             # Environment variables
     ├── .gitignore       # Files ignored by Git
     ├── .prettierrc      # Prettier configuration
     └── .eslintrc.json   # ESLint configuration
