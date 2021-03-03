@@ -2,6 +2,10 @@ import express from 'express';
 import path from 'path';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
+import db from './database/db.js';
+
+// Database Check
+db.query('SELECT NOW()', (err, res) => console.log(res));
 
 // Constants
 const PORT = process.env.PORT ?? 8081;
