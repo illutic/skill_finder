@@ -1,12 +1,12 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import Signup from '../views/Signup';
-import Login from '../views/Login';
-import Profile from '../views/Profile';
-import Settings from '../views/Settings';
-import Chat from '../views/Chat';
-import Messages from '../views/Messages';
-import Home from '../views/Home';
+import Signup from '../../views/Signup/index';
+import Login from '../../views/Login/index';
+import Profile from '../../views/Profile/index';
+import Settings from '../../views/Settings/index';
+import Chat from '../../views/Chat/index';
+import Messages from '../../views/Messages/index';
+import Home from '../../views/Home/index';
 
 const View = () => {
     return (
