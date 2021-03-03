@@ -10,6 +10,6 @@
     },
     "rules": {
         "indent": ["error", 4],
-        "import/extensions": "never"
+        "import/extensions": 0
     }
 }
