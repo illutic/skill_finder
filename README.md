@@ -114,7 +114,7 @@ It will compile the development version of the client code into a production ver
     ├── utils            # Reusable functions
     ├── client           # UI/Front-end code
     ├── node_modules     # Installed npm packages
-    ├── package.json     # Required npm packages definition
+    ├── package.json     # Required npm packages
     ├── .env             # Environment variables
     ├── .gitignore       # Files ignored by Git
     ├── .prettierrc      # Prettier configuration
