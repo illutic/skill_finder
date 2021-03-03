@@ -14,3 +14,5 @@
 - Change to the docker folder ```.../src/docker```
 
 - Run the command: ``` docker-compose -f skill-finder-docker-compose.yml up ```
+
+# Scripts are not working Currently!
