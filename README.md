@@ -12,7 +12,6 @@
 
 - ESLint ([Download/VSC](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) | [Download/Atom](https://atom.io/packages/linter-eslint))
 
-
 ## Installation
 
 1. Switch to the development branch:
@@ -83,7 +82,7 @@ It will start a Browsersync process which should open your browser at http://loc
     npm run server
 ```
 
-It will start an Express server available at http://localhost:8080. That is the server that responds to HTTP requests, communicates with the database, etc.
+It will start an Express server available at http://localhost:8081. That is the server that responds to HTTP requests, communicates with the database, etc.
 
 
 - Run both servers:

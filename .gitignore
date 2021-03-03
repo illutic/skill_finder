@@ -128,5 +128,5 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-TOKEN.txt
 .vscode/launch.json
+TOKEN.txt

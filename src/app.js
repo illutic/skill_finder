@@ -4,7 +4,7 @@ import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 
 // Constants
-const PORT = process.env.PORT ?? 8080;
+const PORT = process.env.PORT ?? 8081;
 const DIRNAME = process.env.PWD;
 const app = express();
 
