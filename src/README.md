@@ -14,21 +14,15 @@
 
 ## Installation
 
-1. Switch to the development branch:
-
-```zsh
-    git checkout dev
-```
-
-2. Run the installation script:
+1. Run the installation script:
 
 ```zsh
     npm install
 ```
 
-3. Run your local PostgreSQL server.
+2. Run your local PostgreSQL server.
 
-4. Create a database for the project:
+3. Create a database for the project:
 
 ```zsh
     psql
@@ -36,7 +30,7 @@
     \q
 ```
 
-5. Create a .env file in the project root directory:
+4. Create a .env file in the project root directory:
 
 - The name must be exact.
 
@@ -44,7 +38,7 @@
 
 - This file will not (and should not) be pushed into GitHub.
 
-6. Put the following code in the .env file:
+5. Put the following code in the .env file:
 
 ```
     DB_URI=postgres://USERNAME:@localhost:5432/skillfinder
@@ -56,7 +50,7 @@
 
 - If you named your database other than "skillfinder", change the last bit of the connection URI as well.
 
-7. Run database setup script:
+6. Run database setup script:
 
 ```zsh
     npm run setup
