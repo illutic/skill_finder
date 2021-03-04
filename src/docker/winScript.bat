@@ -14,7 +14,7 @@ IF EXIST .env (
     @echo "npm run client" - Start the development server for the client code
     @echo "npm run build" - Build client code
     @echo =================================================================
-    docker exec -it docker_skill-finder_1 /bin/sh
+    docker exec -it docker_app_1 /bin/sh
 ) ELSE (
     @echo .env File not found!
 )
