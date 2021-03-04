@@ -1,4 +1,4 @@
-# Docker Configuration
+# Docker Docs
 
 - Docker Installation: <https://www.docker.com/get-started>
 
@@ -17,9 +17,12 @@ DB_URI=""
 
 - For mac users, type in the terminal: ``` sh path/to/the/linuxScript ```
 
-## Explanation
+## Overview
 
 Docker will try and build the application and the server in one container and the database in another, without having to install anything on your machine. Once built, you shall be redirected to the application's container CLI, where you can type any linux command.
+
+For more information I recommend this video:
+<https://youtu.be/3c-iBn73dDE?list=WL>
 
 ### Dependencies of docker
 
@@ -54,3 +57,21 @@ Docker will try and build the application and the server in one container and th
 2) Adminer is a database administrator tool using php.
 
 3) Runs on port ```8080```.
+
+### Using GitHub packages
+
+If you want to make use of the github packages of our repo, you must first have a **Personal Access Token.**
+
+- Copy that token to a ```TOKEN.txt``` file, and place it in the same directory as you run the following command.
+
+```sh
+  cat ./TOKEN.txt | docker login https://docker.pkg.github.com -u GITHUB_USERNAME --password-stdin
+  OR 
+  docker login https://docker.pkg.github.com -u GITHUB_USERNAME -p TOKEN 
+```
+
+- Run the following command in the ```src``` directory
+```docker build -t docker.pkg.github.com/m30819-2020/cw-code-t33/skill-finder .```
+
+- After it has built run this command
+```docker push docker.pkg.github.com/m30819-2020/cw-code-t33/skill-finder:latest```
