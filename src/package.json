@@ -19,6 +19,7 @@
     },
     "scripts": {
         "postinstall": "npm install --prefix client",
+        "setup": "psql skillfinder < database/schema.sql && psql skillfinder < database/seed.sql",
         "server": "nodemon app.js",
         "client": "npm start --prefix client",
         "dev": "concurrently \"npm run server\" \"npm run client\"",
