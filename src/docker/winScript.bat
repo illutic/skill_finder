@@ -4,9 +4,8 @@ timeout 2
 cd ..
 IF EXIST .env (
     COPY .env docker\.env
-    set /p USERNAME="Enter Github Username: "
-    set /p token=<TOKEN.txt
-    docker login https://docker.pkg.github.com -u %USERNAME% -p %token%
+    docker system prune
+    docker build -t skill-finder .
     docker-compose -f docker/skill-finder-docker-compose.yml up -d
     @echo =================================================================
     @echo 				Commands:
@@ -14,7 +13,7 @@ IF EXIST .env (
     @echo "npm run client" - Start the development server for the client code
     @echo "npm run build" - Build client code
     @echo =================================================================
-    docker exec -it docker_skill-finder_1 /bin/sh
+    docker exec -it docker_app_1 /bin/sh
 ) ELSE (
     @echo .env File not found!
 )
