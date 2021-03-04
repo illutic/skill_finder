@@ -1,4 +1,3 @@
-import React from 'react';
 import Form from '../../components/Form/index';
 import FORMS from '../../constants/forms';
 import ENDPOINTS from '../../constants/endpoints';

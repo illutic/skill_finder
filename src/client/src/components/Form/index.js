@@ -1,4 +1,3 @@
-import React from 'react';
 import * as Styled from './styles';
 import Button from '../Button/index';
 import FORMS from '../../constants/forms';
