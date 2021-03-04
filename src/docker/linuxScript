@@ -1,12 +1,24 @@
-echo "Copy the script to the same directory as the TOKEN.txt"
-read -p "Enter Github Username: " username
-cat ./TOKEN.txt | docker login https://docker.pkg.github.com -u $username --password-stdin
-docker-compose -f skill-finder-docker-compose.yml up -d 
-echo =================================================================
-echo 				Commands:
-echo "npm run client" - Start the development server for the client code
-echo "npm run server" - Start the API server
-echo "npm run dev" - Run both servers
-echo "npm run build" - Build client code
-echo =================================================================
-docker exec -it docker_skill-finder_1 /bin/sh
+echo "Make sure you have your TOKEN.txt file and your .env file in the root folder of the project!"
+sleep 2
+if [[ -f ../TOKEN.txt ]]
+then
+    if [[ -f ../.env ]]
+    then
+        cp ../.env ./.env
+        read -p "Enter Github Username: " username
+        cat ../TOKEN.txt | docker login https://docker.pkg.github.com -u $username --password-stdin
+        docker-compose -f skill-finder-docker-compose.yml up -d 
+        echo =================================================================
+        echo 				Commands:
+        echo "npm run client" - Start the development server for the client code
+        echo "npm run server" - Start the API server
+        echo "npm run dev" - Run both servers
+        echo "npm run build" - Build client code
+        echo =================================================================
+        docker exec -it docker_skill-finder_1 /bin/sh
+    else
+        echo .env file not found
+    fi
+else
+    echo TOKEN file not found
+fi
