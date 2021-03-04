@@ -12,7 +12,6 @@ IF EXIST .env (
     @echo 				Commands:
     @echo The API server is running Automatically.
     @echo "npm run client" - Start the development server for the client code
-    @echo "npm run dev" - Run both servers
     @echo "npm run build" - Build client code
     @echo =================================================================
     docker exec -it docker_skill-finder_1 /bin/sh

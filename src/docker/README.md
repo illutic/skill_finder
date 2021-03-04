@@ -4,8 +4,8 @@
 
 - Authorize Docker to use Github packages.
   - Generate a Personal Access Token. <https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token>
-  - Put your token in a ```TOKEN.txt``` file (case sensitive).
-  - Copy a script to that directory and run it.
+  - Put your token in a ```TOKEN.txt``` file (case sensitive) in the ``` src ``` folder.
+  - Create a ``` .env ```
 
 ## OR Alternatively
 
