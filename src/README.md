@@ -1,4 +1,4 @@
-# T33 Project
+# Skill Finder
 
 ## Prerequisites
 
@@ -127,9 +127,7 @@ It will compile the development version of the client code into a production ver
     └── .eslintrc.json   # ESLint configuration
 ```
 
-## Know-how
-
-How to work on this project:
+## Tips
 
 - Do not push to the main branch. Switch to the dev branch. The main branch should only hold a working, clean production code.
 
