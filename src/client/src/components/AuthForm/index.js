@@ -1,10 +1,37 @@
 import * as Styled from './styles';
 import Button from '../Button/index';
 import FORMS from '../../constants/forms';
+import ENDPOINTS from '../../constants/endpoints';
+import extractFormData from '../../utils/extractFormData';
 
-const Form = ({ type, submitHandler, ...rest }) => {
+const AuthForm = ({ type, ...rest }) => {
+    const signupHandler = async (e) => {
+        e.preventDefault();
+        const formData = extractFormData(e.target);
+        try {
+            fetch(`${ENDPOINTS.api}/user`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    const loginHandler = async (e) => {
+        e.preventDefault();
+    };
+
     return (
-        <Styled.Form {...rest} onSubmit={(e) => submitHandler(e)}>
+        <Styled.Form
+            {...rest}
+            onSubmit={(e) =>
+                type === FORMS.signup ? signupHandler(e) : loginHandler(e)
+            }
+        >
             {type === FORMS.signup ? (
                 <>
                     <Styled.Label htmlFor="first">First Name</Styled.Label>
@@ -36,4 +63,4 @@ const Form = ({ type, submitHandler, ...rest }) => {
     );
 };
 
-export default Form;
+export default AuthForm;

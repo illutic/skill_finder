@@ -1,8 +1,8 @@
-import Form from '../../components/Form/index';
+import AuthForm from '../../components/AuthForm/index';
 import FORMS from '../../constants/forms';
 
 const Login = () => {
-    return <Form type={FORMS.login}></Form>;
+    return <AuthForm type={FORMS.login} />;
 };
 
 export default Login;
