@@ -3,5 +3,5 @@ export const getUser = async (req, res) => {
 };
 
 export const postUser = async (req, res) => {
-    res.send('🙋');
+    res.send(req.body);
 };
