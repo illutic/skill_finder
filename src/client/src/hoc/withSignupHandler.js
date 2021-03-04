@@ -1,3 +1,8 @@
+// This HOC provides a method that sends a signup request to the server.
+// It can be used on components that include a signup form.
+// The method can be forwarded to a form and implemented as an onSubmit handler.
+import React from 'react';
+
 const withSignupHandler = (Component) => {
     const signupHandler = (e) => {
         e.preventDefault();
