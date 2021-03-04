@@ -1,5 +1,0 @@
-echo "Copy the script to the same directory as the TOKEN.txt"
-read -p "Enter Github Username: " username
-cat ./TOKEN.txt | docker login https://docker.pkg.github.com -u $username --password-stdin
-docker-compose -f skill-finder-docker-compose.yml up
-
