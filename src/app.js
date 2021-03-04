@@ -2,15 +2,22 @@ import express from 'express';
 import path from 'path';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
-import { createRequire } from 'module';
+import sequelize from './database/database.js';
 import AuthRoutes from './routes/auth-routes.js';
 import APIRoutes from './routes/api-routes.js';
+
 // Constants
 const PORT = process.env.PORT ?? 8081;
 const DIRNAME = process.env.PWD;
 const app = express();
-const require = createRequire(import.meta.url);
-const Sequelize = require('sequelize');
+
+// This import style is called CommonJS:
+// const Sequelize = require('sequelize');
+// It's slowly dying because of a newer standard called ES Modules.
+// I set the modules to ES Modules in this project, that's why CommonJS won't work.
+// Check out these:
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import
+// https://developer.mozilla.org/en-US/docs/web/javascript/reference/statements/export
 
 // Middleware
 app.use(bodyParser.json());
@@ -25,14 +32,16 @@ app.get('*', (req, res) => {
 });
 
 // Initialisation
-const sequelize = new Sequelize(process.env.DB_URI);
-sequelize
-    .authenticate()
-    .then(() => {
-        console.log('Connection has been established successfully.');
-    })
-
-    .catch((err) => {
-        console.error('Unable to connect to the database:', err);
-    });
-app.listen(PORT, () => console.log(`Server running at port ${PORT}`));
+(async () => {
+    try {
+        await sequelize.sync({
+            // Force reset the database schema:
+            // force: true,
+            // ^ Uncomment whenever you update the schema
+            // eg. when creating a new model, updating an old one.
+        });
+        app.listen(PORT, () => console.log(`Server running at port ${PORT}`));
+    } catch (err) {
+        throw new Error(err);
+    }
+})();
