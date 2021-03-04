@@ -32,7 +32,7 @@
 
 ```zsh
     psql
-    CREATE DATABASE setap;
+    CREATE DATABASE skillfinder;
     \q
 ```
 
@@ -47,14 +47,20 @@
 6. Put the following code in the .env file:
 
 ```
-    DB_URI=postgres://USERNAME:@localhost:5432/setap
+    DB_URI=postgres://USERNAME:@localhost:5432/skillfinder
 ```
 
 - Replace the USERNAME with the one your database uses.
 
 - It is probably a username visible at the beginning of the psql command prompt.
 
-- If you named your database other than "setap", change the last bit of the connection URI as well.
+- If you named your database other than "skillfinder", change the last bit of the connection URI as well.
+
+7. Run database setup script:
+
+```zsh
+    npm run setup
+```
 
 7. Test your local version of the project:
 
@@ -64,7 +70,7 @@
 
 - Wait for http://localhost:3000 to open up in your browser (it might take a while).
 
-- Check if the API server is running at http://localhost:8081/api.
+- Check if the API server is running by visiting http://localhost:8081/api/user.
 
 ## Available Scripts
 
