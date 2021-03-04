@@ -1,10 +1,10 @@
 import React from 'react';
 import Form from '../../components/Form/index';
 import FORMS from '../../constants/forms';
-import withOriginSignup from '../../hoc/withOriginSignup';
+import withSignupHandler from '../../hoc/withSignupHandler';
 
-const Signup = ({ action }) => {
-    return <Form type={FORMS.signup} action={action}></Form>;
+const Signup = ({ handler }) => {
+    return <Form type={FORMS.signup} handler={handler}></Form>;
 };
 
-export default withOriginSignup(Signup);
+export default withSignupHandler(Signup);
