@@ -10,8 +10,8 @@ IF EXIST .env (
     docker-compose -f docker/skill-finder-docker-compose.yml up -d
     @echo =================================================================
     @echo 				Commands:
+    @echo The API server is running Automatically.
     @echo "npm run client" - Start the development server for the client code
-    @echo "npm run server" - Start the API server
     @echo "npm run dev" - Run both servers
     @echo "npm run build" - Build client code
     @echo =================================================================
