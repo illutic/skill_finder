@@ -4,9 +4,8 @@ timeout 2
 cd ..
 IF EXIST .env (
     COPY .env docker\.env
-    set /p USERNAME="Enter Github Username: "
-    set /p token=<TOKEN.txt
-    docker login https://docker.pkg.github.com -u %USERNAME% -p %token%
+    docker system prune
+    docker build -t skill-finder .
     docker-compose -f docker/skill-finder-docker-compose.yml up -d
     @echo =================================================================
     @echo 				Commands:
