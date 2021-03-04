@@ -20,7 +20,16 @@ const User = database.define(
         email: {
             type: Sequelize.STRING,
             allowNull: false,
-            unique: true,
+            unique: {
+                args: true,
+                msg: 'This e-mail address is already in use',
+            },
+            validate: {
+                isEmail: {
+                    args: true,
+                    msg: 'Please provide a valid e-mail address',
+                },
+            },
         },
         password: {
             type: Sequelize.STRING,
