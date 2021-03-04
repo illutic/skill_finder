@@ -9,13 +9,15 @@ const AuthForm = ({ type, ...rest }) => {
         e.preventDefault();
         const formData = extractFormData(e.target);
         try {
-            fetch(`${ENDPOINTS.api}/user`, {
+            const response = await fetch(`${ENDPOINTS.auth}/signup`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(formData),
             });
+            const data = await response.json();
+            console.log(data);
         } catch (err) {
             console.log(err);
         }
@@ -34,10 +36,18 @@ const AuthForm = ({ type, ...rest }) => {
         >
             {type === FORMS.signup ? (
                 <>
-                    <Styled.Label htmlFor="first">First Name</Styled.Label>
-                    <Styled.Input type="text" name="first" placeholder="Aa" />
-                    <Styled.Label htmlFor="last">Last Name</Styled.Label>
-                    <Styled.Input type="text" name="last" placeholder="Aa" />
+                    <Styled.Label htmlFor="firstName">First Name</Styled.Label>
+                    <Styled.Input
+                        type="text"
+                        name="firstName"
+                        placeholder="Aa"
+                    />
+                    <Styled.Label htmlFor="lastName">Last Name</Styled.Label>
+                    <Styled.Input
+                        type="text"
+                        name="lastName"
+                        placeholder="Aa"
+                    />
                 </>
             ) : null}
             <Styled.Label htmlFor="email">E-mail</Styled.Label>
