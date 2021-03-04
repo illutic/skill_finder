@@ -5,27 +5,27 @@ import FORMS from '../../constants/forms';
 
 const Form = ({ type, action, ...rest }) => {
     return (
-        <Styled.Form {...rest} onSubmit={action}>
+        <Styled.Form {...rest} onSubmit={(e) => action(e)}>
             {type === FORMS.signup ? (
                 <>
-                    <Styled.Label for="first">First Name</Styled.Label>
+                    <Styled.Label htmlFor="first">First Name</Styled.Label>
                     <Styled.Input type="text" name="first" placeholder="Aa" />
-                    <Styled.Label for="last">Last Name</Styled.Label>
+                    <Styled.Label htmlFor="last">Last Name</Styled.Label>
                     <Styled.Input type="text" name="last" placeholder="Aa" />
                 </>
             ) : null}
-            <Styled.Label for="email">E-mail</Styled.Label>
+            <Styled.Label htmlFor="email">E-mail</Styled.Label>
             <Styled.Input type="text" name="email" placeholder="@" />
-            <Styled.Label for="password">Password</Styled.Label>
+            <Styled.Label htmlFor="password">Password</Styled.Label>
             <Styled.Input type="password" name="password" placeholder="*" />
             {type === FORMS.signup ? (
                 <>
-                    <Styled.Label for="confirm-password">
+                    <Styled.Label htmlFor="confirmPassword">
                         Confirm Password
                     </Styled.Label>
                     <Styled.Input
                         type="password"
-                        name="confirm-password"
+                        name="confirmPassword"
                         placeholder="*"
                     />
                 </>
