@@ -6,7 +6,6 @@ then
     then
         cp ../.env ./.env
         cd ..
-        docker system prune -y
         docker build -t skill-finder .
         docker-compose -f docker/skill-finder-docker-compose.yml up -d 
         echo =================================================================
@@ -20,5 +19,6 @@ then
         echo .env file not found
     fi
 else
+    docker system prune -f
     echo TOKEN file not found
 fi

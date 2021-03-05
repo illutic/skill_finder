@@ -4,7 +4,6 @@ timeout 2
 cd ..
 IF EXIST .env (
     COPY .env docker\.env
-    docker system prune
     docker build -t skill-finder .
     docker-compose -f docker/skill-finder-docker-compose.yml up -d
     @echo =================================================================
@@ -17,5 +16,6 @@ IF EXIST .env (
 ) ELSE (
     @echo .env File not found!
 )
+docker system prune -f
 timeout 5
 )
