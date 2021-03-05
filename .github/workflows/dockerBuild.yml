@@ -25,4 +25,4 @@ jobs:
       - name: Push the Database Image.
         run: docker push docker.pkg.github.com/m30819-2020/cw-code-t33/skill-finder-db:latest
       - name: Run Application.
-        run: docker-compose -f src/docker up -d
+        run: docker-compose -f src/docker/*.yml up -d
