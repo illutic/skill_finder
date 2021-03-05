@@ -1,24 +1,16 @@
-echo "Make sure you have your TOKEN.txt file and your .env file in the root folder of the project!"
-sleep 2
-if [[ -f ../TOKEN.txt ]]
+if [[ -f ../.env ]]
 then
-    if [[ -f ../.env ]]
-    then
-        cp ../.env ./.env
-        cd ..
-        docker system prune -y
-        docker build -t skill-finder .
-        docker-compose -f docker/skill-finder-docker-compose.yml up -d 
-        echo =================================================================
-        echo 				Commands:
-        echo The API server is running Automatically.
-        echo "npm run client" - Start the development server for the client code
-        echo "npm run build" - Build client code
-        echo =================================================================
-        docker exec -it docker_app_1 /bin/sh
-    else
-        echo .env file not found
-    fi
+    cp ../.env ./.env
+    cd ..
+    docker system prune
+    docker-compose -f docker/docker-compose.yml up -d 
+    echo =================================================================
+    echo 				Commands:
+    echo The API server is running Automatically.
+    echo "npm run client" - Start the development server for the client code
+    echo "npm run build" - Build client code
+    echo =================================================================
+    docker exec -it docker.pkg.github.com/m30819-2020/cw-code-t33/skill-finder:latest /bin/sh
 else
-    echo TOKEN file not found
+    echo .env file not found
 fi

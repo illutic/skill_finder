@@ -2,25 +2,37 @@ name: Docker Compose Action Workflow
 on: 
   push:
     branches:
-      - test-docker
+      - main
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        env:
-          DB_USER: ${{github.actor}}
-          DB_PASSWORD: password
-          DB_DATABASE: skillfinder
       - name: Build Database, and Application Image
         run: docker-compose -f src/docker/*.yml build
+        env:
+          DB_USER: ${{github.actor}}
+          DB_PASSWORD: ${{secrets.GITHUB_TOKEN}}
+          DB_DATABASE: skillfinder
       - name: Tag the Application Image.
         run: docker tag docker_app docker.pkg.github.com/m30819-2020/cw-code-t33/skill-finder:latest
       - name: Tag the Database Image.
         run: docker tag docker_db docker.pkg.github.com/m30819-2020/cw-code-t33/skill-finder-db:latest
+      - name: Login to github container registry.
+        run: docker login https://docker.pkg.github.com -u ${{github.actor}} -p ${{ secrets.GITHUB_TOKEN }}
       - name: Push the Application Image.
-        run: docker.pkg.github.com/m30819-2020/cw-code-t33/skill-finder:latest
+        run: docker push docker.pkg.github.com/m30819-2020/cw-code-t33/skill-finder:latest
       - name: Push the Database Image.
-        run: docker.pkg.github.com/m30819-2020/cw-code-t33/skill-finder-db:latest
+        run: docker push docker.pkg.github.com/m30819-2020/cw-code-t33/skill-finder-db:latest
       - name: Run Application.
-        run: docker-compose -f src/docker up -d
+        run: docker-compose -f src/docker/*.yml up -d
+        env:
+          DB_USER: ${{github.actor}}
+          DB_PASSWORD: ${{secrets.GITHUB_TOKEN}}
+          DB_DATABASE: skillfinder
+      - name: Stop App Container
+        run: docker stop docker_app_1
+      - name: Stop Database Container
+        run: docker stop docker_db_1
+      - name: Stop Adminer Container
+        run: docker stop docker_adminer_1
