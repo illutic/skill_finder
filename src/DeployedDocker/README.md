@@ -1,0 +1,18 @@
+# Instructions
+
+- Docker Installation: <https://www.docker.com/get-started>
+
+- Create a ``` .env ``` in the src folder.
+
+- The ``` .env ``` file *MUST* have the following variables:
+
+```bash
+DB_USER=<user_name>
+DB_PASSWORD=<user_password>
+DB_DATABASE=<database_name>
+DB_URI=""
+```
+
+- Run the script.
+
+- For mac users, type in the terminal: ``` sh path/to/the/linuxScript ```

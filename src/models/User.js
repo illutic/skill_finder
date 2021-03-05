@@ -1,4 +1,4 @@
-import { Sequelize } from 'sequelize';
+import { Sequelize} from 'sequelize';
 import database from '../database/database.js';
 
 const User = database.define(
@@ -26,7 +26,7 @@ const User = database.define(
             allowNull: false,
         },
         skills: {
-            type: Sequelize.json,
+            type: Sequelize.JSON,
             allowNull: true,
         },
         usertype: {
@@ -34,7 +34,7 @@ const User = database.define(
             allowNull: true,
         },
         achievements: {
-            type: Sequelize.json,
+            type: Sequelize.JSON,
             allowNull: true,
         },
     },
