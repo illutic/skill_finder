@@ -1,23 +1,21 @@
-@echo Make sure you have your TOKEN.txt file and your .env file in the root folder of the project!
 @echo off
 timeout 2
 cd ..
 IF EXIST .env (
     COPY .env docker\.env
-    docker system prune -f
-    docker build -t skill-finder .
-    docker-compose build -f docker/docker-compose.yml -d
+    docker system prune
+    docker-compose -f docker/docker-compose.yml up -d
     @echo =================================================================
     @echo 				Commands:
     @echo The API server is running Automatically.
     @echo "npm run client" - Start the development server for the client code
     @echo "npm run build" - Build client code
     @echo =================================================================
-    docker exec -it docker_app_1 /bin/sh
+    docker exec -it docker.pkg.github.com/m30819-2020/cw-code-t33/skill-finder:latest /bin/sh
 ) ELSE (
     @echo .env File not found!
 )
-)
+
 
 SET /P input="Do you want to stop and clear all the containers? [y]yes or [n]No: "
    goto sub_%input%  
