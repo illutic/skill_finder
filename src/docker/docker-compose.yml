@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   db: 
-    image: postgres
+    build: ../database
     restart: always
     ports:
        - 5432:5432
@@ -18,7 +18,7 @@ services:
     ports:
       - 8080:8080
   app:
-    image: skill-finder
+    build: ..
     ports:
       - 3000:3000
       - 8081:8081
