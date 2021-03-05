@@ -17,7 +17,7 @@
 1. Run the installation script:
 
 ```zsh
-    npm install
+    npm instal
 ```
 
 2. Run your local PostgreSQL server.
