@@ -6,7 +6,7 @@ IF EXIST .env (
     COPY .env docker\.env
     docker system prune -f
     docker build -t skill-finder .
-    docker-compose -f docker/skill-finder-docker-compose.yml up -d
+    docker-compose build -f docker/docker-compose.yml -d
     @echo =================================================================
     @echo 				Commands:
     @echo The API server is running Automatically.

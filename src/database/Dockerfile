@@ -1,8 +1,9 @@
 FROM postgres:13.2
 WORKDIR /
-ENV POSTGRES_USER $DB_USER
 ENV POSTGRES_PASSWORD $DB_PASSWORD
+ENV POSTGRES_USER $DB_USER
 ENV POSTGRES_DB $DB_DATABASE
+ENV CONNECTION_STRING postgresql://${DB_USER}:${DB_PASSWORD}@db:${DB_PORT}/${DB_DATABASE}
 COPY ./scripts/* docker-entrypoint-initdb.d/
+COPY ./schemas/* docker-entrypoint-initdb.d/
 EXPOSE 5432
-USER postgres

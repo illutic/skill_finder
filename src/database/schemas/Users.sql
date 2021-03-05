@@ -3,7 +3,10 @@ create table users (
 	firstname VARCHAR(50),
 	lastname VARCHAR(50),
 	email VARCHAR(50),
-	password VARCHAR(50)
+	password VARCHAR(50),
+	skills JSON,
+	usertype VARCHAR(50),
+	achievements JSON
 );
 insert into users (id, firstname, lastname, email, password) values (1, 'Aubrette', 'Coltherd', 'acoltherd0@bing.com', '9fp6k0');
 insert into users (id, firstname, lastname, email, password) values (2, 'Carlie', 'Skyrm', 'cskyrm1@wisc.edu', 'M1pA4e');
