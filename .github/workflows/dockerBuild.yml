@@ -26,3 +26,13 @@ jobs:
         run: docker push docker.pkg.github.com/m30819-2020/cw-code-t33/skill-finder-db:latest
       - name: Run Application.
         run: docker-compose -f src/docker/*.yml up -d
+        env:
+          DB_USER: ${{github.actor}}
+          DB_PASSWORD: password
+          DB_DATABASE: skillfinder
+      - name: Stop App Container
+        run: docker stop docker_app_1
+      - name: Stop Database Container
+        run: docker stop docker_db_1
+      - name: Stop Adminer Container
+        run: docker stop docker_adminer_1
