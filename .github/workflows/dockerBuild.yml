@@ -6,6 +6,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v2
       - name: Build Database, and Application Image
@@ -20,16 +21,22 @@ jobs:
         run: docker tag docker_db docker.pkg.github.com/m30819-2020/cw-code-t33/skill-finder-db:latest
       - name: Login to github container registry.
         run: docker login https://docker.pkg.github.com -u ${{github.actor}} -p ${{ secrets.GITHUB_TOKEN }}
-      - name: Push the Application Image.
-        run: docker push docker.pkg.github.com/m30819-2020/cw-code-t33/skill-finder:latest
-      - name: Push the Database Image.
-        run: docker push docker.pkg.github.com/m30819-2020/cw-code-t33/skill-finder-db:latest
-      - name: Run Application.
+      - name: Run Application Server.
         run: docker-compose -f src/docker/*.yml up -d
         env:
           DB_USER: ${{github.actor}}
           DB_PASSWORD: ${{secrets.GITHUB_TOKEN}}
           DB_DATABASE: skillfinder
+      - name: Run Application Client.
+        run: docker exec -itd docker_app_1 sh -c "npm run client"
+      - name: Test Server Connection
+        run: curl http://localhost:8081
+      - name: Test Client Connection
+        run: curl http://localhost:3000
+      - name: Push the Application Image.
+        run: docker push docker.pkg.github.com/m30819-2020/cw-code-t33/skill-finder:latest
+      - name: Push the Database Image.
+        run: docker push docker.pkg.github.com/m30819-2020/cw-code-t33/skill-finder-db:latest
       - name: Stop App Container
         run: docker stop docker_app_1
       - name: Stop Database Container
