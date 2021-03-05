@@ -1,16 +1,8 @@
-import React from 'react';
-import Form from '../../components/Form/index';
+import AuthForm from '../../components/AuthForm/index';
 import FORMS from '../../constants/forms';
-import extractFormData from '../../utils/extractFormData';
 
 const Signup = () => {
-    const signupHandler = (e) => {
-        e.preventDefault();
-        const formData = extractFormData(e.target);
-        console.log(formData);
-    };
-
-    return <Form type={FORMS.signup} submitHandler={signupHandler}></Form>;
+    return <AuthForm type={FORMS.signup} />;
 };
 
 export default Signup;

@@ -11,14 +11,6 @@ const PORT = process.env.PORT ?? 8081;
 const DIRNAME = process.env.PWD;
 const app = express();
 
-// This import style is called CommonJS:
-// const Sequelize = require('sequelize');
-// It's slowly dying because of a newer standard called ES Modules.
-// I set the modules to ES Modules in this project, that's why CommonJS won't work.
-// Check out these:
-// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import
-// https://developer.mozilla.org/en-US/docs/web/javascript/reference/statements/export
-
 // Middleware
 app.use(bodyParser.json());
 app.use(cookieParser());
