@@ -2,8 +2,7 @@ name: Docker Compose Action Workflow
 on: 
   push:
     branches:
-      - main
-      - test
+      - test-docker
 jobs:
   build:
     runs-on: ubuntu-latest
