@@ -2,18 +2,18 @@ import { Sequelize } from 'sequelize';
 import database from '../database/database.js';
 
 const User = database.define(
-    'User',
+    'user',
     {
         id: {
             type: Sequelize.UUID,
             defaultValue: Sequelize.UUIDV1,
             primaryKey: true,
         },
-        firstName: {
+        firstname: {
             type: Sequelize.STRING,
             allowNull: false,
         },
-        lastName: {
+        lastname: {
             type: Sequelize.STRING,
             allowNull: false,
         },

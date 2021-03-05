@@ -4,6 +4,7 @@ timeout 2
 cd ..
 IF EXIST .env (
     COPY .env docker\.env
+    docker system prune -f
     docker build -t skill-finder .
     docker-compose -f docker/skill-finder-docker-compose.yml up -d
     @echo =================================================================
@@ -16,6 +17,19 @@ IF EXIST .env (
 ) ELSE (
     @echo .env File not found!
 )
-docker system prune -f
-timeout 5
 )
+
+SET /P input="Do you want to stop and clear all the containers? [y]yes or [n]No: "
+   goto sub_%input%  
+:sub_y
+    @echo STOPPING CONTAINERS!
+    docker stop docker_app_1
+    docker stop docker_db_1
+    docker stop docker_adminer_1
+    @echo CLEARING CONTAINERS!
+    docker system prune -f
+    goto:eof
+:sub_n
+    goto:eof
+
+timeout 5

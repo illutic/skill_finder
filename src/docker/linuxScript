@@ -1,24 +1,33 @@
 echo "Make sure you have your TOKEN.txt file and your .env file in the root folder of the project!"
 sleep 2
-if [[ -f ../TOKEN.txt ]]
+
+if [[ -f ../.env ]]
 then
-    if [[ -f ../.env ]]
-    then
-        cp ../.env ./.env
-        cd ..
-        docker build -t skill-finder .
-        docker-compose -f docker/skill-finder-docker-compose.yml up -d 
-        echo =================================================================
-        echo 				Commands:
-        echo The API server is running Automatically.
-        echo "npm run client" - Start the development server for the client code
-        echo "npm run build" - Build client code
-        echo =================================================================
-        docker exec -it docker_app_1 /bin/sh
-    else
-        echo .env file not found
-    fi
-else
+    cp ../.env ./.env
+    cd ..
     docker system prune -f
-    echo TOKEN file not found
+    docker build -t skill-finder .
+    docker-compose -f docker/skill-finder-docker-compose.yml up -d 
+    echo =================================================================
+    echo 				Commands:
+    echo The API server is running Automatically.
+    echo "npm run client" - Start the development server for the client code
+    echo "npm run build" - Build client code
+    echo =================================================================
+    docker exec -it docker_app_1 /bin/sh
+else
+    echo .env file not found
+fi
+
+echo Do you want to stop and delete all the containers? [y/n]
+read input
+if [ "$input" == "y" ]
+then
+    echo Stopping containers!
+    docker stop docker_app_1
+    docker stop docker_db_1
+    docker stop docker_adminer_1
+    echo Clearing Containers
+    docker system prune -f
+    exit 1
 fi

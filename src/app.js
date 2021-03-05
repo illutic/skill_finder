@@ -42,6 +42,6 @@ app.get('*', (req, res) => {
         });
         app.listen(PORT, () => console.log(`Server running at port ${PORT}`));
     } catch (err) {
-        throw new Error(err);
+        // throw new Error(err);
     }
 })();
