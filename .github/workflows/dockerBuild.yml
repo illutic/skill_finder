@@ -18,9 +18,11 @@ jobs:
         run: docker tag docker_app docker.pkg.github.com/m30819-2020/cw-code-t33/skill-finder:latest
       - name: Tag the Database Image.
         run: docker tag docker_db docker.pkg.github.com/m30819-2020/cw-code-t33/skill-finder-db:latest
+      - name: Login to github container registry.
+        run: docker login https://docker.pkg.github.com -u ${{github.actor}} -p ${{ secrets.GITHUB_TOKEN }}
       - name: Push the Application Image.
-        run: docker.pkg.github.com/m30819-2020/cw-code-t33/skill-finder:latest
+        run: docker push .pkg.github.com/m30819-2020/cw-code-t33/skill-finder:latest
       - name: Push the Database Image.
-        run: docker.pkg.github.com/m30819-2020/cw-code-t33/skill-finder-db:latest
+        run: docker push .pkg.github.com/m30819-2020/cw-code-t33/skill-finder-db:latest
       - name: Run Application.
         run: docker-compose -f src/docker up -d
