@@ -17,7 +17,7 @@
 1. Run the installation script:
 
 ```zsh
-    npm instal
+    npm install
 ```
 
 2. Run your local PostgreSQL server.
@@ -50,13 +50,7 @@
 
 - If you named your database other than "skillfinder", change the last bit of the connection URI as well.
 
-6. Run database setup script:
-
-```zsh
-    npm run setup
-```
-
-7. Test your local version of the project:
+6. Test your local version of the project:
 
 ```zsh
     npm run dev

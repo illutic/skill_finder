@@ -1,10 +1,8 @@
-import React from 'react';
-import Form from '../../components/Form/index';
+import AuthForm from '../../components/AuthForm/index';
 import FORMS from '../../constants/forms';
-import withSignupHandler from '../../hoc/withSignupHandler';
 
-const Signup = ({ handler }) => {
-    return <Form type={FORMS.signup} handler={handler}></Form>;
+const Signup = () => {
+    return <AuthForm type={FORMS.signup} />;
 };
 
-export default withSignupHandler(Signup);
+export default Signup;
