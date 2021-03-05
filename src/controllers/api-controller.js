@@ -1,3 +1,5 @@
+import User from '../models/User.js';
+
 export const getUser = async (req, res) => {
     const user = await User.findOne({ where: { id: req.params.id } });
     res.send(user);

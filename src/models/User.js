@@ -35,16 +35,8 @@ const User = database.define(
             type: Sequelize.STRING,
             allowNull: false,
         },
-        skills: {
-            type: Sequelize.JSON,
-            allowNull: true,
-        },
         usertype: {
             type: Sequelize.STRING,
-            allowNull: true,
-        },
-        achievements: {
-            type: Sequelize.JSON,
             allowNull: true,
         },
     },
