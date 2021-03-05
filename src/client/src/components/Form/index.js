@@ -3,9 +3,9 @@ import * as Styled from './styles';
 import Button from '../Button/index';
 import FORMS from '../../constants/forms';
 
-const Form = ({ type, handler, ...rest }) => {
+const Form = ({ type, submitHandler, ...rest }) => {
     return (
-        <Styled.Form {...rest} onSubmit={(e) => handler(e)}>
+        <Styled.Form {...rest} onSubmit={(e) => submitHandler(e)}>
             {type === FORMS.signup ? (
                 <>
                     <Styled.Label htmlFor="first">First Name</Styled.Label>
