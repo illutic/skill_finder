@@ -1,7 +1,5 @@
-import { defaults } from 'pg';
 import { Sequelize} from 'sequelize';
 import database from '../database/database.js';
-import User from './User.js';
 
 const connection = database.define(
     'connection',
@@ -12,5 +10,5 @@ const connection = database.define(
         }
     }
 )
-connection.belongsToMany(User);
+
 export default connection;

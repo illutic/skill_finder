@@ -1,6 +1,5 @@
 import { Sequelize} from 'sequelize';
 import database from '../database/database.js';
-import chat from './Chat.js';
 
 const message = database.define(
     'message',
@@ -19,5 +18,4 @@ const message = database.define(
         }
     }
 )
-message.belongsTo(chat);
 export default message;

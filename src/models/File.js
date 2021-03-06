@@ -1,6 +1,5 @@
 import { Sequelize} from 'sequelize';
 import database from '../database/database.js';
-import chat from './Chat.js';
 
 const file = database.define(
     'file',
@@ -15,5 +14,5 @@ const file = database.define(
         }
     }
 )
-file.belongsTo(chat);
+
 export default file;

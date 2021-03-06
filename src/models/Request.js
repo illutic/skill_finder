@@ -1,6 +1,5 @@
 import { Sequelize} from 'sequelize';
 import database from '../database/database.js';
-import User from './User.js';
 
 const request = database.define(
     'request',
@@ -19,5 +18,4 @@ const request = database.define(
         }
     }
 )
-request.belongsTo(User);
 export default request;

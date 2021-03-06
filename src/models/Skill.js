@@ -1,6 +1,5 @@
 import { Sequelize} from 'sequelize';
 import database from '../database/database.js';
-import User from './User.js';
 
 const skill = database.define(
     'skill',
@@ -15,5 +14,4 @@ const skill = database.define(
         }
     }
 )
-skill.belongsToMany(User);
 export default skill;

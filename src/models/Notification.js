@@ -1,6 +1,5 @@
 import { Sequelize} from 'sequelize';
 import database from '../database/database.js';
-import User from './User.js';
 
 const notification = database.define(
     'notification',
@@ -19,5 +18,4 @@ const notification = database.define(
         }
     }
 )
-notification.belongsToMany(User);
 export default notification;
