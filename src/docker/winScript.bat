@@ -1,10 +1,7 @@
-@echo Make sure you have your TOKEN.txt file and your .env file in the root folder of the project!
 @echo off
-timeout 2
 cd ..
 IF EXIST .env (
     COPY .env docker\.env
-    docker system prune
     docker-compose -f docker/docker-compose.yml up -d
     @echo =================================================================
     @echo 				Commands:
@@ -12,9 +9,30 @@ IF EXIST .env (
     @echo "npm run client" - Start the development server for the client code
     @echo "npm run build" - Build client code
     @echo =================================================================
-    docker exec -it docker.pkg.github.com/m30819-2020/cw-code-t33/skill-finder:latest /bin/sh
+    docker start docker_app_1
+    docker exec -it docker_app_1 /bin/sh
 ) ELSE (
     @echo .env File not found!
 )
+
+
+SET /P input="Do you want to stop all the containers? [y]Yes or [n]No or [c]Clear All: "
+   goto sub_%input%  
+:sub_y
+    @echo STOPPING CONTAINERS!
+    docker stop docker_app_1
+    docker stop docker_db_1
+    docker stop docker_adminer_1
+    goto:eof
+:sub_c
+    @echo STOPPING CONTAINERS!
+    docker stop docker_app_1
+    docker stop docker_db_1
+    docker stop docker_adminer_1
+    @echo CLEARING CONTAINERS!
+    timeout 2
+    docker system prune -af
+:sub_n
+    goto:eof
+
 timeout 5
-)
