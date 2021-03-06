@@ -6,19 +6,27 @@ export const getUser = async (req, res) => {
 };
 
 export const postUser = async (req, res) => {
-    const { firstName, lastName, email, password, type } = req.body;
     const user = await User.create({
-        firstName,
-        lastName,
-        email,
-        password,
-        type,
+        firstname: req.body.firstName,
+        lastname: req.body.lastName,
+        email: req.body.email,
+        password: req.body.password,
+        usertype: req.body.usertype
     });
     res.send(user);
 };
 
-export const patchUser = async (req) => {
-    await User.findOne({ where: { id: req.params.id } });
+export const patchUser = async (req,res) => {
+    await User.update(
+        { firstname: req.body.firstName,
+        lastname: req.body.lastName,
+        email: req.body.email,
+        password: req.body.password,
+        usertype: req.body.usertype },
+        {where: { id: req.params.id } }
+    )
+    res.status(200).end()
+    
 };
 
 export const deleteUser = async (req,res) => {
