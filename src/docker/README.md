@@ -10,6 +10,10 @@
 DB_USER=<user_name>
 DB_PASSWORD=<user_password>
 DB_DATABASE=<database_name>
+DB_PORT=5432
+SERVER_PORT=8081
+CLIENT_PORT=3000
+ADMIN_PORT=8080
 DB_URI=""
 ```
 
