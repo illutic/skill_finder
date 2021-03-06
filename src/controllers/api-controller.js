@@ -17,14 +17,13 @@ export const postUser = async (req, res) => {
     res.send(user);
 };
 
-export const patchUser = async (req, res) => {
-    const user = await User.findOne({ where: { id: req.params.id } });
-    res.send('Update: ', user);
+export const patchUser = async (req) => {
+    await User.findOne({ where: { id: req.params.id } });
 };
 
-export const deleteUser = async (req, res) => {
-    const user = await User.findOne({ where: { id: req.params.id } });
-    res.send('Delete: ', user);
+export const deleteUser = async (req,res) => {
+    await User.destroy({ where: { id: req.params.id } });
+    res.status(200).end();
 };
 
 export const getSkill = async (req, res) => {
