@@ -7,7 +7,7 @@ import AuthRoutes from './routes/auth-routes.js';
 import APIRoutes from './routes/api-routes.js';
 
 // Constants
-const PORT = process.env.PORT ?? 8081;
+const PORT = process.env.SERVER_PORT ?? 8081;
 const DIRNAME = process.env.PWD;
 const app = express();
 

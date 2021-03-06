@@ -4,7 +4,7 @@ services:
     build: ../database
     restart: always
     ports:
-       - 5432:5432
+       - ${DB_PORT}:5432
     environment:
        - POSTGRES_PASSWORD=${DB_PASSWORD}
        - POSTGRES_USER=${DB_USER}
@@ -16,12 +16,12 @@ services:
     image: adminer
     restart: always
     ports:
-      - 8080:8080
+      - ${ADMIN_PORT}:8080
   app:
     build: ..
     ports:
-      - 3000:3000
-      - 8081:8081
+      - ${CLIENT_PORT}:3000
+      - ${SERVER_PORT}:8081
     environment: 
       - DB_URI=postgresql://${DB_USER}:${DB_PASSWORD}@db:${DB_PORT}/${DB_DATABASE}
     depends_on: 
