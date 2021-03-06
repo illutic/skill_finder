@@ -26,7 +26,7 @@ jobs:
       - name: Login to github container registry.
         run: docker login https://docker.pkg.github.com -u ${{github.actor}} -p ${{ secrets.GITHUB_TOKEN }}
       - name: Run Application Server.
-        run: docker-compose -f src/docker/*.yml up -d
+        run: docker-compose -f src/docker/*.yml up -d && docker start docker_app_1
         env:
           DB_USER: ${{github.actor}}
           DB_PASSWORD: ${{secrets.GITHUB_TOKEN}}
@@ -35,7 +35,6 @@ jobs:
           SERVER_PORT: 8081
           CLIENT_PORT: 3000
           ADMIN_PORT: 8080
-        run: docker start docker_app_1
       - name: Run Application Client.
         run: docker exec -itd docker_app_1 sh -c "npm run client"
       - name: Push the Application Image.
