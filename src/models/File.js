@@ -1,19 +1,19 @@
 import { Sequelize} from 'sequelize';
 import database from '../database/database.js';
-import User from './User.js';
+import chat from './Chat.js';
 
-const skill = database.define(
-    'skill',
+const file = database.define(
+    'file',
     {
         id: {
             type: Sequelize.UUID,
             primaryKey: true
         },
-        skillname: {
+        uri: {
             type: Sequelize.STRING,
-            allowNull: true
+            allowNull: false
         }
     }
 )
-skill.belongsToMany(User);
-export default skill;
+file.belongsTo(chat);
+export default file;

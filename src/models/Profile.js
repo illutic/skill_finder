@@ -1,12 +1,13 @@
 import { Sequelize} from 'sequelize';
 import database from '../database/database.js';
+import photo from './Photo.js';
+import User from './User.js';
 
 const profile = database.define(
     'profile',
     {
         id: {
             type: Sequelize.UUID,
-            defaultValue: Sequelize.UUIDV1,
             primaryKey: true
         },
         title: {
@@ -19,5 +20,6 @@ const profile = database.define(
         }
     }
 )
-
+profile.belongsTo(User);
+profile.hasOne(photo);
 export default profile;

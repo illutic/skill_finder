@@ -1,12 +1,12 @@
 import { Sequelize} from 'sequelize';
 import database from '../database/database.js';
+import User from './User.js';
 
 const notification = database.define(
     'notification',
     {
         id: {
             type: Sequelize.UUID,
-            defaultValue: Sequelize.UUIDV1,
             primaryKey: true
         },
         content: {
@@ -19,5 +19,5 @@ const notification = database.define(
         }
     }
 )
-
+notification.belongsToMany(User);
 export default notification;

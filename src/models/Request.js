@@ -1,12 +1,12 @@
 import { Sequelize} from 'sequelize';
 import database from '../database/database.js';
+import User from './User.js';
 
 const request = database.define(
     'request',
     {
         id: {
             type: Sequelize.UUID,
-            defaultValue: Sequelize.UUIDV1,
             primaryKey: true
         },
         from: {
@@ -19,5 +19,5 @@ const request = database.define(
         }
     }
 )
-
+request.belongsTo(User);
 export default request;

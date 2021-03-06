@@ -1,12 +1,12 @@
 import { Sequelize} from 'sequelize';
 import database from '../database/database.js';
+import chat from './Chat.js';
 
 const message = database.define(
     'message',
     {
         id: {
             type: Sequelize.UUID,
-            defaultValue: Sequelize.UUIDV1,
             primaryKey: true
         },
         content: {
@@ -19,5 +19,5 @@ const message = database.define(
         }
     }
 )
-
+message.belongsTo(chat);
 export default message;

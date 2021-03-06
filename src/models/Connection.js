@@ -1,19 +1,16 @@
+import { defaults } from 'pg';
 import { Sequelize} from 'sequelize';
 import database from '../database/database.js';
 import User from './User.js';
 
-const skill = database.define(
-    'skill',
+const connection = database.define(
+    'connection',
     {
         id: {
             type: Sequelize.UUID,
             primaryKey: true
-        },
-        skillname: {
-            type: Sequelize.STRING,
-            allowNull: true
         }
     }
 )
-skill.belongsToMany(User);
-export default skill;
+connection.belongsToMany(User);
+export default connection;
