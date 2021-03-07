@@ -26,7 +26,7 @@ jobs:
       - name: Login to github container registry.
         run: docker login https://docker.pkg.github.com -u ${{github.actor}} -p ${{ secrets.GITHUB_TOKEN }}
       - name: Run Docker Compose.
-        run: docker-compose -f src/docker/*.yml up -d --no-start
+        run: docker-compose -f src/docker/*.yml up --no-start
         env:
           DB_USER: ${{github.actor}}
           DB_PASSWORD: ${{secrets.GITHUB_TOKEN}}
