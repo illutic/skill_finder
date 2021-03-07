@@ -25,8 +25,8 @@ jobs:
         run: docker tag docker_db docker.pkg.github.com/m30819-2020/cw-code-t33/skill-finder-db:latest
       - name: Login to github container registry.
         run: docker login https://docker.pkg.github.com -u ${{github.actor}} -p ${{ secrets.GITHUB_TOKEN }}
-      - name: Run Application Server.
-        run: docker-compose -f src/docker/*.yml up -d && docker start docker_app_1
+      - name: Run Docker Compose.
+        run: docker-compose -f src/docker/*.yml up --no-start
         env:
           DB_USER: ${{github.actor}}
           DB_PASSWORD: ${{secrets.GITHUB_TOKEN}}
@@ -35,15 +35,13 @@ jobs:
           SERVER_PORT: 8081
           CLIENT_PORT: 3000
           ADMIN_PORT: 8080
+      - name: Run Database.
+        run: docker start docker_db_1 && sleep 1
+      - name: Run Application Server.
+        run: docker start docker_app_1 && sleep 1
       - name: Run Application Client.
         run: docker exec -itd docker_app_1 sh -c "npm run client"
-      - name: Push the Application Image.
-        run: docker push docker.pkg.github.com/m30819-2020/cw-code-t33/skill-finder:latest
-      - name: Push the Database Image.
-        run: docker push docker.pkg.github.com/m30819-2020/cw-code-t33/skill-finder-db:latest
-      - name: Stop App Container
-        run: docker stop docker_app_1
-      - name: Stop Database Container
-        run: docker stop docker_db_1
-      - name: Stop Adminer Container
-        run: docker stop docker_adminer_1
+      - name: Push Images.
+        run: docker push docker.pkg.github.com/m30819-2020/cw-code-t33/skill-finder:latest && docker push docker.pkg.github.com/m30819-2020/cw-code-t33/skill-finder-db:latest
+      - name: Stop Containers
+        run: docker stop docker_app_1 && docker stop docker_db_1 && docker stop docker_adminer_1
