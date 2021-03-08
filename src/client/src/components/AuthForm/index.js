@@ -1,39 +1,39 @@
+import { useState } from 'react';
+import { withRouter } from 'react-router-dom';
 import * as Styled from './styles';
 import Button from '../Button/index';
 import FORMS from '../../constants/forms';
 import ENDPOINTS from '../../constants/endpoints';
 import extractFormData from '../../utils/extractFormData';
 
-const AuthForm = ({ type, ...rest }) => {
-    const signupHandler = async (e) => {
+const AuthForm = ({ history, type, ...rest }) => {
+    const [error, setError] = useState('');
+
+    const submitHandler = async (e) => {
         e.preventDefault();
         const formData = extractFormData(e.target);
+        const endpoint =
+            type === FORMS.signup ? ENDPOINTS.signup : ENDPOINTS.login;
         try {
-            const response = await fetch(`${ENDPOINTS.auth}/signup`, {
+            const response = await fetch(endpoint, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(formData),
             });
-            const data = await response.json();
-            console.log(data);
+            if (!response.ok) {
+                const err = await response.json();
+                throw err;
+            }
+            history.push('/');
         } catch (err) {
-            console.log(err);
+            setError(err.error);
         }
     };
 
-    const loginHandler = async (e) => {
-        e.preventDefault();
-    };
-
     return (
-        <Styled.Form
-            {...rest}
-            onSubmit={(e) =>
-                type === FORMS.signup ? signupHandler(e) : loginHandler(e)
-            }
-        >
+        <Styled.Form {...rest} onSubmit={(e) => submitHandler(e)}>
             {type === FORMS.signup ? (
                 <>
                     <Styled.Label htmlFor="firstName">First Name</Styled.Label>
@@ -69,8 +69,9 @@ const AuthForm = ({ type, ...rest }) => {
             <Button type="submit">
                 {type === FORMS.signup ? 'Sign up' : 'Log in'}
             </Button>
+            <Styled.Error>{error}</Styled.Error>
         </Styled.Form>
     );
 };
 
-export default AuthForm;
+export default withRouter(AuthForm);
