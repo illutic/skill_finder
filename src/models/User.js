@@ -2,7 +2,7 @@ import { Sequelize } from 'sequelize';
 import database from '../database/database.js';
 
 const User = database.define(
-    'User',
+    'user',
     {
         id: {
             type: Sequelize.UUID,
@@ -22,17 +22,11 @@ const User = database.define(
             allowNull: false,
             unique: {
                 args: true,
-                msg: 'This e-mail address is already in use',
-            },
-            validate: {
-                isEmail: {
-                    args: true,
-                    msg: 'Please provide a valid e-mail address',
-                },
+                msg: 'This email address is already taken.',
             },
         },
         password: {
-            type: Sequelize.STRING,
+            type: Sequelize.STRING(64),
             allowNull: false,
         },
     },

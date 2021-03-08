@@ -1,6 +1,6 @@
-import Navigation from './components/Navigation/index';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import ROUTES from './constants/routes';
+import Navigation from './components/Navigation/index';
 import Signup from './containers/Signup/index';
 import Login from './containers/Login/index';
 import Profile from './containers/Profile/index';

@@ -1,4 +1,6 @@
+import validateSignup from '../utils/validateSignup.js';
 import User from '../models/User.js';
+import hashPassword from '../utils/hashPassword.js';
 
 export const logIn = (req, res) => {
     res.send('👍');
@@ -7,15 +9,15 @@ export const logIn = (req, res) => {
 export const signUp = async (req, res) => {
     const { firstName, lastName, email, password } = req.body;
     try {
+        validateSignup(req.body);
         const user = await User.create({
             firstName,
             lastName,
             email,
-            password,
+            password: await hashPassword(password),
         });
         res.send(user);
     } catch (err) {
-        const errors = err.errors.map((e) => [e.path, e.message]);
-        res.status(400).send({ errors });
+        res.status(400).send(err.message);
     }
 };
