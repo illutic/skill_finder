@@ -1,12 +1,12 @@
 import * as Styled from './styles';
 import Button from '../Button/index';
-import FORMS from '../../constants/forms';
+import FORM_TYPES from '../../constants/formTypes';
 import withAuthHandler from '../../hoc/withAuthHandler';
 
 const AuthForm = ({ type, error, ...rest }) => {
     return (
         <Styled.Form {...rest}>
-            {type === FORMS.signup ? (
+            {type === FORM_TYPES.signup ? (
                 <>
                     <Styled.Label htmlFor="firstName">First Name</Styled.Label>
                     <Styled.Input
@@ -26,7 +26,7 @@ const AuthForm = ({ type, error, ...rest }) => {
             <Styled.Input type="text" name="email" placeholder="@" />
             <Styled.Label htmlFor="password">Password</Styled.Label>
             <Styled.Input type="password" name="password" placeholder="*" />
-            {type === FORMS.signup ? (
+            {type === FORM_TYPES.signup ? (
                 <>
                     <Styled.Label htmlFor="confirmPassword">
                         Confirm Password
@@ -39,7 +39,7 @@ const AuthForm = ({ type, error, ...rest }) => {
                 </>
             ) : null}
             <Button type="submit">
-                {type === FORMS.signup ? 'Sign up' : 'Log in'}
+                {type === FORM_TYPES.signup ? 'Sign up' : 'Log in'}
             </Button>
             <Styled.Error>{error}</Styled.Error>
         </Styled.Form>

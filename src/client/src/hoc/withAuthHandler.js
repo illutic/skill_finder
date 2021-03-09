@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import extractFormData from '../utils/extractFormData';
 import compose from '../utils/compose';
-import FORMS from '../constants/forms';
+import FORM_TYPES from '../constants/formTypes';
 import ENDPOINTS from '../constants/endpoints';
 
 const withAuthHandler = (Component) => {
@@ -13,7 +13,7 @@ const withAuthHandler = (Component) => {
             e.preventDefault();
             const formData = extractFormData(e.target);
             const endpoint =
-                type === FORMS.signup ? ENDPOINTS.signup : ENDPOINTS.login;
+                type === FORM_TYPES.signup ? ENDPOINTS.signup : ENDPOINTS.login;
             try {
                 // >>> useAuth
                 const response = await fetch(endpoint, {
