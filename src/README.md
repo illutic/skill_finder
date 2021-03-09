@@ -50,6 +50,16 @@
 
 - If you named your database other than "skillfinder", change the last bit of the connection URI as well.
 
+6. Put the following code in the .env file:
+
+```
+    JWT_SECRET=ANYTHING
+```
+
+- Replace ANTYHING with... anything...
+
+- The secret will be used as a key for decrypting JSON web tokens.
+
 6. Test your local version of the project:
 
 ```zsh
