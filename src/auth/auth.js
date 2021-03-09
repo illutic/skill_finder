@@ -1,5 +1,5 @@
-import authOrigin from '../utils/authOrigin.js';
-import authGoogle from '../utils/authGoogle.js';
+import authOrigin from './authOrigin.js';
+import authGoogle from './authGoogle.js';
 
 const auth = async (req, res, next) => {
     const originToken = req.cookies.origin;
