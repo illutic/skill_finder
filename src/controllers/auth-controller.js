@@ -53,3 +53,9 @@ export const logIn = async (req, res) => {
         res.status(400).send({ error: err.message });
     }
 };
+
+export const logOut = async (req, res) => {
+    res.cookie('origin', '', { maxAge: 1 });
+    res.cookie('google', '', { maxAge: 1 });
+    res.sendStatus(200);
+};
