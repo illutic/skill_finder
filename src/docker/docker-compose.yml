@@ -21,6 +21,7 @@ services:
   app:
     image: docker_app
     build: ..
+    restart: always
     ports:
       - ${CLIENT_PORT}:3000
       - ${SERVER_PORT}:8081
@@ -28,6 +29,8 @@ services:
       - DB_URI=postgresql://${DB_USER}:${DB_PASSWORD}@db:${DB_PORT}/${DB_DATABASE}
     depends_on: 
       - db
+    volumes:
+      - ../../docs/ESdoc:/home/app/docs
 volumes:
   postgres-data:
     driver: local
