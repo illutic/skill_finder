@@ -1,12 +1,13 @@
 import { OAuth2Client } from 'google-auth-library';
 import User from '../models/User.js';
+import CLIENT_ID from '../constants/client-id.js';
 
 const authGoogle = async (token) => {
     try {
-        const client = new OAuth2Client(process.env.GOOGLE_CLIENT);
+        const client = new OAuth2Client(CLIENT_ID);
         const ticket = await client.verifyIdToken({
             idToken: token,
-            audience: process.env.GOOGLE_CLIENT,
+            audience: CLIENT_ID,
         });
         const payload = ticket.getPayload();
         const user = await User.findOrCreate({
