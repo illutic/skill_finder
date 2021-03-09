@@ -1,7 +1,7 @@
 import * as Styled from './styles';
 import Button from '../Button/index';
 import FORMS from '../../constants/forms';
-import withAuth from '../../hoc/withAuth';
+import withAuthHandler from '../../hoc/withAuthHandler';
 
 const AuthForm = ({ type, error, ...rest }) => {
     return (
@@ -46,4 +46,4 @@ const AuthForm = ({ type, error, ...rest }) => {
     );
 };
 
-export default withAuth(AuthForm);
+export default withAuthHandler(AuthForm);

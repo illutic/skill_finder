@@ -5,7 +5,7 @@ import compose from '../utils/compose';
 import FORMS from '../constants/forms';
 import ENDPOINTS from '../constants/endpoints';
 
-const withAuth = (Component) => {
+const withAuthHandler = (Component) => {
     return ({ type, history, ...rest }) => {
         const [error, setError] = useState('');
 
@@ -45,4 +45,4 @@ const withAuth = (Component) => {
     };
 };
 
-export default compose(withRouter, withAuth);
+export default compose(withRouter, withAuthHandler);
