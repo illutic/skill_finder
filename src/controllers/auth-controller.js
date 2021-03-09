@@ -17,7 +17,7 @@ export const signUp = async (req, res) => {
             password: await hashPassword(password),
         });
         const token = createToken(user.id);
-        res.cookie('jwt', token, {
+        res.cookie('origin', token, {
             httpOnly: true,
             maxAge: AUTH_EXPIRY.miliseconds,
         });
@@ -44,7 +44,7 @@ export const logIn = async (req, res) => {
             throw Error('Incorrect email or password.');
         }
         const token = createToken(user.id);
-        res.cookie('jwt', token, {
+        res.cookie('origin', token, {
             httpOnly: true,
             maxAge: AUTH_EXPIRY.miliseconds,
         });

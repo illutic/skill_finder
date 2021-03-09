@@ -27,7 +27,7 @@ const User = database.define(
         },
         password: {
             type: Sequelize.STRING(64),
-            allowNull: false,
+            allowNull: true,
         },
     },
     { timestamps: false }
