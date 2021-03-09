@@ -1,5 +1,6 @@
 import * as Styled from './styles';
 import Button from '../Button/index';
+import GoogleButton from '../../components/GoogleButton/index';
 import FORM_TYPES from '../../constants/formTypes';
 import withAuthHandler from '../../hoc/withAuthHandler';
 
@@ -41,6 +42,7 @@ const AuthForm = ({ type, error, ...rest }) => {
             <Button type="submit">
                 {type === FORM_TYPES.signup ? 'Sign up' : 'Log in'}
             </Button>
+            <GoogleButton>Continue with Google</GoogleButton>
             <Styled.Error>{error}</Styled.Error>
         </Styled.Form>
     );
