@@ -1,4 +1,5 @@
 import GoogleLogin from 'react-google-login';
+import Button from '../Button/index';
 
 const GoogleButton = ({ children }) => {
     const setGoogleCookie = (response) => {
@@ -11,8 +12,10 @@ const GoogleButton = ({ children }) => {
     return (
         <GoogleLogin
             clientId="376637890849-b65grja0cmn3me29vvj7k4565k3jjoi7.apps.googleusercontent.com"
-            buttonText={children}
             onSuccess={setGoogleCookie}
+            render={({ onClick }) => (
+                <Button onClick={onClick}>{children}</Button>
+            )}
         />
     );
 };
