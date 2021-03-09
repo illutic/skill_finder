@@ -11,10 +11,10 @@ const auth = async (req, res, next) => {
         if (!authCheck) {
             res.status(401).send({ error: 'Invalid token.' });
         }
-        req.userId = authCheck.userId;
         next();
+    } else {
+        res.status(401).send({ error: 'No token provided.' });
     }
-    res.status(401).send({ error: 'No token provided.' });
 };
 
 export default auth;
