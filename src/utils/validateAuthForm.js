@@ -1,4 +1,4 @@
-import FORMS from '../constants/forms.js';
+import FORM_TYPES from '../constants/form-types.js';
 
 const validateAuthForm = (formData, formType) => {
     const { firstName, lastName, email, password, confirmPassword } = formData;
@@ -11,7 +11,7 @@ const validateAuthForm = (formData, formType) => {
     if (!password) {
         throw Error('Please enter your password');
     }
-    if (formType === FORMS.signup) {
+    if (formType === FORM_TYPES.signup) {
         if (!firstName) {
             throw Error('Please enter your first name.');
         }
