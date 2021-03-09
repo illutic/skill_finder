@@ -4,6 +4,7 @@ COPY ./client/*.json ./client/
 COPY ./package.json .
 RUN npm install
 COPY . .
+RUN npm install esdoc esdoc-standard-plugin
 EXPOSE 8081
 EXPOSE 3000
 CMD ["node", "app.js"]
