@@ -1,39 +1,11 @@
-import { useState } from 'react';
-import { withRouter } from 'react-router-dom';
 import * as Styled from './styles';
 import Button from '../Button/index';
 import FORMS from '../../constants/forms';
-import ENDPOINTS from '../../constants/endpoints';
-import extractFormData from '../../utils/extractFormData';
+import withAuth from '../../hoc/withAuth';
 
-const AuthForm = ({ history, type, ...rest }) => {
-    const [error, setError] = useState('');
-
-    const submitHandler = async (e) => {
-        e.preventDefault();
-        const formData = extractFormData(e.target);
-        const endpoint =
-            type === FORMS.signup ? ENDPOINTS.signup : ENDPOINTS.login;
-        try {
-            const response = await fetch(endpoint, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData),
-            });
-            if (!response.ok) {
-                const err = await response.json();
-                throw err;
-            }
-            history.push('/');
-        } catch (err) {
-            setError(err.error);
-        }
-    };
-
+const AuthForm = ({ type, error, ...rest }) => {
     return (
-        <Styled.Form {...rest} onSubmit={(e) => submitHandler(e)}>
+        <Styled.Form {...rest}>
             {type === FORMS.signup ? (
                 <>
                     <Styled.Label htmlFor="firstName">First Name</Styled.Label>
@@ -74,4 +46,4 @@ const AuthForm = ({ history, type, ...rest }) => {
     );
 };
 
-export default withRouter(AuthForm);
+export default withAuth(AuthForm);
