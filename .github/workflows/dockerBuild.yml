@@ -66,7 +66,7 @@ jobs:
       - name: Login to github container registry.
         run: docker login https://docker.pkg.github.com -u ${{github.actor}} -p ${{ secrets.GITHUB_TOKEN }}
         
-     - name: Push Images.
+      - name: Push Images.
         id: push
         run: docker push docker.pkg.github.com/m30819-2020/cw-code-t33/skill-finder:latest && docker push docker.pkg.github.com/m30819-2020/cw-code-t33/skill-finder-db:latest
       
