@@ -9,8 +9,22 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v2
-      - name: Build Database, and Application Image
-        run: docker-compose -f src/docker/*.yml build
+      - name: Clear Previous Containers
+        run: |
+          docker-compose -f src/docker/*.yml down --rmi all && \
+          docker system prune -f
+        env:
+          DB_USER: ${{github.actor}}
+          DB_PASSWORD: ${{secrets.GITHUB_TOKEN}}
+          DB_DATABASE: skillfinder
+          DB_PORT: 5432
+          SERVER_PORT: 8081
+          CLIENT_PORT: 3000
+          ADMIN_PORT: 8080  
+      - name: Run Docker Compose.
+        id: run
+        run: |
+          docker-compose -f src/docker/*.yml up -d --build --force-recreate
         env:
           DB_USER: ${{github.actor}}
           DB_PASSWORD: ${{secrets.GITHUB_TOKEN}}
@@ -19,14 +33,47 @@ jobs:
           SERVER_PORT: 8081
           CLIENT_PORT: 3000
           ADMIN_PORT: 8080
+
+      - name: Run Server, Database and Client.
+        run: | 
+          docker start docker_db_1 && \
+          docker start docker_app_1 && \
+          docker exec -itd docker_app_1 sh -c "npm run client"
+
+      - name: Generate Documents.
+        run: |
+          docker start docker_app_1 && \
+          docker exec -itd docker_app_1 sh -c "./node_modules/.bin/esdoc"
+      
+      - name: Commit Documents.
+        uses: EndBug/add-and-commit@v7
+        with:
+          message: "Documents Generation"
+          author_name: ${{github.actor}}
+          add: .
+          cwd: .
+          pull_strategy: --no-rebase
+          push: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
       - name: Tag the Application Image.
         run: docker tag docker_app docker.pkg.github.com/m30819-2020/cw-code-t33/skill-finder:latest
       - name: Tag the Database Image.
         run: docker tag docker_db docker.pkg.github.com/m30819-2020/cw-code-t33/skill-finder-db:latest
+
       - name: Login to github container registry.
         run: docker login https://docker.pkg.github.com -u ${{github.actor}} -p ${{ secrets.GITHUB_TOKEN }}
-      - name: Run Docker Compose.
-        run: docker-compose -f src/docker/*.yml up --no-start
+        
+     - name: Push Images.
+        id: push
+        run: docker push docker.pkg.github.com/m30819-2020/cw-code-t33/skill-finder:latest && docker push docker.pkg.github.com/m30819-2020/cw-code-t33/skill-finder-db:latest
+      
+      - name: Stop & Clear Containers
+        run: | 
+          docker-compose -f src/docker/*.yml down --rmi all && \
+          docker system prune -f
         env:
           DB_USER: ${{github.actor}}
           DB_PASSWORD: ${{secrets.GITHUB_TOKEN}}
@@ -35,13 +82,3 @@ jobs:
           SERVER_PORT: 8081
           CLIENT_PORT: 3000
           ADMIN_PORT: 8080
-      - name: Run Database.
-        run: docker start docker_db_1 && sleep 1
-      - name: Run Application Server.
-        run: docker start docker_app_1 && sleep 1
-      - name: Run Application Client.
-        run: docker exec -itd docker_app_1 sh -c "npm run client"
-      - name: Push Images.
-        run: docker push docker.pkg.github.com/m30819-2020/cw-code-t33/skill-finder:latest && docker push docker.pkg.github.com/m30819-2020/cw-code-t33/skill-finder-db:latest
-      - name: Stop Containers
-        run: docker stop docker_app_1 && docker stop docker_db_1 && docker stop docker_adminer_1
