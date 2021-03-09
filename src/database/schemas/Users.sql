@@ -1,4 +1,4 @@
-create table users (
+create table if not exists users (
 	id UUID,
 	firstname VARCHAR(50),
 	lastname VARCHAR(50),

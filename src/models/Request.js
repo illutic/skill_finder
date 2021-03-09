@@ -8,12 +8,12 @@ const request = database.define(
             type: Sequelize.UUID,
             primaryKey: true
         },
-        from: {
-            type: Sequelize.INTEGER,
+        fromid: {
+            type: Sequelize.UUID,
             allowNull: false
         },
-        to: {
-            type: Sequelize.INTEGER,
+        toid: {
+            type: Sequelize.UUID,
             allowNull: false
         }
     }
