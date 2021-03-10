@@ -1,7 +1,9 @@
+import { useContext } from 'react';
 import { Route, Link } from 'react-router-dom';
+import { AuthContext } from '../../contexts/AuthContextProvider';
 
 const ProtectedRoute = ({ children, ...rest }) => {
-    const isAuth = false;
+    const { isAuth } = useContext(AuthContext);
 
     if (!isAuth) {
         return (

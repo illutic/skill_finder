@@ -1,5 +1,7 @@
+import { useContext } from 'react';
 import { useState } from 'react';
 import { withRouter } from 'react-router-dom';
+import { AuthContext } from '../contexts/AuthContextProvider';
 import extractFormData from '../utils/extractFormData';
 import compose from '../utils/compose';
 import FORM_TYPES from '../constants/formTypes';
@@ -8,6 +10,7 @@ import ENDPOINTS from '../constants/endpoints';
 const withAuthHandler = (Component) => {
     return ({ type, history, ...rest }) => {
         const [error, setError] = useState('');
+        const { setIsAuth } = useContext(AuthContext);
 
         const authHandler = async (e) => {
             e.preventDefault();
@@ -15,7 +18,6 @@ const withAuthHandler = (Component) => {
             const endpoint =
                 type === FORM_TYPES.signup ? ENDPOINTS.signup : ENDPOINTS.login;
             try {
-                // >>> useAuth
                 const response = await fetch(endpoint, {
                     method: 'POST',
                     headers: {
@@ -27,7 +29,7 @@ const withAuthHandler = (Component) => {
                     const err = await response.json();
                     throw err;
                 }
-                // <<< useAuth
+                setIsAuth(true);
                 history.push('/');
             } catch (err) {
                 setError(err.error);

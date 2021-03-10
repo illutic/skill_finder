@@ -1,13 +1,18 @@
+import { useContext } from 'react';
 import { withRouter } from 'react-router-dom';
+import { AuthContext } from '../../contexts/AuthContextProvider';
 import GoogleLogin from 'react-google-login';
 import Button from '../Button/index';
 
 const GoogleButton = ({ history, children }) => {
+    const { setIsAuth } = useContext(AuthContext);
+
     const setGoogleCookie = (response) => {
         const tokenId = response.tokenObj.id_token;
         const maxAge = response.tokenObj.expires_at;
         const expires = response.tokenObj.expires_in;
         document.cookie = `google=${tokenId};max-age=${maxAge};expires=${expires}`;
+        setIsAuth(true);
         history.push('/');
     };
 
