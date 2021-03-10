@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import ProtectedRoute from './components/ProtectedRoute/index';
 import ROUTES from './constants/routes';
 import Navigation from './components/Navigation/index';
 import Signup from './containers/Signup/index';
@@ -23,18 +24,18 @@ function App() {
                     <Route path={ROUTES.login} exact>
                         <Login />
                     </Route>
-                    <Route path={ROUTES.profile} exact>
+                    <ProtectedRoute path={ROUTES.profile} exact>
                         <Profile />
-                    </Route>
-                    <Route path={ROUTES.settings} exact>
+                    </ProtectedRoute>
+                    <ProtectedRoute path={ROUTES.settings} exact>
                         <Settings />
-                    </Route>
-                    <Route path={ROUTES.chat} exact>
+                    </ProtectedRoute>
+                    <ProtectedRoute path={ROUTES.chat} exact>
                         <Chat />
-                    </Route>
-                    <Route path={ROUTES.messages} exact>
+                    </ProtectedRoute>
+                    <ProtectedRoute path={ROUTES.messages} exact>
                         <Messages />
-                    </Route>
+                    </ProtectedRoute>
                     <Route path={ROUTES.home} exact>
                         <Home />
                     </Route>
