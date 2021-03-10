@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const database = new Sequelize(process.env.DB_URI, {
-    logging: false,
+    logging: console.log,
 });
 
 export default database;

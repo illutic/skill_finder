@@ -8,12 +8,12 @@ import APIRoutes from './routes/api-routes.js';
 
 // Constants
 const PORT = process.env.SERVER_PORT ?? 8081;
-const DIRNAME = process.env.PWD;
+const DIRNAME = process.env.PWD ?? '';
 const app = express();
 
 // Middleware
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(DIRNAME, 'client', 'build')));
 
@@ -27,14 +27,22 @@ app.get('*', (req, res) => {
 // Initialisation
 (async () => {
     try {
-        await sequelize.sync({
-            // Force reset the database schema:
-            // force: true,
-            // ^ Uncomment whenever you update the schema
-            // eg. when creating a new model, updating an old one.
-        });
-        app.listen(PORT, () => console.log(`Server running at port ${PORT}`));
+        await sequelize.authenticate();
+        await sequelize
+            .sync({
+                force: true,
+                alter: true,
+                // Force reset the database schema:
+                // force: true,
+                // ^ Uncomment whenever you update the schema
+                // eg. when creating a new model, updating an old one.
+            })
+            .then(() => {
+                app.listen(PORT, () =>
+                    console.log(`Server running at port ${PORT}`)
+                );
+            });
     } catch (err) {
-        // throw new Error(err);
+        throw new Error(err);
     }
 })();

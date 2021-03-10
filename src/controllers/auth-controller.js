@@ -1,4 +1,4 @@
-import User from '../models/User.js';
+import User from '../models/definitions.js';
 
 export const logIn = (req, res) => {
     res.send('👍');

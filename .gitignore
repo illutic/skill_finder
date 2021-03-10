@@ -132,3 +132,5 @@ dmypy.json
 TOKEN.txt
 src/package-lock.json
 src/docker/selfhostedrunner
+src/client/package-lock.json
+.vscode/settings.json
