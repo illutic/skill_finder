@@ -1,4 +1,3 @@
-import bcrypt from 'bcrypt';
 import User from '../models/User.js';
 
 export const getUser = async (req, res) => {
@@ -32,7 +31,7 @@ export const getUser = async (req, res) => {
 };
 
 export const patchEmail = async (req, res) => {
-    const { userId, newEmail, password } = req.body;
+    const { userId, newEmail } = req.body;
     const emailRegExp = new RegExp(
         /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g
     );
@@ -46,30 +45,24 @@ export const patchEmail = async (req, res) => {
         });
         return;
     }
-    if (!password) {
-        res.status(400).json({ error: 'No password provided.' });
+    if (userId !== req.userId) {
+        res.status(401).json({ error: 'Unauthorised.' });
         return;
     }
     try {
-        const user = await User.findOne({
-            where: {
-                id: userId,
+        await User.update(
+            {
+                email: newEmail,
             },
-        });
-        if (!user) {
-            res.status(400).json({ error: 'Incorrect user ID.' });
-            return;
-        }
-        const passwordCorrect = await bcrypt.compare(password, user.password);
-        if (!passwordCorrect) {
-            res.status(401).json({ error: 'Incorrect password.' });
-            return;
-        }
-        user.email = newEmail;
-        await user.save();
+            {
+                where: {
+                    id: userId,
+                },
+            }
+        );
         res.sendStatus(200);
     } catch (err) {
-        res.status(400).json({ error: '' });
+        res.status(400).json({ error: err.message });
     }
 };
 

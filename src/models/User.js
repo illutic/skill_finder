@@ -23,7 +23,7 @@ const User = database.define(
             allowNull: false,
             unique: {
                 args: true,
-                msg: 'This e-mail address is already in use',
+                msg: 'This e-mail address is already in use.',
             },
         },
         password: {

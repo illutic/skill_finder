@@ -9,7 +9,7 @@ import auth from '../auth/auth.js';
 const router = Router();
 
 router.get('/user/:id', getUser);
-router.patch('/user', patchEmail);
+router.patch('/user', auth, patchEmail);
 router.delete('/user/:id', auth, deleteUser);
 
 export default router;
