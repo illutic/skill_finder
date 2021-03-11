@@ -1,9 +1,9 @@
 import { useContext, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { AuthContext } from './contexts/AuthContextProvider';
-import ProtectedRoute from './components/ProtectedRoute/index';
 import ROUTES from './constants/routes';
 import Navigation from './components/Navigation/index';
+import ProtectedRoute from './components/ProtectedRoute/index';
 import Signup from './containers/Signup/index';
 import Login from './containers/Login/index';
 import Profile from './containers/Profile/index';

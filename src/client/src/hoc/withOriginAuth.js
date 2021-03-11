@@ -7,7 +7,7 @@ import compose from '../utils/compose';
 import FORM_TYPES from '../constants/formTypes';
 import ENDPOINTS from '../constants/endpoints';
 
-const withAuthHandler = (Component) => {
+const withOriginAuth = (Component) => {
     return ({ type, history, ...rest }) => {
         const [error, setError] = useState('');
         const { setIsAuth } = useContext(AuthContext);
@@ -47,4 +47,4 @@ const withAuthHandler = (Component) => {
     };
 };
 
-export default compose(withRouter, withAuthHandler);
+export default compose(withRouter, withOriginAuth);

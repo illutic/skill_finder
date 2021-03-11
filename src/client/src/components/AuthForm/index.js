@@ -2,7 +2,7 @@ import * as Styled from './styles';
 import Button from '../Button/index';
 import GoogleButton from '../../components/GoogleButton/index';
 import FORM_TYPES from '../../constants/formTypes';
-import withAuthHandler from '../../hoc/withAuthHandler';
+import withOriginAuth from '../../hoc/withOriginAuth';
 
 const AuthForm = ({ type, error, ...rest }) => {
     return (
@@ -48,4 +48,4 @@ const AuthForm = ({ type, error, ...rest }) => {
     );
 };
 
-export default withAuthHandler(AuthForm);
+export default withOriginAuth(AuthForm);
