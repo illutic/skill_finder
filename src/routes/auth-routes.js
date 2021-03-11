@@ -7,6 +7,9 @@ const router = Router();
 router.post('/auth/signup', signUp);
 router.post('/auth/login', logIn);
 router.get('/auth/logout', logOut);
+
+// >>> Temporary
 router.get('/auth/check', auth, (req, res) => res.sendStatus(200));
+// <<<
 
 export default router;
