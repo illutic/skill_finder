@@ -2,7 +2,7 @@ import { Sequelize } from 'sequelize';
 import database from '../database/database.js';
 
 const Profile = database.define(
-    'profile',
+    'Profile',
     {
         id: {
             type: Sequelize.UUID,

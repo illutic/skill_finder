@@ -2,7 +2,7 @@ import { Sequelize } from 'sequelize';
 import database from '../database/database.js';
 
 const Notification = database.define(
-    'notification',
+    'Notification',
     {
         id: {
             type: Sequelize.UUID,

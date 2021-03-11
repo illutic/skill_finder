@@ -2,7 +2,7 @@ import { Sequelize } from 'sequelize';
 import database from '../database/database.js';
 
 const Chat = database.define(
-    'chat',
+    'Chat',
     {
         id: {
             type: Sequelize.UUID,

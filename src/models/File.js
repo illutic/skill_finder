@@ -2,7 +2,7 @@ import { Sequelize } from 'sequelize';
 import database from '../database/database.js';
 
 const File = database.define(
-    'file',
+    'File',
     {
         id: {
             type: Sequelize.UUID,

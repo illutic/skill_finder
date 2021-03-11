@@ -2,7 +2,7 @@ import { Sequelize } from 'sequelize';
 import database from '../database/database.js';
 
 const Skill = database.define(
-    'skill',
+    'Skill',
     {
         id: {
             type: Sequelize.UUID,
