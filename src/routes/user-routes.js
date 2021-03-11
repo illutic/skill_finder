@@ -8,9 +8,9 @@ import {
 
 const router = Router();
 
-router.get('/api/user/:id', getUser);
-router.post('/api/user', postUser);
-router.patch('/api/user/:id', patchUser);
-router.delete('/api/user/:id', deleteUser);
+router.get('/user/:id', getUser);
+router.post('/user', postUser);
+router.patch('/user/:id', patchUser);
+router.delete('/user/:id', deleteUser);
 
 export default router;

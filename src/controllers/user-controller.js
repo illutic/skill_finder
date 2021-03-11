@@ -6,7 +6,6 @@ export const getUser = async (req, res) => {
         res.send(user);
     } catch (err) {
         res.json({ error: err });
-        res.status(500).end();
     }
 };
 
@@ -32,16 +31,15 @@ export const postUser = async (req, res) => {
             password: req.body.password,
             usertype: req.body.usertype,
         });
-        res.send(user);
+        res.json({ user });
     } catch (err) {
         res.json({ error: err });
-        res.status(500).end();
     }
 };
 
 export const patchUser = async (req, res) => {
     try {
-        await User.update(
+        const user = await User.update(
             {
                 firstName: req.body.firstName,
                 lastName: req.body.lastName,
@@ -51,7 +49,7 @@ export const patchUser = async (req, res) => {
             },
             { where: { id: req.params.id } }
         );
-        res.status(200).end();
+        res.json({ user });
     } catch (err) {
         res.json({ error: err });
     }
@@ -60,7 +58,7 @@ export const patchUser = async (req, res) => {
 export const deleteUser = async (req, res) => {
     try {
         await User.destroy({ where: { id: req.params.id } });
-        res.status(200).end();
+        res.sendStatus(200);
     } catch (err) {
         res.json({ error: err });
     }

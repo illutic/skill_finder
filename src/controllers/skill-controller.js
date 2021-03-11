@@ -8,7 +8,7 @@ export const getSkill = async (req, res) => {
             where: { skillName: req.params.name },
             include: [{ model: User, required: true }],
         });
-        res.send(skill);
+        res.json({ skill });
     } catch (err) {
         res.json(err);
     }
