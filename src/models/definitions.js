@@ -74,38 +74,3 @@
 // );
 
 // ASSOCIATIONS
-// Chat.hasMany(File, { timestamps: false });
-// File.belongsTo(Chat, { timestamps: false });
-
-// Chat.hasMany(Message, { timestamps: false });
-// Message.belongsTo(Chat, { timestamps: false });
-
-// // User.hasMany(request);
-// Request.belongsTo(User, { timestamps: false });
-
-// // User.hasMany(connection);
-// Connection.belongsToMany(User, {
-//     through: 'userConnections',
-//     timestamps: false,
-// });
-
-// // User.hasMany(chat);
-// Chat.belongsToMany(User, { through: 'userChats', timestamps: false });
-
-// // User.hasMany(request);
-// Request.belongsToMany(User, { through: 'userRequests', timestamps: false });
-
-// // User.hasMany(skill);
-// Skill.belongsToMany(User, { through: 'userSkills', timestamps: false });
-
-// User.hasOne(Profile, { timestamps: false });
-// Profile.belongsTo(User, { timestamps: false });
-
-// Profile.hasOne(Photo, { timestamps: false });
-// Photo.belongsTo(Profile, { timestamps: false });
-
-// // User.hasMany(notification);
-// Notification.belongsToMany(User, {
-//     through: 'userNotifications',
-//     timestamps: false,
-// });

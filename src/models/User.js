@@ -1,7 +1,7 @@
 import { Sequelize } from 'sequelize';
 import database from '../database/database.js';
 
-export const User = database.define(
+const User = database.define(
     'user',
     {
         id: {

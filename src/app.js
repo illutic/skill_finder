@@ -26,10 +26,8 @@ app.get('*', (req, res) => {
 // Initialisation
 (async () => {
     try {
-        await sequelize.authenticate();
         await sequelize
             .sync({
-                // force: true,
                 // Force reset the database schema:
                 // force: true,
                 // alter: true,

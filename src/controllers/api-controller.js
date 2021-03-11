@@ -1,4 +1,5 @@
-import { User, Skill, UserSkill } from '../models/definitions.js';
+import User from '../models/User.js';
+import Skill from '../models/Skill.js';
 
 export const getUser = async (req, res) => {
     try {
@@ -22,6 +23,7 @@ export const getUser = async (req, res) => {
         }
     }
 */
+
 export const postUser = async (req, res) => {
     try {
         const user = await User.create({
@@ -64,9 +66,7 @@ export const deleteUser = async (req, res) => {
         res.json({ error: err });
     }
 };
-// END USER API
 
-// Skill API
 export const getSkill = async (req, res) => {
     try {
         const skill = await Skill.findAll({
@@ -79,43 +79,42 @@ export const getSkill = async (req, res) => {
     }
 };
 
-export const postSkill = async (req, res) => {
-    try {
-        await Skill.findOrCreate({
-            where: { skillName: req.body.skillName },
-            defaults: { skillName: req.body.skillName },
-        }).then(([instance]) => {
-            if (req.body.userId != null) {
-                UserSkill.create({
-                    skillId: instance.id,
-                    userId: req.body.userId,
-                });
-            }
-            res.send(instance);
-        });
-        await User.update(
-            { usertype: 'teacher' },
-            { where: { id: req.body.userId } }
-        );
-    } catch (err) {
-        res.send(err);
-    }
-};
+// export const postSkill = async (req, res) => {
+//     try {
+//         await Skill.findOrCreate({
+//             where: { skillName: req.body.skillName },
+//             defaults: { skillName: req.body.skillName },
+//         }).then(([instance]) => {
+//             if (req.body.userId != null) {
+//                 UserSkill.create({
+//                     skillId: instance.id,
+//                     userId: req.body.userId,
+//                 });
+//             }
+//             res.send(instance);
+//         });
+//         await User.update(
+//             { usertype: 'teacher' },
+//             { where: { id: req.body.userId } }
+//         );
+//     } catch (err) {
+//         res.send(err);
+//     }
+// };
 
-export const deleteSkill = async (req, res) => {
-    try {
-        const skill = await Skill.find({
-            where: { skillName: req.params.name },
-        });
-        await UserSkill.destroy({
-            where: { userId: req.body.userId, skillId: skill.id },
-        });
-        res.status(200);
-    } catch (error) {
-        res.send(error);
-    }
-};
-// END SKILL API
+// export const deleteSkill = async (req, res) => {
+//     try {
+//         const skill = await Skill.find({
+//             where: { skillName: req.params.name },
+//         });
+//         await UserSkill.destroy({
+//             where: { userId: req.body.userId, skillId: skill.id },
+//         });
+//         res.status(200);
+//     } catch (error) {
+//         res.send(error);
+//     }
+// };
 
 export const getChatrooms = async (req, res) => {
     try {

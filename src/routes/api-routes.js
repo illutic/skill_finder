@@ -5,8 +5,8 @@ import {
     patchUser,
     deleteUser,
     getSkill,
-    postSkill,
-    deleteSkill,
+    // postSkill,
+    // deleteSkill,
 } from '../controllers/api-controller.js';
 
 const router = Router();
@@ -17,6 +17,6 @@ router.patch('/api/user/:id', patchUser);
 router.delete('/api/user/:id', deleteUser);
 
 router.get('/skill/:name', getSkill);
-router.post('/skill', postSkill);
-router.delete('/skill/:name', deleteSkill);
+// router.post('/skill', postSkill);
+// router.delete('/skill/:name', deleteSkill);
 export default router;
