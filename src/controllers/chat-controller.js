@@ -6,6 +6,5 @@ export const getChatrooms = async (req, res) => {
         res.send('chatrooms of ');
     } catch (err) {
         res.json({ error: err });
-        res.status(500).end();
     }
 };

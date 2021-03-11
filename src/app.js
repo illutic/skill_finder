@@ -16,8 +16,8 @@ import Message from './models/Message.js';
 import File from './models/File.js';
 
 // Constants
-const PORT = process.env.SERVER_PORT ?? 8081;
-const DIRNAME = process.env.PWD ?? '';
+const PORT = process.env.PORT ?? 8081;
+const DIRNAME = process.env.PWD;
 const app = express();
 
 // Middleware
@@ -31,6 +31,8 @@ app.use(APIRoutes);
 app.get('*', (req, res) => {
     res.sendFile(path.join(DIRNAME, 'client', 'build', 'index.html'));
 });
+
+// Database Associations
 
 // User-Skill (M:N)
 User.belongsToMany(Skill, { through: 'UserSkill' });
@@ -71,19 +73,14 @@ File.belongsTo(Chat);
 // Initialisation
 (async () => {
     try {
-        await sequelize
-            .sync({
-                // Force reset the database schema:
-                force: true,
-                // alter: true,
-                // ^ Uncomment whenever you update the schema
-                // eg. when creating a new model, updating an old one.
-            })
-            .then(() => {
-                app.listen(PORT, () =>
-                    console.log(`Server running at port ${PORT}`)
-                );
-            });
+        await sequelize.sync({
+            // Force reset the database schema:
+            force: true,
+            // alter: true,
+            // ^ Uncomment whenever you update the schema
+            // eg. when creating a new model, updating an old one.
+        });
+        app.listen(PORT, () => console.log(`Server running at port ${PORT}`));
     } catch (err) {
         console.log(Error(err));
     }

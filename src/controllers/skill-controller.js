@@ -1,6 +1,8 @@
 import User from '../models/User.js';
 import Skill from '../models/Skill.js';
 
+// It requires "export default" if you export only one function from a file.
+// v Delete when you have more functions to export (I assume there will be more)
 // eslint-disable-next-line
 export const getSkill = async (req, res) => {
     try {
