@@ -38,7 +38,7 @@
 
 - This file will not (and should not) be pushed into GitHub.
 
-5. Put the following code in the .env file:
+5. Put database URI in the .env file:
 
 ```
     DB_URI=postgres://USERNAME:@localhost:5432/skillfinder
@@ -50,7 +50,17 @@
 
 - If you named your database other than "skillfinder", change the last bit of the connection URI as well.
 
-6. Test your local version of the project:
+6. Put JWT secret in the .env file:
+
+```
+    JWT_SECRET=ANYTHING
+```
+
+- Replace ANTYHING with... anything...
+
+- The secret will be used as a key for decrypting JSON web tokens.
+
+7. Test your local version of the project:
 
 ```zsh
     npm run dev

@@ -1,9 +1,15 @@
 import { Router } from 'express';
-import { logIn, signUp } from '../controllers/auth-controller.js';
+import { signUp, logIn, logOut } from '../controllers/auth-controller.js';
+import auth from '../auth/auth.js';
 
 const router = Router();
 
-router.post('/auth/login', logIn);
 router.post('/auth/signup', signUp);
+router.post('/auth/login', logIn);
+router.get('/auth/logout', logOut);
+
+// >>> Temporary
+router.get('/auth/check', auth, (req, res) => res.sendStatus(200));
+// <<<
 
 export default router;

@@ -1,7 +1,7 @@
 const ROUTES = {
     signup: '/signup',
     login: '/login',
-    profile: 'profile/:id',
+    profile: '/profile/:id',
     settings: '/settings',
     chat: '/chat/:id',
     messages: '/messages',

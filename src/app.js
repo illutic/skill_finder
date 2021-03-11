@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 import express from 'express';
 import path from 'path';
-import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import sequelize from './database/database.js';
 import AuthRoutes from './routes/auth-routes.js';
@@ -13,8 +12,7 @@ const DIRNAME = process.env.PWD ?? '';
 const app = express();
 
 // Middleware
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(cookieParser());
 app.use(express.static(path.join(DIRNAME, 'client', 'build')));
 

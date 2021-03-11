@@ -1,5 +1,6 @@
 const ENDPOINTS = {
-    auth: '/auth',
+    signup: '/auth/signup',
+    login: '/auth/login',
     api: '/api',
 };
 

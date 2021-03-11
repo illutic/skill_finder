@@ -1,21 +1,61 @@
-import User from '../models/definitions.js';
-
-export const logIn = (req, res) => {
-    res.send('👍');
-};
+import bcrypt from 'bcrypt';
+import validateAuthForm from '../utils/validateAuthForm.js';
+import User from '../models/User.js';
+import hashPassword from '../utils/hashPassword.js';
+import createToken from '../utils/createToken.js';
+import FORM_TYPES from '../constants/form-types.js';
+import AUTH_EXPIRY from '../constants/auth-expiry.js';
 
 export const signUp = async (req, res) => {
     const { firstName, lastName, email, password } = req.body;
     try {
+        validateAuthForm(req.body, FORM_TYPES.signup);
         const user = await User.create({
             firstName,
             lastName,
             email,
-            password,
+            password: await hashPassword(password),
+        });
+        const token = createToken(user.id);
+        res.cookie('origin', token, {
+            httpOnly: true,
+            maxAge: AUTH_EXPIRY.miliseconds,
         });
         res.send(user);
     } catch (err) {
-        const errors = err.errors.map((e) => [e.path, e.message]);
-        res.status(400).send({ errors });
+        res.status(400).send({ error: err.message });
     }
+};
+
+export const logIn = async (req, res) => {
+    const { email, password } = req.body;
+    try {
+        validateAuthForm(req.body, FORM_TYPES.login);
+        const user = await User.findOne({
+            where: {
+                email,
+            },
+        });
+        if (!user) {
+            throw Error('Incorrect email or password.');
+        }
+        const passwordMatch = await bcrypt.compare(password, user.password);
+        if (!passwordMatch) {
+            throw Error('Incorrect email or password.');
+        }
+        const token = createToken(user.id);
+        res.cookie('origin', token, {
+            httpOnly: true,
+            maxAge: AUTH_EXPIRY.miliseconds,
+        });
+        res.send(user.id);
+    } catch (err) {
+        res.status(400).send({ error: err.message });
+    }
+};
+
+export const logOut = async (req, res) => {
+    res.cookie('origin', '', { maxAge: 1 });
+    res.cookie('google', '', { maxAge: 1 });
+    res.sendStatus(200);
 };
