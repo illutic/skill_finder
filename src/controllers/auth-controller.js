@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import validateAuthForm from '../utils/validateAuthForm.js';
-import User from '../models/User.js';
+import { User } from '../models/definitions.js';
 import hashPassword from '../utils/hashPassword.js';
 import createToken from '../utils/createToken.js';
 import FORM_TYPES from '../constants/form-types.js';

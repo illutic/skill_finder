@@ -2,7 +2,7 @@ import { Sequelize } from 'sequelize';
 import database from '../database/database.js';
 
 // DEFINITIONS
-const chat = database.define(
+export const Chat = database.define(
     'chat',
     {
         id: {
@@ -11,10 +11,10 @@ const chat = database.define(
             primaryKey: true,
         },
     },
-    { timestamps: false }
+    { timestamps: true }
 );
 
-const connection = database.define(
+export const Connection = database.define(
     'connection',
     {
         id: {
@@ -26,7 +26,7 @@ const connection = database.define(
     { timestamps: false }
 );
 
-const file = database.define(
+export const File = database.define(
     'file',
     {
         id: {
@@ -42,7 +42,7 @@ const file = database.define(
     { timestamps: false }
 );
 
-const message = database.define(
+export const Message = database.define(
     'message',
     {
         id: {
@@ -54,7 +54,7 @@ const message = database.define(
             type: Sequelize.STRING,
             allowNull: false,
         },
-        createdat: {
+        createdAt: {
             type: Sequelize.DATE,
             allowNull: false,
         },
@@ -62,7 +62,7 @@ const message = database.define(
     { timestamps: false }
 );
 
-const notification = database.define(
+export const Notification = database.define(
     'notification',
     {
         id: {
@@ -74,7 +74,7 @@ const notification = database.define(
             type: Sequelize.STRING,
             allowNull: false,
         },
-        createdat: {
+        createdAt: {
             type: Sequelize.DATE,
             allowNull: false,
         },
@@ -82,7 +82,7 @@ const notification = database.define(
     { timestamps: false }
 );
 
-const photo = database.define(
+export const Photo = database.define(
     'photo',
     {
         id: {
@@ -98,7 +98,7 @@ const photo = database.define(
     { timestamps: false }
 );
 
-const profile = database.define(
+export const Profile = database.define(
     'profile',
     {
         id: {
@@ -118,7 +118,7 @@ const profile = database.define(
     { timestamps: false }
 );
 
-const request = database.define(
+export const Request = database.define(
     'request',
     {
         id: {
@@ -126,12 +126,12 @@ const request = database.define(
             defaultValue: Sequelize.UUIDV4,
             primaryKey: true,
         },
-        fromid: {
+        fromId: {
             type: Sequelize.UUID,
             defaultValue: Sequelize.UUIDV4,
             allowNull: false,
         },
-        toid: {
+        toId: {
             type: Sequelize.UUID,
             defaultValue: Sequelize.UUIDV4,
             allowNull: false,
@@ -140,7 +140,7 @@ const request = database.define(
     { timestamps: false }
 );
 
-const skill = database.define(
+export const Skill = database.define(
     'skill',
     {
         id: {
@@ -148,7 +148,7 @@ const skill = database.define(
             defaultValue: Sequelize.UUIDV4,
             primaryKey: true,
         },
-        skillname: {
+        skillName: {
             type: Sequelize.STRING,
             allowNull: true,
         },
@@ -156,7 +156,7 @@ const skill = database.define(
     { timestamps: false }
 );
 
-const User = database.define(
+export const User = database.define(
     'user',
     {
         id: {
@@ -164,11 +164,11 @@ const User = database.define(
             defaultValue: Sequelize.UUIDV4,
             primaryKey: true,
         },
-        firstname: {
+        firstName: {
             type: Sequelize.STRING,
             allowNull: false,
         },
-        lastname: {
+        lastName: {
             type: Sequelize.STRING,
             allowNull: false,
         },
@@ -199,46 +199,111 @@ const User = database.define(
     { timestamps: false }
 );
 
+// M:N Tables
+export const UserSkill = database.define(
+    'userSkill',
+    {
+        userId: {
+            type: Sequelize.UUIDV4,
+            primaryKey: true,
+        },
+        skillId: {
+            type: Sequelize.UUIDV4,
+            primaryKey: true,
+        },
+    },
+    { timestamps: false }
+);
+export const UserConnection = database.define(
+    'userConnection',
+    {
+        userId: {
+            type: Sequelize.UUIDV4,
+            primaryKey: true,
+        },
+        connectionId: {
+            type: Sequelize.UUIDV4,
+            primaryKey: true,
+        },
+    },
+    { timestamps: false }
+);
+export const UserNotification = database.define(
+    'userNotification',
+    {
+        userId: {
+            type: Sequelize.UUIDV4,
+            primaryKey: true,
+        },
+        notificationId: {
+            type: Sequelize.UUIDV4,
+            primaryKey: true,
+        },
+    },
+    { timestamps: false }
+);
+export const UserRequest = database.define(
+    'userRequest',
+    {
+        userId: {
+            type: Sequelize.UUIDV4,
+            primaryKey: true,
+        },
+        notificationId: {
+            type: Sequelize.UUIDV4,
+            primaryKey: true,
+        },
+    },
+    { timestamps: false }
+);
+export const UserChat = database.define(
+    'userChat',
+    {
+        userId: {
+            type: Sequelize.UUIDV4,
+            primaryKey: true,
+        },
+        connectionId: {
+            type: Sequelize.UUIDV4,
+            primaryKey: true,
+        },
+    },
+    { timestamps: false }
+);
+
 // ASSOCIATIONS
-chat.hasMany(file);
-file.belongsTo(chat);
+Chat.hasMany(File, { timestamps: false });
+File.belongsTo(Chat, { timestamps: false });
 
-chat.hasMany(message);
-message.belongsTo(chat);
+Chat.hasMany(Message, { timestamps: false });
+Message.belongsTo(Chat, { timestamps: false });
 
-User.hasMany(request);
-request.belongsTo(User);
+// User.hasMany(request);
+Request.belongsTo(User, { timestamps: false });
 
-User.hasMany(connection);
-connection.belongsToMany(User, { through: 'userConnections' });
+// User.hasMany(connection);
+Connection.belongsToMany(User, {
+    through: 'userConnections',
+    timestamps: false,
+});
 
-User.hasMany(chat);
-chat.belongsToMany(User, { through: 'userChats' });
+// User.hasMany(chat);
+Chat.belongsToMany(User, { through: 'userChats', timestamps: false });
 
-User.hasMany(request);
-request.belongsToMany(User, { through: 'userRequests' });
+// User.hasMany(request);
+Request.belongsToMany(User, { through: 'userRequests', timestamps: false });
 
-User.hasMany(skill);
-skill.belongsToMany(User, { through: 'userSkills' });
+// User.hasMany(skill);
+Skill.belongsToMany(User, { through: 'userSkills', timestamps: false });
 
-User.hasOne(profile);
-profile.belongsTo(User);
+User.hasOne(Profile, { timestamps: false });
+Profile.belongsTo(User, { timestamps: false });
 
-profile.hasOne(photo);
-photo.belongsTo(profile);
+Profile.hasOne(Photo, { timestamps: false });
+Photo.belongsTo(Profile, { timestamps: false });
 
-User.hasMany(notification);
-notification.belongsToMany(User, { through: 'userNotifications' });
-
-export default {
-    chat,
-    connection,
-    file,
-    message,
-    notification,
-    photo,
-    profile,
-    request,
-    skill,
-    User,
-};
+// User.hasMany(notification);
+Notification.belongsToMany(User, {
+    through: 'userNotifications',
+    timestamps: false,
+});

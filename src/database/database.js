@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { Sequelize } from 'sequelize';
 // eslint-disable-next-line import/no-unresolved
 import fs from 'node:fs';
@@ -5,7 +6,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 const database = new Sequelize(process.env.DB_URI, {
-    logging: false,
+    logging: console.log,
 });
 
 // imports sql files

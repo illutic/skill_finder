@@ -1,6 +1,4 @@
-import definitions from '../models/definitions.js';
-
-const { User } = definitions;
+import { User, Skill, UserSkill } from '../models/definitions.js';
 
 export const getUser = async (req, res) => {
     try {
@@ -27,8 +25,8 @@ export const getUser = async (req, res) => {
 export const postUser = async (req, res) => {
     try {
         const user = await User.create({
-            firstname: req.body.firstName,
-            lastname: req.body.lastName,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
             email: req.body.email,
             password: req.body.password,
             usertype: req.body.usertype,
@@ -44,8 +42,8 @@ export const patchUser = async (req, res) => {
     try {
         await User.update(
             {
-                firstname: req.body.firstName,
-                lastname: req.body.lastName,
+                firstName: req.body.firstName,
+                lastName: req.body.lastName,
                 email: req.body.email,
                 password: req.body.password,
                 usertype: req.body.usertype,
@@ -55,7 +53,6 @@ export const patchUser = async (req, res) => {
         res.status(200).end();
     } catch (err) {
         res.json({ error: err });
-        res.status(500).end();
     }
 };
 
@@ -65,18 +62,60 @@ export const deleteUser = async (req, res) => {
         res.status(200).end();
     } catch (err) {
         res.json({ error: err });
-        res.status(500).end();
+    }
+};
+// END USER API
+
+// Skill API
+export const getSkill = async (req, res) => {
+    try {
+        const skill = await Skill.findAll({
+            where: { skillName: req.params.name },
+            include: [{ model: User, required: true }],
+        });
+        res.send(skill);
+    } catch (err) {
+        res.json(err);
     }
 };
 
-export const getSkill = async (req, res) => {
+export const postSkill = async (req, res) => {
     try {
-        res.send('Skill');
+        await Skill.findOrCreate({
+            where: { skillName: req.body.skillName },
+            defaults: { skillName: req.body.skillName },
+        }).then(([instance]) => {
+            if (req.body.userId != null) {
+                UserSkill.create({
+                    skillId: instance.id,
+                    userId: req.body.userId,
+                });
+            }
+            res.send(instance);
+        });
+        await User.update(
+            { usertype: 'teacher' },
+            { where: { id: req.body.userId } }
+        );
     } catch (err) {
-        res.json({ error: err });
-        res.status(500).end();
+        res.send(err);
     }
 };
+
+export const deleteSkill = async (req, res) => {
+    try {
+        const skill = await Skill.find({
+            where: { skillName: req.params.name },
+        });
+        await UserSkill.destroy({
+            where: { userId: req.body.userId, skillId: skill.id },
+        });
+        res.status(200);
+    } catch (error) {
+        res.send(error);
+    }
+};
+// END SKILL API
 
 export const getChatrooms = async (req, res) => {
     try {

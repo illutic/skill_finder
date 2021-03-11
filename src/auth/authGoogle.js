@@ -1,5 +1,5 @@
 import { OAuth2Client } from 'google-auth-library';
-import User from '../models/User.js';
+import { User } from '../models/definitions.js';
 import CLIENT_ID from '../constants/client-id.js';
 
 const authGoogle = async (token) => {
