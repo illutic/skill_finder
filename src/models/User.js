@@ -30,6 +30,14 @@ const User = database.define(
             type: Sequelize.STRING(64),
             allowNull: false,
         },
+        title: {
+            type: Sequelize.STRING,
+            allowNull: true,
+        },
+        description: {
+            type: Sequelize.STRING,
+            allowNull: true,
+        },
         type: {
             type: Sequelize.STRING,
             defaultValue: USER_TYPES.student,

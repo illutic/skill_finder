@@ -1,11 +1,31 @@
 import User from '../models/User.js';
 
 export const getUser = async (req, res) => {
+    const userId = req.params.id;
+    if (!userId) {
+        res.json({ error: 'No user ID provided.' });
+    }
     try {
-        const user = await User.findOne({ where: { id: req.params.id } });
-        res.send(user);
+        const {
+            id,
+            firstName,
+            lastName,
+            title,
+            description,
+            type,
+        } = await User.findOne({
+            where: { id: req.params.id },
+        });
+        res.json({
+            id,
+            firstName,
+            lastName,
+            title,
+            description,
+            type,
+        });
     } catch (err) {
-        res.json({ error: err });
+        res.json({ error: 'Incorrect user ID.' });
     }
 };
 
