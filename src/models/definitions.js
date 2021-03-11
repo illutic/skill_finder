@@ -7,6 +7,7 @@ const chat = database.define(
     {
         id: {
             type: Sequelize.UUID,
+            defaultValue: Sequelize.UUIDV4,
             primaryKey: true,
         },
     },
@@ -18,6 +19,7 @@ const connection = database.define(
     {
         id: {
             type: Sequelize.UUID,
+            defaultValue: Sequelize.UUIDV4,
             primaryKey: true,
         },
     },
@@ -29,6 +31,7 @@ const file = database.define(
     {
         id: {
             type: Sequelize.UUID,
+            defaultValue: Sequelize.UUIDV4,
             primaryKey: true,
         },
         uri: {
@@ -44,6 +47,7 @@ const message = database.define(
     {
         id: {
             type: Sequelize.UUID,
+            defaultValue: Sequelize.UUIDV4,
             primaryKey: true,
         },
         content: {
@@ -63,6 +67,7 @@ const notification = database.define(
     {
         id: {
             type: Sequelize.UUID,
+            defaultValue: Sequelize.UUIDV4,
             primaryKey: true,
         },
         content: {
@@ -82,6 +87,7 @@ const photo = database.define(
     {
         id: {
             type: Sequelize.UUID,
+            defaultValue: Sequelize.UUIDV4,
             primaryKey: true,
         },
         uri: {
@@ -97,6 +103,7 @@ const profile = database.define(
     {
         id: {
             type: Sequelize.UUID,
+            defaultValue: Sequelize.UUIDV4,
             primaryKey: true,
         },
         title: {
@@ -116,14 +123,17 @@ const request = database.define(
     {
         id: {
             type: Sequelize.UUID,
+            defaultValue: Sequelize.UUIDV4,
             primaryKey: true,
         },
         fromid: {
             type: Sequelize.UUID,
+            defaultValue: Sequelize.UUIDV4,
             allowNull: false,
         },
         toid: {
             type: Sequelize.UUID,
+            defaultValue: Sequelize.UUIDV4,
             allowNull: false,
         },
     },
@@ -135,6 +145,7 @@ const skill = database.define(
     {
         id: {
             type: Sequelize.UUID,
+            defaultValue: Sequelize.UUIDV4,
             primaryKey: true,
         },
         skillname: {
@@ -150,6 +161,7 @@ const User = database.define(
     {
         id: {
             type: Sequelize.UUID,
+            defaultValue: Sequelize.UUIDV4,
             primaryKey: true,
         },
         firstname: {
@@ -180,6 +192,7 @@ const User = database.define(
         },
         usertype: {
             type: Sequelize.STRING,
+            defaultValue: 'student',
             allowNull: true,
         },
     },

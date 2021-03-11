@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import express from 'express';
 import path from 'path';
 import bodyParser from 'body-parser';
@@ -30,10 +31,10 @@ app.get('*', (req, res) => {
         await sequelize.authenticate();
         await sequelize
             .sync({
-                force: true,
-                alter: true,
+                // force: true,
                 // Force reset the database schema:
                 // force: true,
+                // alter: true,
                 // ^ Uncomment whenever you update the schema
                 // eg. when creating a new model, updating an old one.
             })
@@ -43,6 +44,6 @@ app.get('*', (req, res) => {
                 );
             });
     } catch (err) {
-        throw new Error(err);
+        console.log(Error(err));
     }
 })();
