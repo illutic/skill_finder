@@ -41,12 +41,16 @@
 5. Put database URI in the .env file:
 
 ```
-    DB_URI=postgres://USERNAME:@localhost:5432/skillfinder
+    DB_URI=postgres://USERNAME:PASSWORD@localhost:5432/skillfinder
 ```
 
 - Replace the USERNAME with the one your database uses.
 
 - It is probably a username visible at the beginning of the psql command prompt.
+
+- If you use Postgres for MacOS (Postgres.app), then you can skip the password.
+
+- If you use Postgres for Windows, then the default password should be "root".
 
 - If you named your database other than "skillfinder", change the last bit of the connection URI as well.
 
