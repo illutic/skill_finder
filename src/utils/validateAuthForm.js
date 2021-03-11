@@ -20,8 +20,8 @@ const validateAuthForm = (formData, formType) => {
         throw Error('Please enter your password');
     }
     if (formType === FORM_TYPES.signup) {
-        if (password.length < 10) {
-            throw Error('Your password must be at least 10 characters long.');
+        if (password.length < 6) {
+            throw Error('Your password must be at least 6 characters long.');
         }
         if (!confirmPassword) {
             throw Error('Please confirm your password.');

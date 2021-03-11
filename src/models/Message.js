@@ -13,12 +13,8 @@ const Message = database.define(
             type: Sequelize.STRING,
             allowNull: false,
         },
-        createdAt: {
-            type: Sequelize.DATE,
-            allowNull: false,
-        },
     },
-    { timestamps: false }
+    { timestamps: true }
 );
 
 export default Message;

@@ -10,7 +10,7 @@ const Chat = database.define(
             primaryKey: true,
         },
     },
-    { timestamps: true }
+    { timestamps: false }
 );
 
 export default Chat;

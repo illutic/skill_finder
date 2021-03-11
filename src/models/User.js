@@ -1,5 +1,6 @@
 import { Sequelize } from 'sequelize';
 import database from '../database/database.js';
+import USER_TYPES from '../constants/user-types.js';
 
 const User = database.define(
     'User',
@@ -26,13 +27,13 @@ const User = database.define(
             },
         },
         password: {
-            type: Sequelize.STRING,
+            type: Sequelize.STRING(64),
             allowNull: false,
         },
         type: {
             type: Sequelize.STRING,
-            defaultValue: 'student',
-            allowNull: true,
+            defaultValue: USER_TYPES.student,
+            allowNull: false,
         },
     },
     { timestamps: false }

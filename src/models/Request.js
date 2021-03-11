@@ -19,6 +19,11 @@ const Request = database.define(
             defaultValue: Sequelize.UUIDV4,
             allowNull: false,
         },
+        pending: {
+            type: Sequelize.BOOLEAN,
+            defaultValue: true,
+            allowNull: false,
+        },
     },
     { timestamps: false }
 );

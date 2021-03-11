@@ -9,7 +9,7 @@ const Skill = database.define(
             defaultValue: Sequelize.UUIDV4,
             primaryKey: true,
         },
-        skillName: {
+        name: {
             type: Sequelize.STRING,
             allowNull: true,
         },
