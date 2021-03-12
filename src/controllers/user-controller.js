@@ -2,6 +2,7 @@ import User from '../models/User.js';
 import Photo from '../models/Photo.js';
 import Skill from '../models/Skill.js';
 import checkPassword from '../utils/checkPassword.js';
+import removeToken from '../utils/removeToken.js';
 
 export const getUser = async (req, res) => {
     try {
@@ -98,6 +99,7 @@ export const deleteAccount = async (req, res) => {
         const { password } = req.body;
         await checkPassword(userId, password);
         await User.destroy({ where: { id: userId } });
+        removeToken(res);
         res.sendStatus(200);
     } catch (err) {
         res.status(400).json({ error: err.message });

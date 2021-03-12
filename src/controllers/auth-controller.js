@@ -3,6 +3,7 @@ import validateAuthForm from '../utils/validateAuthForm.js';
 import User from '../models/User.js';
 import hashPassword from '../utils/hashPassword.js';
 import createToken from '../utils/createToken.js';
+import removeToken from '../utils/removeToken.js';
 import FORM_TYPES from '../constants/form-types.js';
 import AUTH_EXPIRY from '../constants/auth-expiry.js';
 
@@ -55,7 +56,6 @@ export const logIn = async (req, res) => {
 };
 
 export const logOut = async (req, res) => {
-    res.cookie('origin', '', { maxAge: 1 });
-    res.cookie('google', '', { maxAge: 1 });
+    removeToken(res);
     res.sendStatus(200);
 };
