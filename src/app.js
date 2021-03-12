@@ -28,7 +28,7 @@ app.get('*', (req, res) => {
     try {
         makeAssociations();
         await database.sync({
-            // force: true,
+            force: true,
             // alter: true,
             // ^ Uncomment whenever you update the schema
             // eg. when creating a new model, updating an old one.
