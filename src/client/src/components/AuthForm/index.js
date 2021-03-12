@@ -39,10 +39,12 @@ const AuthForm = ({ type, error, ...rest }) => {
                     />
                 </>
             ) : null}
-            <Button type="submit">
-                {type === FORM_TYPES.signup ? 'Sign up' : 'Log in'}
-            </Button>
-            <GoogleButton>Continue with Google</GoogleButton>
+            <Styled.Buttons>
+                <Button type="submit">
+                    {type === FORM_TYPES.signup ? 'Sign up' : 'Log in'}
+                </Button>
+                <GoogleButton>Continue with Google</GoogleButton>
+            </Styled.Buttons>
             <Styled.Error>{error}</Styled.Error>
         </Styled.Form>
     );
