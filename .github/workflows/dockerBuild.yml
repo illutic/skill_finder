@@ -43,7 +43,7 @@ jobs:
       - name: Generate Documents.
         run: |
           docker start docker_app_1 && \
-          docker exec -itd docker_app_1 sh -c "./node_modules/.bin/esdoc"
+          docker exec -itd docker_app_1 sh -c "./node_modules/.bin/esdoc -c esdoc.json"
       
       - name: Commit Documents.
         uses: EndBug/add-and-commit@v7
