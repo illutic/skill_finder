@@ -25,6 +25,22 @@ export const getUser = async (req, res) => {
     }
 };
 
+export const getNotifications = async (req, res) => {
+    try {
+        res.sendStatus(200);
+    } catch (err) {
+        res.status(400).json({ error: err.message });
+    }
+};
+
+export const getRequests = async (req, res) => {
+    try {
+        res.sendStatus(200);
+    } catch (err) {
+        res.status(400).json({ error: err.message });
+    }
+};
+
 export const patchEmail = async (req, res) => {
     try {
         const { userId, email, password } = req.body;
@@ -51,6 +67,30 @@ export const patchEmail = async (req, res) => {
                 },
             }
         );
+        res.sendStatus(200);
+    } catch (err) {
+        res.status(400).json({ error: err.message });
+    }
+};
+
+export const patchPassword = async (req, res) => {
+    try {
+        res.sendStatus(200);
+    } catch (err) {
+        res.status(400).json({ error: err.message });
+    }
+};
+
+export const patchTitle = async (req, res) => {
+    try {
+        res.sendStatus(200);
+    } catch (err) {
+        res.status(400).json({ error: err.message });
+    }
+};
+
+export const patchDescription = async (req, res) => {
+    try {
         res.sendStatus(200);
     } catch (err) {
         res.status(400).json({ error: err.message });
