@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const Navigation = styled.nav`
@@ -14,7 +15,24 @@ export const List = styled.ul`
 `;
 
 export const Item = styled.li`
+    position: relative;
     &:not(:last-child) {
         margin-right: 20px;
+    }
+`;
+
+export const Link = styled(NavLink)`
+    &.active {
+        &::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: calc(-100% - 1px);
+            width: 100%;
+            height: 3px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            background-color: ${({ theme }) => theme.colors.attention};
+        }
     }
 `;

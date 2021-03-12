@@ -6,9 +6,9 @@ const GlobalStyle = createGlobalStyle`
     *::after {
         margin: 0;
         padding: 0;
+        box-sizing: border-box;
         border: 0;
         font: inherit;
-        box-sizing: border-box;
     }
 
     ol, ul {
