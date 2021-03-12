@@ -2,6 +2,7 @@ import User from '../models/User.js';
 import Photo from '../models/Photo.js';
 import Skill from '../models/Skill.js';
 import checkPassword from '../utils/checkPassword.js';
+import validateUser from '../utils/validateUser.js';
 
 export const getUser = async (req, res) => {
     try {
@@ -47,15 +48,10 @@ export const patchEmail = async (req, res) => {
         const emailRegExp = new RegExp(
             /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g
         );
-        if (!userId) {
-            throw Error('No user ID provided.');
-        }
         if (!email || !emailRegExp.test(email)) {
             throw Error('Please enter a valid email address.');
         }
-        if (userId !== req.userId) {
-            throw Error('Unauthorised.');
-        }
+        await validateUser(req);
         await checkPassword(userId, password);
         await User.update(
             {
@@ -100,12 +96,7 @@ export const patchDescription = async (req, res) => {
 export const deleteAccount = async (req, res) => {
     const { userId, password } = req.body;
     try {
-        if (!userId) {
-            throw Error('No user ID provided.');
-        }
-        if (userId !== req.userId) {
-            throw Error('Unauthorised.');
-        }
+        await validateUser(req);
         await checkPassword(userId, password);
         await User.destroy({ where: { id: userId } });
         res.sendStatus(200);

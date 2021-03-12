@@ -1,6 +1,7 @@
 import sequelize from 'sequelize';
 import User from '../models/User.js';
 import Skill from '../models/Skill.js';
+import validateUser from '../utils/validateUser.js';
 
 const { Op } = sequelize;
 
@@ -31,13 +32,8 @@ export const getSkill = async (req, res) => {
 
 export const postSkill = async (req, res) => {
     try {
+        await validateUser(req);
         const { userId, name } = req.body;
-        if (!userId) {
-            throw Error('No user ID provided.');
-        }
-        if (userId !== req.userId) {
-            throw Error('Unauthorised.');
-        }
         if (!name) {
             throw Error('No skill name provided.');
         }
@@ -61,12 +57,7 @@ export const postSkill = async (req, res) => {
 export const deleteSkill = async (req, res) => {
     try {
         const { userId, skillId } = req.body;
-        if (!userId) {
-            throw Error('No user ID provided.');
-        }
-        if (userId !== req.userId) {
-            throw Error('Unauthorised.');
-        }
+        await validateUser(req);
         if (!skillId) {
             throw Error('No skill ID provided.');
         }

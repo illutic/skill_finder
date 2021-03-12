@@ -11,8 +11,6 @@ services:
        - POSTGRES_USER=${DB_USER}
        - POSTGRES_DB=${DB_DATABASE}
        - CONNECTION_STRING=postgresql://${DB_USER}:${DB_PASSWORD}@docker_db_1:${DB_PORT}/${DB_DATABASE}
-    volumes:
-      - ../database/schemas:/docker-entrypoint-initdb.d
   app:
     build: ..
     restart: always
