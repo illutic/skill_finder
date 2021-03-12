@@ -16,7 +16,12 @@ export const getSkill = async (req, res) => {
                     [Op.iLike]: `${name}%`,
                 },
             },
-            include: [User],
+            include: {
+                model: User,
+                attributes: {
+                    exclude: ['email', 'password'],
+                },
+            },
         });
         res.json({ skill });
     } catch (err) {
