@@ -1,7 +1,7 @@
 const baseTheme = {
     typography: {
-        primary: "'Lato', sans-serif",
-        secondary: "'Montserrat', sans-serif",
+        primary: "'Montserrat', sans-serif",
+        secondary: "'Lato', sans-serif",
         small: '14px',
         medium: '24px',
         large: '32px',
