@@ -6,7 +6,7 @@ import {
     postMessage,
     postFile,
     deleteChat,
-    createChat
+    createChat,
 } from '../controllers/chat-controller.js';
 import auth from '../auth/auth.js';
 
