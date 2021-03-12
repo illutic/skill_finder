@@ -2,14 +2,14 @@ import { Router } from 'express';
 import {
     getUser,
     patchEmail,
-    deleteUser,
+    deleteAccount,
 } from '../controllers/user-controller.js';
 import auth from '../auth/auth.js';
 
 const router = Router();
 
 router.get('/user/:id', getUser);
-router.patch('/user', auth, patchEmail);
-router.delete('/user/:id', auth, deleteUser);
+router.patch('/user/email', auth, patchEmail);
+router.patch('/user/account', auth, deleteAccount);
 
 export default router;
