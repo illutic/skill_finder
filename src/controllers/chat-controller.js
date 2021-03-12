@@ -1,11 +1,13 @@
 // import Chat from '../models/Chat.js';
 // import Message from '../models/Message.js';
 // import File from '../models/File';
-
+import decode from '../utils/decode.js';
 // Chatrooms by user ID
 export const getChatrooms = async (req, res) => {
     try {
-        res.sendStatus(200);
+        await decode(req, res, async () => {
+            res.sendStatus(200);
+        });
     } catch (err) {
         res.status(400).json({ error: err });
     }
@@ -15,7 +17,9 @@ export const getChatrooms = async (req, res) => {
 // Should include user ID somehow
 export const getMessages = async (req, res) => {
     try {
-        res.sendStatus(200);
+        await decode(req, res, async () => {
+            res.sendStatus(200);
+        });
     } catch (err) {
         res.status(400).json({ error: err });
     }
@@ -24,7 +28,49 @@ export const getMessages = async (req, res) => {
 // Files by chatroom ID
 export const getFiles = async (req, res) => {
     try {
-        res.sendStatus(200);
+        await decode(req, res, async () => {
+            res.sendStatus(200);
+        });
+    } catch (err) {
+        res.status(400).json({ error: err });
+    }
+};
+
+export const createChat = async (req, res) => {
+    try {
+        await decode(req, res, async () => {
+            res.sendStatus(200);
+        });
+    } catch (err) {
+        res.status(400).json({ error: err });
+    }
+};
+
+export const postMessage = async (req, res) => {
+    try {
+        await decode(req, res, async () => {
+            res.sendStatus(200);
+        });
+    } catch (err) {
+        res.status(400).json({ error: err });
+    }
+};
+
+export const postFile = async (req, res) => {
+    try {
+        await decode(req, res, async () => {
+            res.sendStatus(200);
+        });
+    } catch (err) {
+        res.status(400).json({ error: err });
+    }
+};
+
+export const deleteChat = async (req, res) => {
+    try {
+        await decode(req, res, async () => {
+            res.sendStatus(200);
+        });
     } catch (err) {
         res.status(400).json({ error: err });
     }
