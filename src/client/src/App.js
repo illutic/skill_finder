@@ -37,6 +37,7 @@ function App() {
     return (
         <>
             <Router>
+                <Navigation />
                 <Switch>
                     <Route path={ROUTES.signup} exact>
                         <Signup />
@@ -45,27 +46,21 @@ function App() {
                         <Login />
                     </Route>
                     <Route path={ROUTES.profile} exact>
-                        <Navigation />
                         <Profile />
                     </Route>
                     <ProtectedRoute path={ROUTES.settings} exact>
-                        <Navigation />
                         <Settings />
                     </ProtectedRoute>
                     <ProtectedRoute path={ROUTES.chat} exact>
-                        <Navigation />
                         <Chat />
                     </ProtectedRoute>
                     <ProtectedRoute path={ROUTES.messages} exact>
-                        <Navigation />
                         <Messages />
                     </ProtectedRoute>
                     <Route path={ROUTES.home} exact>
-                        <Navigation />
                         <Home />
                     </Route>
                     <Route>
-                        <Navigation />
                         <Page404 />
                     </Route>
                 </Switch>

@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import * as Styled from './styled';
-import Navigation from '../Navigation/index';
 import Container from '../Container/index';
 import Heading from '../Heading/index';
 import Button from '../Button/index';
@@ -8,7 +7,6 @@ import Button from '../Button/index';
 const Protected = () => {
     return (
         <>
-            <Navigation />
             <Container>
                 <Styled.Wrapper>
                     <Heading>Log in or Sign up</Heading>

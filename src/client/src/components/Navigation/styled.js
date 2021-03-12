@@ -31,7 +31,7 @@ export const Link = styled(NavLink)`
             content: '';
             position: absolute;
             left: 0;
-            bottom: -25px;
+            bottom: -26px;
             width: 100%;
             height: 3px;
             border-top-left-radius: 5px;

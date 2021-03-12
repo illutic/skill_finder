@@ -1,11 +1,17 @@
 import * as Styled from './styled';
 import Container from '../Container/index';
+import NavigationProfile from '../NavigationProfile/index';
+import SearchBar from '../SearchBar/index';
 import NotificationButton from '../NotificationButton';
 
 const Navigation = () => {
     return (
         <Styled.Navigation>
             <Container>
+                <div>
+                    <NavigationProfile />
+                    <SearchBar />
+                </div>
                 <Styled.List>
                     <Styled.Item>
                         <Styled.Link to="/" activeClassName="active" exact>
