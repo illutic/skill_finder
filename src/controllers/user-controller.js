@@ -98,6 +98,8 @@ export const deleteAccount = async (req, res) => {
         const { password } = req.body;
         await checkPassword(userId, password);
         await User.destroy({ where: { id: userId } });
+        res.cookie('origin', '', { maxAge: 1 });
+        res.cookie('google', '', { maxAge: 1 });
         res.sendStatus(200);
     } catch (err) {
         res.status(400).json({ error: err.message });
