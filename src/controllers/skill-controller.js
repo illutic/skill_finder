@@ -1,18 +1,29 @@
+import sequelize from 'sequelize';
 import User from '../models/User.js';
 import Skill from '../models/Skill.js';
+
+const { Op } = sequelize;
 
 // It requires "export default" if you export only one function from a file.
 // v Delete when you have more functions to export (I assume there will be more)
 // eslint-disable-next-line
 export const getSkill = async (req, res) => {
     try {
+        const { name } = req.params;
+        if (!name) {
+            throw Error('No skill name provided.');
+        }
         const skill = await Skill.findAll({
-            where: { skillName: req.params.name },
-            include: [{ model: User, required: true }],
+            where: {
+                name: {
+                    [Op.iLike]: `${name}%`,
+                },
+            },
+            include: [User],
         });
         res.json({ skill });
     } catch (err) {
-        res.json(err);
+        res.status(400).json({ error: err });
     }
 };
 

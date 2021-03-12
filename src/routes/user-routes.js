@@ -10,6 +10,6 @@ const router = Router();
 
 router.get('/user/:id', getUser);
 router.patch('/user/email', auth, patchEmail);
-router.patch('/user/account', auth, deleteAccount);
+router.delete('/user/account', auth, deleteAccount);
 
 export default router;
