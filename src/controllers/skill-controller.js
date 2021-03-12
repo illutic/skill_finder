@@ -4,9 +4,6 @@ import Skill from '../models/Skill.js';
 
 const { Op } = sequelize;
 
-// It requires "export default" if you export only one function from a file.
-// v Delete when you have more functions to export (I assume there will be more)
-// eslint-disable-next-line
 export const getSkill = async (req, res) => {
     try {
         const { name } = req.params;
@@ -50,34 +47,11 @@ export const postSkill = async (req, res) => {
             },
         });
         user.addSkill(skill[0]);
-        res.json({ user });
+        res.json({ skill });
     } catch (err) {
         res.status(400).json({ error: err.message });
     }
 };
-
-// export const postSkill = async (req, res) => {
-//     try {
-//         await Skill.findOrCreate({
-//             where: { skillName: req.body.skillName },
-//             defaults: { skillName: req.body.skillName },
-//         }).then(([instance]) => {
-//             if (req.body.userId != null) {
-//                 UserSkill.create({
-//                     skillId: instance.id,
-//                     userId: req.body.userId,
-//                 });
-//             }
-//             res.send(instance);
-//         });
-//         await User.update(
-//             { usertype: 'teacher' },
-//             { where: { id: req.body.userId } }
-//         );
-//     } catch (err) {
-//         res.send(err);
-//     }
-// };
 
 // export const deleteSkill = async (req, res) => {
 //     try {
