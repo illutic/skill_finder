@@ -8,6 +8,7 @@ const GlobalStyle = createGlobalStyle`
         padding: 0;
         border: 0;
         font: inherit;
+        box-sizing: border-box;
     }
 
     ol, ul {

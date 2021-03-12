@@ -1,4 +1,3 @@
-import Button from '../Button/index';
 import Container from '../Container/index';
 import Heading from '../Heading/index';
 

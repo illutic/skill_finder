@@ -4,8 +4,8 @@ import Container from '../Container/index';
 
 const Navigation = () => {
     return (
-        <Container>
-            <Styled.Navigation>
+        <Styled.Navigation>
+            <Container>
                 <Styled.List>
                     <Styled.Item>
                         <NavLink to="/">Home</NavLink>
@@ -16,9 +16,10 @@ const Navigation = () => {
                     <Styled.Item>
                         <NavLink to="/settings">Settings</NavLink>
                     </Styled.Item>
+                    <Styled.Item>{/* <Bell/> */}</Styled.Item>
                 </Styled.List>
-            </Styled.Navigation>
-        </Container>
+            </Container>
+        </Styled.Navigation>
     );
 };
 
