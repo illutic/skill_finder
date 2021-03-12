@@ -4,14 +4,14 @@ import { AuthContext } from './contexts/AuthContextProvider';
 import ROUTES from './constants/routes';
 import Navigation from './components/Navigation/index';
 import ProtectedRoute from './components/ProtectedRoute/index';
-import Signup from './containers/Signup/index';
-import Login from './containers/Login/index';
-import Profile from './containers/Profile/index';
-import Settings from './containers/Settings/index';
-import Chat from './containers/Chat/index';
-import Messages from './containers/Messages/index';
-import Home from './containers/Home/index';
-import Page404 from './containers/Page404/index';
+import Signup from './components/Signup/index';
+import Login from './components/Login/index';
+import Profile from './components/Profile/index';
+import Settings from './components/Settings/index';
+import Chat from './components/Chat/index';
+import Messages from './components/Messages/index';
+import Home from './components/Home/index';
+import Page404 from './components/Page404/index';
 import GlobalStyle from './styles/globalStyle';
 
 function App() {
