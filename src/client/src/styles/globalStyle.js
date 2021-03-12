@@ -23,6 +23,7 @@ const GlobalStyle = createGlobalStyle`
     body {
         font-family: ${({ theme }) => theme.typography.primary};
         font-size: ${({ theme }) => theme.typography.default};
+        line-height: 1.5;
         color: ${({ theme }) => theme.colors.negative};
     }
 `;
