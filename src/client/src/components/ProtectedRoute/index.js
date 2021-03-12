@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { Route, Link } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthContextProvider';
 import Protected from '../Protected/index';
 

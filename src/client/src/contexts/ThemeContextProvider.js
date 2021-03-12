@@ -1,8 +1,8 @@
 import { ThemeProvider } from 'styled-components';
-import baseTheme from '../styles/baseTheme';
+import mainTheme from '../styles/mainTheme';
 
 const ThemeContextProvider = ({ children }) => {
-    return <ThemeProvider theme={baseTheme}>{children}</ThemeProvider>;
+    return <ThemeProvider theme={mainTheme}>{children}</ThemeProvider>;
 };
 
 export default ThemeContextProvider;

@@ -2,32 +2,28 @@ import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const Navigation = styled.nav`
-    position: relative;
-    padding: 20px;
+    margin-bottom: 50px;
+    padding: 20px 0;
     width: 100%;
     border-bottom: 1px ${({ theme }) => theme.colors.subtle} solid;
 `;
 
 export const List = styled.ul`
     display: flex;
-    flex-wrap: wrap;
+    justify-content: space-between;
     align-items: center;
 `;
 
-export const Item = styled.li`
-    position: relative;
-    &:not(:last-child) {
-        margin-right: 20px;
-    }
-`;
+export const Item = styled.li``;
 
 export const Link = styled(NavLink)`
+    position: relative;
     &.active {
         &::after {
             content: '';
             position: absolute;
             left: 0;
-            bottom: calc(-100% - 1px);
+            bottom: -25px;
             width: 100%;
             height: 3px;
             border-top-left-radius: 5px;

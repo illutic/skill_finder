@@ -1,5 +1,6 @@
 import * as Styled from './styled';
 import Container from '../Container/index';
+import NotificationButton from '../NotificationButton';
 
 const Navigation = () => {
     return (
@@ -29,7 +30,9 @@ const Navigation = () => {
                             Settings
                         </Styled.Link>
                     </Styled.Item>
-                    <Styled.Item>{/* <Bell/> */}</Styled.Item>
+                    <Styled.Item>
+                        <NotificationButton />
+                    </Styled.Item>
                 </Styled.List>
             </Container>
         </Styled.Navigation>

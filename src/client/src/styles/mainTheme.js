@@ -1,4 +1,4 @@
-const baseTheme = {
+const mainTheme = {
     typography: {
         primary: "'Montserrat', sans-serif",
         secondary: "'Lato', sans-serif",
@@ -17,4 +17,4 @@ const baseTheme = {
     },
 };
 
-export default baseTheme;
+export default mainTheme;
