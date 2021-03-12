@@ -2,7 +2,6 @@ import User from '../models/User.js';
 import Photo from '../models/Photo.js';
 import Skill from '../models/Skill.js';
 import checkPassword from '../utils/checkPassword.js';
-import decode from '../utils/decode.js';
 
 export const getUser = async (req, res) => {
     try {
@@ -28,9 +27,7 @@ export const getUser = async (req, res) => {
 
 export const getNotifications = async (req, res) => {
     try {
-        await decode(req, res, async () => {
-            res.sendStatus(200);
-        });
+        res.sendStatus(200);
     } catch (err) {
         res.status(400).json({ error: err.message });
     }
@@ -38,9 +35,7 @@ export const getNotifications = async (req, res) => {
 
 export const getRequests = async (req, res) => {
     try {
-        await decode(req, res, async () => {
-            res.sendStatus(200);
-        });
+        res.sendStatus(200);
     } catch (err) {
         res.status(400).json({ error: err.message });
     }
@@ -48,28 +43,26 @@ export const getRequests = async (req, res) => {
 
 export const patchEmail = async (req, res) => {
     try {
-        await decode(req, res, async () => {
-            const { userId } = req;
-            const { email, password } = req.body;
-            const emailRegExp = new RegExp(
-                /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g
-            );
-            if (!email || !emailRegExp.test(email)) {
-                throw Error('Please enter a valid email address.');
-            }
-            await checkPassword(userId, password);
-            await User.update(
-                {
-                    email,
+        const { userId } = req;
+        const { email, password } = req.body;
+        const emailRegExp = new RegExp(
+            /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g
+        );
+        if (!email || !emailRegExp.test(email)) {
+            throw Error('Please enter a valid email address.');
+        }
+        await checkPassword(userId, password);
+        await User.update(
+            {
+                email,
+            },
+            {
+                where: {
+                    id: userId,
                 },
-                {
-                    where: {
-                        id: userId,
-                    },
-                }
-            );
-            res.sendStatus(200);
-        });
+            }
+        );
+        res.sendStatus(200);
     } catch (err) {
         res.status(400).json({ error: err.message });
     }
@@ -77,9 +70,7 @@ export const patchEmail = async (req, res) => {
 
 export const patchPassword = async (req, res) => {
     try {
-        await decode(req, res, async () => {
-            res.sendStatus(200);
-        });
+        res.sendStatus(200);
     } catch (err) {
         res.status(400).json({ error: err.message });
     }
@@ -87,9 +78,7 @@ export const patchPassword = async (req, res) => {
 
 export const patchTitle = async (req, res) => {
     try {
-        await decode(req, res, async () => {
-            res.sendStatus(200);
-        });
+        res.sendStatus(200);
     } catch (err) {
         res.status(400).json({ error: err.message });
     }
@@ -97,9 +86,7 @@ export const patchTitle = async (req, res) => {
 
 export const patchDescription = async (req, res) => {
     try {
-        await decode(req, res, async () => {
-            res.sendStatus(200);
-        });
+        res.sendStatus(200);
     } catch (err) {
         res.status(400).json({ error: err.message });
     }
@@ -107,13 +94,11 @@ export const patchDescription = async (req, res) => {
 
 export const deleteAccount = async (req, res) => {
     try {
-        await decode(req, res, async () => {
-            const { userId } = req;
-            const { password } = req.body;
-            await checkPassword(userId, password);
-            await User.destroy({ where: { id: userId } });
-            res.sendStatus(200);
-        });
+        const { userId } = req;
+        const { password } = req.body;
+        await checkPassword(userId, password);
+        await User.destroy({ where: { id: userId } });
+        res.sendStatus(200);
     } catch (err) {
         res.status(400).json({ error: err.message });
     }

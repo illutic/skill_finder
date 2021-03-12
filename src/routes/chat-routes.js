@@ -16,9 +16,9 @@ router.get('/chats', auth, getChatrooms);
 router.get('/:chatId/messages', auth, getMessages);
 router.get('/:chatId/files', auth, getFiles);
 
-router.post('/chat', createChat);
-router.post('/:chatId/message', postMessage);
-router.post('/:chatId/file', postFile);
-router.delete('/:chatId', deleteChat);
+router.post('/chat', auth, createChat);
+router.post('/:chatId/message', auth, postMessage);
+router.post('/:chatId/file', auth, postFile);
+router.delete('/:chatId', auth, deleteChat);
 
 export default router;
