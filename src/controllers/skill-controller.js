@@ -23,7 +23,36 @@ export const getSkill = async (req, res) => {
         });
         res.json({ skill });
     } catch (err) {
-        res.status(400).json({ error: err });
+        res.status(400).json({ error: err.message });
+    }
+};
+
+export const postSkill = async (req, res) => {
+    try {
+        const { userId, name } = req.body;
+        if (!userId) {
+            throw Error('No user ID provided.');
+        }
+        if (userId !== req.userId) {
+            throw Error('Unauthorised.');
+        }
+        if (!name) {
+            throw Error('No skill name provided.');
+        }
+        const user = await User.findOne({
+            where: {
+                id: userId,
+            },
+        });
+        const skill = await Skill.findOrCreate({
+            where: {
+                name,
+            },
+        });
+        user.addSkill(skill[0]);
+        res.json({ user });
+    } catch (err) {
+        res.status(400).json({ error: err.message });
     }
 };
 

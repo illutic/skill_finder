@@ -7,8 +7,8 @@ import FORM_TYPES from '../constants/form-types.js';
 import AUTH_EXPIRY from '../constants/auth-expiry.js';
 
 export const signUp = async (req, res) => {
-    const { firstName, lastName, email, password } = req.body;
     try {
+        const { firstName, lastName, email, password } = req.body;
         validateAuthForm(req.body, FORM_TYPES.signup);
         const user = await User.create({
             firstName,
@@ -28,8 +28,8 @@ export const signUp = async (req, res) => {
 };
 
 export const logIn = async (req, res) => {
-    const { email, password } = req.body;
     try {
+        const { email, password } = req.body;
         validateAuthForm(req.body, FORM_TYPES.login);
         const user = await User.findOne({
             where: {

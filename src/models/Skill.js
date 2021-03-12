@@ -11,7 +11,7 @@ const Skill = database.define(
         },
         name: {
             type: Sequelize.STRING,
-            allowNull: true,
+            allowNull: false,
         },
     },
     { timestamps: false }
