@@ -53,16 +53,27 @@ export const postSkill = async (req, res) => {
     }
 };
 
-// export const deleteSkill = async (req, res) => {
-//     try {
-//         const skill = await Skill.find({
-//             where: { skillName: req.params.name },
-//         });
-//         await UserSkill.destroy({
-//             where: { userId: req.body.userId, skillId: skill.id },
-//         });
-//         res.status(200);
-//     } catch (error) {
-//         res.send(error);
-//     }
-// };
+export const deleteSkill = async (req, res) => {
+    try {
+        const { userId, skillId } = req.body;
+        if (!userId) {
+            throw Error('No user ID provided.');
+        }
+        if (userId !== req.userId) {
+            throw Error('Unauthorised.');
+        }
+        if (!skillId) {
+            throw Error('No skill ID provided.');
+        }
+        const user = await User.findOne({
+            where: { id: userId },
+        });
+        const skill = await Skill.findOne({
+            where: { id: skillId },
+        });
+        user.removeSkill(skill);
+        res.sendStatus(200);
+    } catch (err) {
+        res.status(400).json({ error: err.message });
+    }
+};
