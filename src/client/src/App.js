@@ -21,6 +21,7 @@ function App() {
     useEffect(() => {
         const checkAuth = async () => {
             const response = await fetch('/auth/check');
+            console.log(response);
             if (response.status === 401) {
                 setIsAuth(false);
                 return;

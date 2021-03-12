@@ -28,7 +28,8 @@ const User = database.define(
         },
         password: {
             type: Sequelize.STRING(64),
-            allowNull: false,
+            allowNull: true,
+            // ^ Set to true for Google users
         },
         title: {
             type: Sequelize.STRING,

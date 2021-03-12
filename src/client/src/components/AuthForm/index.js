@@ -1,4 +1,4 @@
-import * as Styled from './styles';
+import * as Styled from './styled';
 import Button from '../Button/index';
 import GoogleButton from '../../components/GoogleButton/index';
 import FORM_TYPES from '../../constants/formTypes';

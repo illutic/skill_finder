@@ -19,7 +19,7 @@ const authGoogle = async (token) => {
         });
         return { userId: user[0].id };
     } catch (err) {
-        return false;
+        return { error: err };
     }
 };
 
