@@ -50,7 +50,7 @@ jobs:
         with:
           message: "Documents Generation"
           author_name: ${{github.actor}}
-          add: .
+          add: /mnt/e/Projects/University/cw-code-t33/src/docker/selfhostedrunner/cw-code-t33-selfhostedrunner/cw-code-t33/cw-code-t33
           cwd: .
           pull_strategy: --no-rebase
           push: true
