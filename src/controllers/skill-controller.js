@@ -31,7 +31,6 @@ export const getSkill = async (req, res) => {
 
 export const postSkill = async (req, res) => {
     try {
-        // await validateUser(req);
         const { name } = req.body;
         const { userId } = req;
         if (!name) {
