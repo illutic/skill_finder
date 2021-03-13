@@ -10,11 +10,11 @@ import makeAssociations from './database/associations.js';
  */
 /** The port the server is running. Defaults to 8081
  * @type {int}
-*/
+ */
 const PORT = process.env.PORT ?? 8081;
 /** The Directory of the project. If none is specified the directory will be the one where app.js is run from.
  * @type {string}
-*/
+ */
 const DIRNAME = process.env.PWD ?? '';
 /** The Express Constructor */
 const app = express();
