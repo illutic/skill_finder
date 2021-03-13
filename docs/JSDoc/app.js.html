@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Home - Documentation</title>
+    <title>app.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -33,25 +33,73 @@ Server-side token Authentication</a></span></li><li class="nav-item"><span class
 
 <div id="main">
     
+    <h1 class="page-title">app.js</h1>
+    
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import express from 'express';
+import path from 'path';
+import cookieParser from 'cookie-parser';
+import AuthRoutes from './routes/auth-routes.js';
+import APIRoutes from './routes/api-routes.js';
+import database from './database/database.js';
+import makeAssociations from './database/associations.js';
+/** App Module
+ * @module app
+ */
+/** The port the server is running. Defaults to 8081
+ * @type {int}
+*/
+const PORT = process.env.PORT ?? 8081;
+/** The Directory of the project. If none is specified the directory will be the one where app.js is run from.
+ * @type {string}
+*/
+const DIRNAME = process.env.PWD ?? '';
+/** The Express Constructor */
+const app = express();
 
+// Middleware
+/** Use a JSON parser middleware */
+app.use(express.json());
+/** Use a Cookie parser middleware */
+app.use(cookieParser());
+/** Use a File passing middleware */
+app.use(express.static(path.join(DIRNAME, 'client', 'build')));
 
+// Routes
+/** Authentication API Routes */
+app.use(AuthRoutes);
+/** App API Routes */
+app.use(APIRoutes);
+app.get('*', (req, res) => {
+    res.sendFile(path.join(DIRNAME, 'client', 'build', 'index.html'));
+});
 
-
-
-
-
-
-
-    
-
-
-
+// Initialisation
+/** Initialize the database and listen for connections. */
+(async () => {
+    try {
+        makeAssociations();
+        await database.sync({
+            force: true,
+            // alter: true,
+            // ^ Uncomment whenever you update the schema
+            // eg. when creating a new model, updating an old one.
+        });
+        app.listen(PORT, () => console.log(`Server running at port ${PORT}`));
+    } catch (err) {
+        console.log(Error(err));
+    }
+})();
+</code></pre>
+        </article>
+    </section>
 
 
 

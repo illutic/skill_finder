@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Home - Documentation</title>
+    <title>controllers/chat-controller.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -33,25 +33,111 @@ Server-side token Authentication</a></span></li><li class="nav-item"><span class
 
 <div id="main">
     
+    <h1 class="page-title">controllers/chat-controller.js</h1>
+    
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/** @module auth-controller
+ * Provides authentication related callback functions.
+ */
+// import Chat from '../models/Chat.js';
+// import Message from '../models/Message.js';
+// import File from '../models/File';
+
+/** Chatrooms by user ID
+ * @param {Request} req - HTTP REQUEST
+ * @param {Response} res - HTTP RESPONSE
+ */
+export const getChatrooms = async (req, res) => {
+    try {
+        res.sendStatus(200);
+    } catch (err) {
+        res.status(400).json({ error: err });
+    }
+};
 
 
+/** Messages by chatroom ID
+ * Should include user ID somehow
+ * @param {Request} req - HTTP REQUEST
+ * @param {Response} res - HTTP RESPONSE 
+ * */
+export const getMessages = async (req, res) => {
+    try {
+        res.sendStatus(200);
+    } catch (err) {
+        res.status(400).json({ error: err });
+    }
+};
 
+/** Files by chatroom ID
+ * @param {Request} req - HTTP REQUEST
+ * @param {Response} res - HTTP RESPONSE 
+ * */
+export const getFiles = async (req, res) => {
+    try {
+        res.sendStatus(200);
+    } catch (err) {
+        res.status(400).json({ error: err });
+    }
+};
 
+/** Create a chatroom
+ * @param {Request} req - HTTP REQUEST
+ * @param {Response} res - HTTP RESPONSE 
+ * */
+export const createChat = async (req, res) => {
+    try {
+        res.sendStatus(200);
+    } catch (err) {
+        res.status(400).json({ error: err });
+    }
+};
 
+/** Send a message
+ * @param {Request} req - HTTP REQUEST
+ * @param {Response} res - HTTP RESPONSE 
+ * */
+export const postMessage = async (req, res) => {
+    try {
+        res.sendStatus(200);
+    } catch (err) {
+        res.status(400).json({ error: err });
+    }
+};
 
+/** Send a file
+ * @param {Request} req - HTTP REQUEST
+ * @param {Response} res - HTTP RESPONSE 
+ * */
+export const postFile = async (req, res) => {
+    try {
+        res.sendStatus(200);
+    } catch (err) {
+        res.status(400).json({ error: err });
+    }
+};
 
-
-
-    
-
-
-
+/** delete a chatroom
+ * @param {Request} req - HTTP REQUEST
+ * @param {Response} res - HTTP RESPONSE 
+ * */
+export const deleteChat = async (req, res) => {
+    try {
+        res.sendStatus(200);
+    } catch (err) {
+        res.status(400).json({ error: err });
+    }
+};
+</code></pre>
+        </article>
+    </section>
 
 
 
