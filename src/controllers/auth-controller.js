@@ -1,6 +1,5 @@
-/** @module auth-controller
- * Provides authentication related callback functions.
- */
+/** @module auth-controller */
+/** Provides authentication related callback functions.*/
 import bcrypt from 'bcrypt';
 import validateAuthForm from '../utils/validateAuthForm.js';
 import User from '../models/User.js';

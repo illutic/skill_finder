@@ -1,5 +1,5 @@
-/** @constant FORM_TYPES
- *  Specifies the type of form.
+/** @constant FORM_TYPES*/
+/**  Specifies the type of form.
  */
 const FORM_TYPES = {
     signup: 0,

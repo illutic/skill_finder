@@ -1,5 +1,5 @@
-/** @module auth-controller
- * Provides authentication related callback functions.
+/** @module auth-controller */
+/** Provides authentication related callback functions.
  */
 // import Chat from '../models/Chat.js';
 // import Message from '../models/Message.js';

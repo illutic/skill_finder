@@ -1,5 +1,5 @@
-/** @module authOrigin
- * Server-side token Authentication */
+/** @module authOrigin */
+/** Server-side token Authentication */
 import jwt from 'jsonwebtoken';
 
 /** Verify user token and return the userID.

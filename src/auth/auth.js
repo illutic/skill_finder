@@ -1,6 +1,5 @@
-/** @module auth
- * This module authenticates the user based on their cookies.
- */
+/** @module auth */
+/** This module authenticates the user based on their cookies.*/
 import authOrigin from './authOrigin.js';
 import authGoogle from './authGoogle.js';
 

@@ -1,5 +1,5 @@
-/** @module authGoogle 
- * Google Authentication */
+/** @module authGoogle */
+/** Google Authentication */
 import { OAuth2Client } from 'google-auth-library';
 import User from '../models/User.js';
 import CLIENT_ID from '../constants/client-id.js';

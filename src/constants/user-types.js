@@ -1,5 +1,5 @@
-/** @constant USER_TYPES
- * Specifies the type of the user.
+/** @constant USER_TYPES */
+/** Specifies the type of the user.
  */
 const USER_TYPES = {
     student: 'student',
