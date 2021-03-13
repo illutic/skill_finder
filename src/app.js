@@ -5,25 +5,39 @@ import AuthRoutes from './routes/auth-routes.js';
 import APIRoutes from './routes/api-routes.js';
 import database from './database/database.js';
 import makeAssociations from './database/associations.js';
-
-// Constants
+/** App Module
+ * @module app
+ */
+/** The port the server is running. Defaults to 8081
+ * @type {int}
+*/
 const PORT = process.env.PORT ?? 8081;
+/** The Directory of the project. If none is specified the directory will be the one where app.js is run from.
+ * @type {string}
+*/
 const DIRNAME = process.env.PWD ?? '';
+/** The Express Constructor */
 const app = express();
 
 // Middleware
+/** Use a JSON parser middleware */
 app.use(express.json());
+/** Use a Cookie parser middleware */
 app.use(cookieParser());
+/** Use a File passing middleware */
 app.use(express.static(path.join(DIRNAME, 'client', 'build')));
 
 // Routes
+/** Authentication API Routes */
 app.use(AuthRoutes);
+/** App API Routes */
 app.use(APIRoutes);
 app.get('*', (req, res) => {
     res.sendFile(path.join(DIRNAME, 'client', 'build', 'index.html'));
 });
 
 // Initialisation
+/** Initialize the database and listen for connections. */
 (async () => {
     try {
         makeAssociations();
