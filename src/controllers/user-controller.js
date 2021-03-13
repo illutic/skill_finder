@@ -1,8 +1,14 @@
+import sequelize from 'sequelize';
 import User from '../models/User.js';
 import Photo from '../models/Photo.js';
 import Skill from '../models/Skill.js';
+import Request from '../models/Request.js';
+import Notification from '../models/Notification.js';
 import checkPassword from '../utils/checkPassword.js';
 import removeToken from '../utils/removeToken.js';
+import hashPassword from '../utils/hashPassword.js';
+
+const { Op } = sequelize;
 
 export const getUser = async (req, res) => {
     try {
@@ -28,7 +34,19 @@ export const getUser = async (req, res) => {
 
 export const getNotifications = async (req, res) => {
     try {
-        res.sendStatus(200);
+        const { userId } = req;
+        const notification = await Notification.findAll({
+            where: {
+                UserId: userId,
+            },
+            include: {
+                model: User,
+                attributes: {
+                    exclude: ['email', 'password'],
+                },
+            },
+        });
+        res.status(200).json({ notification });
     } catch (err) {
         res.status(400).json({ error: err.message });
     }
@@ -36,7 +54,19 @@ export const getNotifications = async (req, res) => {
 
 export const getRequests = async (req, res) => {
     try {
-        res.sendStatus(200);
+        const { userId } = req;
+        const request = await Request.findAll({
+            where: {
+                [Op.or]: [{ toId: userId }, { fromId: userId }],
+            },
+            include: {
+                model: User,
+                attributes: {
+                    exclude: ['email', 'password'],
+                },
+            },
+        });
+        res.status(200).json({ request });
     } catch (err) {
         res.status(400).json({ error: err.message });
     }
@@ -63,7 +93,7 @@ export const patchEmail = async (req, res) => {
                 },
             }
         );
-        res.sendStatus(200);
+        res.status(200);
     } catch (err) {
         res.status(400).json({ error: err.message });
     }
@@ -71,7 +101,15 @@ export const patchEmail = async (req, res) => {
 
 export const patchPassword = async (req, res) => {
     try {
-        res.sendStatus(200);
+        const { userId } = req;
+        const { password } = req.body;
+        const user = await User.findOne({
+            where: { id: userId },
+        });
+        await user.update({
+            password: await hashPassword(password),
+        });
+        res.status(200).json({ message: user });
     } catch (err) {
         res.status(400).json({ error: err.message });
     }
@@ -79,7 +117,15 @@ export const patchPassword = async (req, res) => {
 
 export const patchTitle = async (req, res) => {
     try {
-        res.sendStatus(200);
+        const { userId } = req;
+        const { title } = req.body;
+        const user = await User.findOne({
+            where: { id: userId },
+        });
+        await user.update({
+            title,
+        });
+        res.status(200).json({ user });
     } catch (err) {
         res.status(400).json({ error: err.message });
     }
@@ -87,7 +133,15 @@ export const patchTitle = async (req, res) => {
 
 export const patchDescription = async (req, res) => {
     try {
-        res.sendStatus(200);
+        const { userId } = req;
+        const { description } = req.body;
+        const user = await User.findOne({
+            where: { id: userId },
+        });
+        await user.update({
+            description,
+        });
+        res.status(200).json({ message: user });
     } catch (err) {
         res.status(400).json({ error: err.message });
     }
@@ -100,7 +154,7 @@ export const deleteAccount = async (req, res) => {
         await checkPassword(userId, password);
         await User.destroy({ where: { id: userId } });
         removeToken(res);
-        res.sendStatus(200);
+        res.status(200);
     } catch (err) {
         res.status(400).json({ error: err.message });
     }

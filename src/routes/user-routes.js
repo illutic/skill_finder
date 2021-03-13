@@ -14,8 +14,8 @@ import auth from '../auth/auth.js';
 const router = Router();
 
 router.get('/user/:id', getUser);
-router.get('/user/notifications', auth, getNotifications);
-router.get('/user/requests', auth, getRequests);
+router.get('/notifications', auth, getNotifications);
+router.get('/requests', auth, getRequests);
 router.patch('/user/email', auth, patchEmail);
 router.patch('/user/password', auth, patchPassword);
 router.patch('/user/title', auth, patchTitle);

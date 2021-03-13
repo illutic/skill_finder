@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const database = new Sequelize(process.env.DB_URI, {
-    logging: false,
+    logging: true,
     // ^ Comment if you prefer logging
 });
 

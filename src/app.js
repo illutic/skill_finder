@@ -1,10 +1,13 @@
 import express from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
+import http, { Server } from 'http';
+import * as SocketIO from 'socket.io';
 import AuthRoutes from './routes/auth-routes.js';
 import APIRoutes from './routes/api-routes.js';
 import database from './database/database.js';
 import makeAssociations from './database/associations.js';
+import WebSockets from './utils/WebSockets.js';
 
 // Constants
 const PORT = process.env.PORT ?? 8081;
@@ -33,7 +36,11 @@ app.get('*', (req, res) => {
             // ^ Uncomment whenever you update the schema
             // eg. when creating a new model, updating an old one.
         });
+        /** const httpServer = */
         app.listen(PORT, () => console.log(`Server running at port ${PORT}`));
+        // const socketio = new Server(httpServer);
+        // global.io = socketio.listen(httpServer);
+        // global.io.on('connection', WebSockets.connection);
     } catch (err) {
         console.log(Error(err));
     }
