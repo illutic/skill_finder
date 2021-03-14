@@ -2,6 +2,7 @@ import { useContext, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { AuthContext } from './contexts/AuthContextProvider';
 import ROUTES from './constants/routes';
+import NavigationContextProvider from './contexts/NavigationContextProvider';
 import Navigation from './components/Navigation/index';
 import ProtectedRoute from './components/ProtectedRoute/index';
 import Signup from './components/Signup/index';
@@ -37,7 +38,9 @@ function App() {
     return (
         <>
             <Router>
-                <Navigation />
+                <NavigationContextProvider>
+                    <Navigation />
+                </NavigationContextProvider>
                 <Switch>
                     <Route path={ROUTES.signup} exact>
                         <Signup />

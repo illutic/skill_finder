@@ -1,3 +1,5 @@
+import { useContext } from 'react';
+import { NavigationContext } from '../../contexts/NavigationContextProvider';
 import * as Styled from './styled';
 import Container from '../Container/index';
 import ProfilePhoto from '../ProfilePhoto/index';
@@ -9,6 +11,8 @@ import source from '../../assets/profile.jpg';
 // <<<
 
 const Navigation = () => {
+    const { isActive, toggle } = useContext(NavigationContext);
+
     return (
         <Styled.Wrapper>
             <Styled.Bar>
@@ -16,8 +20,8 @@ const Navigation = () => {
                     <Styled.Box>
                         <ProfilePhoto src={source} />
                         <Styled.Buttons>
-                            <NotificationButton active />
-                            <NavigationButton />
+                            <NotificationButton />
+                            <NavigationButton onClick={toggle} />
                         </Styled.Buttons>
                     </Styled.Box>
                     <SearchBar />
@@ -25,10 +29,14 @@ const Navigation = () => {
             </Styled.Bar>
             <Styled.Navigation>
                 <Container>
-                    <Styled.List active>
-                        {/* ^ Toggle */}
+                    <Styled.List active={isActive}>
                         <Styled.Item>
-                            <Styled.Link to="/" activeClassName="active" exact>
+                            <Styled.Link
+                                to="/"
+                                activeClassName="active"
+                                onClick={toggle}
+                                exact
+                            >
                                 Home
                             </Styled.Link>
                         </Styled.Item>
@@ -36,6 +44,7 @@ const Navigation = () => {
                             <Styled.Link
                                 to="/messages"
                                 activeClassName="active"
+                                onClick={toggle}
                                 exact
                             >
                                 Messages
@@ -45,6 +54,7 @@ const Navigation = () => {
                             <Styled.Link
                                 to="/settings"
                                 activeClassName="active"
+                                onClick={toggle}
                                 exact
                             >
                                 Settings
