@@ -27,4 +27,5 @@ export const Button = styled.button`
     font-size: ${({ theme }) => theme.typography.small};
     font-weight: 300;
     color: ${({ theme }) => theme.colors.positive};
+    cursor: pointer;
 `;

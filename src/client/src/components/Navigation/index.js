@@ -30,38 +30,45 @@ const Navigation = () => {
             </Styled.Bar>
             <Styled.Navigation>
                 <Container>
-                    <Styled.List active={isActive}>
-                        <Styled.Item>
-                            <Styled.Link
-                                to="/"
-                                activeClassName="active"
-                                onClick={toggleNavigation}
-                                exact
-                            >
-                                Home
-                            </Styled.Link>
-                        </Styled.Item>
-                        <Styled.Item>
-                            <Styled.Link
-                                to="/messages"
-                                activeClassName="active"
-                                onClick={toggleNavigation}
-                                exact
-                            >
-                                Messages
-                            </Styled.Link>
-                        </Styled.Item>
-                        <Styled.Item>
-                            <Styled.Link
-                                to="/settings"
-                                activeClassName="active"
-                                onClick={toggleNavigation}
-                                exact
-                            >
-                                Settings
-                            </Styled.Link>
-                        </Styled.Item>
-                    </Styled.List>
+                    <Styled.RestrictedRelative>
+                        <Styled.List active={isActive}>
+                            <Styled.Item>
+                                <Styled.Link
+                                    to="/"
+                                    activeClassName="active"
+                                    onClick={toggleNavigation}
+                                    exact
+                                >
+                                    Home
+                                </Styled.Link>
+                            </Styled.Item>
+                            <Styled.Item>
+                                <Styled.Link
+                                    to="/messages"
+                                    activeClassName="active"
+                                    onClick={toggleNavigation}
+                                    exact
+                                >
+                                    Messages
+                                </Styled.Link>
+                            </Styled.Item>
+                            <Styled.Item>
+                                <Styled.Link
+                                    to="/settings"
+                                    activeClassName="active"
+                                    onClick={toggleNavigation}
+                                    exact
+                                >
+                                    Settings
+                                </Styled.Link>
+                            </Styled.Item>
+                            <Styled.Item>
+                                <Styled.LogoutButton>
+                                    Log out
+                                </Styled.LogoutButton>
+                            </Styled.Item>
+                        </Styled.List>
+                    </Styled.RestrictedRelative>
                 </Container>
             </Styled.Navigation>
         </Styled.Wrapper>
