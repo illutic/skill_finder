@@ -63,9 +63,11 @@ const Navigation = () => {
                                 </Styled.Link>
                             </Styled.Item>
                             <Styled.Item>
-                                <Styled.LogoutButton>
-                                    Log out
-                                </Styled.LogoutButton>
+                                <Styled.LogoutWrapper>
+                                    <Styled.LogoutButton>
+                                        Log out
+                                    </Styled.LogoutButton>
+                                </Styled.LogoutWrapper>
                             </Styled.Item>
                         </Styled.List>
                     </Styled.RestrictedRelative>
