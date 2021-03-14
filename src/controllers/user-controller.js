@@ -1,14 +1,10 @@
-import sequelize from 'sequelize';
 import User from '../models/User.js';
 import Photo from '../models/Photo.js';
 import Skill from '../models/Skill.js';
-import Request from '../models/Request.js';
 import Notification from '../models/Notification.js';
 import checkPassword from '../utils/checkPassword.js';
 import removeToken from '../utils/removeToken.js';
 import hashPassword from '../utils/hashPassword.js';
-
-const { Op } = sequelize;
 
 export const getUser = async (req, res) => {
     try {
@@ -47,26 +43,6 @@ export const getNotifications = async (req, res) => {
             },
         });
         res.status(200).json({ notification });
-    } catch (err) {
-        res.status(400).json({ error: err.message });
-    }
-};
-
-export const getRequests = async (req, res) => {
-    try {
-        const { userId } = req;
-        const request = await Request.findAll({
-            where: {
-                [Op.or]: [{ toId: userId }, { fromId: userId }],
-            },
-            include: {
-                model: User,
-                attributes: {
-                    exclude: ['email', 'password'],
-                },
-            },
-        });
-        res.status(200).json({ request });
     } catch (err) {
         res.status(400).json({ error: err.message });
     }
