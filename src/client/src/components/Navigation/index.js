@@ -11,7 +11,7 @@ import source from '../../assets/profile.jpg';
 // <<<
 
 const Navigation = () => {
-    const { isActive, toggle } = useContext(NavigationContext);
+    const { isActive, toggleNavigation } = useContext(NavigationContext);
 
     return (
         <Styled.Wrapper>
@@ -21,7 +21,7 @@ const Navigation = () => {
                         <ProfilePhoto src={source} />
                         <Styled.Buttons>
                             <NotificationButton />
-                            <NavigationButton onClick={toggle} />
+                            <NavigationButton onClick={toggleNavigation} />
                         </Styled.Buttons>
                     </Styled.Box>
                     <SearchBar />
@@ -34,7 +34,7 @@ const Navigation = () => {
                             <Styled.Link
                                 to="/"
                                 activeClassName="active"
-                                onClick={toggle}
+                                onClick={toggleNavigation}
                                 exact
                             >
                                 Home
@@ -44,7 +44,7 @@ const Navigation = () => {
                             <Styled.Link
                                 to="/messages"
                                 activeClassName="active"
-                                onClick={toggle}
+                                onClick={toggleNavigation}
                                 exact
                             >
                                 Messages
@@ -54,7 +54,7 @@ const Navigation = () => {
                             <Styled.Link
                                 to="/settings"
                                 activeClassName="active"
-                                onClick={toggle}
+                                onClick={toggleNavigation}
                                 exact
                             >
                                 Settings

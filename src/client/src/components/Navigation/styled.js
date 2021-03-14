@@ -24,7 +24,7 @@ export const Box = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 20px 5px 20px 5px;
+    margin: 20px 5px;
 `;
 
 export const Buttons = styled.div`

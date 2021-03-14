@@ -2,10 +2,10 @@ const mainTheme = {
     typography: {
         primary: "'Montserrat', sans-serif",
         secondary: "'Lato', sans-serif",
-        small: '14px',
-        medium: '24px',
-        large: '32px',
-        default: '16px',
+        small: '1.4rem',
+        medium: '2.4rem',
+        large: '3.2rem',
+        default: '1.6rem',
     },
     colors: {
         negative: '#272727',
