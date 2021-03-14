@@ -134,8 +134,9 @@ export const Link = styled(NavLink)`
 `;
 
 export const LogoutButton = styled.button`
-    background: transparent;
     padding-bottom: 20px;
+    background: transparent;
+    outline: none;
     cursor: pointer;
     @media (min-width: ${SCREENS.large}) {
         padding-bottom: 32px;

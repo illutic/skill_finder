@@ -8,10 +8,11 @@ export const Form = styled.form`
 `;
 
 export const Input = styled.input`
-    padding: 5px 20px;
+    padding: 5px 20px 5px 45px;
     border: 1px solid ${({ theme }) => theme.colors.subtle};
     border-top-left-radius: 100px;
     border-bottom-left-radius: 100px;
+    background: transparent;
     font-size: ${({ theme }) => theme.typography.small};
     color: ${({ theme }) => theme.colors.universal};
 `;
@@ -28,4 +29,18 @@ export const Button = styled.button`
     font-weight: 300;
     color: ${({ theme }) => theme.colors.positive};
     cursor: pointer;
+`;
+
+export const Icon = styled.div`
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    z-index: -1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateY(-50%);
+    & > svg {
+        fill: ${({ theme }) => theme.colors.universal};
+    }
 `;
