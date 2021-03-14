@@ -12,6 +12,7 @@ const GlobalStyle = createGlobalStyle`
         padding: 0;
         box-sizing: border-box;
         border: 0;
+        outline: 0;
         font: inherit;
     }
 
@@ -25,9 +26,9 @@ const GlobalStyle = createGlobalStyle`
     }
 
     body {
+        line-height: 1.5;
         font-family: ${({ theme }) => theme.typography.primary};
         font-size: ${({ theme }) => theme.typography.default};
-        line-height: 1.5;
         color: ${({ theme }) => theme.colors.negative};
     }
 `;
