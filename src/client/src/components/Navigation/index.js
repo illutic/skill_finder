@@ -5,7 +5,6 @@ import Container from '../Container/index';
 import ProfilePhoto from '../ProfilePhoto/index';
 import NotificationButton from '../NotificationButton/index';
 import NavigationButton from '../NavigationButton/index';
-import SearchBar from '../SearchBar/index';
 // >>> Temporary
 import source from '../../assets/profile.jpg';
 // <<<
@@ -17,14 +16,16 @@ const Navigation = () => {
         <Styled.Wrapper>
             <Styled.Bar>
                 <Container>
-                    <Styled.Box>
-                        <ProfilePhoto src={source} />
-                        <Styled.Buttons>
-                            <NotificationButton />
-                            <NavigationButton onClick={toggleNavigation} />
-                        </Styled.Buttons>
-                    </Styled.Box>
-                    <SearchBar />
+                    <Styled.Relative>
+                        <Styled.Box>
+                            <ProfilePhoto src={source} />
+                            <Styled.Buttons>
+                                <NotificationButton />
+                                <NavigationButton onClick={toggleNavigation} />
+                            </Styled.Buttons>
+                        </Styled.Box>
+                        <Styled.PositionedSearchBar />
+                    </Styled.Relative>
                 </Container>
             </Styled.Bar>
             <Styled.Navigation>

@@ -1,5 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
+import SearchBar from '../SearchBar/index';
+import SCREENS from '../../constants/screens';
 
 export const Navigation = styled.nav`
     width: 100%;
@@ -20,11 +22,18 @@ export const Bar = styled.div`
     background-color: ${({ theme }) => theme.colors.positive};
 `;
 
+export const Relative = styled.div`
+    position: relative;
+`;
+
 export const Box = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin: 20px 5px;
+    @media (min-width: ${SCREENS.medium}) {
+        margin: 20px 5px 0 5px;
+    }
 `;
 
 export const Buttons = styled.div`
@@ -35,11 +44,21 @@ export const Buttons = styled.div`
     }
 `;
 
+export const PositionedSearchBar = styled(SearchBar)`
+    @media (min-width: ${SCREENS.medium}) {
+        position: absolute;
+        top: 50%;
+        left: 60px;
+        max-width: 350px;
+        transform: translateY(-50%);
+    }
+`;
+
 export const List = styled.ul`
     position: absolute;
-    z-index: -1;
     top: 100%;
     left: 0;
+    z-index: -1;
     width: 100%;
     background-color: ${({ theme }) => theme.colors.unique};
     transform: translateY(
