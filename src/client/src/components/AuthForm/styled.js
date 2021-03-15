@@ -4,7 +4,7 @@ import SCREENS from '../../constants/screens';
 export const Form = styled.form`
     display: flex;
     flex-direction: column;
-    margin: 25px 0 50px 0;
+    margin-top: 25px;
 `;
 
 export const Group = styled.div`
@@ -67,9 +67,9 @@ export const Choice = styled.div`
 
 export const Error = styled.div`
     margin-top: 25px;
-    color: #721c24;
-    background-color: #f8d7da;
     padding: 10px 20px;
     border: 1px solid #f5c6cb;
     border-radius: 7px;
+    background-color: #f8d7da;
+    color: #721c24;
 `;
