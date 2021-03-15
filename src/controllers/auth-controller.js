@@ -75,3 +75,7 @@ export const logOut = async (req, res) => {
     removeToken(res);
     res.sendStatus(200);
 };
+
+export const check = async (req, res) => {
+    res.json({ userId: req.userId });
+};

@@ -1,7 +1,7 @@
-import { useContext, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { AuthContext } from './contexts/AuthContextProvider';
+import useAuthCheck from './hooks/useAuthCheck';
 import ROUTES from './constants/routes';
+import NavigationContextProvider from './contexts/NavigationContextProvider';
 import Navigation from './components/Navigation/index';
 import ProtectedRoute from './components/ProtectedRoute/index';
 import Signup from './components/Signup/index';
@@ -15,30 +15,14 @@ import Page404 from './components/Page404/index';
 import GlobalStyle from './styles/globalStyle';
 
 function App() {
-    const { setIsAuth } = useContext(AuthContext);
-
-    /// >>> Temporary
-    useEffect(() => {
-        const checkAuth = async () => {
-            const response = await fetch('/auth/check');
-            console.log(response);
-            if (response.status === 401) {
-                setIsAuth(false);
-                return;
-            }
-            if (response.status === 200) {
-                setIsAuth(true);
-                return;
-            }
-        };
-        checkAuth();
-    }, [setIsAuth]);
-    // <<<
+    useAuthCheck();
 
     return (
         <>
             <Router>
-                <Navigation />
+                <NavigationContextProvider>
+                    <Navigation />
+                </NavigationContextProvider>
                 <Switch>
                     <Route path={ROUTES.signup} exact>
                         <Signup />
@@ -46,9 +30,9 @@ function App() {
                     <Route path={ROUTES.login} exact>
                         <Login />
                     </Route>
-                    <ProtectedRoute path={ROUTES.profile} exact>
+                    <Route path={ROUTES.profile} exact>
                         <Profile />
-                    </ProtectedRoute>
+                    </Route>
                     <ProtectedRoute path={ROUTES.settings} exact>
                         <Settings />
                     </ProtectedRoute>

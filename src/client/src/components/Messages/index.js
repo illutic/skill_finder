@@ -1,9 +1,10 @@
 import Container from '../Container/index';
+import Heading from '../Heading/index';
 
 const Messages = ({ children }) => {
     return (
         <Container>
-            <h1>Messages View</h1>
+            <Heading>Messages View</Heading>
         </Container>
     );
 };

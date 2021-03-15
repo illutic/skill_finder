@@ -1,9 +1,10 @@
 import Container from '../Container/index';
+import Heading from '../Heading/index';
 
 const Profile = () => {
     return (
         <Container>
-            <h1>Profile View</h1>
+            <Heading>Profile View</Heading>
         </Container>
     );
 };

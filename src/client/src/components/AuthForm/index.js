@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import * as Styled from './styled';
 import Button from '../Button/index';
 import GoogleButton from '../../components/GoogleButton/index';
@@ -8,42 +9,76 @@ const AuthForm = ({ type, error, ...rest }) => {
     return (
         <Styled.Form {...rest}>
             {type === FORM_TYPES.signup ? (
-                <>
-                    <Styled.Label htmlFor="firstName">First Name</Styled.Label>
-                    <Styled.Input
-                        type="text"
-                        name="firstName"
-                        placeholder="Aa"
-                    />
-                    <Styled.Label htmlFor="lastName">Last Name</Styled.Label>
-                    <Styled.Input
-                        type="text"
-                        name="lastName"
-                        placeholder="Aa"
-                    />
-                </>
+                <Styled.Split>
+                    <Styled.Group>
+                        <Styled.Label htmlFor="firstName">
+                            First Name
+                        </Styled.Label>
+                        <Styled.Input
+                            type="text"
+                            id="firstName"
+                            name="firstName"
+                            placeholder="Aa"
+                        />
+                    </Styled.Group>
+                    <Styled.Group>
+                        <Styled.Label htmlFor="lastName">
+                            Last Name
+                        </Styled.Label>
+                        <Styled.Input
+                            type="text"
+                            id="lastName"
+                            name="lastName"
+                            placeholder="Aa"
+                        />
+                    </Styled.Group>
+                </Styled.Split>
             ) : null}
-            <Styled.Label htmlFor="email">E-mail</Styled.Label>
-            <Styled.Input type="text" name="email" placeholder="@" />
-            <Styled.Label htmlFor="password">Password</Styled.Label>
-            <Styled.Input type="password" name="password" placeholder="*" />
+            <Styled.Group>
+                <Styled.Label htmlFor="email">E-mail</Styled.Label>
+                <Styled.Input
+                    type="text"
+                    id="email"
+                    name="email"
+                    placeholder="@"
+                />
+            </Styled.Group>
+            <Styled.Group>
+                <Styled.Label htmlFor="password">Password</Styled.Label>
+                <Styled.Input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="*"
+                />
+            </Styled.Group>
             {type === FORM_TYPES.signup ? (
-                <>
+                <Styled.Group>
                     <Styled.Label htmlFor="confirmPassword">
                         Confirm Password
                     </Styled.Label>
                     <Styled.Input
                         type="password"
+                        id="confirmPassword"
                         name="confirmPassword"
                         placeholder="*"
                     />
-                </>
+                </Styled.Group>
             ) : null}
-            <Button type="submit">
-                {type === FORM_TYPES.signup ? 'Sign up' : 'Log in'}
-            </Button>
-            <GoogleButton>Continue with Google</GoogleButton>
-            <Styled.Error>{error}</Styled.Error>
+            <Styled.Buttons>
+                <Button type="submit">
+                    {type === FORM_TYPES.signup ? 'Sign up' : 'Log in'}
+                </Button>
+                <GoogleButton>Continue with Google</GoogleButton>
+            </Styled.Buttons>
+            <Styled.Choice>
+                {type === FORM_TYPES.signup ? (
+                    <Link to="/login">I'm already a member</Link>
+                ) : (
+                    <Link to="/signup">I don't have an account</Link>
+                )}
+            </Styled.Choice>
+            {error ? <Styled.Error>{error}</Styled.Error> : null}
         </Styled.Form>
     );
 };

@@ -1,9 +1,10 @@
 import Container from '../Container/index';
+import Heading from '../Heading/index';
 
 const Home = () => {
     return (
         <Container>
-            <h1>Home View</h1>
+            <Heading>Home View</Heading>
         </Container>
     );
 };

@@ -1,9 +1,10 @@
 import Container from '../Container/index';
+import Heading from '../Heading/index';
 
 const Settings = () => {
     return (
         <Container>
-            <h1>Settings View</h1>
+            <Heading>Settings View</Heading>
         </Container>
     );
 };
