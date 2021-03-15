@@ -5,9 +5,6 @@ import Container from '../Container/index';
 import ProfilePhoto from '../ProfilePhoto/index';
 import NotificationButton from '../NotificationButton/index';
 import NavigationButton from '../NavigationButton/index';
-// >>> Temporary
-import source from '../../assets/profile.jpg';
-// <<<
 
 const Navigation = () => {
     const { isActive, toggleNavigation } = useContext(NavigationContext);
@@ -18,7 +15,7 @@ const Navigation = () => {
                 <Container>
                     <Styled.Relative>
                         <Styled.Box>
-                            <ProfilePhoto src={source} />
+                            <ProfilePhoto />
                             <Styled.Buttons>
                                 <NotificationButton />
                                 <NavigationButton onClick={toggleNavigation} />

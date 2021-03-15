@@ -16,6 +16,13 @@ const GlobalStyle = createGlobalStyle`
         font: inherit;
     }
 
+    body {
+        line-height: 1.5;
+        font-family: ${({ theme }) => theme.typography.primary};
+        font-size: ${({ theme }) => theme.typography.default};
+        color: ${({ theme }) => theme.colors.negative};
+    }
+
     ol, ul {
         list-style: none;
     }
@@ -25,11 +32,11 @@ const GlobalStyle = createGlobalStyle`
         color: inherit;
     }
 
-    body {
-        line-height: 1.5;
-        font-family: ${({ theme }) => theme.typography.primary};
-        font-size: ${({ theme }) => theme.typography.default};
-        color: ${({ theme }) => theme.colors.negative};
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active {
+        -webkit-box-shadow: 0 0 0 30px white inset !important;
     }
 `;
 

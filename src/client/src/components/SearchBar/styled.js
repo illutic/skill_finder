@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 
-export const Form = styled.form`
+export const Form = styled.form``;
+
+export const Wrapper = styled.div`
+    position: relative;
     display: flex;
     & > * {
         flex: 1;
@@ -35,7 +38,6 @@ export const Icon = styled.div`
     position: absolute;
     top: 50%;
     left: 20px;
-    z-index: -1;
     display: flex;
     justify-content: center;
     align-items: center;

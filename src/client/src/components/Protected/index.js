@@ -18,7 +18,7 @@ const Protected = () => {
                             <Button>Log in</Button>
                         </Link>
                         <Link to="/signup">
-                            <Button outline>Sign up</Button>
+                            <Button outlined>Sign up</Button>
                         </Link>
                     </Styled.Buttons>
                 </Styled.Wrapper>

@@ -4,7 +4,8 @@ const mainTheme = {
         secondary: "'Lato', sans-serif",
         small: '1.4rem',
         medium: '2.4rem',
-        large: '3.2rem',
+        // large: '3.2rem',
+        large: '4.5rem',
         default: '1.6rem',
     },
     colors: {

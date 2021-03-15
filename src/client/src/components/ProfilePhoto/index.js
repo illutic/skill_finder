@@ -3,7 +3,7 @@ import * as Styled from './styled';
 const ProfilePhoto = ({ size, src, ...rest }) => {
     return (
         <Styled.Frame size={size} {...rest}>
-            <Styled.Photo src={src} />
+            {src ? <Styled.Photo src={src} /> : null}
         </Styled.Frame>
     );
 };
