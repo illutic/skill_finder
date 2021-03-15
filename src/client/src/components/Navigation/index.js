@@ -68,12 +68,17 @@ const Navigation = () => {
                                 <Styled.ActionWrapper>
                                     {isAuth ? (
                                         <Styled.ActionButton
-                                            onDoubleClick={logOut}
+                                            onClick={() => {
+                                                logOut();
+                                                toggleNavigation();
+                                            }}
                                         >
                                             Log out
                                         </Styled.ActionButton>
                                     ) : (
-                                        <Styled.ActionButton>
+                                        <Styled.ActionButton
+                                            onClick={toggleNavigation}
+                                        >
                                             <Link to="/login">Log in</Link>
                                         </Styled.ActionButton>
                                     )}
