@@ -136,14 +136,14 @@ export const Link = styled(NavLink)`
     }
 `;
 
-export const LogoutWrapper = styled.div`
+export const ActionWrapper = styled.div`
     padding-bottom: 20px;
     @media (min-width: ${SCREENS.large}) {
         padding-bottom: 32px;
     }
 `;
 
-export const LogoutButton = styled.button`
+export const ActionButton = styled.button`
     background: transparent;
     cursor: pointer;
 `;

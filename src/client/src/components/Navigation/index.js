@@ -1,6 +1,8 @@
 import { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import useLogout from '../../hooks/useLogout';
 import { NavigationContext } from '../../contexts/NavigationContextProvider';
+import { AuthContext } from '../../contexts/AuthContextProvider';
 import * as Styled from './styled';
 import Container from '../Container/index';
 import ProfilePhoto from '../ProfilePhoto/index';
@@ -9,6 +11,7 @@ import NavigationButton from '../NavigationButton/index';
 
 const Navigation = () => {
     const { isActive, toggleNavigation } = useContext(NavigationContext);
+    const { isAuth } = useContext(AuthContext);
     const logOut = useLogout();
 
     return (
@@ -62,11 +65,19 @@ const Navigation = () => {
                                 </Styled.Link>
                             </Styled.Item>
                             <Styled.Item>
-                                <Styled.LogoutWrapper>
-                                    <Styled.LogoutButton onDoubleClick={logOut}>
-                                        Log out
-                                    </Styled.LogoutButton>
-                                </Styled.LogoutWrapper>
+                                <Styled.ActionWrapper>
+                                    {isAuth ? (
+                                        <Styled.ActionButton
+                                            onDoubleClick={logOut}
+                                        >
+                                            Log out
+                                        </Styled.ActionButton>
+                                    ) : (
+                                        <Styled.ActionButton>
+                                            <Link to="/login">Log in</Link>
+                                        </Styled.ActionButton>
+                                    )}
+                                </Styled.ActionWrapper>
                             </Styled.Item>
                         </Styled.List>
                     </Styled.RestrictedRelative>
