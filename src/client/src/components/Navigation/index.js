@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import useLogout from '../../hooks/useLogout';
 import { NavigationContext } from '../../contexts/NavigationContextProvider';
 import * as Styled from './styled';
 import Container from '../Container/index';
@@ -8,6 +9,7 @@ import NavigationButton from '../NavigationButton/index';
 
 const Navigation = () => {
     const { isActive, toggleNavigation } = useContext(NavigationContext);
+    const logOut = useLogout();
 
     return (
         <Styled.Wrapper>
@@ -61,7 +63,7 @@ const Navigation = () => {
                             </Styled.Item>
                             <Styled.Item>
                                 <Styled.LogoutWrapper>
-                                    <Styled.LogoutButton>
+                                    <Styled.LogoutButton onDoubleClick={logOut}>
                                         Log out
                                     </Styled.LogoutButton>
                                 </Styled.LogoutWrapper>
