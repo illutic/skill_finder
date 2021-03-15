@@ -1,6 +1,5 @@
-import { useContext, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { AuthContext } from './contexts/AuthContextProvider';
+import useAuthCheck from './hooks/useAuthCheck';
 import ROUTES from './constants/routes';
 import NavigationContextProvider from './contexts/NavigationContextProvider';
 import Navigation from './components/Navigation/index';
@@ -16,24 +15,7 @@ import Page404 from './components/Page404/index';
 import GlobalStyle from './styles/globalStyle';
 
 function App() {
-    const { setIsAuth } = useContext(AuthContext);
-
-    /// >>> Temporary
-    useEffect(() => {
-        const checkAuth = async () => {
-            const response = await fetch('/auth/check');
-            if (response.status === 401) {
-                setIsAuth(false);
-                return;
-            }
-            if (response.status === 200) {
-                setIsAuth(true);
-                return;
-            }
-        };
-        checkAuth();
-    }, [setIsAuth]);
-    // <<<
+    useAuthCheck();
 
     return (
         <>
