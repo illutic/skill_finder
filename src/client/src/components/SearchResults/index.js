@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
+import * as Styled from './styled';
 import Container from '../Container/index';
-import Subheading from '../Subheading/index';
+import Heading from '../Heading/index';
 
 const SearchResults = ({ location }) => {
     const [query, setQuery] = useState();
@@ -16,7 +17,10 @@ const SearchResults = ({ location }) => {
 
     return (
         <Container>
-            <Subheading underlined>Results for {query}</Subheading>
+            <Heading>Results for {query}</Heading>
+            <Styled.Results>
+                <Styled.Result></Styled.Result>
+            </Styled.Results>
         </Container>
     );
 };
