@@ -132,14 +132,14 @@ export const Link = styled(NavLink)`
         }
     }
     @media (min-width: ${SCREENS.large}) {
-        padding-bottom: 32px;
+        padding-bottom: 30px;
     }
 `;
 
 export const Controls = styled.div`
     padding-bottom: 20px;
     @media (min-width: ${SCREENS.large}) {
-        padding-bottom: 32px;
+        padding-bottom: 30px;
     }
 `;
 
