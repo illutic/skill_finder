@@ -1,7 +1,14 @@
+/** @module auth-controller */
+/** Provides authentication related callback functions.
+ */
 // import Chat from '../models/Chat.js';
 // import Message from '../models/Message.js';
 // import File from '../models/File';
-// Chatrooms by user ID
+
+/** Chatrooms by user ID
+ * @param {Request} req - HTTP REQUEST
+ * @param {Response} res - HTTP RESPONSE
+ */
 export const getChatrooms = async (req, res) => {
     try {
         res.sendStatus(200);
@@ -10,8 +17,12 @@ export const getChatrooms = async (req, res) => {
     }
 };
 
-// Messages by chatroom ID
-// Should include user ID somehow
+
+/** Messages by chatroom ID
+ * Should include user ID somehow
+ * @param {Request} req - HTTP REQUEST
+ * @param {Response} res - HTTP RESPONSE 
+ * */
 export const getMessages = async (req, res) => {
     try {
         res.sendStatus(200);
@@ -20,7 +31,10 @@ export const getMessages = async (req, res) => {
     }
 };
 
-// Files by chatroom ID
+/** Files by chatroom ID
+ * @param {Request} req - HTTP REQUEST
+ * @param {Response} res - HTTP RESPONSE 
+ * */
 export const getFiles = async (req, res) => {
     try {
         res.sendStatus(200);
@@ -29,6 +43,10 @@ export const getFiles = async (req, res) => {
     }
 };
 
+/** Create a chatroom
+ * @param {Request} req - HTTP REQUEST
+ * @param {Response} res - HTTP RESPONSE 
+ * */
 export const createChat = async (req, res) => {
     try {
         res.sendStatus(200);
@@ -37,6 +55,10 @@ export const createChat = async (req, res) => {
     }
 };
 
+/** Send a message
+ * @param {Request} req - HTTP REQUEST
+ * @param {Response} res - HTTP RESPONSE 
+ * */
 export const postMessage = async (req, res) => {
     try {
         res.sendStatus(200);
@@ -45,6 +67,10 @@ export const postMessage = async (req, res) => {
     }
 };
 
+/** Send a file
+ * @param {Request} req - HTTP REQUEST
+ * @param {Response} res - HTTP RESPONSE 
+ * */
 export const postFile = async (req, res) => {
     try {
         res.sendStatus(200);
@@ -53,6 +79,10 @@ export const postFile = async (req, res) => {
     }
 };
 
+/** delete a chatroom
+ * @param {Request} req - HTTP REQUEST
+ * @param {Response} res - HTTP RESPONSE 
+ * */
 export const deleteChat = async (req, res) => {
     try {
         res.sendStatus(200);

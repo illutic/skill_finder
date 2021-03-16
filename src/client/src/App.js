@@ -1,43 +1,28 @@
-import { useContext, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { AuthContext } from './contexts/AuthContextProvider';
+import useAuth from './hooks/useAuth';
 import ROUTES from './constants/routes';
+import NavigationContextProvider from './contexts/NavigationContextProvider';
 import Navigation from './components/Navigation/index';
 import ProtectedRoute from './components/ProtectedRoute/index';
-import Signup from './containers/Signup/index';
-import Login from './containers/Login/index';
-import Profile from './containers/Profile/index';
-import Settings from './containers/Settings/index';
-import Chat from './containers/Chat/index';
-import Messages from './containers/Messages/index';
-import Home from './containers/Home/index';
-import Page404 from './containers/Page404/index';
+import Signup from './components/Signup/index';
+import Login from './components/Login/index';
+import Profile from './components/Profile/index';
+import Settings from './components/Settings/index';
+import Chat from './components/Chat/index';
+import Messages from './components/Messages/index';
+import Home from './components/Home/index';
+import Page404 from './components/Page404/index';
 import GlobalStyle from './styles/globalStyle';
 
 function App() {
-    const { setIsAuth } = useContext(AuthContext);
-
-    /// >>> Temporary
-    useEffect(() => {
-        const checkAuth = async () => {
-            const response = await fetch('/auth/check');
-            if (response.status === 401) {
-                setIsAuth(false);
-                return;
-            }
-            if (response.status === 200) {
-                setIsAuth(true);
-                return;
-            }
-        };
-        checkAuth();
-    }, [setIsAuth]);
-    // <<<
+    useAuth();
 
     return (
         <>
             <Router>
-                <Navigation />
+                <NavigationContextProvider>
+                    <Navigation />
+                </NavigationContextProvider>
                 <Switch>
                     <Route path={ROUTES.signup} exact>
                         <Signup />
@@ -45,9 +30,9 @@ function App() {
                     <Route path={ROUTES.login} exact>
                         <Login />
                     </Route>
-                    <ProtectedRoute path={ROUTES.profile} exact>
+                    <Route path={ROUTES.profile} exact>
                         <Profile />
-                    </ProtectedRoute>
+                    </Route>
                     <ProtectedRoute path={ROUTES.settings} exact>
                         <Settings />
                     </ProtectedRoute>
