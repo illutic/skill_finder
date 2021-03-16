@@ -6,7 +6,6 @@ import { AuthContext } from '../../contexts/AuthContextProvider';
 import * as Styled from './styled';
 import Container from '../Container/index';
 import ProfilePhoto from '../ProfilePhoto/index';
-import NotificationButton from '../NotificationButton/index';
 import NavigationButton from '../NavigationButton/index';
 
 const Navigation = () => {
@@ -22,7 +21,9 @@ const Navigation = () => {
                         <Styled.Box>
                             <ProfilePhoto src="https://picsum.photos/100/100" />
                             <Styled.Buttons>
-                                <NotificationButton />
+                                {isAuth ? (
+                                    <Styled.PositionedNotificationButton />
+                                ) : null}
                                 <NavigationButton onClick={toggleNavigation} />
                             </Styled.Buttons>
                         </Styled.Box>
@@ -76,11 +77,13 @@ const Navigation = () => {
                                             Log out
                                         </Styled.Control>
                                     ) : (
-                                        <Styled.Control
-                                            onClick={toggleNavigation}
-                                        >
-                                            <Link to="/login">Log in</Link>
-                                        </Styled.Control>
+                                        <Link to="/login">
+                                            <Styled.Control
+                                                onClick={toggleNavigation}
+                                            >
+                                                Log in
+                                            </Styled.Control>
+                                        </Link>
                                     )}
                                 </Styled.Controls>
                             </Styled.Item>

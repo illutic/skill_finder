@@ -38,7 +38,9 @@ const SearchResults = ({ location }) => {
                             </Styled.User>
                         </Link>
                         <Styled.Buttons>
-                            <Button outlined>View profile</Button>
+                            <Link to="/profile/1">
+                                <Button outlined>View profile</Button>
+                            </Link>
                             <Button>Reach out</Button>
                         </Styled.Buttons>
                     </Styled.Entry>

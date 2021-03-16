@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
+import NotificationButton from '../NotificationButton/index';
 import SearchBar from '../SearchBar/index';
 import SCREENS from '../../constants/screens';
 
@@ -43,6 +44,15 @@ export const Buttons = styled.div`
         @media (min-width: ${SCREENS.large}) {
             display: none;
         }
+    }
+`;
+
+export const PositionedNotificationButton = styled(NotificationButton)`
+    @media (min-width: ${SCREENS.large}) {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
     }
 `;
 
@@ -132,18 +142,14 @@ export const Link = styled(NavLink)`
         }
     }
     @media (min-width: ${SCREENS.large}) {
-        padding-bottom: 30px;
+        padding-bottom: 21px;
     }
 `;
 
-export const Controls = styled.div`
-    padding-bottom: 20px;
-    @media (min-width: ${SCREENS.large}) {
-        padding-bottom: 30px;
-    }
-`;
+export const Controls = styled.div``;
 
 export const Control = styled.button`
     background: transparent;
+    padding-bottom: 21px;
     cursor: pointer;
 `;
