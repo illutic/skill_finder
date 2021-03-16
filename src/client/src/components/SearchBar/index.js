@@ -1,10 +1,34 @@
+import { useState } from 'react';
+import { withRouter } from 'react-router-dom';
 import * as Styled from './styled';
+import ROUTES from '../../constants/routes';
 
-const SearchBar = ({ ...props }) => {
+const SearchBar = ({ history, ...props }) => {
+    const [query, setQuery] = useState();
+
+    const searchSubmissionHandler = (e) => {
+        e.preventDefault();
+        if (!query) {
+            return;
+        }
+        const searchParams = new URLSearchParams();
+        searchParams.append('query', query);
+        const queryString = searchParams.toString();
+        history.push(`${ROUTES.search}?${queryString}`);
+    };
+
+    const searchQueryHandler = (e) => {
+        setQuery(e.target.value);
+    };
+
     return (
-        <Styled.Form onSubmit={(e) => e.preventDefault()} {...props}>
+        <Styled.Form onSubmit={searchSubmissionHandler} {...props}>
             <Styled.Wrapper>
-                <Styled.Input type="text" placeholder="Search for a skill..." />
+                <Styled.Input
+                    type="text"
+                    placeholder="Search for a skill..."
+                    onChange={searchQueryHandler}
+                />
                 <Styled.Button>Search</Styled.Button>
                 <Styled.Icon>
                     <svg
@@ -24,4 +48,4 @@ const SearchBar = ({ ...props }) => {
     );
 };
 
-export default SearchBar;
+export default withRouter(SearchBar);

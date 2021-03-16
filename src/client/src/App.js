@@ -6,6 +6,7 @@ import Navigation from './components/Navigation/index';
 import ProtectedRoute from './components/ProtectedRoute/index';
 import Signup from './components/Signup/index';
 import Login from './components/Login/index';
+import SearchResults from './components/SearchResults/index';
 import Profile from './components/Profile/index';
 import Settings from './components/Settings/index';
 import Chat from './components/Chat/index';
@@ -29,6 +30,9 @@ function App() {
                     </Route>
                     <Route path={ROUTES.login} exact>
                         <Login />
+                    </Route>
+                    <Route path={ROUTES.search} exact>
+                        <SearchResults />
                     </Route>
                     <Route path={ROUTES.profile} exact>
                         <Profile />
