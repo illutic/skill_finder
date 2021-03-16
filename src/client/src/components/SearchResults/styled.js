@@ -10,7 +10,7 @@ export const Entries = styled.div`
 `;
 
 export const Entry = styled.div`
-    padding: 15px 0;
+    padding: 35px 0;
     &:not(:last-child) {
         border-bottom: 1px solid ${({ theme }) => theme.colors.subtle};
     }
