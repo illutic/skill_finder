@@ -84,7 +84,7 @@ export const List = styled.ul`
         ${({ active }) => (active ? '0' : 'calc(-100% - 10px)')}
     );
     transition: transform 0.3s ease-in-out;
-    box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
     @media (min-width: ${SCREENS.large}) {
         display: flex;
         justify-content: flex-end;
