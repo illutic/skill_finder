@@ -136,14 +136,14 @@ export const Link = styled(NavLink)`
     }
 `;
 
-export const ActionWrapper = styled.div`
+export const Controls = styled.div`
     padding-bottom: 20px;
     @media (min-width: ${SCREENS.large}) {
         padding-bottom: 32px;
     }
 `;
 
-export const ActionButton = styled.button`
+export const Control = styled.button`
     background: transparent;
     cursor: pointer;
 `;

@@ -65,24 +65,24 @@ const Navigation = () => {
                                 </Styled.Link>
                             </Styled.Item>
                             <Styled.Item>
-                                <Styled.ActionWrapper>
+                                <Styled.Controls>
                                     {isAuth ? (
-                                        <Styled.ActionButton
+                                        <Styled.Control
                                             onClick={() => {
                                                 logOut();
                                                 toggleNavigation();
                                             }}
                                         >
                                             Log out
-                                        </Styled.ActionButton>
+                                        </Styled.Control>
                                     ) : (
-                                        <Styled.ActionButton
+                                        <Styled.Control
                                             onClick={toggleNavigation}
                                         >
                                             <Link to="/login">Log in</Link>
-                                        </Styled.ActionButton>
+                                        </Styled.Control>
                                     )}
-                                </Styled.ActionWrapper>
+                                </Styled.Controls>
                             </Styled.Item>
                         </Styled.List>
                     </Styled.RestrictedRelative>
