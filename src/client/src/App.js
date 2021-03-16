@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import useAuthCheck from './hooks/useAuthCheck';
+import useAuth from './hooks/useAuth';
 import ROUTES from './constants/routes';
 import NavigationContextProvider from './contexts/NavigationContextProvider';
 import Navigation from './components/Navigation/index';
@@ -15,7 +15,7 @@ import Page404 from './components/Page404/index';
 import GlobalStyle from './styles/globalStyle';
 
 function App() {
-    useAuthCheck();
+    useAuth();
 
     return (
         <>

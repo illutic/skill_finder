@@ -17,7 +17,8 @@ const GlobalStyle = createGlobalStyle`
     }
 
     body {
-        line-height: 1.5;
+        overflow-y: scroll;
+        line-height: 1.75;
         font-family: ${({ theme }) => theme.typography.primary};
         font-size: ${({ theme }) => theme.typography.default};
         color: ${({ theme }) => theme.colors.negative};
