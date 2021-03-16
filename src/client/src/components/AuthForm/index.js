@@ -43,28 +43,30 @@ const AuthForm = ({ type, error, ...rest }) => {
                     placeholder="@"
                 />
             </Styled.Group>
-            <Styled.Group>
-                <Styled.Label htmlFor="password">Password</Styled.Label>
-                <Styled.Input
-                    type="password"
-                    id="password"
-                    name="password"
-                    placeholder="*"
-                />
-            </Styled.Group>
-            {type === FORM_TYPES.signup ? (
+            <Styled.Split>
                 <Styled.Group>
-                    <Styled.Label htmlFor="confirmPassword">
-                        Confirm Password
-                    </Styled.Label>
+                    <Styled.Label htmlFor="password">Password</Styled.Label>
                     <Styled.Input
                         type="password"
-                        id="confirmPassword"
-                        name="confirmPassword"
+                        id="password"
+                        name="password"
                         placeholder="*"
                     />
                 </Styled.Group>
-            ) : null}
+                {type === FORM_TYPES.signup ? (
+                    <Styled.Group>
+                        <Styled.Label htmlFor="confirmPassword">
+                            Confirm Password
+                        </Styled.Label>
+                        <Styled.Input
+                            type="password"
+                            id="confirmPassword"
+                            name="confirmPassword"
+                            placeholder="*"
+                        />
+                    </Styled.Group>
+                ) : null}
+            </Styled.Split>
             <Styled.Buttons>
                 <Button type="submit">
                     {type === FORM_TYPES.signup ? 'Sign up' : 'Log in'}

@@ -39,7 +39,7 @@ export const Split = styled.div`
             flex: 1;
         }
         & > *:first-child {
-            margin-right: 30px;
+            margin-right: 50px;
         }
     }
 `;
