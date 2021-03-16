@@ -21,7 +21,7 @@ const AuthForm = ({ type, error, ...rest }) => {
                             placeholder="Aa"
                         />
                     </Styled.Group>
-                    <Styled.Group>
+                    <Styled.Group spaced>
                         <Styled.Label htmlFor="lastName">
                             Last Name
                         </Styled.Label>
@@ -54,7 +54,7 @@ const AuthForm = ({ type, error, ...rest }) => {
                     />
                 </Styled.Group>
                 {type === FORM_TYPES.signup ? (
-                    <Styled.Group>
+                    <Styled.Group spaced>
                         <Styled.Label htmlFor="confirmPassword">
                             Confirm Password
                         </Styled.Label>

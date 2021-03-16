@@ -9,6 +9,9 @@ export const Form = styled.form`
 
 export const Group = styled.div`
     margin-top: 30px;
+    @media (min-width: ${SCREENS.medium}) {
+        margin-left: ${({ spaced }) => (spaced ? '50px' : '0')};
+    }
 `;
 
 export const Label = styled.label`
@@ -37,9 +40,6 @@ export const Split = styled.div`
         flex-direction: row;
         & > * {
             flex: 1;
-        }
-        & > *:first-child {
-            margin-right: 50px;
         }
     }
 `;
