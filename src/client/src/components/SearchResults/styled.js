@@ -6,14 +6,11 @@ export const Wrapper = styled.div`
 `;
 
 export const Entries = styled.div`
-    margin-top: 20px;
+    margin-top: 50px;
 `;
 
 export const Entry = styled.div`
-    padding: 35px 0;
-    &:not(:last-child) {
-        border-bottom: 1px solid ${({ theme }) => theme.colors.subtle};
-    }
+    padding: 25px 0;
     & > a {
         display: inline-block;
     }

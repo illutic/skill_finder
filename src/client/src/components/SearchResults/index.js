@@ -20,7 +20,7 @@ const SearchResults = ({ location }) => {
     return (
         <Container>
             <Styled.Wrapper>
-                <Heading>Results for {query}</Heading>
+                <Heading underlined>Results for {query}</Heading>
                 <Styled.Entries>
                     <Styled.Entry>
                         <Link to="/profile/1">
