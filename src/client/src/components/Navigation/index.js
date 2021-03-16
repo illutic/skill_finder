@@ -20,7 +20,7 @@ const Navigation = () => {
                 <Container>
                     <Styled.Relative>
                         <Styled.Box>
-                            <ProfilePhoto />
+                            <ProfilePhoto src="https://picsum.photos/100/100" />
                             <Styled.Buttons>
                                 <NotificationButton />
                                 <NavigationButton onClick={toggleNavigation} />

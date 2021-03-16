@@ -4,7 +4,7 @@ export const Heading = styled.h2`
     position: relative;
     display: inline-block;
     font-family: ${({ theme }) => theme.typography.secondary};
-    font-size: ${({ theme }) => theme.typography.large};
+    font-size: ${({ theme }) => theme.typography.extraLarge};
     font-weight: 700;
     z-index: 1;
     &::after {
