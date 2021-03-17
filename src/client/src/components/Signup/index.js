@@ -8,7 +8,9 @@ const Signup = () => {
     return (
         <Container>
             <Styled.Wrapper>
-                <Heading underlined>Sign up</Heading>
+                <Heading extra underlined>
+                    Sign up
+                </Heading>
                 <AuthForm type={FORM_TYPES.signup} />
             </Styled.Wrapper>
         </Container>

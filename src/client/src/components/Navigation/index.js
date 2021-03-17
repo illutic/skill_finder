@@ -6,7 +6,6 @@ import { AuthContext } from '../../contexts/AuthContextProvider';
 import * as Styled from './styled';
 import Container from '../Container/index';
 import ProfilePhoto from '../ProfilePhoto/index';
-import NotificationButton from '../NotificationButton/index';
 import NavigationButton from '../NavigationButton/index';
 
 const Navigation = () => {
@@ -22,7 +21,9 @@ const Navigation = () => {
                         <Styled.Box>
                             <ProfilePhoto src="https://picsum.photos/100/100" />
                             <Styled.Buttons>
-                                <NotificationButton />
+                                {isAuth ? (
+                                    <Styled.PositionedNotificationButton />
+                                ) : null}
                                 <NavigationButton onClick={toggleNavigation} />
                             </Styled.Buttons>
                         </Styled.Box>
@@ -65,24 +66,26 @@ const Navigation = () => {
                                 </Styled.Link>
                             </Styled.Item>
                             <Styled.Item>
-                                <Styled.ActionWrapper>
+                                <Styled.Controls>
                                     {isAuth ? (
-                                        <Styled.ActionButton
+                                        <Styled.Control
                                             onClick={() => {
                                                 logOut();
                                                 toggleNavigation();
                                             }}
                                         >
                                             Log out
-                                        </Styled.ActionButton>
+                                        </Styled.Control>
                                     ) : (
-                                        <Styled.ActionButton
-                                            onClick={toggleNavigation}
-                                        >
-                                            <Link to="/login">Log in</Link>
-                                        </Styled.ActionButton>
+                                        <Link to="/login">
+                                            <Styled.Control
+                                                onClick={toggleNavigation}
+                                            >
+                                                Log in
+                                            </Styled.Control>
+                                        </Link>
                                     )}
-                                </Styled.ActionWrapper>
+                                </Styled.Controls>
                             </Styled.Item>
                         </Styled.List>
                     </Styled.RestrictedRelative>

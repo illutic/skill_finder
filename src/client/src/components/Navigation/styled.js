@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
+import NotificationButton from '../NotificationButton/index';
 import SearchBar from '../SearchBar/index';
 import SCREENS from '../../constants/screens';
 
@@ -46,6 +47,15 @@ export const Buttons = styled.div`
     }
 `;
 
+export const PositionedNotificationButton = styled(NotificationButton)`
+    @media (min-width: ${SCREENS.large}) {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+`;
+
 export const PositionedSearchBar = styled(SearchBar)`
     @media (min-width: ${SCREENS.medium}) {
         position: absolute;
@@ -59,10 +69,7 @@ export const PositionedSearchBar = styled(SearchBar)`
 export const Navigation = styled.nav`
     width: 100%;
     border-bottom: 1px solid ${({ theme }) => theme.colors.subtle};
-    margin-bottom: 50px;
-    @media (min-width: ${SCREENS.medium}) {
-        margin-bottom: 75px;
-    }
+    margin-bottom: 75px;
 `;
 
 export const RestrictedRelative = styled.div`
@@ -84,7 +91,7 @@ export const List = styled.ul`
         ${({ active }) => (active ? '0' : 'calc(-100% - 10px)')}
     );
     transition: transform 0.3s ease-in-out;
-    box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
     @media (min-width: ${SCREENS.large}) {
         display: flex;
         justify-content: flex-end;
@@ -132,18 +139,14 @@ export const Link = styled(NavLink)`
         }
     }
     @media (min-width: ${SCREENS.large}) {
-        padding-bottom: 32px;
+        padding-bottom: 21px;
     }
 `;
 
-export const ActionWrapper = styled.div`
-    padding-bottom: 20px;
-    @media (min-width: ${SCREENS.large}) {
-        padding-bottom: 32px;
-    }
-`;
+export const Controls = styled.div``;
 
-export const ActionButton = styled.button`
+export const Control = styled.button`
     background: transparent;
+    padding-bottom: 21px;
     cursor: pointer;
 `;
