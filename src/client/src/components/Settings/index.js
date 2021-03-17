@@ -12,7 +12,7 @@ const Settings = () => {
                 <Styled.Split limited>
                     <Styled.Subsection>
                         <Styled.Subheading>Profile Photo</Styled.Subheading>
-                        <Styled.FileForm>
+                        <Styled.FileForm onSubmit={(e) => e.preventDefault()}>
                             <Styled.Group>
                                 <Styled.Label for="newPhoto">
                                     Upload a photo from your computer
@@ -31,7 +31,7 @@ const Settings = () => {
                     </Styled.Subsection>
                     <Styled.Subsection>
                         <Styled.Subheading>Background Image</Styled.Subheading>
-                        <Styled.FileForm>
+                        <Styled.FileForm onSubmit={(e) => e.preventDefault()}>
                             <Styled.Group>
                                 <Styled.Label for="newBackground">
                                     Upload an image from your computer
@@ -51,7 +51,7 @@ const Settings = () => {
                 </Styled.Split>
                 <Styled.Subsection>
                     <Styled.Subheading>Title</Styled.Subheading>
-                    <Styled.Form>
+                    <Styled.Form onSubmit={(e) => e.preventDefault()}>
                         <Styled.Group>
                             <Styled.Label for="newTitle">
                                 New Title
@@ -69,7 +69,7 @@ const Settings = () => {
                 </Styled.Subsection>
                 <Styled.Subsection>
                     <Styled.Subheading>Description</Styled.Subheading>
-                    <Styled.Form>
+                    <Styled.Form onSubmit={(e) => e.preventDefault()}>
                         <Styled.Group>
                             <Styled.Label for="newDescription">
                                 New Description
@@ -87,7 +87,7 @@ const Settings = () => {
                 </Styled.Subsection>
                 <Styled.Subsection>
                     <Styled.Subheading>Skills</Styled.Subheading>
-                    <Styled.Form>
+                    <Styled.Form onSubmit={(e) => e.preventDefault()}>
                         <Styled.Group>
                             <Styled.Label for="newSkill">
                                 New Skill
@@ -124,7 +124,7 @@ const Settings = () => {
                             m***********n@*****.com
                         </Styled.CurrentEmail>
                     </Styled.Header>
-                    <Styled.Form>
+                    <Styled.Form onSubmit={(e) => e.preventDefault()}>
                         <Styled.Group>
                             <Styled.Split>
                                 <Styled.Side>
@@ -157,7 +157,7 @@ const Settings = () => {
                 </Styled.Subsection>
                 <Styled.Subsection>
                     <Styled.Subheading>Password</Styled.Subheading>
-                    <Styled.Form>
+                    <Styled.Form onSubmit={(e) => e.preventDefault()}>
                         <Styled.Group>
                             <Styled.Split>
                                 <Styled.Side>
@@ -190,7 +190,7 @@ const Settings = () => {
                 </Styled.Subsection>
                 <Styled.Subsection>
                     <Styled.Subheading>Delete Account</Styled.Subheading>
-                    <Styled.Form>
+                    <Styled.Form onSubmit={(e) => e.preventDefault()}>
                         <Styled.Group>
                             <Styled.Split>
                                 <Styled.Side>
