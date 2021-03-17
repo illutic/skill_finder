@@ -69,10 +69,7 @@ export const PositionedSearchBar = styled(SearchBar)`
 export const Navigation = styled.nav`
     width: 100%;
     border-bottom: 1px solid ${({ theme }) => theme.colors.subtle};
-    margin-bottom: 50px;
-    @media (min-width: ${SCREENS.medium}) {
-        margin-bottom: 75px;
-    }
+    margin-bottom: 75px;
 `;
 
 export const RestrictedRelative = styled.div`

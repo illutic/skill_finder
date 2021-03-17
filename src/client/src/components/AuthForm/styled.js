@@ -59,6 +59,7 @@ export const Buttons = styled.div`
 
 export const Choice = styled.div`
     margin-top: 25px;
+    font-size: ${({ theme }) => theme.typography.small};
     color: ${({ theme }) => theme.colors.universal};
     & > * {
         text-decoration: underline;
