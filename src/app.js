@@ -1,14 +1,12 @@
 import express from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
-import http, { Server } from 'http';
-import * as SocketIO from 'socket.io';
+import { Server } from 'socket.io';
 import AuthRoutes from './routes/auth-routes.js';
 import APIRoutes from './routes/api-routes.js';
 import database from './database/database.js';
 import makeAssociations from './database/associations.js';
-import WebSockets from './utils/WebSockets.js';
-
+import { onConnection } from './sockets/onConnection.js';
 // Constants
 /** App Module
  * @module app
@@ -23,7 +21,6 @@ const PORT = process.env.PORT ?? 8081;
 const DIRNAME = process.env.PWD ?? '';
 /** The Express Constructor */
 const app = express();
-
 // Middleware
 /** Use a JSON parser middleware */
 app.use(express.json());
@@ -47,16 +44,16 @@ app.get('*', (req, res) => {
     try {
         makeAssociations();
         await database.sync({
-            force: true,
+            // force: true,
             // alter: true,
             // ^ Uncomment whenever you update the schema
             // eg. when creating a new model, updating an old one.
         });
-        /** const httpServer = */
-        app.listen(PORT, () => console.log(`Server running at port ${PORT}`));
-        // const socketio = new Server(httpServer);
-        // global.io = socketio.listen(httpServer);
-        // global.io.on('connection', WebSockets.connection);
+        const httpServer = app.listen(PORT, () =>
+            console.log(`Server running at port ${PORT}`)
+        );
+        const io = new Server(httpServer);
+        onConnection(io);
     } catch (err) {
         console.log(Error(err));
     }

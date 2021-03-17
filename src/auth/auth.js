@@ -1,5 +1,5 @@
 /** @module auth */
-/** This module authenticates the user based on their cookies.*/
+/** This module authenticates the user based on their cookies. */
 import authOrigin from './authOrigin.js';
 import authGoogle from './authGoogle.js';
 
@@ -7,7 +7,7 @@ import authGoogle from './authGoogle.js';
  *  @param {Request} req - HTTP Request
  * @param {Response} res - HTTP Response
  * @param {Function} next - Function Callback
-*/
+ */
 const auth = async (req, res, next) => {
     const originToken = req.cookies.origin;
     const googleToken = req.cookies.google;

@@ -6,6 +6,8 @@ const router = Router();
 
 router.get('/requests/sent', auth, reqControl.getSentRequests);
 router.get('/requests/received', auth, reqControl.getReceivedRequests);
-router.post('/requests/:toId', auth, reqControl.postRequest);
+router.post('/requests/request', auth, reqControl.postRequest);
+router.post('/requests/accept', auth, reqControl.acceptRequest);
+router.post('/requests/deny', auth, reqControl.denyRequest);
 
 export default router;
