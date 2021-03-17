@@ -12,7 +12,7 @@ import Settings from './components/Settings/index';
 import Chat from './components/Chat/index';
 import Messages from './components/Messages/index';
 import Home from './components/Home/index';
-import Page404 from './components/Page404/index';
+import NotFound from './components/NotFound/index';
 import GlobalStyle from './styles/globalStyle';
 
 function App() {
@@ -50,7 +50,7 @@ function App() {
                         <Home />
                     </Route>
                     <Route>
-                        <Page404 />
+                        <NotFound />
                     </Route>
                 </Switch>
             </Router>

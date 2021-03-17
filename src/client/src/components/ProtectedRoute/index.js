@@ -1,13 +1,13 @@
 import { useContext } from 'react';
 import { Route } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthContextProvider';
-import Protected from '../Protected/index';
+import AuthMessage from '../AuthMessage/index';
 
 const ProtectedRoute = ({ children, ...rest }) => {
     const { isAuth } = useContext(AuthContext);
 
     if (!isAuth) {
-        return <Protected />;
+        return <AuthMessage />;
     }
 
     return <Route {...rest}>{children}</Route>;

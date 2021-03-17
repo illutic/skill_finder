@@ -4,7 +4,7 @@ import Heading from '../Heading/index';
 const Home = () => {
     return (
         <Container>
-            <Heading>Home View</Heading>
+            <Heading underlined>Home View</Heading>
         </Container>
     );
 };

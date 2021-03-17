@@ -4,7 +4,7 @@ import Container from '../Container/index';
 import Heading from '../Heading/index';
 import Button from '../Button/index';
 
-const Protected = () => {
+const AuthMessage = () => {
     return (
         <>
             <Container>
@@ -27,4 +27,4 @@ const Protected = () => {
     );
 };
 
-export default Protected;
+export default AuthMessage;
