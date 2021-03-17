@@ -2,7 +2,9 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import useAuth from './hooks/useAuth';
 import ROUTES from './constants/routes';
 import NavigationContextProvider from './contexts/NavigationContextProvider';
+import LogoutModalContextProvider from './contexts/LogoutModalContextProvider';
 import Navigation from './components/Navigation/index';
+import LogoutModal from './components/LogoutModal/index';
 import ProtectedRoute from './components/ProtectedRoute/index';
 import Signup from './components/Signup/index';
 import Login from './components/Login/index';
@@ -22,7 +24,10 @@ function App() {
         <>
             <Router>
                 <NavigationContextProvider>
-                    <Navigation />
+                    <LogoutModalContextProvider>
+                        <Navigation />
+                        <LogoutModal />
+                    </LogoutModalContextProvider>
                 </NavigationContextProvider>
                 <Switch>
                     <Route path={ROUTES.signup} exact>

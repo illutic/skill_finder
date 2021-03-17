@@ -10,6 +10,9 @@ export const Wrapper = styled.div`
     width: 100%;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.75);
+    opacity: ${({ active }) => (active ? 1 : 0)};
+    visibility: ${({ active }) => (active ? 'visible' : 'hidden')};
+    transition opacity 0.25s ease-in-out;
 `;
 
 export const Window = styled.div`

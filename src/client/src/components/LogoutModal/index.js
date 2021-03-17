@@ -1,19 +1,38 @@
-import Heading from '../Heading';
+import { useContext } from 'react';
+import ReactDOM from 'react-dom';
+import useLogout from '../../hooks/useLogout';
+import { LogoutModalContext } from '../../contexts/LogoutModalContextProvider';
 import * as Styled from './styled';
+import Heading from '../Heading';
 import Button from '../Button/index';
 
 const LogoutModal = () => {
-    return (
-        <Styled.Wrapper>
+    const { isLogoutModalActive, hideLogoutModal } = useContext(
+        LogoutModalContext
+    );
+    const logOut = useLogout();
+
+    return ReactDOM.createPortal(
+        <Styled.Wrapper active={isLogoutModalActive}>
             <Styled.Window>
                 <Heading>Are you leaving?</Heading>
                 <Styled.Message>We are sad to see you go.</Styled.Message>
                 <Styled.Controls>
-                    <Button outlined>Go back</Button>
-                    <Button>Log out</Button>
+                    <Button onClick={hideLogoutModal} outlined>
+                        Go back
+                    </Button>
+                    <Button
+                        onClick={() => {
+                            logOut();
+                            hideLogoutModal();
+                        }}
+                    >
+                        Log out
+                    </Button>
                 </Styled.Controls>
             </Styled.Window>
-        </Styled.Wrapper>
+        </Styled.Wrapper>,
+        document.getElementById('logout-modal')
     );
 };
 
