@@ -91,7 +91,7 @@ export const List = styled.ul`
     transform: translateY(
         ${({ active }) => (active ? '0' : 'calc(-100% - 10px)')}
     );
-    transition: transform 0.3s ease-in-out;
+    transition: transform 0.25s ease-in-out;
     box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
     @media (min-width: ${SCREENS.large}) {
         display: flex;
@@ -140,7 +140,7 @@ export const Link = styled(NavLink)`
         }
     }
     @media (min-width: ${SCREENS.large}) {
-        padding-bottom: 21px;
+        padding-bottom: 24px;
     }
 `;
 
@@ -148,7 +148,7 @@ export const Controls = styled.div``;
 
 export const Control = styled.button`
     background: transparent;
-    padding-bottom: 21px;
+    padding-bottom: 24px;
     cursor: pointer;
 `;
 

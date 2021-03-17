@@ -14,7 +14,7 @@ const Settings = () => {
                         <Styled.Subheading>Profile Photo</Styled.Subheading>
                         <Styled.FileForm onSubmit={(e) => e.preventDefault()}>
                             <Styled.Group>
-                                <Styled.Label for="newPhoto">
+                                <Styled.Label htmlFor="newPhoto">
                                     Upload a photo from your computer
                                 </Styled.Label>
                                 <Styled.File
@@ -33,7 +33,7 @@ const Settings = () => {
                         <Styled.Subheading>Background Image</Styled.Subheading>
                         <Styled.FileForm onSubmit={(e) => e.preventDefault()}>
                             <Styled.Group>
-                                <Styled.Label for="newBackground">
+                                <Styled.Label htmlFor="newBackground">
                                     Upload an image from your computer
                                 </Styled.Label>
                                 <Styled.File
@@ -53,7 +53,7 @@ const Settings = () => {
                     <Styled.Subheading>Title</Styled.Subheading>
                     <Styled.Form onSubmit={(e) => e.preventDefault()}>
                         <Styled.Group>
-                            <Styled.Label for="newTitle">
+                            <Styled.Label htmlFor="newTitle">
                                 New Title
                             </Styled.Label>
                             <Styled.Input
@@ -71,7 +71,7 @@ const Settings = () => {
                     <Styled.Subheading>Description</Styled.Subheading>
                     <Styled.Form onSubmit={(e) => e.preventDefault()}>
                         <Styled.Group>
-                            <Styled.Label for="newDescription">
+                            <Styled.Label htmlFor="newDescription">
                                 New Description
                             </Styled.Label>
                             <Styled.Input
@@ -89,7 +89,7 @@ const Settings = () => {
                     <Styled.Subheading>Skills</Styled.Subheading>
                     <Styled.Form onSubmit={(e) => e.preventDefault()}>
                         <Styled.Group>
-                            <Styled.Label for="newSkill">
+                            <Styled.Label htmlFor="newSkill">
                                 New Skill
                             </Styled.Label>
                             <Styled.Input
@@ -128,7 +128,7 @@ const Settings = () => {
                         <Styled.Group>
                             <Styled.Split>
                                 <Styled.Side>
-                                    <Styled.Label for="newEmail">
+                                    <Styled.Label htmlFor="newEmail">
                                         New Email
                                     </Styled.Label>
                                     <Styled.Input
@@ -139,12 +139,12 @@ const Settings = () => {
                                     />
                                 </Styled.Side>
                                 <Styled.Side>
-                                    <Styled.Label for="confirmPassword">
+                                    <Styled.Label htmlFor="confirmPassword-1">
                                         Confirm Password
                                     </Styled.Label>
                                     <Styled.Input
-                                        name="confirmPassword"
-                                        id="confirmPassword"
+                                        name="confirmPassword-1"
+                                        id="confirmPassword-1"
                                         type="password"
                                         placeholder="*"
                                     />
@@ -161,7 +161,7 @@ const Settings = () => {
                         <Styled.Group>
                             <Styled.Split>
                                 <Styled.Side>
-                                    <Styled.Label for="newPassword">
+                                    <Styled.Label htmlFor="newPassword">
                                         New Password
                                     </Styled.Label>
                                     <Styled.Input
@@ -172,7 +172,7 @@ const Settings = () => {
                                     />
                                 </Styled.Side>
                                 <Styled.Side>
-                                    <Styled.Label for="oldPassword">
+                                    <Styled.Label htmlFor="oldPassword">
                                         Old Password
                                     </Styled.Label>
                                     <Styled.Input
@@ -194,7 +194,7 @@ const Settings = () => {
                         <Styled.Group>
                             <Styled.Split>
                                 <Styled.Side>
-                                    <Styled.Label for="confirm">
+                                    <Styled.Label htmlFor="confirm">
                                         Type "Delete account" to confirm
                                     </Styled.Label>
                                     <Styled.Input
@@ -205,12 +205,12 @@ const Settings = () => {
                                     />
                                 </Styled.Side>
                                 <Styled.Side>
-                                    <Styled.Label for="confirmPassword">
+                                    <Styled.Label htmlFor="confirmPassword-2">
                                         Confirm Password
                                     </Styled.Label>
                                     <Styled.Input
-                                        name="confirmPassword"
-                                        id="confirmPassword"
+                                        name="confirmPassword-2"
+                                        id="confirmPassword-2"
                                         type="password"
                                         placeholder="*"
                                     />
