@@ -7,7 +7,7 @@ export const Heading = styled.h2`
     font-size: ${({ theme, extra }) =>
         extra ? theme.typography.extraLarge : theme.typography.large};
     font-weight: 700;
-    z-index: 1;
+    line-height: 1.25;
     word-break: break-word;
     &::after {
         content: '';

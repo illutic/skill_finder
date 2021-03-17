@@ -4,7 +4,7 @@ import Heading from '../Heading/index';
 const Messages = ({ children }) => {
     return (
         <Container>
-            <Heading>Messages View</Heading>
+            <Heading underlined>Messages View</Heading>
         </Container>
     );
 };

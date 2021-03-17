@@ -1,7 +1,7 @@
 import { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import useLogout from '../../hooks/useLogout';
 import { NavigationContext } from '../../contexts/NavigationContextProvider';
+import { LogoutModalContext } from '../../contexts/LogoutModalContextProvider';
 import { AuthContext } from '../../contexts/AuthContextProvider';
 import * as Styled from './styled';
 import Container from '../Container/index';
@@ -11,8 +11,8 @@ import NavigationButton from '../NavigationButton/index';
 const Navigation = () => {
     const [showNotifications, setShowNotifications] = useState(false);
     const { isActive, toggleNavigation } = useContext(NavigationContext);
+    const { showLogoutModal } = useContext(LogoutModalContext);
     const { isAuth } = useContext(AuthContext);
-    const logOut = useLogout();
 
     const toggleNotificationsPanel = () => {
         setShowNotifications((previous) => !previous);
@@ -89,7 +89,7 @@ const Navigation = () => {
                                     {isAuth ? (
                                         <Styled.Control
                                             onClick={() => {
-                                                logOut();
+                                                showLogoutModal();
                                                 toggleNavigation();
                                                 hideNotificationsPanel();
                                             }}
