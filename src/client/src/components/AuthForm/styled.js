@@ -65,12 +65,3 @@ export const Choice = styled.div`
         text-decoration: underline;
     }
 `;
-
-export const Error = styled.div`
-    margin-top: 25px;
-    padding: 10px 20px;
-    border: 1px solid #f5c6cb;
-    border-radius: 7px;
-    background-color: #f8d7da;
-    color: #721c24;
-`;
