@@ -18,6 +18,10 @@ const Navigation = () => {
         setShowNotifications((previous) => !previous);
     };
 
+    const hideNotificationsPanel = () => {
+        setShowNotifications(false);
+    };
+
     return (
         <Styled.Wrapper>
             <Styled.Bar>
@@ -87,6 +91,7 @@ const Navigation = () => {
                                             onClick={() => {
                                                 logOut();
                                                 toggleNavigation();
+                                                hideNotificationsPanel();
                                             }}
                                         >
                                             Log out
