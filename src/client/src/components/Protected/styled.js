@@ -7,7 +7,7 @@ export const Wrapper = styled.div`
 `;
 
 export const Paragraph = styled.p`
-    margin: 20px 0;
+    margin: 15px 0;
     text-align: center;
 `;
 
