@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import useLogout from '../../hooks/useLogout';
 import { NavigationContext } from '../../contexts/NavigationContextProvider';
@@ -9,9 +9,18 @@ import ProfilePhoto from '../ProfilePhoto/index';
 import NavigationButton from '../NavigationButton/index';
 
 const Navigation = () => {
+    const [showNotifications, setShowNotifications] = useState(false);
     const { isActive, toggleNavigation } = useContext(NavigationContext);
     const { isAuth } = useContext(AuthContext);
     const logOut = useLogout();
+
+    const toggleNotificationsPanel = () => {
+        setShowNotifications((previous) => !previous);
+    };
+
+    const hideNotificationsPanel = () => {
+        setShowNotifications(false);
+    };
 
     return (
         <Styled.Wrapper>
@@ -19,10 +28,20 @@ const Navigation = () => {
                 <Container>
                     <Styled.Relative>
                         <Styled.Box>
-                            <ProfilePhoto src="https://picsum.photos/100/100" />
+                            <Link to="/profile/1">
+                                <ProfilePhoto src="https://picsum.photos/100/100" />
+                            </Link>
                             <Styled.Buttons>
                                 {isAuth ? (
-                                    <Styled.PositionedNotificationButton />
+                                    <Styled.Notifications>
+                                        <Styled.PositionedNotificationButton
+                                            active={showNotifications}
+                                            onClick={toggleNotificationsPanel}
+                                        />
+                                        <Styled.PositionedNotificationsPanel
+                                            active={showNotifications}
+                                        />
+                                    </Styled.Notifications>
                                 ) : null}
                                 <NavigationButton onClick={toggleNavigation} />
                             </Styled.Buttons>
@@ -72,6 +91,7 @@ const Navigation = () => {
                                             onClick={() => {
                                                 logOut();
                                                 toggleNavigation();
+                                                hideNotificationsPanel();
                                             }}
                                         >
                                             Log out

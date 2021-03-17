@@ -10,7 +10,7 @@ export const Entries = styled.div`
 `;
 
 export const Entry = styled.div`
-    padding: 25px 0;
+    padding: 15px 0;
     & > a {
         display: inline-block;
     }
