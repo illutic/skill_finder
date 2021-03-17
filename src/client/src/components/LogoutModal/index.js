@@ -12,9 +12,13 @@ const LogoutModal = () => {
     );
     const logOut = useLogout();
 
+    const stopPropagation = (e) => {
+        e.stopPropagation();
+    };
+
     return ReactDOM.createPortal(
-        <Styled.Wrapper active={isLogoutModalActive}>
-            <Styled.Window>
+        <Styled.Wrapper active={isLogoutModalActive} onClick={hideLogoutModal}>
+            <Styled.Window onClick={stopPropagation}>
                 <Heading>Are you leaving?</Heading>
                 <Styled.Message>We are sad to see you go.</Styled.Message>
                 <Styled.Controls>
