@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import useLogout from '../../hooks/useLogout';
 import { NavigationContext } from '../../contexts/NavigationContextProvider';
@@ -9,9 +9,14 @@ import ProfilePhoto from '../ProfilePhoto/index';
 import NavigationButton from '../NavigationButton/index';
 
 const Navigation = () => {
+    const [showNotifications, setShowNotifications] = useState(false);
     const { isActive, toggleNavigation } = useContext(NavigationContext);
     const { isAuth } = useContext(AuthContext);
     const logOut = useLogout();
+
+    const toggleNotificationsPanel = () => {
+        setShowNotifications((previous) => !previous);
+    };
 
     return (
         <Styled.Wrapper>
@@ -24,7 +29,15 @@ const Navigation = () => {
                             </Link>
                             <Styled.Buttons>
                                 {isAuth ? (
-                                    <Styled.PositionedNotificationButton />
+                                    <Styled.Notifications>
+                                        <Styled.PositionedNotificationButton
+                                            active={showNotifications}
+                                            onClick={toggleNotificationsPanel}
+                                        />
+                                        <Styled.PositionedNotificationsPanel
+                                            active={showNotifications}
+                                        />
+                                    </Styled.Notifications>
                                 ) : null}
                                 <NavigationButton onClick={toggleNavigation} />
                             </Styled.Buttons>
