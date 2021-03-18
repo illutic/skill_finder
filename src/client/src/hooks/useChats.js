@@ -1,10 +1,8 @@
-import { useEffect, useState } from 'react';
-import * as Styled from '../components/Messages/styled.js';
+import { useEffect, useContext } from 'react';
+import { ChatContext } from '../contexts/ChatContextProvider.js';
 
 export const useChats = () => {
-    const [error, setError] = useState(null);
-    const [isLoaded, setIsLoaded] = useState(false);
-    const [chats, setChats] = useState([]);
+    const { setChats, setIsLoaded } = useContext(ChatContext);
     useEffect(() => {
         fetch('http://localhost:8081/api/chats', {
             method: 'GET',
@@ -15,36 +13,11 @@ export const useChats = () => {
             credentials: 'include',
         })
             .then((res) => res.json())
-            .then(
-                (result) => {
-                    setIsLoaded(true);
-                    setChats(result.chats);
-                    console.log(result.chats);
-                },
-                (error) => {
-                    setIsLoaded(true);
-                    setError(error);
-                }
-            );
-    }, [setChats, setError, setIsLoaded]);
-
-    if (chats.error) {
-        return <div>Error: {error.message}</div>;
-    } else if (!isLoaded) {
-        return <div>Loading...</div>;
-    } else {
-        return (
-            <Styled.List>
-                {chats.map((chat) => (
-                    <Styled.List key={chat.id}>
-                        {chat.Users.map((user) => (
-                            <Styled.Item key={user.id}>
-                                {user.firstName}
-                            </Styled.Item>
-                        ))}
-                    </Styled.List>
-                ))}
-            </Styled.List>
-        );
-    }
+            .then((result) => {
+                setChats(result.chats);
+                setIsLoaded(true);
+                console.log(result.chats);
+            });
+    }, [setChats, setIsLoaded]);
 };
+export default useChats;
