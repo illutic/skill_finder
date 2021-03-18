@@ -1,18 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import AuthContextProvider from './contexts/AuthContextProvider';
-import ThemeContextProvider from './contexts/ThemeContextProvider';
 import App from './App';
-import ChatContextProvider from './contexts/ChatContextProvider';
+import AuthContextProvider from './contexts/AuthContextProvider';
+import ChatsContextProvider from './contexts/ChatsContextProvider';
+import ThemeContextProvider from './contexts/ThemeContextProvider';
 
 ReactDOM.render(
     <React.StrictMode>
         <AuthContextProvider>
-            <ThemeContextProvider>
-                <ChatContextProvider>
+            <ChatsContextProvider>
+                <ThemeContextProvider>
                     <App />
-                </ChatContextProvider>
-            </ThemeContextProvider>
+                </ThemeContextProvider>
+            </ChatsContextProvider>
         </AuthContextProvider>
     </React.StrictMode>,
     document.getElementById('root')

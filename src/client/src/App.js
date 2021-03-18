@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import useAuth from './hooks/useAuth';
+import useAuthCheck from './hooks/useAuthCheck';
 import ROUTES from './constants/routes';
 import NavigationContextProvider from './contexts/NavigationContextProvider';
 import LogoutModalContextProvider from './contexts/LogoutModalContextProvider';
@@ -18,7 +18,7 @@ import NotFound from './components/NotFound/index';
 import GlobalStyle from './styles/globalStyle';
 
 function App() {
-    useAuth();
+    useAuthCheck();
     return (
         <>
             <Router>

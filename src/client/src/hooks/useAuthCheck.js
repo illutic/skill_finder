@@ -2,7 +2,7 @@ import { useContext, useEffect } from 'react';
 import { AuthContext } from '../contexts/AuthContextProvider';
 import ENDPOINTS from '../constants/endpoints';
 
-const useAuth = () => {
+const useAuthCheck = () => {
     const { setIsAuth } = useContext(AuthContext);
 
     useEffect(() => {
@@ -16,4 +16,4 @@ const useAuth = () => {
     }, [setIsAuth]);
 };
 
-export default useAuth;
+export default useAuthCheck;
