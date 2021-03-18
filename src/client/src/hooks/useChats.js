@@ -1,11 +1,12 @@
 import { useEffect, useContext } from 'react';
+import ENDPOINTS from '../constants/endpoints.js';
 import { ChatContext } from '../contexts/ChatContextProvider.js';
 
 export const useChats = () => {
     const { setChats, setIsLoaded } = useContext(ChatContext);
     useEffect(() => {
         const getAsync = async () => {
-            fetch('http://localhost:8081/api/chats', {
+            fetch(ENDPOINTS.chats, {
                 method: 'GET',
                 headers: {
                     'Access-Control-Allow-Origin': true,
