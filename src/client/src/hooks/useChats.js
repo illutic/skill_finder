@@ -6,14 +6,7 @@ export const useChats = () => {
     const { setChats, setIsLoaded } = useContext(ChatContext);
     useEffect(() => {
         const getAsync = async () => {
-            fetch(ENDPOINTS.chats, {
-                method: 'GET',
-                headers: {
-                    'Access-Control-Allow-Origin': true,
-                },
-                mode: 'cors',
-                credentials: 'include',
-            })
+            fetch('api/chats')
                 .then((res) => res.json())
                 .then((result) => {
                     setChats(result.chats);
