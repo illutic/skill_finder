@@ -12,6 +12,7 @@ import User from '../models/User.js';
  */
 export const getChatrooms = async (req, res) => {
     try {
+        console.log('fetching...');
         const { userId } = req;
         const chats = await Chat.findAll({
             include: [

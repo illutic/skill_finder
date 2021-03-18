@@ -1,7 +1,9 @@
 import express from 'express';
 import path from 'path';
+import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import { Server } from 'socket.io';
+import corsOptions from './constants/cors-config.js';
 import AuthRoutes from './routes/auth-routes.js';
 import APIRoutes from './routes/api-routes.js';
 import database from './database/database.js';
@@ -30,6 +32,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(DIRNAME, 'client', 'build')));
 
 // Routes
+/** CORS Support */
+app.use(cors(corsOptions));
 /** Authentication API Routes */
 app.use(AuthRoutes);
 /** App API Routes */

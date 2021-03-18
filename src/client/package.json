@@ -13,9 +13,9 @@
         "react-google-login": "^5.2.2",
         "react-router-dom": "^5.2.0",
         "react-scripts": "4.0.3",
+        "react-slick": "^0.28.1",
         "socket.io": "^4.0.0",
         "socket.io-client": "^4.0.0",
-        "react-slick": "^0.28.1",
         "styled-components": "^5.2.1",
         "undefined": "file:..",
         "web-vitals": "^1.1.0"
