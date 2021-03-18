@@ -1,7 +1,7 @@
 /** @module auth */
 /** This module authenticates the user based on their cookies. */
-import authOrigin from './authOrigin.js';
-import authGoogle from './authGoogle.js';
+import authOrigin from './auth-origin.js';
+import authGoogle from './auth-google.js';
 
 /** User authentication from cookies,
  *  @param {Request} req - HTTP Request

@@ -1,7 +1,7 @@
 /** @module auth */
 /** This module authenticates the user based on their cookies. */
-import authOrigin from '../auth/authOrigin.js';
-import authGoogle from '../auth/authGoogle.js';
+import authOrigin from './auth-origin.js';
+import authGoogle from './auth-google.js';
 
 /** User authentication from cookies,
  *  @param {Cookies} cookies - the list of cookies received from the socket header

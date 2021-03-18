@@ -6,7 +6,7 @@ import CLIENT_ID from '../constants/client-id.js';
 
 /** Exchange token to access the Google API and get an email address, and the full name of the user.
  * @param {string} token - An Authentication token
-*/
+ */
 const authGoogle = async (token) => {
     try {
         const client = new OAuth2Client(CLIENT_ID);
