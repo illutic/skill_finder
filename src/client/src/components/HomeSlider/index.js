@@ -1,8 +1,6 @@
-import { useState, useEffect } from 'react';
 import Slider from 'react-slick';
 import { Link } from 'react-router-dom';
 import * as Styled from './styled';
-import SCREENS from '../../constants/screens';
 import mathematicsSource from '../../assets/mathematics.jpg';
 import computerScienceSource from '../../assets/computer-science.jpg';
 import physicsSource from '../../assets/physics.jpg';
@@ -16,36 +14,27 @@ const sliderSettings = {
     autoplay: true,
     infinite: true,
     dots: true,
+    slidesToShow: 3,
+    responsive: [
+        {
+            breakpoint: 1024,
+            settings: {
+                slidesToShow: 2,
+            },
+        },
+        {
+            breakpoint: 750,
+            settings: {
+                slidesToShow: 1,
+            },
+        },
+    ],
 };
 
 const HomeSlider = () => {
-    const [slidesToShow, setSlidesToShow] = useState(1);
-
-    const adjustSliderSettings = () => {
-        const largeMedia = window.matchMedia(`(min-width: ${SCREENS.large})`);
-        if (largeMedia.matches) {
-            setSlidesToShow(3);
-            return;
-        }
-        const mediumMedia = window.matchMedia(`(min-width: ${SCREENS.medium})`);
-        if (mediumMedia.matches) {
-            setSlidesToShow(2);
-            return;
-        }
-        setSlidesToShow(1);
-    };
-
-    useEffect(() => {
-        adjustSliderSettings();
-        window.addEventListener('resize', adjustSliderSettings);
-        return () => {
-            window.removeEventListener('resize', adjustSliderSettings);
-        };
-    }, []);
-
     return (
         <Styled.SliderContainer>
-            <Slider {...sliderSettings} slidesToShow={slidesToShow}>
+            <Slider {...sliderSettings}>
                 <Link to="/search?query=Mathematics">
                     <Styled.Slide>
                         <Styled.Image src={mathematicsSource} />
