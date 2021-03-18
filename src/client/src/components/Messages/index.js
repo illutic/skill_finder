@@ -20,6 +20,7 @@ const Messages = ({ children }) => {
             <Heading underlined> Messages </Heading>
             <Styled.SidebarContainer>
                 <Styled.List>
+                    {useChat}
                     {isAuth ? (
                         isLoaded ? (
                             chats.map((chat) => (

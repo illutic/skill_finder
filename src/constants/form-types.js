@@ -1,4 +1,4 @@
-/** @constant FORM_TYPES*/
+/** @constant FORM_TYPES */
 /**  Specifies the type of form.
  */
 const FORM_TYPES = {
