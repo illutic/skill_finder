@@ -9,6 +9,9 @@ export const Form = styled.form`
 
 export const Group = styled.div`
     margin-top: 30px;
+    @media (min-width: ${SCREENS.medium}) {
+        margin-left: ${({ spaced }) => (spaced ? '50px' : '0')};
+    }
 `;
 
 export const Label = styled.label`
@@ -38,9 +41,6 @@ export const Split = styled.div`
         & > * {
             flex: 1;
         }
-        & > *:first-child {
-            margin-right: 50px;
-        }
     }
 `;
 
@@ -59,17 +59,9 @@ export const Buttons = styled.div`
 
 export const Choice = styled.div`
     margin-top: 25px;
+    font-size: ${({ theme }) => theme.typography.small};
     color: ${({ theme }) => theme.colors.universal};
     & > * {
         text-decoration: underline;
     }
-`;
-
-export const Error = styled.div`
-    margin-top: 25px;
-    padding: 10px 20px;
-    border: 1px solid #f5c6cb;
-    border-radius: 7px;
-    background-color: #f8d7da;
-    color: #721c24;
 `;

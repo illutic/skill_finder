@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
 import * as Styled from './styled';
+import withOriginAuth from '../../hoc/withOriginAuth';
+import FORM_TYPES from '../../constants/formTypes';
 import Button from '../Button/index';
 import GoogleButton from '../../components/GoogleButton/index';
-import FORM_TYPES from '../../constants/formTypes';
-import withOriginAuth from '../../hoc/withOriginAuth';
+import FormError from '../FormError/index';
 
 const AuthForm = ({ type, error, ...rest }) => {
     return (
@@ -21,7 +22,7 @@ const AuthForm = ({ type, error, ...rest }) => {
                             placeholder="Aa"
                         />
                     </Styled.Group>
-                    <Styled.Group>
+                    <Styled.Group spaced>
                         <Styled.Label htmlFor="lastName">
                             Last Name
                         </Styled.Label>
@@ -54,7 +55,7 @@ const AuthForm = ({ type, error, ...rest }) => {
                     />
                 </Styled.Group>
                 {type === FORM_TYPES.signup ? (
-                    <Styled.Group>
+                    <Styled.Group spaced>
                         <Styled.Label htmlFor="confirmPassword">
                             Confirm Password
                         </Styled.Label>
@@ -80,7 +81,7 @@ const AuthForm = ({ type, error, ...rest }) => {
                     <Link to="/signup">I don't have an account</Link>
                 )}
             </Styled.Choice>
-            {error ? <Styled.Error>{error}</Styled.Error> : null}
+            {error ? <FormError>{error}</FormError> : null}
         </Styled.Form>
     );
 };

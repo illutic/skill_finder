@@ -1,6 +1,6 @@
 import Container from '../Container/index';
 import * as Styled from './styled';
-import Subheading from '../Subheading/index';
+import Heading from '../Heading/index';
 import Button from '../Button/index';
 
 const Profile = () => {
@@ -16,7 +16,7 @@ const Profile = () => {
                     </Styled.Background>
                     <Styled.Bar>
                         <Styled.User>
-                            <Subheading>Marcus Wilson</Subheading>
+                            <Heading>Marcus Wilson</Heading>
                             <Styled.UserTitle>Tech Student</Styled.UserTitle>
                         </Styled.User>
                         <Styled.Action>

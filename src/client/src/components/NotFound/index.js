@@ -1,12 +1,12 @@
 import Container from '../Container/index';
 import Heading from '../Heading/index';
 
-const Page404 = () => {
+const NotFound = () => {
     return (
         <Container>
-            <Heading>404</Heading>
+            <Heading>Nothing found.</Heading>
         </Container>
     );
 };
 
-export default Page404;
+export default NotFound;

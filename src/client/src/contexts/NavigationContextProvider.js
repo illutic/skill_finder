@@ -1,6 +1,6 @@
 import { createContext, useState } from 'react';
 
-export const NavigationContext = createContext('');
+export const NavigationContext = createContext();
 
 const NavigationContextProvider = ({ children }) => {
     const [isActive, setIsActive] = useState(false);

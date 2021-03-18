@@ -3,7 +3,7 @@ import * as Styled from './styled';
 const NotificationButton = ({ ...props }) => {
     return (
         <Styled.Button {...props}>
-            <Styled.SVG
+            <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="22.006"
                 height="27.544"
@@ -19,7 +19,7 @@ const NotificationButton = ({ ...props }) => {
                         transform="translate(0 0)"
                     />
                 </g>
-            </Styled.SVG>
+            </svg>
         </Styled.Button>
     );
 };

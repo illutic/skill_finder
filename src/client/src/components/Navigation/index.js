@@ -1,18 +1,26 @@
-import { useContext } from 'react';
+import { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import useLogout from '../../hooks/useLogout';
 import { NavigationContext } from '../../contexts/NavigationContextProvider';
+import { LogoutModalContext } from '../../contexts/LogoutModalContextProvider';
 import { AuthContext } from '../../contexts/AuthContextProvider';
 import * as Styled from './styled';
 import Container from '../Container/index';
 import ProfilePhoto from '../ProfilePhoto/index';
-import NotificationButton from '../NotificationButton/index';
 import NavigationButton from '../NavigationButton/index';
 
 const Navigation = () => {
+    const [showNotifications, setShowNotifications] = useState(false);
     const { isActive, toggleNavigation } = useContext(NavigationContext);
+    const { showLogoutModal } = useContext(LogoutModalContext);
     const { isAuth } = useContext(AuthContext);
-    const logOut = useLogout();
+
+    const toggleNotificationsPanel = () => {
+        setShowNotifications((previous) => !previous);
+    };
+
+    const hideNotificationsPanel = () => {
+        setShowNotifications(false);
+    };
 
     return (
         <Styled.Wrapper>
@@ -20,9 +28,21 @@ const Navigation = () => {
                 <Container>
                     <Styled.Relative>
                         <Styled.Box>
-                            <ProfilePhoto src="https://picsum.photos/100/100" />
+                            <Link to="/profile/1">
+                                <ProfilePhoto src="https://picsum.photos/100/100" />
+                            </Link>
                             <Styled.Buttons>
-                                <NotificationButton />
+                                {isAuth ? (
+                                    <Styled.Notifications>
+                                        <Styled.PositionedNotificationButton
+                                            active={showNotifications}
+                                            onClick={toggleNotificationsPanel}
+                                        />
+                                        <Styled.PositionedNotificationsPanel
+                                            active={showNotifications}
+                                        />
+                                    </Styled.Notifications>
+                                ) : null}
                                 <NavigationButton onClick={toggleNavigation} />
                             </Styled.Buttons>
                         </Styled.Box>
@@ -65,24 +85,27 @@ const Navigation = () => {
                                 </Styled.Link>
                             </Styled.Item>
                             <Styled.Item>
-                                <Styled.ActionWrapper>
+                                <Styled.Controls>
                                     {isAuth ? (
-                                        <Styled.ActionButton
+                                        <Styled.Control
                                             onClick={() => {
-                                                logOut();
+                                                showLogoutModal();
                                                 toggleNavigation();
+                                                hideNotificationsPanel();
                                             }}
                                         >
                                             Log out
-                                        </Styled.ActionButton>
+                                        </Styled.Control>
                                     ) : (
-                                        <Styled.ActionButton
-                                            onClick={toggleNavigation}
-                                        >
-                                            <Link to="/login">Log in</Link>
-                                        </Styled.ActionButton>
+                                        <Link to="/login">
+                                            <Styled.Control
+                                                onClick={toggleNavigation}
+                                            >
+                                                Log in
+                                            </Styled.Control>
+                                        </Link>
                                     )}
-                                </Styled.ActionWrapper>
+                                </Styled.Controls>
                             </Styled.Item>
                         </Styled.List>
                     </Styled.RestrictedRelative>

@@ -4,9 +4,11 @@ export const Heading = styled.h2`
     position: relative;
     display: inline-block;
     font-family: ${({ theme }) => theme.typography.secondary};
-    font-size: ${({ theme }) => theme.typography.extraLarge};
+    font-size: ${({ theme, extra }) =>
+        extra ? theme.typography.extraLarge : theme.typography.large};
     font-weight: 700;
-    z-index: 1;
+    line-height: 1.25;
+    word-break: break-word;
     &::after {
         content: '';
         display: ${({ underlined }) => (underlined ? 'block' : 'none')};

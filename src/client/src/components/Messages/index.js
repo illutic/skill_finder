@@ -22,6 +22,9 @@ const Messages = ({ children }) => {
                 </Styled.Link>
             </Styled.SidebarContainer>
         )
+        //<Container>
+        //    <Heading underlined>Messages View</Heading>
+        //</Container>
     );
 };
 
