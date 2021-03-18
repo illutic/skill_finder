@@ -1,7 +1,8 @@
 /** @module auth-controller */
 /** Provides authentication related callback functions.
  */
-// import Chat from '../models/Chat.js';
+import Chat from '../models/Chat.js';
+import User from '../models/User.js';
 // import Message from '../models/Message.js';
 // import File from '../models/File';
 
@@ -11,9 +12,20 @@
  */
 export const getChatrooms = async (req, res) => {
     try {
-        res.sendStatus(200);
+        const { userId } = req;
+        const chats = await Chat.findAll({
+            include: [
+                {
+                    model: User,
+                    attributes: ['id', 'firstName', 'lastName'],
+                    through: { where: { UserId: userId } },
+                },
+            ],
+        });
+        res.json({ chats });
     } catch (err) {
-        res.status(400).json({ error: err });
+        console.log(err);
+        res.status(400).json(err);
     }
 };
 

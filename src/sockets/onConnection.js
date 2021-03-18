@@ -8,7 +8,12 @@ export const onConnection = (io) => {
         const cookies = cookie.parse(socket.request.headers.cookie);
         const id = await auth(cookies);
         const chats = await Chat.findAll({
-            include: { model: User, where: { id } },
+            include: [
+                {
+                    model: User,
+                    through: { where: { UserId: id } },
+                },
+            ],
         });
         chats.forEach((chat) => {
             socket.join(chat.id);

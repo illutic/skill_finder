@@ -52,7 +52,12 @@ app.get('*', (req, res) => {
         const httpServer = app.listen(PORT, () =>
             console.log(`Server running at port ${PORT}`)
         );
-        const io = new Server(httpServer);
+        const io = new Server(httpServer, {
+            cors: {
+                origin: 'http://localhost:3000',
+                methods: ['GET', 'POST', 'PATCH', 'DELETE'],
+            },
+        });
         onConnection(io);
     } catch (err) {
         console.log(Error(err));
