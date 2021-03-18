@@ -12,7 +12,7 @@ const mainTheme = {
         negative: '#272727',
         positive: '#FFFFFF',
         universal: '#555555',
-        unique: '#EFEFEF',
+        unique: '#DEDEDE',
         subtle: '#CDCDCD',
         attention: '#F65B13',
     },
