@@ -1,20 +1,17 @@
 import { useEffect, useContext } from 'react';
-import ENDPOINTS from '../constants/endpoints.js';
 import { ChatContext } from '../contexts/ChatContextProvider.js';
+import ENDPOINTS from '../constants/endpoints.js';
 
 export const useChats = () => {
     const { setChats, setIsLoaded } = useContext(ChatContext);
     useEffect(() => {
-        const getAsync = async () => {
-            fetch('api/chats')
-                .then((res) => res.json())
-                .then((result) => {
-                    setChats(result.chats);
-                    setIsLoaded(true);
-                    console.log(result.chats);
-                });
+        const getChats = async () => {
+            const response = await fetch(ENDPOINTS.chats);
+            const data = await response.json();
+            setChats(data.chats);
+            setIsLoaded(true);
         };
-        getAsync();
+        getChats();
     }, [setChats, setIsLoaded]);
 };
 export default useChats;

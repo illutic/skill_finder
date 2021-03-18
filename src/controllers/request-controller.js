@@ -5,17 +5,16 @@ import User from '../models/User.js';
 export const postRequest = async (req, res) => {
     try {
         const { userId } = req;
-
-        let request = await Request.findOne({
-            where: { toId: req.body.toId, fromId: userId },
-        });
-
-        if (request === null) {
-            request = await Request.create({
-                toId: req.body.toId,
-                fromId: userId,
-            });
+        const { toId } = req.body;
+        if (!toId) {
+            throw Error('No receiver ID provided.');
         }
+        const request = await Request.findOrCreate({
+            where: {
+                toId,
+                fromId: userId,
+            },
+        });
         res.status(200).json({ request });
     } catch (err) {
         res.status(400).json({ error: err.message });
@@ -25,10 +24,13 @@ export const postRequest = async (req, res) => {
 export const denyRequest = async (req, res) => {
     try {
         const { requestId } = req.body;
+        if (!requestId) {
+            throw Error('No request ID provided.');
+        }
         await Request.destroy({
             where: { id: requestId },
         });
-        res.status(200).json('Request Denied.');
+        res.status(200);
     } catch (err) {
         res.status(400).json({ error: err.message });
     }
@@ -37,6 +39,9 @@ export const denyRequest = async (req, res) => {
 export const acceptRequest = async (req, res) => {
     try {
         const { requestId } = req.body;
+        if (!requestId) {
+            throw Error('No request ID provided.');
+        }
         const request = await Request.findOne({
             where: { id: requestId },
         });
@@ -45,8 +50,8 @@ export const acceptRequest = async (req, res) => {
         const chat = await Chat.create();
         chat.addUser(teacher);
         chat.addUser(student);
-        await request.destroy();
-        res.status(200).json('Request Accepted');
+        request.destroy();
+        res.status(200);
     } catch (err) {
         res.status(400).json({ error: err.message });
     }

@@ -14,7 +14,6 @@ const router = Router();
 
 router.get('/user/:id', getUser);
 router.get('/notifications', auth, getNotifications);
-
 router.patch('/user/email', auth, patchEmail);
 router.patch('/user/password', auth, patchPassword);
 router.patch('/user/title', auth, patchTitle);

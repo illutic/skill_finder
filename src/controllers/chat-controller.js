@@ -3,8 +3,6 @@
  */
 import Chat from '../models/Chat.js';
 import User from '../models/User.js';
-// import Message from '../models/Message.js';
-// import File from '../models/File';
 
 /** Chatrooms by user ID
  * @param {Request} req - HTTP REQUEST
@@ -12,7 +10,6 @@ import User from '../models/User.js';
  */
 export const getChatrooms = async (req, res) => {
     try {
-        console.log('fetching...');
         const { userId } = req;
         const chats = await Chat.findAll({
             include: [
@@ -25,8 +22,7 @@ export const getChatrooms = async (req, res) => {
         });
         res.json({ chats });
     } catch (err) {
-        console.log(err);
-        res.status(400).json(err);
+        res.status(400).json({ error: err.message });
     }
 };
 

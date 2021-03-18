@@ -1,10 +1,9 @@
 import User from '../models/User.js';
 import Photo from '../models/Photo.js';
 import Skill from '../models/Skill.js';
-import Notification from '../models/Notification.js';
+import hashPassword from '../utils/hashPassword.js';
 import checkPassword from '../utils/checkPassword.js';
 import removeToken from '../utils/removeToken.js';
-import hashPassword from '../utils/hashPassword.js';
 
 export const getUser = async (req, res) => {
     try {
@@ -31,18 +30,13 @@ export const getUser = async (req, res) => {
 export const getNotifications = async (req, res) => {
     try {
         const { userId } = req;
-        const notification = await Notification.findAll({
+        const user = await User.findOne({
             where: {
-                UserId: userId,
-            },
-            include: {
-                model: User,
-                attributes: {
-                    exclude: ['email', 'password'],
-                },
+                id: userId,
             },
         });
-        res.status(200).json({ notification });
+        const notifications = await user.getNotifications();
+        res.status(200).json({ notifications });
     } catch (err) {
         res.status(400).json({ error: err.message });
     }
@@ -57,6 +51,9 @@ export const patchEmail = async (req, res) => {
         );
         if (!email || !emailRegExp.test(email)) {
             throw Error('Please enter a valid email address.');
+        }
+        if (!password) {
+            throw Error('No password provided.');
         }
         await checkPassword(userId, password);
         await User.update(
@@ -78,7 +75,11 @@ export const patchEmail = async (req, res) => {
 export const patchPassword = async (req, res) => {
     try {
         const { userId } = req;
-        const { password } = req.body;
+        const { password, confirmPassword } = req.body;
+        if (!password) {
+            throw Error('No old password provided.');
+        }
+        await checkPassword(userId, confirmPassword);
         const user = await User.findOne({
             where: { id: userId },
         });
@@ -95,6 +96,9 @@ export const patchTitle = async (req, res) => {
     try {
         const { userId } = req;
         const { title } = req.body;
+        if (!title) {
+            throw Error('No title provided.');
+        }
         const user = await User.findOne({
             where: { id: userId },
         });
@@ -111,13 +115,16 @@ export const patchDescription = async (req, res) => {
     try {
         const { userId } = req;
         const { description } = req.body;
+        if (!description) {
+            throw Error('No description provided');
+        }
         const user = await User.findOne({
             where: { id: userId },
         });
         await user.update({
             description,
         });
-        res.status(200).json({ message: user });
+        res.status(200).json({ user });
     } catch (err) {
         res.status(400).json({ error: err.message });
     }
