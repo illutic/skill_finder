@@ -6,7 +6,7 @@ import AuthRoutes from './routes/auth-routes.js';
 import APIRoutes from './routes/api-routes.js';
 import database from './database/database.js';
 import makeAssociations from './database/associations.js';
-import { onConnection } from './sockets/onConnection.js';
+import { WebSockets } from './sockets/WebSockets.js';
 
 /** App Module
  * @module app
@@ -57,7 +57,7 @@ app.get('*', (req, res) => {
             console.log(`Server running at port ${PORT}`)
         );
         const io = new Server(httpServer);
-        onConnection(io);
+        WebSockets(io);
     } catch (err) {
         console.log(Error(err));
     }

@@ -3,11 +3,13 @@ import * as Styled from './styled';
 import ProfileThumbnail from '../ProfileThumbnail/index';
 import useChatsSync from '../../hooks/useChatsSync';
 import { ChatsContext } from '../../contexts/ChatsContextProvider';
+import { connect } from '../../constants/socket';
 
 const Messages = () => {
     const [isContactsDrawerActive, setIsContactsDrawerActive] = useState(false);
     const [isFilesDrawerActive, setIsFilesDrawerActive] = useState(false);
     const useChats = useChatsSync();
+    const ConnectedSocket = connect();
     const { chats } = useContext(ChatsContext);
     const stopDrawerPropagation = (e) => {
         e.stopPropagation();
