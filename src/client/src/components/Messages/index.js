@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import * as Styled from './styled';
-import stopPropagation from '../../utils/stopPropagation';
 import ContactsDrawer from '../ContactsDrawer/index';
+import FilesDrawer from '../FilesDrawer/index';
 import Chat from '../Chat/index';
 import { connect } from '../../constants/socket';
 
@@ -40,16 +40,7 @@ const Messages = () => {
                     contactsAction={toggleContactsDrawer}
                     filesAction={toggleFilesDrawer}
                 />
-                <Styled.FilesDrawer
-                    active={isFilesDrawerActive}
-                    onClick={stopPropagation}
-                >
-                    <Styled.Shared>Shared Files</Styled.Shared>
-                    <Styled.Files>
-                        <Styled.File>aliquyam.pdf</Styled.File>
-                        <Styled.File>consetetur.txt</Styled.File>
-                    </Styled.Files>
-                </Styled.FilesDrawer>
+                <FilesDrawer isActive={isFilesDrawerActive} />
             </Styled.Wrapper>
         </Styled.Container>
     );
