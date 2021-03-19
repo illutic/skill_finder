@@ -11,6 +11,7 @@ export const Wrapper = styled.div`
 `;
 
 export const Input = styled.input`
+    max-width: calc(100% - 90px);
     padding: 5px 20px 5px 45px;
     border: 1px solid ${({ theme }) => theme.colors.subtle};
     border-top-left-radius: 100px;
