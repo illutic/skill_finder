@@ -7,6 +7,7 @@ import {
     patchTitle,
     patchDescription,
     deleteAccount,
+    postPhoto,
 } from '../controllers/user-controller.js';
 import auth from '../auth/auth.js';
 
@@ -14,6 +15,7 @@ const router = Router();
 
 router.get('/user/:id', getUser);
 router.get('/notifications', auth, getNotifications);
+router.post('/user/photo/:type', auth, postPhoto);
 router.patch('/user/email', auth, patchEmail);
 router.patch('/user/password', auth, patchPassword);
 router.patch('/user/title', auth, patchTitle);

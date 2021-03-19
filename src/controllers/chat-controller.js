@@ -2,6 +2,7 @@
 /** Provides authentication related callback functions.
  */
 import sequelize from 'sequelize';
+import Photo from '../models/Photo.js';
 import User from '../models/User.js';
 /** Chatrooms by user ID
  * @param {Request} req - HTTP REQUEST
@@ -19,6 +20,12 @@ export const getChatrooms = async (req, res) => {
                     model: User,
                     attributes: { exclude: ['email', 'password'] },
                     where: { id: { [sequelize.Op.not]: userId } },
+                    include: [
+                        {
+                            model: Photo,
+                            attributes: { exclude: ['id', 'UserId'] },
+                        },
+                    ],
                 },
             ],
         });

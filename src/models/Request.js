@@ -1,5 +1,5 @@
 import { Sequelize } from 'sequelize';
-import database from '../database/database.js';
+import database from '../data-access/database.js';
 
 const Request = database.define(
     'Request',

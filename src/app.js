@@ -4,8 +4,8 @@ import cookieParser from 'cookie-parser';
 import { Server } from 'socket.io';
 import AuthRoutes from './routes/auth-routes.js';
 import APIRoutes from './routes/api-routes.js';
-import database from './database/database.js';
-import makeAssociations from './database/associations.js';
+import database from './data-access/database.js';
+import makeAssociations from './data-access/associations.js';
 import { WebSockets } from './sockets/WebSockets.js';
 
 /** App Module
