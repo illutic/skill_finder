@@ -6,7 +6,7 @@ import FORM_TYPES from '../../constants/formTypes';
 
 const Signup = () => {
     return (
-        <Container>
+        <Container spaced>
             <Styled.Wrapper>
                 <Heading extra underlined>
                     Sign up

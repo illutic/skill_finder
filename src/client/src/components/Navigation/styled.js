@@ -70,7 +70,6 @@ export const PositionedSearchBar = styled(SearchBar)`
 export const Navigation = styled.nav`
     width: 100%;
     border-bottom: 1px solid ${({ theme }) => theme.colors.subtle};
-    margin-bottom: 75px;
 `;
 
 export const RestrictedRelative = styled.div`
@@ -92,7 +91,6 @@ export const List = styled.ul`
         ${({ active }) => (active ? '0' : 'calc(-100% - 10px)')}
     );
     transition: transform 0.25s ease-in-out;
-    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
     @media (min-width: ${SCREENS.large}) {
         display: flex;
         justify-content: flex-end;
@@ -110,11 +108,10 @@ export const List = styled.ul`
 export const Item = styled.li`
     padding-top: 20px;
     text-align: center;
-    &:not(:last-child) {
-        border-bottom: 1px ${({ theme }) => theme.colors.subtle} solid;
-    }
+    border-bottom: 1px ${({ theme }) => theme.colors.subtle} solid;
     @media (min-width: ${SCREENS.large}) {
         padding-top: 0;
+        border-bottom: none;
         &:not(:last-child) {
             margin-right: 50px;
             border: none;
@@ -140,7 +137,7 @@ export const Link = styled(NavLink)`
         }
     }
     @media (min-width: ${SCREENS.large}) {
-        padding-bottom: 24px;
+        padding-bottom: 25px;
     }
 `;
 

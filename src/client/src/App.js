@@ -47,9 +47,9 @@ function App() {
                     <ProtectedRoute path={ROUTES.chat} exact>
                         <Chat />
                     </ProtectedRoute>
-                    <ProtectedRoute path={ROUTES.messages} exact>
+                    <Route path={ROUTES.messages} exact>
                         <Messages />
-                    </ProtectedRoute>
+                    </Route>
                     <Route path={ROUTES.home} exact>
                         <Home />
                     </Route>

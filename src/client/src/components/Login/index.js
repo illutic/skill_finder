@@ -6,7 +6,7 @@ import FORM_TYPES from '../../constants/formTypes';
 
 const Login = () => {
     return (
-        <Container>
+        <Container spaced>
             <Styled.Wrapper>
                 <Heading extra underlined>
                     Log in

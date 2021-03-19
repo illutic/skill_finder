@@ -5,7 +5,7 @@ import Button from '../Button/index';
 
 const Profile = () => {
     return (
-        <Container>
+        <Container spaced>
             <Styled.Wrapper>
                 <Styled.Banner>
                     <Styled.Background>

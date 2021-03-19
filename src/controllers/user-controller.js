@@ -4,6 +4,7 @@ import Skill from '../models/Skill.js';
 import hashPassword from '../utils/hashPassword.js';
 import checkPassword from '../utils/checkPassword.js';
 import removeToken from '../utils/removeToken.js';
+import { uploadImg } from '../data-access/storage.js';
 
 export const getUser = async (req, res) => {
     try {
@@ -128,6 +129,36 @@ export const patchDescription = async (req, res) => {
     } catch (err) {
         res.status(400).json({ error: err.message });
     }
+};
+
+export const postPhoto = async (req, res) => {
+    uploadImg(req, res, async (err) => {
+        if (req.fileValidationError) {
+            res.send(req.fileValidationError);
+        } else if (!req.file) {
+            res.send('Please select an image to upload');
+        } else if (err) {
+            res.send(err);
+        } else {
+            const { userId } = req;
+            const imgType = req.params.type;
+            const user = await User.findOne({
+                where: { id: userId },
+            });
+            const oldImg = await user.getPhotos({
+                where: { type: imgType },
+            });
+            if (oldImg.length !== 0) {
+                await oldImg[0].destroy();
+            }
+            const newPhoto = await Photo.create({
+                uri: req.file.path,
+                type: imgType,
+            });
+            await user.addPhoto(newPhoto);
+            res.send('Image Updated');
+        }
+    });
 };
 
 export const deleteAccount = async (req, res) => {

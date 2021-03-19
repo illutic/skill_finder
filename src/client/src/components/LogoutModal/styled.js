@@ -23,8 +23,9 @@ export const Window = styled.div`
     width: calc(100% - 50px);
     max-width: 350px;
     transform: translate(-50%, -50%);
-    background-color: ${({ theme }) => theme.colors.positive};
     border-radius: 15px;
+    border: 1px solid ${({ theme }) => theme.colors.subtle};
+    background-color: ${({ theme }) => theme.colors.positive};
     text-align: center;
     @media (min-width: ${SCREENS.small}) {
         padding: 35px;

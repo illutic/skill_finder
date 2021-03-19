@@ -1,9 +1,7 @@
 import styled from 'styled-components';
 import SCREENS from '../../constants/screens';
 
-export const Wrapper = styled.div`
-    margin-bottom: 75px;
-`;
+export const Wrapper = styled.div``;
 
 export const Entries = styled.div`
     margin-top: 50px;
