@@ -4,8 +4,8 @@ const ROUTES = {
     search: '/search',
     profile: '/profile/:id',
     settings: '/settings',
-    chat: '/chat/:id',
     messages: '/messages',
+    chat: '/messages/:id',
     home: '/',
 };
 

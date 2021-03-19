@@ -9,8 +9,14 @@ const NavigationContextProvider = ({ children }) => {
         setIsActive((previous) => !previous);
     };
 
+    const closeNavigation = () => {
+        setIsActive(false);
+    };
+
     return (
-        <NavigationContext.Provider value={{ isActive, toggleNavigation }}>
+        <NavigationContext.Provider
+            value={{ isActive, toggleNavigation, closeNavigation }}
+        >
             {children}
         </NavigationContext.Provider>
     );

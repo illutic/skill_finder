@@ -1,6 +1,6 @@
 import * as Styled from './styled';
 
-const NotificationButton = ({ ...props }) => {
+const NotificationsButton = ({ ...props }) => {
     return (
         <Styled.Button {...props}>
             <svg
@@ -24,4 +24,4 @@ const NotificationButton = ({ ...props }) => {
     );
 };
 
-export default NotificationButton;
+export default NotificationsButton;

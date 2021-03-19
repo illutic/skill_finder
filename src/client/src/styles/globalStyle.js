@@ -25,6 +25,17 @@ const GlobalStyle = createGlobalStyle`
         color: ${({ theme }) => theme.colors.negative};
     }
 
+    body * {
+        &::-webkit-scrollbar {
+            width: 3px;
+            background: transparent;
+        }
+        &:hover::-webkit-scrollbar-thumb {
+            border-radius: 3px;
+            background-color: ${({ theme }) => theme.colors.subtle};
+        }
+    }
+
     ol, ul {
         list-style: none;
     }

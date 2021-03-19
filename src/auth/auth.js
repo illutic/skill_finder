@@ -16,11 +16,10 @@ const auth = async (req, res, next) => {
         const authCheck = originToken
             ? await authOrigin(originToken)
             : await authGoogle(googleToken);
-        if (!authCheck) {
+        if (!authCheck || authCheck.error) {
             res.status(401).send({ error: 'Invalid token.' });
             return;
         }
-
         req.userId = authCheck.userId;
         next();
     } else {

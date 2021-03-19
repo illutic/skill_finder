@@ -1,17 +1,20 @@
 import styled from 'styled-components';
 
-export const Wrapper = styled.div`
+export const Notifications = styled.div`
+    position: absolute;
+    z-index: 100;
+    top: 50px;
+    right: 0;
+    padding: 5px 20px;
     max-width: 375px;
     max-height: 275px;
     overflow-y: scroll;
-    padding: 5px 20px;
     border: 1px solid ${({ theme }) => theme.colors.subtle};
     border-radius: 15px;
     background-color: ${({ theme }) => theme.colors.positive};
-    &::-webkit-scrollbar {
-        width: 0;
-        background: transparent;
-    }
+    opacity: ${({ active }) => (active ? 1 : 0)};
+    visibility: ${({ active }) => (active ? 'visible' : 'hidden')};
+    transition: opacity 0.25s ease-in-out;
 `;
 
 export const Notification = styled.div`

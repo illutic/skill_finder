@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import useAuthCheck from './hooks/useAuthCheck';
+import useChatsSync from './hooks/useChatsSync';
 import ROUTES from './constants/routes';
 import NavigationContextProvider from './contexts/NavigationContextProvider';
 import LogoutModalContextProvider from './contexts/LogoutModalContextProvider';
@@ -11,7 +12,6 @@ import Login from './components/Login/index';
 import SearchResults from './components/SearchResults/index';
 import Profile from './components/Profile/index';
 import Settings from './components/Settings/index';
-import Chat from './components/Chat/index';
 import Messages from './components/Messages/index';
 import Home from './components/Home/index';
 import NotFound from './components/NotFound/index';
@@ -19,6 +19,8 @@ import GlobalStyle from './styles/globalStyle';
 
 function App() {
     useAuthCheck();
+    useChatsSync();
+
     return (
         <>
             <Router>
@@ -44,12 +46,9 @@ function App() {
                     <ProtectedRoute path={ROUTES.settings} exact>
                         <Settings />
                     </ProtectedRoute>
-                    <ProtectedRoute path={ROUTES.chat} exact>
-                        <Chat />
-                    </ProtectedRoute>
-                    <Route path={ROUTES.messages} exact>
+                    <ProtectedRoute path={ROUTES.messages}>
                         <Messages />
-                    </Route>
+                    </ProtectedRoute>
                     <Route path={ROUTES.home} exact>
                         <Home />
                     </Route>

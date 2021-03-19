@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import * as Styled from './styled';
 import withOriginAuth from '../../hoc/withOriginAuth';
 import FORM_TYPES from '../../constants/formTypes';
+import ROUTES from '../../constants/routes';
 import Button from '../Button/index';
 import GoogleButton from '../../components/GoogleButton/index';
 import FormError from '../FormError/index';
@@ -76,9 +77,9 @@ const AuthForm = ({ type, error, ...rest }) => {
             </Styled.Buttons>
             <Styled.Choice>
                 {type === FORM_TYPES.signup ? (
-                    <Link to="/login">I'm already a member</Link>
+                    <Link to={ROUTES.login}>I'm already a member</Link>
                 ) : (
-                    <Link to="/signup">I don't have an account</Link>
+                    <Link to={ROUTES.signup}>I don't have an account</Link>
                 )}
             </Styled.Choice>
             {error ? <FormError>{error}</FormError> : null}

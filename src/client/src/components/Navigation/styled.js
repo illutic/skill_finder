@@ -1,9 +1,8 @@
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
-import NotificationButton from '../NotificationButton/index';
+
 import SearchBar from '../SearchBar/index';
 import SCREENS from '../../constants/screens';
-import NotificationsPanel from '../NotificationsPanel/index';
 
 export const Wrapper = styled.div`
     position: relative;
@@ -45,15 +44,6 @@ export const Buttons = styled.div`
         @media (min-width: ${SCREENS.large}) {
             display: none;
         }
-    }
-`;
-
-export const PositionedNotificationButton = styled(NotificationButton)`
-    @media (min-width: ${SCREENS.large}) {
-        position: absolute;
-        right: 0;
-        top: 50%;
-        transform: translateY(-50%);
     }
 `;
 
@@ -122,7 +112,7 @@ export const Item = styled.li`
 export const Link = styled(NavLink)`
     display: inline-block;
     position: relative;
-    padding-bottom: 20px;
+    padding-bottom: 25px;
     &.active {
         &::after {
             content: '';
@@ -136,9 +126,6 @@ export const Link = styled(NavLink)`
             background-color: ${({ theme }) => theme.colors.attention};
         }
     }
-    @media (min-width: ${SCREENS.large}) {
-        padding-bottom: 25px;
-    }
 `;
 
 export const Controls = styled.div``;
@@ -147,16 +134,4 @@ export const Control = styled.button`
     background: transparent;
     padding-bottom: 24px;
     cursor: pointer;
-`;
-
-export const Notifications = styled.div``;
-
-export const PositionedNotificationsPanel = styled(NotificationsPanel)`
-    position: absolute;
-    z-index: 100;
-    top: 50px;
-    right: 0;
-    opacity: ${({ active }) => (active ? 1 : 0)};
-    visibility: ${({ active }) => (active ? 'visible' : 'hidden')};
-    transition: opacity 0.25s ease-in-out;
 `;

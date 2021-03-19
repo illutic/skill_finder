@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import SCREENS from '../../constants/screens';
 
 export const Wrapper = styled.div`
     display: flex;

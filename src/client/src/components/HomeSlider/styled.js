@@ -36,7 +36,7 @@ export const Content = styled.div`
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-    font-size: ${({ theme }) => theme.typography.medium};
+    font-size: ${({ theme }) => theme.typography.default};
     color: ${({ theme }) => theme.colors.positive};
     opacity: 0;
     transition: opacity 0.25s ease-in-out;

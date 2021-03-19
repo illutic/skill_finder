@@ -1,19 +1,14 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import * as Styled from './styled';
-import ProfileThumbnail from '../ProfileThumbnail/index';
-import useChatsSync from '../../hooks/useChatsSync';
-import { ChatsContext } from '../../contexts/ChatsContextProvider';
+import ContactsDrawer from '../ContactsDrawer/index';
+import FilesDrawer from '../FilesDrawer/index';
+import Chat from '../Chat/index';
 import { connect } from '../../constants/socket';
 
 const Messages = () => {
     const [isContactsDrawerActive, setIsContactsDrawerActive] = useState(false);
     const [isFilesDrawerActive, setIsFilesDrawerActive] = useState(false);
-    const useChats = useChatsSync();
     const ConnectedSocket = connect();
-    const { chats } = useContext(ChatsContext);
-    const stopDrawerPropagation = (e) => {
-        e.stopPropagation();
-    };
 
     const closeAllDrawers = () => {
         setIsContactsDrawerActive(false);
@@ -40,47 +35,12 @@ const Messages = () => {
     return (
         <Styled.Container>
             <Styled.Wrapper>
-                <Styled.ContactsDrawer
-                    active={isContactsDrawerActive}
-                    onClick={stopDrawerPropagation}
-                >
-                    {chats.map((chat) => (
-                        <ul key={chat.id}>
-                            {chat.Users.map((user) => (
-                                <Styled.Contact key={user.id}>
-                                    <ProfileThumbnail
-                                        name={user.firstName.concat(
-                                            ' ',
-                                            user.lastName
-                                        )}
-                                        title={user.title}
-                                        limited
-                                    />
-                                </Styled.Contact>
-                            ))}
-                        </ul>
-                    ))}
-                </Styled.ContactsDrawer>
-                <Styled.Messages>
-                    <Styled.Controls>
-                        <Styled.Control onClick={toggleContactsDrawer}>
-                            Contacts
-                        </Styled.Control>
-                        <Styled.Control onClick={toggleFilesDrawer}>
-                            Files
-                        </Styled.Control>
-                    </Styled.Controls>
-                </Styled.Messages>
-                <Styled.FilesDrawer
-                    active={isFilesDrawerActive}
-                    onClick={stopDrawerPropagation}
-                >
-                    <Styled.Shared>Shared Files</Styled.Shared>
-                    <Styled.Files>
-                        <Styled.File>aliquyam.pdf</Styled.File>
-                        <Styled.File>consetetur.txt</Styled.File>
-                    </Styled.Files>
-                </Styled.FilesDrawer>
+                <ContactsDrawer isActive={isContactsDrawerActive} />
+                <Chat
+                    contactsAction={toggleContactsDrawer}
+                    filesAction={toggleFilesDrawer}
+                />
+                <FilesDrawer isActive={isFilesDrawerActive} />
             </Styled.Wrapper>
         </Styled.Container>
     );
