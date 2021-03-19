@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { NavigationContext } from '../../contexts/NavigationContextProvider';
 import { LogoutModalContext } from '../../contexts/LogoutModalContextProvider';
@@ -6,33 +6,23 @@ import { AuthContext } from '../../contexts/AuthContextProvider';
 import * as Styled from './styled';
 import stopPropagation from '../../utils/stopPropagation';
 import Container from '../Container/index';
+import NotificationsPanel from '../NotificationsPanel/index';
 import ProfilePhoto from '../ProfilePhoto/index';
 import NavigationButton from '../NavigationButton/index';
 
 const Navigation = () => {
-    const [showNotifications, setShowNotifications] = useState(false);
     const { isActive, toggleNavigation, closeNavigation } = useContext(
         NavigationContext
     );
     const { showLogoutModal } = useContext(LogoutModalContext);
     const { isAuth } = useContext(AuthContext);
 
-    const toggleNotificationsPanel = () => {
-        setShowNotifications((previous) => !previous);
-    };
-
-    const hideNotificationsPanel = () => {
-        setShowNotifications(false);
-    };
-
     useEffect(() => {
-        window.addEventListener('click', hideNotificationsPanel);
         window.addEventListener('click', closeNavigation);
         return () => {
-            window.removeEventListener('click', hideNotificationsPanel);
             window.removeEventListener('click', closeNavigation);
         };
-    }, []);
+    }, [closeNavigation]);
 
     return (
         <Styled.Wrapper onClick={stopPropagation}>
@@ -44,19 +34,7 @@ const Navigation = () => {
                                 <ProfilePhoto src="https://picsum.photos/100/100" />
                             </Link>
                             <Styled.Buttons>
-                                {isAuth ? (
-                                    <Styled.Notifications
-                                        onClick={stopPropagation}
-                                    >
-                                        <Styled.PositionedNotificationButton
-                                            active={showNotifications}
-                                            onClick={toggleNotificationsPanel}
-                                        />
-                                        <Styled.PositionedNotificationsPanel
-                                            active={showNotifications}
-                                        />
-                                    </Styled.Notifications>
-                                ) : null}
+                                {isAuth ? <NotificationsPanel /> : null}
                                 <NavigationButton onClick={toggleNavigation} />
                             </Styled.Buttons>
                         </Styled.Box>
@@ -105,7 +83,6 @@ const Navigation = () => {
                                             onClick={() => {
                                                 showLogoutModal();
                                                 closeNavigation();
-                                                hideNotificationsPanel();
                                             }}
                                         >
                                             Log out
