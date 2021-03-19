@@ -1,11 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import * as Styled from './styled';
 import ProfileThumbnail from '../ProfileThumbnail/index';
+import useChatsSync from '../../hooks/useChatsSync';
+import { ChatsContext } from '../../contexts/ChatsContextProvider';
 
 const Messages = () => {
     const [isContactsDrawerActive, setIsContactsDrawerActive] = useState(false);
     const [isFilesDrawerActive, setIsFilesDrawerActive] = useState(false);
-
+    const useChats = useChatsSync();
+    const { chats } = useContext(ChatsContext);
     const stopDrawerPropagation = (e) => {
         e.stopPropagation();
     };
@@ -39,34 +42,22 @@ const Messages = () => {
                     active={isContactsDrawerActive}
                     onClick={stopDrawerPropagation}
                 >
-                    <Styled.Contact className="active">
-                        <ProfileThumbnail
-                            name="Rich Oswald"
-                            title="Computer Science"
-                            limited
-                        />
-                    </Styled.Contact>
-                    <Styled.Contact>
-                        <ProfileThumbnail
-                            name="Ben Bailey"
-                            title="Mathematics & Computer Science"
-                            limited
-                        />
-                    </Styled.Contact>
-                    <Styled.Contact>
-                        <ProfileThumbnail
-                            name="Ian Jones"
-                            title="Mathematics Passionate"
-                            limited
-                        />
-                    </Styled.Contact>
-                    <Styled.Contact>
-                        <ProfileThumbnail
-                            name="John Doe"
-                            title="Mathematics"
-                            limited
-                        />
-                    </Styled.Contact>
+                    {chats.map((chat) => (
+                        <ul key={chat.id}>
+                            {chat.Users.map((user) => (
+                                <Styled.Contact key={user.id}>
+                                    <ProfileThumbnail
+                                        name={user.firstName.concat(
+                                            ' ',
+                                            user.lastName
+                                        )}
+                                        title={user.title}
+                                        limited
+                                    />
+                                </Styled.Contact>
+                            ))}
+                        </ul>
+                    ))}
                 </Styled.ContactsDrawer>
                 <Styled.Messages>
                     <Styled.Controls>
