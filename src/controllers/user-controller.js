@@ -1,3 +1,4 @@
+import fs from 'fs';
 import User from '../models/User.js';
 import Photo from '../models/Photo.js';
 import Skill from '../models/Skill.js';
@@ -43,6 +44,7 @@ export const getNotifications = async (req, res) => {
     }
 };
 
+/** Update Email */
 export const patchEmail = async (req, res) => {
     try {
         const { userId } = req;
@@ -73,6 +75,7 @@ export const patchEmail = async (req, res) => {
     }
 };
 
+/** Update Password */
 export const patchPassword = async (req, res) => {
     try {
         const { userId } = req;
@@ -93,6 +96,7 @@ export const patchPassword = async (req, res) => {
     }
 };
 
+/** Update Title */
 export const patchTitle = async (req, res) => {
     try {
         const { userId } = req;
@@ -111,7 +115,7 @@ export const patchTitle = async (req, res) => {
         res.status(400).json({ error: err.message });
     }
 };
-
+/** Update Description */
 export const patchDescription = async (req, res) => {
     try {
         const { userId } = req;
@@ -131,6 +135,31 @@ export const patchDescription = async (req, res) => {
     }
 };
 
+/** Get Photo */
+export const getPhoto = async (req, res) => {
+    const { userId } = req;
+    const photo = await Photo.findOne({
+        where: { type: req.params.type, UserId: userId },
+    });
+    res.send(photo);
+};
+
+/** Remove Photo */
+export const removePhoto = async (req, res) => {
+    const { userId } = req;
+    const photo = await Photo.findOne({
+        where: { type: req.params.type, UserId: userId },
+    });
+    if (photo !== null) {
+        await fs.unlink(photo.get('uri'), async () => {
+            await photo.destroy();
+        });
+    }
+
+    res.send(photo);
+};
+
+/** Post/Update Photo */
 export const postPhoto = async (req, res) => {
     uploadImg(req, res, async (err) => {
         if (req.fileValidationError) {
@@ -161,6 +190,7 @@ export const postPhoto = async (req, res) => {
     });
 };
 
+/** Delete Account */
 export const deleteAccount = async (req, res) => {
     try {
         const { userId } = req;

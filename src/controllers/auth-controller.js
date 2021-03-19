@@ -21,7 +21,6 @@ export const signUp = async (req, res) => {
             firstName,
             lastName,
             email,
-            /** We may have to consider hashing the password before sending it to the server. */
             password: await hashPassword(password),
         });
         /** Creates a cookie based on the newly registered user */
@@ -42,7 +41,6 @@ export const signUp = async (req, res) => {
  */
 export const logIn = async (req, res) => {
     try {
-        /** We may have to consider hashing the password before sending it to the server. */
         const { email, password } = req.body;
         validateAuthForm(req.body, FORM_TYPES.login);
         const user = await User.findOne({

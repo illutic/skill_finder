@@ -1,5 +1,4 @@
 import { Sequelize } from 'sequelize';
-import PHOTO_TYPES from '../constants/photo-types.js';
 import database from '../data-access/database.js';
 
 const Photo = database.define(
