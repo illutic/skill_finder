@@ -46,14 +46,15 @@ export const Messages = styled.section`
 `;
 
 export const Message = styled.p`
-    align-self: ${({ primary }) => (primary ? 'flex-start' : 'flex-end')};
+    align-self: ${({ currentUser }) =>
+        currentUser ? 'flex-start' : 'flex-end'};
     padding: 15px;
     max-width: 80%;
     border-radius: 15px;
-    background-color: ${({ theme, primary }) =>
-        primary ? theme.colors.attention : theme.colors.unique};
-    color: ${({ theme, primary }) =>
-        primary ? theme.colors.positive : theme.colors.negative};
+    background-color: ${({ theme, currentUser }) =>
+        currentUser ? theme.colors.attention : theme.colors.unique};
+    color: ${({ theme, currentUser }) =>
+        currentUser ? theme.colors.positive : theme.colors.negative};
     &:not(:first-child) {
         margin-top: 25px;
     }

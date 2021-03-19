@@ -14,24 +14,28 @@ const Chat = ({ contactsAction, filesAction }) => {
                 <Styled.Control onClick={filesAction}>Files</Styled.Control>
             </Styled.Controls>
             <Styled.Messages>
+                {/* Template */}
+                {/* <Styled.Message key={messageId} currentUser>
+                        {messageContent}
+                    </Styled.Message> */}
                 <Styled.Message>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                     Nullam vitae leo ut erat faucibus feugiat. Nam dui ligula,
                     ultrices quis pulvinar at, commodo ac sem.
                 </Styled.Message>
-                <Styled.Message primary>
+                <Styled.Message currentUser>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                 </Styled.Message>
                 <Styled.Message>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                 </Styled.Message>
-                <Styled.Message primary>
+                <Styled.Message currentUser>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                 </Styled.Message>
                 <Styled.Message>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                 </Styled.Message>
-                <Styled.Message primary>
+                <Styled.Message currentUser>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                     Nullam vitae leo ut erat faucibus feugiat. Nam dui ligula,
                     ultrices quis pulvinar at, commodo ac sem.
