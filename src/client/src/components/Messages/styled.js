@@ -98,11 +98,10 @@ export const File = styled.li`
     }
 `;
 
-export const Messages = styled.div`
+export const Content = styled.div`
     flex: 1;
-    @media (min-width: ${SCREENS.large}) {
-        padding: 25px;
-    }
+    display: flex;
+    flex-direction: column;
 `;
 
 export const Controls = styled.div`
@@ -123,4 +122,60 @@ export const Control = styled.button`
     &:first-child {
         border-right: 1px solid ${({ theme }) => theme.colors.subtle};
     }
+`;
+
+export const Messages = styled.section`
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+    max-height: calc(100vh - 100px - 137px - 82px);
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+        width: 3px;
+        background: transparent;
+    }
+    &:hover::-webkit-scrollbar-thumb {
+        border-radius: 3px;
+        background-color: ${({ theme }) => theme.colors.subtle};
+    }
+    @media (min-width: ${SCREENS.medium}) {
+        min-height: calc(100vh - 100px - 78px - 82px);
+    }
+    @media (min-width: ${SCREENS.large}) {
+        min-height: calc(100vh - 100px - 78px);
+    }
+    @media (max-height: 550px) {
+        min-height: calc(100vh);
+    }
+`;
+
+export const Message = styled.p`
+    align-self: ${({ primary }) => (primary ? 'flex-start' : 'flex-end')};
+    padding: 15px;
+    max-width: 80%;
+    border-radius: 15px;
+    background-color: ${({ theme, primary }) =>
+        primary ? theme.colors.attention : theme.colors.unique};
+    color: ${({ theme, primary }) =>
+        primary ? theme.colors.positive : theme.colors.negative};
+    &:not(:first-child) {
+        margin-top: 25px;
+    }
+    @media (min-width: ${SCREENS.medium}) {
+        max-width: 66%;
+    }
+`;
+
+export const Form = styled.form`
+    height: 100px;
+    border-top: 1px solid ${({ theme }) => theme.colors.subtle};
+`;
+
+export const TextArea = styled.textarea`
+    display: block;
+    padding: 25px;
+    width: 100%;
+    height: 100%;
+    resize: none;
+    background-transparent;
 `;

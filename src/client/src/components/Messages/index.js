@@ -73,7 +73,7 @@ const Messages = () => {
                         />
                     </Styled.Contact>
                 </Styled.ContactsDrawer>
-                <Styled.Messages>
+                <Styled.Content>
                     <Styled.Controls>
                         <Styled.Control onClick={toggleContactsDrawer}>
                             Contacts
@@ -82,7 +82,46 @@ const Messages = () => {
                             Files
                         </Styled.Control>
                     </Styled.Controls>
-                </Styled.Messages>
+                    <Styled.Messages>
+                        <Styled.Message>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing
+                            elit. Nullam vitae leo ut erat faucibus feugiat. Nam
+                            dui ligula, ultrices quis pulvinar at, commodo ac
+                            sem.
+                        </Styled.Message>
+                        <Styled.Message primary>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing
+                            elit.
+                        </Styled.Message>
+                        <Styled.Message>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing
+                            elit.
+                        </Styled.Message>
+                        <Styled.Message primary>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing
+                            elit.
+                        </Styled.Message>
+                        <Styled.Message>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing
+                            elit.
+                        </Styled.Message>
+                        <Styled.Message primary>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing
+                            elit. Nullam vitae leo ut erat faucibus feugiat. Nam
+                            dui ligula, ultrices quis pulvinar at, commodo ac
+                            sem.
+                        </Styled.Message>
+                        <Styled.Message>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing
+                            elit. Nullam vitae leo ut erat faucibus feugiat. Nam
+                            dui ligula, ultrices quis pulvinar at, commodo ac
+                            sem.
+                        </Styled.Message>
+                    </Styled.Messages>
+                    <Styled.Form>
+                        <Styled.TextArea type="text" placeholder="Aa" />
+                    </Styled.Form>
+                </Styled.Content>
                 <Styled.FilesDrawer
                     active={isFilesDrawerActive}
                     onClick={stopPropagation}
