@@ -1,5 +1,6 @@
 import { Sequelize } from 'sequelize';
-import database from '../database/database.js';
+import PHOTO_TYPES from '../constants/photo-types.js';
+import database from '../data-access/database.js';
 
 const Photo = database.define(
     'Photo',
@@ -10,6 +11,10 @@ const Photo = database.define(
             primaryKey: true,
         },
         uri: {
+            type: Sequelize.STRING,
+            allowNull: false,
+        },
+        type: {
             type: Sequelize.STRING,
             allowNull: false,
         },
