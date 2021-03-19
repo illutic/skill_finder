@@ -4,7 +4,9 @@ import SCREENS from '../../constants/screens';
 export const Wrapper = styled.div`
     display: flex;
     align-items: center;
-    max-width: 200px;
+    @media (min-width: ${SCREENS.small}) {
+        max-width: none;
+    }
 `;
 
 export const Details = styled.div`
@@ -18,7 +20,7 @@ export const Paragraph = styled.p`
     white-space: nowrap;
     text-overflow: ellipsis;
     @media (min-width: ${SCREENS.small}) {
-        max-width: auto;
+        max-width: none;
     }
 `;
 
