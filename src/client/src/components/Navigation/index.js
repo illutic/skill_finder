@@ -49,7 +49,6 @@ const Navigation = () => {
                             <Styled.Item>
                                 <Styled.Link
                                     to="/"
-                                    activeClassName="active"
                                     onClick={closeNavigation}
                                     exact
                                 >
@@ -59,9 +58,7 @@ const Navigation = () => {
                             <Styled.Item>
                                 <Styled.Link
                                     to="/messages"
-                                    activeClassName="active"
                                     onClick={closeNavigation}
-                                    exact
                                 >
                                     Messages
                                 </Styled.Link>
@@ -69,7 +66,6 @@ const Navigation = () => {
                             <Styled.Item>
                                 <Styled.Link
                                     to="/settings"
-                                    activeClassName="active"
                                     onClick={closeNavigation}
                                     exact
                                 >

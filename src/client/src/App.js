@@ -50,7 +50,7 @@ function App() {
                     <ProtectedRoute path={ROUTES.chat} exact>
                         <Chat />
                     </ProtectedRoute>
-                    <Route path={ROUTES.messages} exact>
+                    <Route path={ROUTES.messages}>
                         <Messages />
                     </Route>
                     <Route path={ROUTES.home} exact>

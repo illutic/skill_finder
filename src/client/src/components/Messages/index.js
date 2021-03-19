@@ -55,21 +55,23 @@ const Messages = () => {
                             </Styled.Contact>
                         ))
                     )}
-                    <Styled.Contact>
+                    {/* Template: */}
+                    {/* <Styled.Contact key={chatId} to="/messages/:chatId" exact>
+                        <ProfileThumbnail
+                            name=fullName
+                            title=title
+                            photo=profilePhotoSource
+                            limited
+                        />
+                    </Styled.Contact> */}
+                    <Styled.Contact to="/messages/2" exact>
                         <ProfileThumbnail
                             name="John Doe"
                             title="Mathematics"
                             limited
                         />
                     </Styled.Contact>
-                    <Styled.Contact className="active">
-                        <ProfileThumbnail
-                            name="John Doe"
-                            title="Mathematics"
-                            limited
-                        />
-                    </Styled.Contact>
-                    <Styled.Contact>
+                    <Styled.Contact to="/messages/3" exact>
                         <ProfileThumbnail
                             name="John Doe"
                             title="Mathematics"

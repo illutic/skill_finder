@@ -3,7 +3,7 @@ import Heading from '../Heading/index';
 
 const NotFound = () => {
     return (
-        <Container>
+        <Container spaced>
             <Heading>Nothing found.</Heading>
         </Container>
     );

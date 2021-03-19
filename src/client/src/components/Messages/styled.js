@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import SendButton from '../SendButton/index';
 import SCREENS from '../../constants/screens';
@@ -41,16 +42,20 @@ export const Drawer = styled.div`
 
 export const ContactsDrawer = styled(Drawer)`
     left: 0;
-    min-width: 260px;
+    min-width: 210px;
     padding: 25px 0px 25px 25px;
+    &::-webkit-scrollbar {
+        width: 0;
+        background: transparent;
+    }
     @media (min-width: ${SCREENS.large}) {
         padding: 25px 0;
-        min-width: 0;
     }
 `;
 
-export const Contact = styled.div`
+export const Contact = styled(NavLink)`
     position: relative;
+    display: block;
     padding-right: 50px;
     &:not(:first-child) {
         margin-top: 25px;
@@ -69,7 +74,7 @@ export const Contact = styled.div`
 `;
 
 export const FilesDrawer = styled(Drawer)`
-    width: 260px;
+    width: 210px;
     @media (min-width: ${SCREENS.large}) {
         border-left: 1px solid ${({ theme }) => theme.colors.subtle};
     }
