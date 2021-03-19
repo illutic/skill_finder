@@ -1,18 +1,15 @@
 import { useState, useEffect, useContext } from 'react';
 import * as Styled from './styled';
-import ProfileThumbnail from '../ProfileThumbnail/index';
-import { ChatsContext } from '../../contexts/ChatsContextProvider';
+import stopPropagation from '../../utils/stopPropagation';
 import { connect } from '../../constants/socket';
+import { ChatsContext } from '../../contexts/ChatsContextProvider';
+import ProfileThumbnail from '../ProfileThumbnail/index';
 
 const Messages = () => {
     const [isContactsDrawerActive, setIsContactsDrawerActive] = useState(false);
     const [isFilesDrawerActive, setIsFilesDrawerActive] = useState(false);
     const ConnectedSocket = connect();
     const { chats } = useContext(ChatsContext);
-
-    const stopDrawerPropagation = (e) => {
-        e.stopPropagation();
-    };
 
     const closeAllDrawers = () => {
         setIsContactsDrawerActive(false);
@@ -41,7 +38,7 @@ const Messages = () => {
             <Styled.Wrapper>
                 <Styled.ContactsDrawer
                     active={isContactsDrawerActive}
-                    onClick={stopDrawerPropagation}
+                    onClick={stopPropagation}
                 >
                     {chats?.map((chat) =>
                         chat.Users?.map((user) => (
@@ -67,7 +64,7 @@ const Messages = () => {
                 </Styled.Messages>
                 <Styled.FilesDrawer
                     active={isFilesDrawerActive}
-                    onClick={stopDrawerPropagation}
+                    onClick={stopPropagation}
                 >
                     <Styled.Shared>Shared Files</Styled.Shared>
                     <Styled.Files>

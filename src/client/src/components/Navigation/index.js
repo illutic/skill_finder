@@ -1,16 +1,19 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { NavigationContext } from '../../contexts/NavigationContextProvider';
 import { LogoutModalContext } from '../../contexts/LogoutModalContextProvider';
 import { AuthContext } from '../../contexts/AuthContextProvider';
 import * as Styled from './styled';
+import stopPropagation from '../../utils/stopPropagation';
 import Container from '../Container/index';
 import ProfilePhoto from '../ProfilePhoto/index';
 import NavigationButton from '../NavigationButton/index';
 
 const Navigation = () => {
     const [showNotifications, setShowNotifications] = useState(false);
-    const { isActive, toggleNavigation } = useContext(NavigationContext);
+    const { isActive, toggleNavigation, closeNavigation } = useContext(
+        NavigationContext
+    );
     const { showLogoutModal } = useContext(LogoutModalContext);
     const { isAuth } = useContext(AuthContext);
 
@@ -22,8 +25,17 @@ const Navigation = () => {
         setShowNotifications(false);
     };
 
+    useEffect(() => {
+        window.addEventListener('click', hideNotificationsPanel);
+        window.addEventListener('click', closeNavigation);
+        return () => {
+            window.removeEventListener('click', hideNotificationsPanel);
+            window.removeEventListener('click', closeNavigation);
+        };
+    }, []);
+
     return (
-        <Styled.Wrapper>
+        <Styled.Wrapper onClick={stopPropagation}>
             <Styled.Bar>
                 <Container>
                     <Styled.Relative>
@@ -33,7 +45,9 @@ const Navigation = () => {
                             </Link>
                             <Styled.Buttons>
                                 {isAuth ? (
-                                    <Styled.Notifications>
+                                    <Styled.Notifications
+                                        onClick={stopPropagation}
+                                    >
                                         <Styled.PositionedNotificationButton
                                             active={showNotifications}
                                             onClick={toggleNotificationsPanel}
@@ -58,7 +72,7 @@ const Navigation = () => {
                                 <Styled.Link
                                     to="/"
                                     activeClassName="active"
-                                    onClick={toggleNavigation}
+                                    onClick={closeNavigation}
                                     exact
                                 >
                                     Home
@@ -68,7 +82,7 @@ const Navigation = () => {
                                 <Styled.Link
                                     to="/messages"
                                     activeClassName="active"
-                                    onClick={toggleNavigation}
+                                    onClick={closeNavigation}
                                     exact
                                 >
                                     Messages
@@ -78,7 +92,7 @@ const Navigation = () => {
                                 <Styled.Link
                                     to="/settings"
                                     activeClassName="active"
-                                    onClick={toggleNavigation}
+                                    onClick={closeNavigation}
                                     exact
                                 >
                                     Settings
@@ -90,7 +104,7 @@ const Navigation = () => {
                                         <Styled.Control
                                             onClick={() => {
                                                 showLogoutModal();
-                                                toggleNavigation();
+                                                closeNavigation();
                                                 hideNotificationsPanel();
                                             }}
                                         >
@@ -99,7 +113,7 @@ const Navigation = () => {
                                     ) : (
                                         <Link to="/login">
                                             <Styled.Control
-                                                onClick={toggleNavigation}
+                                                onClick={closeNavigation}
                                             >
                                                 Log in
                                             </Styled.Control>
