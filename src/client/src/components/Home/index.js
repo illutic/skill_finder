@@ -7,7 +7,7 @@ import CommunitySource from '../../assets/community.jpg';
 
 const Home = () => {
     return (
-        <Container>
+        <Container spaced={true}>
             <Styled.Section>
                 <Heading underlined>Featured skills</Heading>
                 <HomeSlider />

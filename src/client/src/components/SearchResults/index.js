@@ -18,7 +18,7 @@ const SearchResults = ({ location }) => {
     }, [location.search]);
 
     return (
-        <Container>
+        <Container spaced>
             <Styled.Wrapper>
                 <Heading underlined>Results for {query}</Heading>
                 <Styled.Entries>

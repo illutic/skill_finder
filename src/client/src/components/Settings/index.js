@@ -6,7 +6,7 @@ import CloseButton from '../CloseButton/index';
 
 const Settings = () => {
     return (
-        <Container>
+        <Container spaced>
             <Styled.Section>
                 <Heading underlined>Profile Settings</Heading>
                 <Styled.Split limited>

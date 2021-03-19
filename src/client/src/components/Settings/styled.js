@@ -6,9 +6,6 @@ export const Section = styled.section`
     &:not(:first-child) {
         margin-top: 75px;
     }
-    &:last-child {
-        margin-bottom: 75px;
-    }
 `;
 
 export const Subsection = styled.section`

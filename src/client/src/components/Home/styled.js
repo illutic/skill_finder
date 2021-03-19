@@ -9,7 +9,6 @@ export const Section = styled.section`
     }
 
     &:last-child {
-        margin-bottom: 75px;
         margin-right: 25px;
     }
 `;

@@ -2,9 +2,7 @@ import styled from 'styled-components';
 import ProfilePhoto from '../ProfilePhoto/index';
 import SCREENS from '../../constants/screens';
 
-export const Wrapper = styled.div`
-    margin-bottom: 75px;
-`;
+export const Wrapper = styled.div``;
 
 export const Banner = styled.div`
     border: 1px solid ${({ theme }) => theme.colors.subtle};

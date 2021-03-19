@@ -1,7 +1,7 @@
 import * as Styled from './styled';
 
-const Container = ({ children }) => {
-    return <Styled.Container>{children}</Styled.Container>;
+const Container = ({ children, ...rest }) => {
+    return <Styled.Container {...rest}>{children}</Styled.Container>;
 };
 
 export default Container;
