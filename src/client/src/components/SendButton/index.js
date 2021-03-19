@@ -15,18 +15,18 @@ const SendButton = ({ ...props }) => {
                         transform="translate(-5.787 -3)"
                         fill="none"
                         stroke="#F65B13"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="1.5"
                     />
                     <path
                         d="M27,3,18.6,27,13.8,16.2,3,11.4Z"
                         transform="translate(-3 -3)"
                         fill="none"
                         stroke="#F65B13"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="1.5"
                     />
                 </g>
             </svg>
