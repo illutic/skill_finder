@@ -5,9 +5,13 @@ export const Wrapper = styled.div`
     max-height: 275px;
     overflow-y: scroll;
     padding: 5px 20px;
-    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+    border: 1px solid ${({ theme }) => theme.colors.subtle};
     border-radius: 15px;
     background-color: ${({ theme }) => theme.colors.positive};
+    &::-webkit-scrollbar {
+        width: 0;
+        background: transparent;
+    }
 `;
 
 export const Notification = styled.div`
