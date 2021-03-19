@@ -9,6 +9,7 @@ import Container from '../Container/index';
 import NotificationsPanel from '../NotificationsPanel/index';
 import ProfilePhoto from '../ProfilePhoto/index';
 import NavigationButton from '../NavigationButton/index';
+import ROUTES from '../../constants/routes';
 
 const Navigation = () => {
     const { isActive, toggleNavigation, closeNavigation } = useContext(
@@ -48,7 +49,7 @@ const Navigation = () => {
                         <Styled.List active={isActive}>
                             <Styled.Item>
                                 <Styled.Link
-                                    to="/"
+                                    to={ROUTES.home}
                                     onClick={closeNavigation}
                                     exact
                                 >
@@ -57,7 +58,7 @@ const Navigation = () => {
                             </Styled.Item>
                             <Styled.Item>
                                 <Styled.Link
-                                    to="/messages"
+                                    to={ROUTES.messages}
                                     onClick={closeNavigation}
                                 >
                                     Messages
@@ -65,7 +66,7 @@ const Navigation = () => {
                             </Styled.Item>
                             <Styled.Item>
                                 <Styled.Link
-                                    to="/settings"
+                                    to={ROUTES.settings}
                                     onClick={closeNavigation}
                                     exact
                                 >
@@ -84,7 +85,7 @@ const Navigation = () => {
                                             Log out
                                         </Styled.Control>
                                     ) : (
-                                        <Link to="/login">
+                                        <Link to={ROUTES.login}>
                                             <Styled.Control
                                                 onClick={closeNavigation}
                                             >

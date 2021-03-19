@@ -4,6 +4,7 @@ import stopPropagation from '../../utils/stopPropagation';
 import { connect } from '../../constants/socket';
 import { ChatsContext } from '../../contexts/ChatsContextProvider';
 import ProfileThumbnail from '../ProfileThumbnail/index';
+import ROUTES from '../../constants/routes';
 
 const Messages = () => {
     const [isContactsDrawerActive, setIsContactsDrawerActive] = useState(false);
@@ -56,7 +57,7 @@ const Messages = () => {
                         ))
                     )}
                     {/* Template: */}
-                    {/* <Styled.Contact key={chatId} to="/messages/:chatId" exact>
+                    {/* <Styled.Contact key={chatId} to=to={`${ROUTES.messages}/${chatId}`}>
                         <ProfileThumbnail
                             name=fullName
                             title=title
@@ -64,14 +65,14 @@ const Messages = () => {
                             limited
                         />
                     </Styled.Contact> */}
-                    <Styled.Contact to="/messages/2" exact>
+                    <Styled.Contact to={`${ROUTES.messages}/1`}>
                         <ProfileThumbnail
                             name="John Doe"
                             title="Mathematics"
                             limited
                         />
                     </Styled.Contact>
-                    <Styled.Contact to="/messages/3" exact>
+                    <Styled.Contact to={`${ROUTES.messages}/2`}>
                         <ProfileThumbnail
                             name="John Doe"
                             title="Mathematics"
