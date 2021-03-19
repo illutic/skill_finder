@@ -1,16 +1,13 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import * as Styled from './styled';
 import stopPropagation from '../../utils/stopPropagation';
+import ContactsDrawer from '../ContactsDrawer/index';
 import { connect } from '../../constants/socket';
-import { ChatsContext } from '../../contexts/ChatsContextProvider';
-import ProfileThumbnail from '../ProfileThumbnail/index';
-import ROUTES from '../../constants/routes';
 
 const Messages = () => {
     const [isContactsDrawerActive, setIsContactsDrawerActive] = useState(false);
     const [isFilesDrawerActive, setIsFilesDrawerActive] = useState(false);
     const ConnectedSocket = connect();
-    const { chats } = useContext(ChatsContext);
 
     const closeAllDrawers = () => {
         setIsContactsDrawerActive(false);
@@ -41,45 +38,7 @@ const Messages = () => {
     return (
         <Styled.Container>
             <Styled.Wrapper>
-                <Styled.ContactsDrawer
-                    active={isContactsDrawerActive}
-                    onClick={stopPropagation}
-                >
-                    {chats?.map((chat) =>
-                        chat.Users?.map((user) => (
-                            <Styled.Contact key={user.id}>
-                                <ProfileThumbnail
-                                    name={`${user.firstName} ${user.lastName}`}
-                                    title={user.title}
-                                    limited
-                                />
-                            </Styled.Contact>
-                        ))
-                    )}
-                    {/* Template: */}
-                    {/* <Styled.Contact key={chatId} to=to={`${ROUTES.messages}/${chatId}`}>
-                        <ProfileThumbnail
-                            name=fullName
-                            title=title
-                            photo=profilePhotoSource
-                            limited
-                        />
-                    </Styled.Contact> */}
-                    <Styled.Contact to={`${ROUTES.messages}/1`}>
-                        <ProfileThumbnail
-                            name="John Doe"
-                            title="Mathematics"
-                            limited
-                        />
-                    </Styled.Contact>
-                    <Styled.Contact to={`${ROUTES.messages}/2`}>
-                        <ProfileThumbnail
-                            name="John Doe"
-                            title="Mathematics"
-                            limited
-                        />
-                    </Styled.Contact>
-                </Styled.ContactsDrawer>
+                <ContactsDrawer isActive={isContactsDrawerActive} />
                 <Styled.Content>
                     <Styled.Controls>
                         <Styled.Control onClick={toggleContactsDrawer}>
