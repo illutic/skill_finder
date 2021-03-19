@@ -6,10 +6,7 @@ export const storage = multer.diskStorage({
         cb(null, './data-access/uploads');
     },
     filename(req, file, cb) {
-        cb(
-            null,
-            req.params.type + req.userId + path.extname(file.originalname)
-        );
+        cb(null, `${req.params.type + req.userId}.png`);
     },
 });
 

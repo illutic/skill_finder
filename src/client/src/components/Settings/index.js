@@ -3,8 +3,10 @@ import Container from '../Container/index';
 import Heading from '../Heading/index';
 // import FormError from '../FormError/index';
 import CloseButton from '../CloseButton/index';
+import { ChangePhoto } from '../../hooks/changePhoto';
 
 const Settings = () => {
+    const formData = new FormData();
     return (
         <Container spaced>
             <Styled.Section>
@@ -12,13 +14,21 @@ const Settings = () => {
                 <Styled.Split limited>
                     <Styled.Subsection>
                         <Styled.Subheading>Profile Photo</Styled.Subheading>
-                        <Styled.FileForm onSubmit={(e) => e.preventDefault()}>
+                        <Styled.FileForm
+                            onSubmit={(e) => {
+                                formData.append(
+                                    'image',
+                                    document.getElementById('newPhoto').files[0]
+                                );
+                                ChangePhoto(formData, 'profile');
+                            }}
+                        >
                             <Styled.Group>
                                 <Styled.Label htmlFor="newPhoto">
                                     Upload a photo from your computer
                                 </Styled.Label>
                                 <Styled.File
-                                    name="newPhoto"
+                                    name="image"
                                     id="newPhoto"
                                     type="file"
                                 />
@@ -31,13 +41,22 @@ const Settings = () => {
                     </Styled.Subsection>
                     <Styled.Subsection>
                         <Styled.Subheading>Background Image</Styled.Subheading>
-                        <Styled.FileForm onSubmit={(e) => e.preventDefault()}>
+                        <Styled.FileForm
+                            onSubmit={() => {
+                                formData.append(
+                                    'image',
+                                    document.getElementById('newBackground')
+                                        .files[0]
+                                );
+                                ChangePhoto(formData, 'background');
+                            }}
+                        >
                             <Styled.Group>
                                 <Styled.Label htmlFor="newBackground">
                                     Upload an image from your computer
                                 </Styled.Label>
                                 <Styled.File
-                                    name="newBackground"
+                                    name="image"
                                     id="newBackground"
                                     type="file"
                                 />

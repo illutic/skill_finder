@@ -174,17 +174,19 @@ export const postPhoto = async (req, res) => {
             const user = await User.findOne({
                 where: { id: userId },
             });
-            const oldImg = await user.getPhotos({
-                where: { type: imgType },
-            });
-            if (oldImg.length !== 0) {
-                await oldImg[0].destroy();
+            if (user !== null) {
+                const oldImg = await user.getPhotos({
+                    where: { type: imgType },
+                });
+                if (oldImg.length !== 0) {
+                    await oldImg[0].destroy();
+                }
+                const newPhoto = await Photo.create({
+                    uri: req.file.path,
+                    type: imgType,
+                });
+                await user.addPhoto(newPhoto);
             }
-            const newPhoto = await Photo.create({
-                uri: req.file.path,
-                type: imgType,
-            });
-            await user.addPhoto(newPhoto);
             res.send('Image Updated');
         }
     });
