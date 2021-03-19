@@ -4,6 +4,9 @@ import SCREENS from '../../constants/screens';
 export const Container = styled.div`
     max-width: 1180px;
     margin: 0 auto;
+    @media (min-width: ${SCREENS.large}) {
+        padding: 0 50px;
+    }
 `;
 
 export const Wrapper = styled.div`
@@ -32,6 +35,7 @@ export const Drawer = styled.div`
     }
     @media (min-width: ${SCREENS.large}) {
         position: static;
+        z-index: 1;
         transform: translateX(0);
         max-width: 231px;
         transition: none;
@@ -103,22 +107,18 @@ export const Controls = styled.div`
     position: relative;
     display: flex;
     justify-content: space-around;
-    padding: 25px 0;
     border-bottom: 1px solid ${({ theme }) => theme.colors.subtle};
-    &::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 50%;
-        width: 1px;
-        height: 100%;
-        background-color: ${({ theme }) => theme.colors.subtle};
-    }
     @media (min-width: ${SCREENS.large}) {
         display: none;
     }
 `;
 
 export const Control = styled.button`
+    flex: 1;
+    padding: 25px;
     background: transparent;
+    cursor: pointer;
+    &:first-child {
+        border-right: 1px solid ${({ theme }) => theme.colors.subtle};
+    }
 `;
