@@ -16,7 +16,7 @@ const auth = async (cookies) => {
             : await authGoogle(googleToken);
         return authCheck.userId;
     }
-    return null;
+    throw Error('Invalid Token');
 };
 
 export default auth;

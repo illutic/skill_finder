@@ -2,10 +2,12 @@ import { useState, useEffect, useContext } from 'react';
 import * as Styled from './styled';
 import ProfileThumbnail from '../ProfileThumbnail/index';
 import { ChatsContext } from '../../contexts/ChatsContextProvider';
+import { connect } from '../../constants/socket';
 
 const Messages = () => {
     const [isContactsDrawerActive, setIsContactsDrawerActive] = useState(false);
     const [isFilesDrawerActive, setIsFilesDrawerActive] = useState(false);
+    const ConnectedSocket = connect();
     const { chats } = useContext(ChatsContext);
 
     const stopDrawerPropagation = (e) => {
