@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>controllers/chat-controller.js - Documentation</title>
+    <title>constants/photo-types.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">controllers/chat-controller.js</h1>
+    <h1 class="page-title">constants/photo-types.js</h1>
     
 
     
@@ -39,115 +39,15 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/** @module auth-controller */
-/** Provides authentication related callback functions.
+            <pre class="prettyprint source linenums"><code>/** @constant USER_TYPES */
+/** Specifies the type of the user.
  */
-import sequelize from 'sequelize';
-import Photo from '../models/Photo.js';
-import User from '../models/User.js';
-/** Chatrooms by user ID
- * @param {Request} req - HTTP REQUEST
- * @param {Response} res - HTTP RESPONSE
- */
-export const getChatrooms = async (req, res) => {
-    try {
-        const { userId } = req;
-        const user = await User.findOne({
-            where: { id: userId },
-        });
-        const chats = await user.getChats({
-            include: [
-                {
-                    model: User,
-                    attributes: { exclude: ['email', 'password'] },
-                    where: { id: { [sequelize.Op.not]: userId } },
-                    include: [
-                        {
-                            model: Photo,
-                            attributes: { exclude: ['id', 'UserId'] },
-                        },
-                    ],
-                },
-            ],
-        });
-        res.json({ chats });
-    } catch (err) {
-        res.status(400).json({ error: err.message });
-    }
+const PHOTO_TYPES = {
+    profile: 'profile',
+    background: 'background',
 };
 
-/** Messages by chatroom ID
- * Should include user ID somehow
- * @param {Request} req - HTTP REQUEST
- * @param {Response} res - HTTP RESPONSE
- * */
-export const getMessages = async (req, res) => {
-    try {
-        res.sendStatus(200);
-    } catch (err) {
-        res.status(400).json({ error: err });
-    }
-};
-
-/** Files by chatroom ID
- * @param {Request} req - HTTP REQUEST
- * @param {Response} res - HTTP RESPONSE
- * */
-export const getFiles = async (req, res) => {
-    try {
-        res.sendStatus(200);
-    } catch (err) {
-        res.status(400).json({ error: err });
-    }
-};
-
-/** Create a chatroom
- * @param {Request} req - HTTP REQUEST
- * @param {Response} res - HTTP RESPONSE
- * */
-export const createChat = async (req, res) => {
-    try {
-        res.sendStatus(200);
-    } catch (err) {
-        res.status(400).json({ error: err });
-    }
-};
-
-/** Send a message
- * @param {Request} req - HTTP REQUEST
- * @param {Response} res - HTTP RESPONSE
- * */
-export const postMessage = async (req, res) => {
-    try {
-        res.sendStatus(200);
-    } catch (err) {
-        res.status(400).json({ error: err });
-    }
-};
-
-/** Send a file
- * @param {Request} req - HTTP REQUEST
- * @param {Response} res - HTTP RESPONSE
- * */
-export const postFile = async (req, res) => {
-    try {
-        res.sendStatus(200);
-    } catch (err) {
-        res.status(400).json({ error: err });
-    }
-};
-
-/** delete a chatroom
- * @param {Request} req - HTTP REQUEST
- * @param {Response} res - HTTP RESPONSE
- * */
-export const deleteChat = async (req, res) => {
-    try {
-        res.sendStatus(200);
-    } catch (err) {
-        res.status(400).json({ error: err });
-    }
-};
+export default PHOTO_TYPES;
 </code></pre>
         </article>
     </section>
