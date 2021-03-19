@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import * as Styled from './styled';
-import Container from '../Container/index';
 import ProfileThumbnail from '../ProfileThumbnail/index';
 
 const Messages = () => {
@@ -16,16 +15,14 @@ const Messages = () => {
         setIsFilesDrawerActive(false);
     };
 
-    const openContactsDrawer = (e) => {
+    const toggleContactsDrawer = (e) => {
         e.stopPropagation();
-        closeAllDrawers();
-        setIsContactsDrawerActive(true);
+        setIsContactsDrawerActive((previous) => !previous);
     };
 
-    const openFilesDrawer = (e) => {
+    const toggleFilesDrawer = (e) => {
         e.stopPropagation();
-        closeAllDrawers();
-        setIsFilesDrawerActive(true);
+        setIsFilesDrawerActive((previous) => !previous);
     };
 
     useEffect(() => {
@@ -36,7 +33,7 @@ const Messages = () => {
     }, []);
 
     return (
-        <Container>
+        <Styled.Container>
             <Styled.Wrapper>
                 <Styled.ContactsDrawer
                     active={isContactsDrawerActive}
@@ -46,28 +43,41 @@ const Messages = () => {
                         <ProfileThumbnail
                             name="Rich Oswald"
                             title="Computer Science"
+                            limited
                         />
                     </Styled.Contact>
                     <Styled.Contact>
                         <ProfileThumbnail
                             name="Ben Bailey"
                             title="Mathematics & Computer Science"
+                            limited
                         />
                     </Styled.Contact>
                     <Styled.Contact>
                         <ProfileThumbnail
                             name="Ian Jones"
                             title="Mathematics Passionate"
+                            limited
                         />
                     </Styled.Contact>
                     <Styled.Contact>
-                        <ProfileThumbnail name="John Doe" title="Mathematics" />
+                        <ProfileThumbnail
+                            name="John Doe"
+                            title="Mathematics"
+                            limited
+                        />
                     </Styled.Contact>
                 </Styled.ContactsDrawer>
-                <div>
-                    <div onClick={openContactsDrawer}>Contacts</div>
-                    <div onClick={openFilesDrawer}>Files</div>
-                </div>
+                <Styled.Messages>
+                    <Styled.Controls>
+                        <Styled.Control onClick={toggleContactsDrawer}>
+                            Contacts
+                        </Styled.Control>
+                        <Styled.Control onClick={toggleFilesDrawer}>
+                            Files
+                        </Styled.Control>
+                    </Styled.Controls>
+                </Styled.Messages>
                 <Styled.FilesDrawer
                     active={isFilesDrawerActive}
                     onClick={stopDrawerPropagation}
@@ -79,7 +89,7 @@ const Messages = () => {
                     </Styled.Files>
                 </Styled.FilesDrawer>
             </Styled.Wrapper>
-        </Container>
+        </Styled.Container>
     );
 };
 

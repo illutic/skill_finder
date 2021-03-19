@@ -111,6 +111,7 @@ export const Item = styled.li`
     border-bottom: 1px ${({ theme }) => theme.colors.subtle} solid;
     @media (min-width: ${SCREENS.large}) {
         padding-top: 0;
+        border-bottom: none;
         &:not(:last-child) {
             margin-right: 50px;
             border: none;
@@ -136,7 +137,7 @@ export const Link = styled(NavLink)`
         }
     }
     @media (min-width: ${SCREENS.large}) {
-        padding-bottom: 24px;
+        padding-bottom: 25px;
     }
 `;
 

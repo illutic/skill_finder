@@ -4,9 +4,6 @@ import SCREENS from '../../constants/screens';
 export const Wrapper = styled.div`
     display: flex;
     align-items: center;
-    @media (min-width: ${SCREENS.small}) {
-        max-width: none;
-    }
 `;
 
 export const Details = styled.div`
@@ -15,13 +12,10 @@ export const Details = styled.div`
 `;
 
 export const Paragraph = styled.p`
-    max-width: 120px;
+    max-width: ${({ limited }) => (limited ? '100px' : 'none')};
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    @media (min-width: ${SCREENS.small}) {
-        max-width: none;
-    }
 `;
 
 export const Name = styled(Paragraph)`

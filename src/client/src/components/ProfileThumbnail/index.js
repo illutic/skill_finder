@@ -6,8 +6,8 @@ const ProfileThumbnail = ({ name, title, photo, ...rest }) => {
         <Styled.Wrapper {...rest}>
             <ProfilePhoto src={photo} size={50} />
             <Styled.Details>
-                <Styled.Name>{name}</Styled.Name>
-                <Styled.Title>{title}</Styled.Title>
+                <Styled.Name {...rest}>{name}</Styled.Name>
+                <Styled.Title {...rest}>{title}</Styled.Title>
             </Styled.Details>
         </Styled.Wrapper>
     );
