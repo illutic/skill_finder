@@ -26,6 +26,10 @@ const Messages = () => {
         setIsFilesDrawerActive((previous) => !previous);
     };
 
+    const sendMessage = (e) => {
+        e.preventDefault();
+    };
+
     useEffect(() => {
         window.addEventListener('click', closeAllDrawers);
         return () => {
@@ -120,6 +124,7 @@ const Messages = () => {
                     </Styled.Messages>
                     <Styled.Form>
                         <Styled.TextArea type="text" placeholder="Aa" />
+                        <Styled.PositionedSendButton onClick={sendMessage} />
                     </Styled.Form>
                 </Styled.Content>
                 <Styled.FilesDrawer

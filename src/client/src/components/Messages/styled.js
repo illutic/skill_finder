@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import SendButton from '../SendButton/index';
 import SCREENS from '../../constants/screens';
 
 export const Container = styled.div`
@@ -17,7 +18,7 @@ export const Wrapper = styled.div`
 `;
 
 export const Drawer = styled.div`
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     z-index: 1000;
@@ -29,10 +30,6 @@ export const Drawer = styled.div`
     transition: transform 0.25s ease-in-out;
     background: ${({ theme }) => theme.colors.positive};
     border-right: 1px solid ${({ theme }) => theme.colors.subtle};
-    &::-webkit-scrollbar {
-        width: 0;
-        background: transparent;
-    }
     @media (min-width: ${SCREENS.large}) {
         position: static;
         z-index: 1;
@@ -130,14 +127,6 @@ export const Messages = styled.section`
     padding: 25px;
     max-height: calc(100vh - 100px - 137px - 82px);
     overflow-y: scroll;
-    &::-webkit-scrollbar {
-        width: 3px;
-        background: transparent;
-    }
-    &:hover::-webkit-scrollbar-thumb {
-        border-radius: 3px;
-        background-color: ${({ theme }) => theme.colors.subtle};
-    }
     @media (min-width: ${SCREENS.medium}) {
         min-height: calc(100vh - 100px - 78px - 82px);
     }
@@ -167,15 +156,21 @@ export const Message = styled.p`
 `;
 
 export const Form = styled.form`
+    display: flex;
     height: 100px;
     border-top: 1px solid ${({ theme }) => theme.colors.subtle};
 `;
 
 export const TextArea = styled.textarea`
     display: block;
-    padding: 25px;
+    padding: 25px 5px 25px 25px;
     width: 100%;
     height: 100%;
     resize: none;
     background-transparent;
+`;
+
+export const PositionedSendButton = styled(SendButton)`
+    align-self: center;
+    margin-right: 15px;
 `;

@@ -15,14 +15,6 @@ export const Notifications = styled.div`
     opacity: ${({ active }) => (active ? 1 : 0)};
     visibility: ${({ active }) => (active ? 'visible' : 'hidden')};
     transition: opacity 0.25s ease-in-out;
-    &::-webkit-scrollbar {
-        width: 3px;
-        background: transparent;
-    }
-    &:hover::-webkit-scrollbar-thumb {
-        border-radius: 3px;
-        background-color: ${({ theme }) => theme.colors.subtle};
-    }
 `;
 
 export const Notification = styled.div`
