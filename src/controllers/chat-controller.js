@@ -1,9 +1,8 @@
 /** @module auth-controller */
 /** Provides authentication related callback functions.
  */
-import Chat from '../models/Chat.js';
+import sequelize from 'sequelize';
 import User from '../models/User.js';
-
 /** Chatrooms by user ID
  * @param {Request} req - HTTP REQUEST
  * @param {Response} res - HTTP RESPONSE
@@ -11,12 +10,15 @@ import User from '../models/User.js';
 export const getChatrooms = async (req, res) => {
     try {
         const { userId } = req;
-        const chats = await Chat.findAll({
+        const user = await User.findOne({
+            where: { id: userId },
+        });
+        const chats = await user.getChats({
             include: [
                 {
                     model: User,
-                    attributes: ['id', 'firstName', 'lastName'],
-                    through: { where: { UserId: userId } },
+                    attributes: { exclude: ['email', 'password'] },
+                    where: { id: { [sequelize.Op.not]: userId } },
                 },
             ],
         });
