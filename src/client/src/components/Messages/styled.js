@@ -52,11 +52,11 @@ export const Shared = styled.p`
 export const Files = styled.ul`
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
     padding: 25px;
 `;
 
 export const File = styled.li`
-    display: inline-block;
     text-decoration: underline;
     cursor: pointer;
     &:not(:first-child) {

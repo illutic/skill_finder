@@ -14,7 +14,6 @@ const SearchResults = ({ location }) => {
         const searchParams = new URLSearchParams(queryString);
         const decodedQuery = searchParams.get('query');
         setQuery(decodedQuery);
-        // <<< API call >>>
     }, [location.search]);
 
     return (
