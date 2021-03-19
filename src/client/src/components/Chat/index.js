@@ -1,9 +1,11 @@
+import { useEffect } from 'react';
+import { withRouter } from 'react-router-dom';
 import * as Styled from './styled';
 
-const Chat = ({ contactsAction, filesAction }) => {
-    const sendMessage = (e) => {
-        e.preventDefault();
-    };
+const Chat = ({ location, contactsAction, filesAction }) => {
+    useEffect(() => {
+        const currentChatId = location.pathname.split('/').pop();
+    }, [location.pathname]);
 
     return (
         <Styled.Chat>
@@ -48,10 +50,12 @@ const Chat = ({ contactsAction, filesAction }) => {
             </Styled.Messages>
             <Styled.Form>
                 <Styled.TextArea type="text" placeholder="Aa" />
-                <Styled.PositionedSendButton onClick={sendMessage} />
+                <Styled.PositionedSendButton
+                    onClick={(e) => e.preventDefault()}
+                />
             </Styled.Form>
         </Styled.Chat>
     );
 };
 
-export default Chat;
+export default withRouter(Chat);
