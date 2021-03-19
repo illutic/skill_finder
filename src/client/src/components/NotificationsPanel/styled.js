@@ -9,8 +9,12 @@ export const Wrapper = styled.div`
     border-radius: 15px;
     background-color: ${({ theme }) => theme.colors.positive};
     &::-webkit-scrollbar {
-        width: 0;
+        width: 3px;
         background: transparent;
+    }
+    &:hover::-webkit-scrollbar-thumb {
+        border-radius: 3px;
+        background-color: ${({ theme }) => theme.colors.subtle};
     }
 `;
 

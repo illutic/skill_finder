@@ -48,6 +48,7 @@ export const ContactsDrawer = styled(Drawer)`
     padding: 25px 0px 25px 25px;
     @media (min-width: ${SCREENS.large}) {
         padding: 25px 0;
+        min-width: 0;
     }
 `;
 

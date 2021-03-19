@@ -122,7 +122,7 @@ export const Item = styled.li`
 export const Link = styled(NavLink)`
     display: inline-block;
     position: relative;
-    padding-bottom: 20px;
+    padding-bottom: 25px;
     &.active {
         &::after {
             content: '';
@@ -135,9 +135,6 @@ export const Link = styled(NavLink)`
             border-top-left-radius: 10px;
             background-color: ${({ theme }) => theme.colors.attention};
         }
-    }
-    @media (min-width: ${SCREENS.large}) {
-        padding-bottom: 25px;
     }
 `;
 

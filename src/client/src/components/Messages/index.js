@@ -51,6 +51,27 @@ const Messages = () => {
                             </Styled.Contact>
                         ))
                     )}
+                    <Styled.Contact>
+                        <ProfileThumbnail
+                            name="John Doe"
+                            title="Mathematics"
+                            limited
+                        />
+                    </Styled.Contact>
+                    <Styled.Contact className="active">
+                        <ProfileThumbnail
+                            name="John Doe"
+                            title="Mathematics"
+                            limited
+                        />
+                    </Styled.Contact>
+                    <Styled.Contact>
+                        <ProfileThumbnail
+                            name="John Doe"
+                            title="Mathematics"
+                            limited
+                        />
+                    </Styled.Contact>
                 </Styled.ContactsDrawer>
                 <Styled.Messages>
                     <Styled.Controls>
