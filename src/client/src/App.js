@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import useAuthCheck from './hooks/useAuthCheck';
+import useChatsSync from './hooks/useChatsSync';
 import ROUTES from './constants/routes';
 import NavigationContextProvider from './contexts/NavigationContextProvider';
 import LogoutModalContextProvider from './contexts/LogoutModalContextProvider';
@@ -19,6 +20,8 @@ import GlobalStyle from './styles/globalStyle';
 
 function App() {
     useAuthCheck();
+    useChatsSync();
+
     return (
         <>
             <Router>

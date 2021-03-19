@@ -1,14 +1,13 @@
 import { useState, useEffect, useContext } from 'react';
 import * as Styled from './styled';
 import ProfileThumbnail from '../ProfileThumbnail/index';
-import useChatsSync from '../../hooks/useChatsSync';
 import { ChatsContext } from '../../contexts/ChatsContextProvider';
 
 const Messages = () => {
     const [isContactsDrawerActive, setIsContactsDrawerActive] = useState(false);
     const [isFilesDrawerActive, setIsFilesDrawerActive] = useState(false);
-    const useChats = useChatsSync();
     const { chats } = useContext(ChatsContext);
+
     const stopDrawerPropagation = (e) => {
         e.stopPropagation();
     };
@@ -42,22 +41,17 @@ const Messages = () => {
                     active={isContactsDrawerActive}
                     onClick={stopDrawerPropagation}
                 >
-                    {chats.map((chat) => (
-                        <ul key={chat.id}>
-                            {chat.Users.map((user) => (
-                                <Styled.Contact key={user.id}>
-                                    <ProfileThumbnail
-                                        name={user.firstName.concat(
-                                            ' ',
-                                            user.lastName
-                                        )}
-                                        title={user.title}
-                                        limited
-                                    />
-                                </Styled.Contact>
-                            ))}
-                        </ul>
-                    ))}
+                    {chats?.map((chat) =>
+                        chat.Users?.map((user) => (
+                            <Styled.Contact key={user.id}>
+                                <ProfileThumbnail
+                                    name={`${user.firstName} ${user.lastName}`}
+                                    title={user.title}
+                                    limited
+                                />
+                            </Styled.Contact>
+                        ))
+                    )}
                 </Styled.ContactsDrawer>
                 <Styled.Messages>
                     <Styled.Controls>

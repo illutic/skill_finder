@@ -44,6 +44,7 @@ export const Drawer = styled.div`
 
 export const ContactsDrawer = styled(Drawer)`
     left: 0;
+    min-width: 260px;
     padding: 25px 0px 25px 25px;
     @media (min-width: ${SCREENS.large}) {
         padding: 25px 0;
