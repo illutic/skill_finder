@@ -1,12 +1,13 @@
 import io from 'socket.io-client';
 
-let socket;
+export let socket;
 
 export const connect = () => {
     let error = null;
     socket = io({
         autoConnect: false,
     });
+
     socket.on('connect', () => {
         socket.emit('authentication');
         socket.on('unauthorized', (reason) => {

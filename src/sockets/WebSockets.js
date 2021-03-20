@@ -2,6 +2,7 @@ import cookie from 'cookie';
 import auth from '../auth/sockets-auth.js';
 
 export const WebSockets = (io) => {
+    /** Join to room, and allow 1 connection per user using a redis adapter */
     io.on('connection', async (socket) => {
         console.log('Connected ', socket.id);
 
@@ -22,6 +23,7 @@ export const WebSockets = (io) => {
 
         socket.on('join', (chatId) => {
             socket.join(chatId);
+            console.log(socket.rooms);
         });
     });
 };
