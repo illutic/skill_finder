@@ -161,35 +161,33 @@ export const removePhoto = async (req, res) => {
 
 /** Post / Update Photo */
 export const postPhoto = async (req, res) => {
-    uploadImage(req, res, async (err) => {
-        if (req.fileValidationError) {
-            res.status(400).json({ error: req.fileValidationError });
-        } else if (!req.file) {
-            res.status(400).json({
-                error: 'Please select an image to upload.',
-            });
-        } else if (err) {
-            res.status(400).json(err);
-        } else {
+    uploadImage(req, res, async () => {
+        try {
+            if (req.fileValidationError) {
+                throw Error(req.fileValidationError);
+            }
+            if (!req.file) {
+                throw Error('Please select an image to upload.');
+            }
             const { userId } = req;
             const imgType = req.params.type;
             const user = await User.findOne({
                 where: { id: userId },
             });
-            if (user !== null) {
-                const oldImg = await user.getPhotos({
-                    where: { type: imgType },
-                });
-                if (oldImg.length !== 0) {
-                    await oldImg[0].destroy();
-                }
-                const newPhoto = await Photo.create({
-                    uri: req.file.path,
-                    type: imgType,
-                });
-                await user.addPhoto(newPhoto);
+            const oldImg = await user.getPhotos({
+                where: { type: imgType },
+            });
+            if (oldImg.length) {
+                await oldImg[0].destroy();
             }
-            res.send('Image Updated');
+            const newPhoto = await Photo.create({
+                uri: req.file.path,
+                type: imgType,
+            });
+            await user.addPhoto(newPhoto);
+            res.sendStatus(200);
+        } catch (err) {
+            res.status(400).json({ err });
         }
     });
 };
