@@ -21,6 +21,7 @@ const Settings = () => {
                                     document.getElementById('newPhoto').files[0]
                                 );
                                 ChangePhoto(formData, 'profile');
+                                e.preventDefault();
                             }}
                         >
                             <Styled.Group>
@@ -42,13 +43,14 @@ const Settings = () => {
                     <Styled.Subsection>
                         <Styled.Subheading>Background Image</Styled.Subheading>
                         <Styled.FileForm
-                            onSubmit={() => {
+                            onSubmit={(e) => {
                                 formData.append(
                                     'image',
                                     document.getElementById('newBackground')
                                         .files[0]
                                 );
                                 ChangePhoto(formData, 'background');
+                                e.preventDefault();
                             }}
                         >
                             <Styled.Group>

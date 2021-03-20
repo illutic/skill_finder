@@ -1,10 +1,9 @@
-import react, { useEffect, useState } from 'react';
 import ENDPOINTS from '../constants/endpoints';
 
-export const ChangePhoto = (formData, photoType) => {
+export const ChangePhoto = async (formData, photoType) => {
     const requestOptions = {
         method: 'POST',
         body: formData,
     };
-    fetch(ENDPOINTS.photo + photoType, requestOptions);
+    return await fetch(ENDPOINTS.photo + photoType, requestOptions);
 };
