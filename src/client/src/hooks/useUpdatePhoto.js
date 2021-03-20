@@ -24,6 +24,7 @@ const useUpdatePhoto = () => {
             setSuccess('Image updated.');
             setError('');
         } catch (err) {
+            setSuccess('');
             setError(err.error);
         }
     };
