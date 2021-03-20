@@ -179,7 +179,10 @@ export const postPhoto = async (req, res) => {
                     where: { type: imgType },
                 });
                 if (oldImg.length !== 0) {
-                    await oldImg[0].destroy();
+                    const uri = await oldImg[0].get('uri');
+                    fs.unlink(uri, () => {
+                        oldImg[0].destroy();
+                    });
                 }
                 const newPhoto = await Photo.create({
                     uri: req.file.path,

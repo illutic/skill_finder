@@ -15,10 +15,6 @@ export const connect = () => {
             error = reason.message;
             socket.disconnect();
         });
-        socket.on('authorized', () => {
-            socket.emit('join', 'chatId');
-            console.log('Connected');
-        });
     });
     socket.on('disconnect', (reason) => {
         console.log(`Disconnected: ${error || reason}`);

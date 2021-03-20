@@ -13,7 +13,8 @@
         "pg": "^8.5.1",
         "pg-hstore": "^2.3.3",
         "sequelize": "^6.5.0",
-        "socket.io": "^4.0.0"
+        "socket.io": "^4.0.0",
+        "uuid": "^8.3.2"
     },
     "devDependencies": {
         "concurrently": "^6.0.0",

@@ -25,6 +25,11 @@ export const WebSockets = (io) => {
             socket.join(chatId);
             console.log(socket.rooms);
         });
+
+        socket.on('message', (args) => {
+            console.log(socket.rooms);
+            console.log(args);
+        });
     });
 };
 export default WebSockets;

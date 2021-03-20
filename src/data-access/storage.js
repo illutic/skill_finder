@@ -1,12 +1,13 @@
 import multer from 'multer';
 import path from 'path';
+import { v4 } from 'uuid';
 
 export const storage = multer.diskStorage({
     destination(req, file, cb) {
         cb(null, './data-access/uploads');
     },
     filename(req, file, cb) {
-        cb(null, `${req.params.type + req.userId}.png`);
+        cb(null, `${v4() + path.extname(file.originalname)}`);
     },
 });
 
