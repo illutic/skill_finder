@@ -7,6 +7,7 @@ import ENDPOINTS from '../constants/endpoints';
 
 const useOriginAuth = (type) => {
     const history = useHistory();
+    const [success, setSuccess] = useState();
     const [error, setError] = useState();
     const { setIsAuth } = useContext(AuthContext);
 
@@ -27,14 +28,18 @@ const useOriginAuth = (type) => {
                 const err = await response.json();
                 throw err;
             }
+            setError(null);
+            setSuccess('Success! Redirecting...');
             setIsAuth(true);
-            history.push('/');
+            setTimeout(() => {
+                history.push('/');
+            }, 1000);
         } catch (err) {
             setError(err.error);
         }
     };
 
-    return { originAuth, error };
+    return { originAuth, success, error };
 };
 
 export default useOriginAuth;

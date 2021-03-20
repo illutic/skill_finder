@@ -22,9 +22,9 @@ const useUpdatePhoto = () => {
             }
             form.reset();
             setSuccess('Image updated.');
-            setError('');
+            setError(null);
         } catch (err) {
-            setSuccess('');
+            setSuccess(null);
             setError(err);
         }
     };
