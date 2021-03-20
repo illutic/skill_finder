@@ -1,25 +1,18 @@
-import { useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import * as Styled from './styled';
-import { connect, socket } from '../../constants/socket.js';
 
 const Chat = ({ location, contactsAction, filesAction }) => {
-    connect();
-    const connectedSocket = socket.connect();
-    /** Connect to socket
-     * Join Chatroom
-     * Emit messages
-     *
-     * Message received on server
-     * Message saved in database
-     */
-    const sendMessage = (e) => {
-        e.preventDefault();
-    };
+    const messagesRef = useRef();
 
     useEffect(() => {
         const currentChatId = location.pathname.split('/').pop();
     }, [location.pathname]);
+
+    useEffect(() => {
+        const messages = messagesRef.current;
+        messages.scrollTop = messages.scrollHeight;
+    }, []);
 
     return (
         <Styled.Chat>
@@ -29,7 +22,7 @@ const Chat = ({ location, contactsAction, filesAction }) => {
                 </Styled.Control>
                 <Styled.Control onClick={filesAction}>Files</Styled.Control>
             </Styled.Controls>
-            <Styled.Messages>
+            <Styled.Messages ref={messagesRef}>
                 {/* Template */}
                 {/* <Styled.Message key={messageId} currentUser>
                         {messageContent}
