@@ -46,7 +46,9 @@ const Settings = () => {
                             </Styled.FileSubmit>
                         </Styled.FileForm>
                         {profilePhotoSuccess ? (
-                            <FormSuccess>{profilePhotoSuccess}</FormSuccess>
+                            <FormSuccess spaced>
+                                {profilePhotoSuccess}
+                            </FormSuccess>
                         ) : null}
                         {profilePhotoError ? (
                             <FormError spaced>{profilePhotoError}</FormError>
@@ -74,7 +76,9 @@ const Settings = () => {
                             </Styled.FileSubmit>
                         </Styled.FileForm>
                         {backgroundPhotoSuccess ? (
-                            <FormSuccess>{backgroundPhotoSuccess}</FormSuccess>
+                            <FormSuccess spaced>
+                                {backgroundPhotoSuccess}
+                            </FormSuccess>
                         ) : null}
                         {backgroundPhotoError ? (
                             <FormError spaced>{backgroundPhotoError}</FormError>
