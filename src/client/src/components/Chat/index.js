@@ -2,7 +2,7 @@ import { useRef, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import * as Styled from './styled';
 
-const Chat = ({ location, contactsAction, filesAction }) => {
+const Chat = ({ location, toggleContactsDrawer, toggleFilesDrawer }) => {
     const messagesRef = useRef();
 
     useEffect(() => {
@@ -17,10 +17,12 @@ const Chat = ({ location, contactsAction, filesAction }) => {
     return (
         <Styled.Chat>
             <Styled.Controls>
-                <Styled.Control onClick={contactsAction}>
+                <Styled.Control onClick={toggleContactsDrawer}>
                     Contacts
                 </Styled.Control>
-                <Styled.Control onClick={filesAction}>Files</Styled.Control>
+                <Styled.Control onClick={toggleFilesDrawer}>
+                    Files
+                </Styled.Control>
             </Styled.Controls>
             <Styled.Messages ref={messagesRef}>
                 {/* Template */}
