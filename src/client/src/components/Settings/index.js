@@ -1,10 +1,24 @@
 import * as Styled from './styled';
+import useUpdatePhoto from '../../hooks/useUpdatePhoto';
+import PHOTO_TYPES from '../../constants/photoTypes';
 import Container from '../Container/index';
 import Heading from '../Heading/index';
-// import FormError from '../FormError/index';
+import FormSuccess from '../FormSuccess';
+import FormError from '../FormError/index';
 import CloseButton from '../CloseButton/index';
 
 const Settings = () => {
+    const {
+        updatePhoto: updateProfilePhoto,
+        success: profilePhotoSuccess,
+        error: profilePhotoError,
+    } = useUpdatePhoto();
+    const {
+        updatePhoto: updateBackgroundPhoto,
+        success: backgroundPhotoSuccess,
+        error: backgroundPhotoError,
+    } = useUpdatePhoto();
+
     return (
         <Container spaced>
             <Styled.Section>
@@ -12,13 +26,17 @@ const Settings = () => {
                 <Styled.Split limited>
                     <Styled.Subsection>
                         <Styled.Subheading>Profile Photo</Styled.Subheading>
-                        <Styled.FileForm onSubmit={(e) => e.preventDefault()}>
+                        <Styled.FileForm
+                            onSubmit={(e) =>
+                                updateProfilePhoto(e, PHOTO_TYPES.profile)
+                            }
+                        >
                             <Styled.Group>
                                 <Styled.Label htmlFor="newPhoto">
                                     Upload a photo from your computer
                                 </Styled.Label>
                                 <Styled.File
-                                    name="newPhoto"
+                                    name="image"
                                     id="newPhoto"
                                     type="file"
                                 />
@@ -27,17 +45,28 @@ const Settings = () => {
                                 Change
                             </Styled.FileSubmit>
                         </Styled.FileForm>
-                        {/* <FormError spaced>Error</FormError> */}
+                        {profilePhotoSuccess ? (
+                            <FormSuccess spaced>
+                                {profilePhotoSuccess}
+                            </FormSuccess>
+                        ) : null}
+                        {profilePhotoError ? (
+                            <FormError spaced>{profilePhotoError}</FormError>
+                        ) : null}
                     </Styled.Subsection>
                     <Styled.Subsection>
                         <Styled.Subheading>Background Image</Styled.Subheading>
-                        <Styled.FileForm onSubmit={(e) => e.preventDefault()}>
+                        <Styled.FileForm
+                            onSubmit={(e) =>
+                                updateBackgroundPhoto(e, PHOTO_TYPES.background)
+                            }
+                        >
                             <Styled.Group>
                                 <Styled.Label htmlFor="newBackground">
                                     Upload an image from your computer
                                 </Styled.Label>
                                 <Styled.File
-                                    name="newBackground"
+                                    name="image"
                                     id="newBackground"
                                     type="file"
                                 />
@@ -46,7 +75,14 @@ const Settings = () => {
                                 Change
                             </Styled.FileSubmit>
                         </Styled.FileForm>
-                        {/* <FormError spaced>Error</FormError> */}
+                        {backgroundPhotoSuccess ? (
+                            <FormSuccess spaced>
+                                {backgroundPhotoSuccess}
+                            </FormSuccess>
+                        ) : null}
+                        {backgroundPhotoError ? (
+                            <FormError spaced>{backgroundPhotoError}</FormError>
+                        ) : null}
                     </Styled.Subsection>
                 </Styled.Split>
                 <Styled.Subsection>

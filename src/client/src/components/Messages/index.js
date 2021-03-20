@@ -3,12 +3,10 @@ import * as Styled from './styled';
 import ContactsDrawer from '../ContactsDrawer/index';
 import FilesDrawer from '../FilesDrawer/index';
 import Chat from '../Chat/index';
-import { connect } from '../../constants/socket';
 
 const Messages = () => {
     const [isContactsDrawerActive, setIsContactsDrawerActive] = useState(false);
     const [isFilesDrawerActive, setIsFilesDrawerActive] = useState(false);
-    const ConnectedSocket = connect();
 
     const closeAllDrawers = () => {
         setIsContactsDrawerActive(false);

@@ -1,10 +1,11 @@
+import fs from 'fs';
 import User from '../models/User.js';
 import Photo from '../models/Photo.js';
 import Skill from '../models/Skill.js';
 import hashPassword from '../utils/hashPassword.js';
 import checkPassword from '../utils/checkPassword.js';
 import removeToken from '../utils/removeToken.js';
-import { uploadImg } from '../data-access/storage.js';
+import uploadImage from '../data-access/storage.js';
 
 export const getUser = async (req, res) => {
     try {
@@ -43,6 +44,7 @@ export const getNotifications = async (req, res) => {
     }
 };
 
+/** Update Email */
 export const patchEmail = async (req, res) => {
     try {
         const { userId } = req;
@@ -73,6 +75,7 @@ export const patchEmail = async (req, res) => {
     }
 };
 
+/** Update Password */
 export const patchPassword = async (req, res) => {
     try {
         const { userId } = req;
@@ -93,6 +96,7 @@ export const patchPassword = async (req, res) => {
     }
 };
 
+/** Update Title */
 export const patchTitle = async (req, res) => {
     try {
         const { userId } = req;
@@ -111,7 +115,7 @@ export const patchTitle = async (req, res) => {
         res.status(400).json({ error: err.message });
     }
 };
-
+/** Update Description */
 export const patchDescription = async (req, res) => {
     try {
         const { userId } = req;
@@ -131,36 +135,66 @@ export const patchDescription = async (req, res) => {
     }
 };
 
+/** Get Photo */
+export const getPhoto = async (req, res) => {
+    const { userId } = req;
+    const photo = await Photo.findOne({
+        where: { type: req.params.type, UserId: userId },
+    });
+    res.send(photo);
+};
+
+/** Remove Photo */
+export const removePhoto = async (req, res) => {
+    const { userId } = req;
+    const photo = await Photo.findOne({
+        where: { type: req.params.type, UserId: userId },
+    });
+    if (photo !== null) {
+        await fs.unlink(photo.get('uri'), async () => {
+            await photo.destroy();
+        });
+    }
+
+    res.send(photo);
+};
+
+/** Post / Update Photo */
 export const postPhoto = async (req, res) => {
-    uploadImg(req, res, async (err) => {
+    uploadImage(req, res, async (err) => {
         if (req.fileValidationError) {
-            res.send(req.fileValidationError);
+            res.status(400).json({ error: req.fileValidationError });
         } else if (!req.file) {
-            res.send('Please select an image to upload');
+            res.status(400).json({
+                error: 'Please select an image to upload.',
+            });
         } else if (err) {
-            res.send(err);
+            res.status(400).json(err);
         } else {
             const { userId } = req;
             const imgType = req.params.type;
             const user = await User.findOne({
                 where: { id: userId },
             });
-            const oldImg = await user.getPhotos({
-                where: { type: imgType },
-            });
-            if (oldImg.length !== 0) {
-                await oldImg[0].destroy();
+            if (user !== null) {
+                const oldImg = await user.getPhotos({
+                    where: { type: imgType },
+                });
+                if (oldImg.length !== 0) {
+                    await oldImg[0].destroy();
+                }
+                const newPhoto = await Photo.create({
+                    uri: req.file.path,
+                    type: imgType,
+                });
+                await user.addPhoto(newPhoto);
             }
-            const newPhoto = await Photo.create({
-                uri: req.file.path,
-                type: imgType,
-            });
-            await user.addPhoto(newPhoto);
             res.send('Image Updated');
         }
     });
 };
 
+/** Delete Account */
 export const deleteAccount = async (req, res) => {
     try {
         const { userId } = req;

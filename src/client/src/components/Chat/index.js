@@ -1,8 +1,22 @@
 import { useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import * as Styled from './styled';
+import { connect, socket } from '../../constants/socket.js';
 
 const Chat = ({ location, contactsAction, filesAction }) => {
+    connect();
+    const connectedSocket = socket.connect();
+    /** Connect to socket
+     * Join Chatroom
+     * Emit messages
+     *
+     * Message received on server
+     * Message saved in database
+     */
+    const sendMessage = (e) => {
+        e.preventDefault();
+    };
+
     useEffect(() => {
         const currentChatId = location.pathname.split('/').pop();
     }, [location.pathname]);
