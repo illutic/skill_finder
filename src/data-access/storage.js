@@ -1,15 +1,19 @@
 import multer from 'multer';
+import path from 'path';
+import { v4 as uuidv4 } from 'uuid';
 
-export const storage = multer.diskStorage({
+const storage = multer.diskStorage({
     destination(req, file, cb) {
-        cb(null, './data-access/uploads');
+        const directory = path.join('.', 'data-access', 'uploads');
+        cb(null, directory);
     },
     filename(req, file, cb) {
-        cb(null, `${req.params.type + req.userId}.png`);
+        const extension = path.extname(file.originalname);
+        cb(null, uuidv4() + extension);
     },
 });
 
-export const imageFilter = (req, file, cb) => {
+const imageFilter = (req, file, cb) => {
     if (!file.originalname.match(/\.(jpg|JPG|jpeg|JPEG|png|PNG|gif|GIF)$/)) {
         req.fileValidationError = 'Only image files are allowed.';
         cb(new Error('Only image files are allowed.'));
@@ -17,10 +21,10 @@ export const imageFilter = (req, file, cb) => {
     cb(null, true);
 };
 
-export const uploadImage = multer({
+const uploadImage = multer({
     storage,
     fileFilter: imageFilter,
     limits: { fileSize: 2048 * 2048 },
 }).single('image');
 
-export default { storage, imageFilter, uploadImage };
+export default uploadImage;

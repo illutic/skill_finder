@@ -5,7 +5,7 @@ import Skill from '../models/Skill.js';
 import hashPassword from '../utils/hashPassword.js';
 import checkPassword from '../utils/checkPassword.js';
 import removeToken from '../utils/removeToken.js';
-import { uploadImage } from '../data-access/storage.js';
+import uploadImage from '../data-access/storage.js';
 
 export const getUser = async (req, res) => {
     try {
