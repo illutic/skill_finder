@@ -23,8 +23,11 @@ export const Files = styled.ul`
 
 export const File = styled.li`
     text-decoration: underline;
-    cursor: pointer;
     &:not(:first-child) {
         margin-top: 15px;
     }
+`;
+
+export const Link = styled.a`
+    cursor: pointer;
 `;

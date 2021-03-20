@@ -6,8 +6,22 @@ const FilesDrawer = ({ isActive }) => {
         <Styled.FilesDrawer active={isActive} onClick={stopPropagation}>
             <Styled.Shared>Shared Files</Styled.Shared>
             <Styled.Files>
-                <Styled.File>aliquyam.pdf</Styled.File>
-                <Styled.File>consetetur.txt</Styled.File>
+                {/* Template */}
+                {/* <Styled.File key={fileId}>
+                        <Styled.Link url={downloadURL} download>
+                            {fileName}
+                        </Styled.Link>
+                    </Styled.File> */}
+                <Styled.File>
+                    <Styled.Link url="/" download>
+                        consetetur.txt
+                    </Styled.Link>
+                </Styled.File>
+                <Styled.File>
+                    <Styled.Link url="/" download>
+                        aliquyam.pdf
+                    </Styled.Link>
+                </Styled.File>
             </Styled.Files>
         </Styled.FilesDrawer>
     );
