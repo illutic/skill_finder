@@ -1,12 +1,20 @@
 import * as Styled from './styled';
 import Container from '../Container/index';
 import Heading from '../Heading/index';
-// import FormError from '../FormError/index';
+import FormError from '../FormError/index';
 import CloseButton from '../CloseButton/index';
-import { ChangePhoto } from '../../utils/changePhoto';
+import useUpdatePhoto from '../../hooks/useUpdatePhoto';
 
 const Settings = () => {
-    const formData = new FormData();
+    const {
+        updatePhoto: updateProfilePhoto,
+        error: profilePhotoError,
+    } = useUpdatePhoto();
+    const {
+        updatePhoto: updateBackgroundPhoto,
+        error: backgroundPhotoError,
+    } = useUpdatePhoto();
+
     return (
         <Container spaced>
             <Styled.Section>
@@ -15,14 +23,7 @@ const Settings = () => {
                     <Styled.Subsection>
                         <Styled.Subheading>Profile Photo</Styled.Subheading>
                         <Styled.FileForm
-                            onSubmit={(e) => {
-                                formData.append(
-                                    'image',
-                                    document.getElementById('newPhoto').files[0]
-                                );
-                                ChangePhoto(formData, 'profile');
-                                e.preventDefault();
-                            }}
+                            onSubmit={(e) => updateProfilePhoto(e, 'profile')}
                         >
                             <Styled.Group>
                                 <Styled.Label htmlFor="newPhoto">
@@ -38,20 +39,16 @@ const Settings = () => {
                                 Change
                             </Styled.FileSubmit>
                         </Styled.FileForm>
-                        {/* <FormError spaced>Error</FormError> */}
+                        {profilePhotoError ? (
+                            <FormError spaced>{profilePhotoError}</FormError>
+                        ) : null}
                     </Styled.Subsection>
                     <Styled.Subsection>
                         <Styled.Subheading>Background Image</Styled.Subheading>
                         <Styled.FileForm
-                            onSubmit={(e) => {
-                                formData.append(
-                                    'image',
-                                    document.getElementById('newBackground')
-                                        .files[0]
-                                );
-                                ChangePhoto(formData, 'background');
-                                e.preventDefault();
-                            }}
+                            onSubmit={(e) =>
+                                updateBackgroundPhoto(e, 'background')
+                            }
                         >
                             <Styled.Group>
                                 <Styled.Label htmlFor="newBackground">
@@ -67,7 +64,9 @@ const Settings = () => {
                                 Change
                             </Styled.FileSubmit>
                         </Styled.FileForm>
-                        {/* <FormError spaced>Error</FormError> */}
+                        {backgroundPhotoError ? (
+                            <FormError spaced>{backgroundPhotoError}</FormError>
+                        ) : null}
                     </Styled.Subsection>
                 </Styled.Split>
                 <Styled.Subsection>
