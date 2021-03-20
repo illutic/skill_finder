@@ -17,15 +17,15 @@ const useUpdatePhoto = () => {
                 body: formData,
             });
             if (!response.ok) {
-                const err = await response.json();
-                throw err;
+                const payload = await response.json();
+                throw payload.error;
             }
             form.reset();
             setSuccess('Image updated.');
             setError('');
         } catch (err) {
             setSuccess('');
-            setError(err.error);
+            setError(err);
         }
     };
 
