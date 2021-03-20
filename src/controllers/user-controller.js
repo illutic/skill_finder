@@ -5,7 +5,7 @@ import Skill from '../models/Skill.js';
 import hashPassword from '../utils/hashPassword.js';
 import checkPassword from '../utils/checkPassword.js';
 import removeToken from '../utils/removeToken.js';
-import { uploadImg } from '../data-access/storage.js';
+import uploadImage from '../data-access/storage.js';
 
 export const getUser = async (req, res) => {
     try {
@@ -159,16 +159,19 @@ export const removePhoto = async (req, res) => {
     res.send(photo);
 };
 
-/** Post/Update Photo */
+/** Post / Update Photo */
 export const postPhoto = async (req, res) => {
-    uploadImg(req, res, async (err) => {
-        if (req.fileValidationError) {
-            res.send(req.fileValidationError);
-        } else if (!req.file) {
-            res.send('Please select an image to upload');
-        } else if (err) {
-            res.send(err);
-        } else {
+    uploadImage(req, res, async (fileError) => {
+        try {
+            if (req.fileValidationError) {
+                throw Error(req.fileValidationError);
+            }
+            if (!req.file) {
+                throw Error('Please select an image to upload.');
+            }
+            if (fileError) {
+                throw Error(fileError);
+            }
             const { userId } = req;
             const imgType = req.params.type;
             const user = await User.findOne({
@@ -190,7 +193,14 @@ export const postPhoto = async (req, res) => {
                 });
                 await user.addPhoto(newPhoto);
             }
-            res.send('Image Updated');
+            const newPhoto = await Photo.create({
+                uri: req.file.path,
+                type: imgType,
+            });
+            await user.addPhoto(newPhoto);
+            res.sendStatus(200);
+        } catch (err) {
+            res.status(400).json({ error: err.message });
         }
     });
 };

@@ -1,12 +1,24 @@
 import * as Styled from './styled';
+import useUpdatePhoto from '../../hooks/useUpdatePhoto';
+import PHOTO_TYPES from '../../constants/photoTypes';
 import Container from '../Container/index';
 import Heading from '../Heading/index';
-// import FormError from '../FormError/index';
+import FormSuccess from '../FormSuccess';
+import FormError from '../FormError/index';
 import CloseButton from '../CloseButton/index';
-import { ChangePhoto } from '../../utils/changePhoto';
 
 const Settings = () => {
-    const formData = new FormData();
+    const {
+        updatePhoto: updateProfilePhoto,
+        success: profilePhotoSuccess,
+        error: profilePhotoError,
+    } = useUpdatePhoto();
+    const {
+        updatePhoto: updateBackgroundPhoto,
+        success: backgroundPhotoSuccess,
+        error: backgroundPhotoError,
+    } = useUpdatePhoto();
+
     return (
         <Container spaced>
             <Styled.Section>
@@ -15,14 +27,9 @@ const Settings = () => {
                     <Styled.Subsection>
                         <Styled.Subheading>Profile Photo</Styled.Subheading>
                         <Styled.FileForm
-                            onSubmit={(e) => {
-                                formData.append(
-                                    'image',
-                                    document.getElementById('newPhoto').files[0]
-                                );
-                                ChangePhoto(formData, 'profile');
-                                e.preventDefault();
-                            }}
+                            onSubmit={(e) =>
+                                updateProfilePhoto(e, PHOTO_TYPES.profile)
+                            }
                         >
                             <Styled.Group>
                                 <Styled.Label htmlFor="newPhoto">
@@ -38,20 +45,21 @@ const Settings = () => {
                                 Change
                             </Styled.FileSubmit>
                         </Styled.FileForm>
-                        {/* <FormError spaced>Error</FormError> */}
+                        {profilePhotoSuccess ? (
+                            <FormSuccess spaced>
+                                {profilePhotoSuccess}
+                            </FormSuccess>
+                        ) : null}
+                        {profilePhotoError ? (
+                            <FormError spaced>{profilePhotoError}</FormError>
+                        ) : null}
                     </Styled.Subsection>
                     <Styled.Subsection>
                         <Styled.Subheading>Background Image</Styled.Subheading>
                         <Styled.FileForm
-                            onSubmit={(e) => {
-                                formData.append(
-                                    'image',
-                                    document.getElementById('newBackground')
-                                        .files[0]
-                                );
-                                ChangePhoto(formData, 'background');
-                                e.preventDefault();
-                            }}
+                            onSubmit={(e) =>
+                                updateBackgroundPhoto(e, PHOTO_TYPES.background)
+                            }
                         >
                             <Styled.Group>
                                 <Styled.Label htmlFor="newBackground">
@@ -67,7 +75,14 @@ const Settings = () => {
                                 Change
                             </Styled.FileSubmit>
                         </Styled.FileForm>
-                        {/* <FormError spaced>Error</FormError> */}
+                        {backgroundPhotoSuccess ? (
+                            <FormSuccess spaced>
+                                {backgroundPhotoSuccess}
+                            </FormSuccess>
+                        ) : null}
+                        {backgroundPhotoError ? (
+                            <FormError spaced>{backgroundPhotoError}</FormError>
+                        ) : null}
                     </Styled.Subsection>
                 </Styled.Split>
                 <Styled.Subsection>

@@ -4,7 +4,7 @@ const ENDPOINTS = {
     logout: '/auth/logout',
     check: '/auth/check',
     chats: '/api/chats',
-    photo: '/api/user/photo/',
+    photo: '/api/user/photo',
     api: '/api',
 };
 
