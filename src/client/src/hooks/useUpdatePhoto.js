@@ -2,6 +2,7 @@ import { useState } from 'react';
 import ENDPOINTS from '../constants/endpoints';
 
 const useUpdatePhoto = () => {
+    const [success, setSuccess] = useState();
     const [error, setError] = useState();
 
     const updatePhoto = async (e, type) => {
@@ -20,13 +21,14 @@ const useUpdatePhoto = () => {
                 throw err;
             }
             form.reset();
+            setSuccess('Image updated.');
             setError('');
         } catch (err) {
             setError(err.error);
         }
     };
 
-    return { updatePhoto, error };
+    return { updatePhoto, success, error };
 };
 
 export default useUpdatePhoto;

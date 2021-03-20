@@ -1,17 +1,21 @@
 import * as Styled from './styled';
+import useUpdatePhoto from '../../hooks/useUpdatePhoto';
+import PHOTO_TYPES from '../../constants/photoTypes';
 import Container from '../Container/index';
 import Heading from '../Heading/index';
+import FormSuccess from '../FormSuccess';
 import FormError from '../FormError/index';
 import CloseButton from '../CloseButton/index';
-import useUpdatePhoto from '../../hooks/useUpdatePhoto';
 
 const Settings = () => {
     const {
         updatePhoto: updateProfilePhoto,
+        success: profilePhotoSuccess,
         error: profilePhotoError,
     } = useUpdatePhoto();
     const {
         updatePhoto: updateBackgroundPhoto,
+        success: backgroundPhotoSuccess,
         error: backgroundPhotoError,
     } = useUpdatePhoto();
 
@@ -23,7 +27,9 @@ const Settings = () => {
                     <Styled.Subsection>
                         <Styled.Subheading>Profile Photo</Styled.Subheading>
                         <Styled.FileForm
-                            onSubmit={(e) => updateProfilePhoto(e, 'profile')}
+                            onSubmit={(e) =>
+                                updateProfilePhoto(e, PHOTO_TYPES.profile)
+                            }
                         >
                             <Styled.Group>
                                 <Styled.Label htmlFor="newPhoto">
@@ -39,6 +45,9 @@ const Settings = () => {
                                 Change
                             </Styled.FileSubmit>
                         </Styled.FileForm>
+                        {profilePhotoSuccess ? (
+                            <FormSuccess>{profilePhotoSuccess}</FormSuccess>
+                        ) : null}
                         {profilePhotoError ? (
                             <FormError spaced>{profilePhotoError}</FormError>
                         ) : null}
@@ -47,7 +56,7 @@ const Settings = () => {
                         <Styled.Subheading>Background Image</Styled.Subheading>
                         <Styled.FileForm
                             onSubmit={(e) =>
-                                updateBackgroundPhoto(e, 'background')
+                                updateBackgroundPhoto(e, PHOTO_TYPES.background)
                             }
                         >
                             <Styled.Group>
@@ -64,6 +73,9 @@ const Settings = () => {
                                 Change
                             </Styled.FileSubmit>
                         </Styled.FileForm>
+                        {backgroundPhotoSuccess ? (
+                            <FormSuccess>{backgroundPhotoSuccess}</FormSuccess>
+                        ) : null}
                         {backgroundPhotoError ? (
                             <FormError spaced>{backgroundPhotoError}</FormError>
                         ) : null}
