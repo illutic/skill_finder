@@ -4,8 +4,8 @@ export const Heading = styled.h2`
     position: relative;
     display: inline-block;
     font-family: ${({ theme }) => theme.typography.secondary};
-    font-size: ${({ theme, extra }) =>
-        extra ? theme.typography.extraLarge : theme.typography.large};
+    font-size: ${({ theme, large }) =>
+        large ? theme.typography.extraLarge : theme.typography.large};
     font-weight: 700;
     line-height: 1.25;
     word-break: break-word;

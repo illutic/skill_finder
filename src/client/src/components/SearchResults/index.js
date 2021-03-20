@@ -5,6 +5,7 @@ import Container from '../Container/index';
 import Heading from '../Heading/index';
 import ProfilePhoto from '../ProfilePhoto/index';
 import Button from '../Button/index';
+import ProfileThumbnail from '../ProfileThumbnail';
 
 const SearchResults = ({ location }) => {
     const [query, setQuery] = useState();
@@ -23,18 +24,11 @@ const SearchResults = ({ location }) => {
                 <Styled.Entries>
                     <Styled.Entry>
                         <Link to="/profile/1">
-                            <Styled.User>
-                                <ProfilePhoto
-                                    src="https://picsum.photos/100/100"
-                                    size={75}
-                                />
-                                <Styled.Details>
-                                    <Styled.Name>John Smith</Styled.Name>
-                                    <Styled.Title>
-                                        Teachnig Mathematics
-                                    </Styled.Title>
-                                </Styled.Details>
-                            </Styled.User>
+                            <ProfileThumbnail
+                                name="John Smith"
+                                title="Teaching Mathematics"
+                                photo="https://picsum.photos/100/100"
+                            />
                         </Link>
                         <Styled.Buttons>
                             <Link to="/profile/1">
@@ -45,18 +39,26 @@ const SearchResults = ({ location }) => {
                     </Styled.Entry>
                     <Styled.Entry>
                         <Link to="/profile/1">
-                            <Styled.User>
-                                <ProfilePhoto
-                                    src="https://picsum.photos/100/100"
-                                    size={75}
-                                />
-                                <Styled.Details>
-                                    <Styled.Name>Ian Jones</Styled.Name>
-                                    <Styled.Title>
-                                        Mathematics Passionate
-                                    </Styled.Title>
-                                </Styled.Details>
-                            </Styled.User>
+                            <ProfileThumbnail
+                                name="Ian Jones"
+                                title="Mathematics Passionate"
+                                photo="https://picsum.photos/100/100"
+                            />
+                        </Link>
+                        <Styled.Buttons>
+                            <Link to="/profile/1">
+                                <Button outlined>View profile</Button>
+                            </Link>
+                            <Button>Reach out</Button>
+                        </Styled.Buttons>
+                    </Styled.Entry>
+                    <Styled.Entry>
+                        <Link to="/profile/1">
+                            <ProfileThumbnail
+                                name="Ian Jones"
+                                title="Mathematics Passionate"
+                                photo="https://picsum.photos/100/100"
+                            />
                         </Link>
                         <Styled.Buttons>
                             <Link to="/profile/1">
