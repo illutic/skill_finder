@@ -161,13 +161,16 @@ export const removePhoto = async (req, res) => {
 
 /** Post / Update Photo */
 export const postPhoto = async (req, res) => {
-    uploadImage(req, res, async () => {
+    uploadImage(req, res, async (fileError) => {
         try {
             if (req.fileValidationError) {
                 throw Error(req.fileValidationError);
             }
             if (!req.file) {
                 throw Error('Please select an image to upload.');
+            }
+            if (fileError) {
+                throw Error(fileError);
             }
             const { userId } = req;
             const imgType = req.params.type;
@@ -187,7 +190,7 @@ export const postPhoto = async (req, res) => {
             await user.addPhoto(newPhoto);
             res.sendStatus(200);
         } catch (err) {
-            res.status(400).json({ err });
+            res.status(400).json({ error: err.message });
         }
     });
 };
