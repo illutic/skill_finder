@@ -3,7 +3,7 @@ import Container from '../Container/index';
 import Heading from '../Heading/index';
 // import FormError from '../FormError/index';
 import CloseButton from '../CloseButton/index';
-import { ChangePhoto } from '../../hooks/changePhoto';
+import { ChangePhoto } from '../../utils/changePhoto';
 
 const Settings = () => {
     const formData = new FormData();
