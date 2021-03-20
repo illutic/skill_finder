@@ -23,7 +23,7 @@ export const getSkill = async (req, res) => {
                 },
             },
         });
-        res.json({ skill });
+        res.json(skill);
     } catch (err) {
         res.status(400).json({ error: err.message });
     }

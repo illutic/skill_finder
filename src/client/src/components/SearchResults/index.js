@@ -1,14 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import useSearchEngine from '../../hooks/useSearchEngine';
 import * as Styled from './styled';
 import Container from '../Container/index';
 import Heading from '../Heading/index';
-import ProfilePhoto from '../ProfilePhoto/index';
 import Button from '../Button/index';
 import ProfileThumbnail from '../ProfileThumbnail';
 
 const SearchResults = ({ location }) => {
-    const [query, setQuery] = useState();
+    const { results, query, setQuery } = useSearchEngine();
 
     useEffect(() => {
         const queryString = location.search.substring(1);
@@ -22,51 +22,29 @@ const SearchResults = ({ location }) => {
             <Styled.Wrapper>
                 <Heading underlined>Results for {query}</Heading>
                 <Styled.Entries>
-                    <Styled.Entry>
-                        <Link to="/profile/1">
-                            <ProfileThumbnail
-                                name="John Smith"
-                                title="Teaching Mathematics"
-                                photo="https://picsum.photos/100/100"
-                            />
-                        </Link>
-                        <Styled.Buttons>
-                            <Link to="/profile/1">
-                                <Button outlined>View profile</Button>
-                            </Link>
-                            <Button>Reach out</Button>
-                        </Styled.Buttons>
-                    </Styled.Entry>
-                    <Styled.Entry>
-                        <Link to="/profile/1">
-                            <ProfileThumbnail
-                                name="Ian Jones"
-                                title="Mathematics Passionate"
-                                photo="https://picsum.photos/100/100"
-                            />
-                        </Link>
-                        <Styled.Buttons>
-                            <Link to="/profile/1">
-                                <Button outlined>View profile</Button>
-                            </Link>
-                            <Button>Reach out</Button>
-                        </Styled.Buttons>
-                    </Styled.Entry>
-                    <Styled.Entry>
-                        <Link to="/profile/1">
-                            <ProfileThumbnail
-                                name="Ian Jones"
-                                title="Mathematics Passionate"
-                                photo="https://picsum.photos/100/100"
-                            />
-                        </Link>
-                        <Styled.Buttons>
-                            <Link to="/profile/1">
-                                <Button outlined>View profile</Button>
-                            </Link>
-                            <Button>Reach out</Button>
-                        </Styled.Buttons>
-                    </Styled.Entry>
+                    {results?.length
+                        ? results.map((user) => {
+                              return (
+                                  <Styled.Entry key={user.id}>
+                                      <Link to={`/profile/${user.id}`}>
+                                          <ProfileThumbnail
+                                              name={`${user.firstName} ${user.lastName}`}
+                                              title={user.title}
+                                              photo=""
+                                          />
+                                      </Link>
+                                      <Styled.Buttons>
+                                          <Link to={`/profile/${user.id}`}>
+                                              <Button outlined>
+                                                  View profile
+                                              </Button>
+                                          </Link>
+                                          <Button>Reach out</Button>
+                                      </Styled.Buttons>
+                                  </Styled.Entry>
+                              );
+                          })
+                        : 'Nothing found.'}
                 </Styled.Entries>
             </Styled.Wrapper>
         </Container>
