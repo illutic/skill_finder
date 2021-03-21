@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import ENDPOINTS from '../constants/endpoints';
 
 const useProfile = () => {
+    const history = useHistory();
     const location = useLocation();
     const [userId, setUserId] = useState();
     const [profile, setProfile] = useState();
@@ -27,7 +28,7 @@ const useProfile = () => {
                     return;
                 }
                 setProfile(null);
-                // < Set error and redirect to 404 >
+                history.push('/404');
             } catch (err) {
                 console.log(err);
             }
