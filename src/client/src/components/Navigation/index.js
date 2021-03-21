@@ -31,8 +31,8 @@ const Navigation = () => {
                 <Container>
                     <Styled.Relative>
                         <Styled.Box>
-                            <Link to="/profile/1">
-                                <ProfilePhoto src="https://picsum.photos/100/100" />
+                            <Link to={isAuth ? '' : ROUTES.login}>
+                                <ProfilePhoto src="" />
                             </Link>
                             <Styled.Buttons>
                                 {isAuth ? <NotificationsPanel /> : null}

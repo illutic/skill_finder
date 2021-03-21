@@ -34,8 +34,12 @@ const Profile = () => {
                     </Styled.Background>
                     <Styled.Bar>
                         <Styled.User>
-                            <Heading>{`${user?.firstName} ${user?.lastName}`}</Heading>
-                            <Styled.UserTitle>{`${user?.title}`}</Styled.UserTitle>
+                            <Heading>
+                                {user?.firstName} {user?.lastName}
+                            </Heading>
+                            <Styled.UserTitle>
+                                {user?.title ? user.title : null}
+                            </Styled.UserTitle>
                         </Styled.User>
                         <Styled.Action>
                             <Button>Reach out</Button>
@@ -46,19 +50,23 @@ const Profile = () => {
                     <Styled.Section>
                         <Styled.SectionTitle>Description</Styled.SectionTitle>
                         <Styled.SectionParagraph>
-                            {`${user?.description}`}
+                            {user?.description
+                                ? user.description
+                                : 'No description.'}
                         </Styled.SectionParagraph>
                     </Styled.Section>
                     <Styled.Section>
                         <Styled.SectionTitle>Skills</Styled.SectionTitle>
                         <Styled.Skills>
-                            {user?.Skills?.map((skill) => {
-                                return (
-                                    <Styled.Skill
-                                        key={skill.id}
-                                    >{`${skill.name}`}</Styled.Skill>
-                                );
-                            })}
+                            {user?.Skills?.length
+                                ? user.Skills.map((skill) => {
+                                      return (
+                                          <Styled.Skill
+                                              key={skill.id}
+                                          >{`${skill.name}`}</Styled.Skill>
+                                      );
+                                  })
+                                : 'No skills to show.'}
                         </Styled.Skills>
                     </Styled.Section>
                 </Styled.Split>

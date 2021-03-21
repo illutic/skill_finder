@@ -97,11 +97,12 @@ export const SectionParagraph = styled.p`
 export const Skills = styled.div`
     display: flex;
     flex-wrap: wrap;
+    margin-top: 25px;
 `;
 
 export const Skill = styled.div`
     padding: 10px 15px;
-    margin: 25px 15px 0 0;
+    margin: 0 15px 25px 0;
     border: 1px solid ${({ theme }) => theme.colors.subtle};
     border-radius: 7px;
 `;
