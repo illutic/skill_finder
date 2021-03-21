@@ -23,7 +23,7 @@ const authGoogle = async (token) => {
             },
         });
         if (!user.profilePhoto) {
-            user.update({
+            user[0].update({
                 profilePhoto: payload.picture,
             });
         }
