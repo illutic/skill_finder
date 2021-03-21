@@ -32,9 +32,10 @@ export const Messages = styled.section`
     display: flex;
     flex-direction: column;
     padding: 25px;
-    max-height: calc(100vh - 100px - 137px - 82px);
+    min-height: calc(100vh - 100px - 137px - 82px);
     overflow-y: scroll;
     @media (min-width: ${SCREENS.medium}) {
+        padding: 50px;
         min-height: calc(100vh - 100px - 78px - 82px);
     }
     @media (min-width: ${SCREENS.large}) {
