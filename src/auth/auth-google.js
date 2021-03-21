@@ -23,8 +23,11 @@ const authGoogle = async (token) => {
             },
         });
         if (!user[0].profilePhoto) {
-            user[0].update({
+            User.update({
                 profilePhoto: payload.picture,
+                where: {
+                    id: user[0].id,
+                },
             });
         }
         return { userId: user[0].id };
