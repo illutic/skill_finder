@@ -3,12 +3,14 @@ import { Link } from 'react-router-dom';
 import { NavigationContext } from '../../contexts/NavigationContextProvider';
 import { LogoutModalContext } from '../../contexts/LogoutModalContextProvider';
 import { AuthContext } from '../../contexts/AuthContextProvider';
+import { UserContext } from '../../contexts/UserContextProvider';
 import * as Styled from './styled';
 import stopPropagation from '../../utils/stopPropagation';
 import Container from '../Container/index';
 import NotificationsPanel from '../NotificationsPanel/index';
 import ProfilePhoto from '../ProfilePhoto/index';
 import NavigationButton from '../NavigationButton/index';
+import defaultProfilePhoto from '../../assets/profile.gif';
 import ROUTES from '../../constants/routes';
 
 const Navigation = () => {
@@ -17,6 +19,7 @@ const Navigation = () => {
     );
     const { showLogoutModal } = useContext(LogoutModalContext);
     const { isAuth } = useContext(AuthContext);
+    const { user } = useContext(UserContext);
 
     useEffect(() => {
         window.addEventListener('click', closeNavigation);
@@ -31,8 +34,20 @@ const Navigation = () => {
                 <Container>
                     <Styled.Relative>
                         <Styled.Box>
-                            <Link to={isAuth ? '' : ROUTES.protected}>
-                                <ProfilePhoto src="" />
+                            <Link
+                                to={
+                                    isAuth
+                                        ? `/profile/${user?.id}`
+                                        : ROUTES.protected
+                                }
+                            >
+                                <ProfilePhoto
+                                    src={
+                                        user?.profilePhoto
+                                            ? user.profilePhoto
+                                            : defaultProfilePhoto
+                                    }
+                                />
                             </Link>
                             <Styled.Buttons>
                                 {isAuth ? <NotificationsPanel /> : null}
