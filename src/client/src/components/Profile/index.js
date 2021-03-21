@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import useProfile from '../../hooks/useProfile';
 import { UserContext } from '../../contexts/UserContextProvider';
+import { AuthContext } from '../../contexts/AuthContextProvider';
 import * as Styled from './styled';
 import Container from '../Container/index';
 import Heading from '../Heading/index';
@@ -13,6 +14,7 @@ import ROUTES from '../../constants/routes';
 const Profile = () => {
     const { profile: user, isLoading } = useProfile();
     const { user: loggedInUser } = useContext(UserContext);
+    const { isAuth } = useContext(AuthContext);
 
     return isLoading ? (
         <Loading />
@@ -44,13 +46,15 @@ const Profile = () => {
                             </Styled.UserTitle>
                         </Styled.User>
                         <Styled.Action>
-                            {user?.id === loggedInUser?.id ? (
-                                <Link to={ROUTES.settings}>
-                                    <Button outlined>Edit profile</Button>
-                                </Link>
-                            ) : (
-                                <Button>Reach out</Button>
-                            )}
+                            {isAuth ? (
+                                user?.id === loggedInUser?.id ? (
+                                    <Link to={ROUTES.settings}>
+                                        <Button outlined>Edit profile</Button>
+                                    </Link>
+                                ) : (
+                                    <Button>Reach out</Button>
+                                )
+                            ) : null}
                         </Styled.Action>
                     </Styled.Bar>
                 </Styled.Banner>
