@@ -1,6 +1,5 @@
 import User from '../models/User.js';
 import Skill from '../models/Skill.js';
-import Photo from '../models/Photo.js';
 import Request from '../models/Request.js';
 import Connection from '../models/Connection.js';
 import Notification from '../models/Notification.js';
@@ -12,10 +11,6 @@ const makeAssociations = () => {
     // User-Skill (M:N)
     User.belongsToMany(Skill, { through: 'UserSkill', timestamps: false });
     Skill.belongsToMany(User, { through: 'UserSkill', timestamps: false });
-
-    // User-Photo (1:M)
-    User.hasMany(Photo);
-    Photo.belongsTo(User);
 
     // User-Request (1:M)
     User.hasMany(Request);

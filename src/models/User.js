@@ -1,6 +1,5 @@
 import { Sequelize } from 'sequelize';
 import database from '../data-access/database.js';
-import USER_TYPES from '../constants/user-types.js';
 
 const User = database.define(
     'User',
@@ -39,10 +38,13 @@ const User = database.define(
             type: Sequelize.STRING,
             allowNull: true,
         },
-        type: {
+        profilePhoto: {
             type: Sequelize.STRING,
-            defaultValue: USER_TYPES.student,
-            allowNull: false,
+            allowNull: true,
+        },
+        backgroundImage: {
+            type: Sequelize.STRING,
+            allowNull: true,
         },
     },
     { timestamps: false }
