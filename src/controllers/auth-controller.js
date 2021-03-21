@@ -75,5 +75,14 @@ export const logOut = async (req, res) => {
 };
 
 export const check = async (req, res) => {
-    res.json({ userId: req.userId });
+    const { userId } = req;
+    const user = await User.findOne({
+        where: {
+            id: userId,
+        },
+        attributes: {
+            exclude: ['email', 'password'],
+        },
+    });
+    res.json(user);
 };
