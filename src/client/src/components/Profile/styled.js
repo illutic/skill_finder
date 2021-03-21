@@ -13,7 +13,8 @@ export const Banner = styled.div`
 export const Background = styled.div`
     position: relative;
     min-height: 150px;
-    background-image: url(https://picsum.photos/1000/300);
+    background: ${({ theme, src }) =>
+        src ? `url(${src})` : `${theme.colors.unique}`};
     background-repeat: no-repeat;
     background-size: cover;
     border-bottom: 1px solid ${({ theme }) => theme.colors.subtle};

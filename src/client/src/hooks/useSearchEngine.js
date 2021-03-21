@@ -4,14 +4,14 @@ import ENDPOINTS from '../constants/endpoints';
 
 const useSearchEngine = () => {
     const location = useLocation();
-    const [results, setResults] = useState();
     const [query, setQuery] = useState();
+    const [results, setResults] = useState();
 
     useEffect(() => {
         const queryString = location.search.substring(1);
         const searchParams = new URLSearchParams(queryString);
-        const decodedQuery = searchParams.get('query');
-        setQuery(decodedQuery);
+        const query = searchParams.get('query');
+        setQuery(query);
     }, [location.search]);
 
     useEffect(() => {

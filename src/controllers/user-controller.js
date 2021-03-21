@@ -23,7 +23,7 @@ export const getUser = async (req, res) => {
         if (!user) {
             throw Error('Incorrect user ID.');
         }
-        res.status(200).json({ user });
+        res.status(200).json(user);
     } catch (err) {
         res.status(400).json({ error: err.message });
     }
