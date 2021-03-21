@@ -1,15 +1,14 @@
-import { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import { AuthContext } from '../contexts/AuthContextProvider';
 import ENDPOINTS from '../constants/endpoints';
+import useAuthCheck from '../hooks/useAuthCheck';
 
 const useLogout = () => {
     const history = useHistory();
-    const { setIsAuth } = useContext(AuthContext);
+    const checkAuth = useAuthCheck();
 
-    const logOut = () => {
-        fetch(ENDPOINTS.logout);
-        setIsAuth(false);
+    const logOut = async () => {
+        await fetch(ENDPOINTS.logout);
+        checkAuth();
         history.push('/login');
     };
 

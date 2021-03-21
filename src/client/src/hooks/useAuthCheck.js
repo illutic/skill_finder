@@ -7,17 +7,23 @@ const useAuthCheck = () => {
     const { setIsAuth } = useContext(AuthContext);
     const { setUser } = useContext(UserContext);
 
+    const checkAuth = async () => {
+        const response = await fetch(ENDPOINTS.check);
+        if (response.ok) {
+            const user = await response.json();
+            setUser(user);
+            setIsAuth(true);
+            return;
+        }
+        setUser(null);
+        setIsAuth(false);
+    };
+
     useEffect(() => {
-        const checkAuth = async () => {
-            const response = await fetch(ENDPOINTS.check);
-            if (response.ok) {
-                const user = await response.json();
-                setUser(user);
-                setIsAuth(true);
-            }
-        };
         checkAuth();
     }, [setIsAuth]);
+
+    return checkAuth;
 };
 
 export default useAuthCheck;
