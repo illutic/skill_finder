@@ -1,6 +1,7 @@
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import useProfile from '../../hooks/useProfile';
-import useLocationId from '../../hooks/useLocationId';
+import { UserContext } from '../../contexts/UserContextProvider';
 import * as Styled from './styled';
 import Container from '../Container/index';
 import Heading from '../Heading/index';
@@ -11,7 +12,7 @@ import ROUTES from '../../constants/routes';
 
 const Profile = () => {
     const { profile: user, isLoading } = useProfile();
-    const { locationId: userId } = useLocationId();
+    const { user: loggedInUser } = useContext(UserContext);
 
     return isLoading ? (
         <Loading />
@@ -43,7 +44,7 @@ const Profile = () => {
                             </Styled.UserTitle>
                         </Styled.User>
                         <Styled.Action>
-                            {user?.id === userId ? (
+                            {user?.id === loggedInUser?.id ? (
                                 <Link to={ROUTES.settings}>
                                     <Button outlined>Edit profile</Button>
                                 </Link>
