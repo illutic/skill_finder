@@ -50,7 +50,7 @@ export const acceptRequest = async (req, res) => {
         const chat = await Chat.create();
         chat.addUser(teacher);
         chat.addUser(student);
-        request.destroy();
+        await request.destroy();
         res.status(200);
     } catch (err) {
         res.status(400).json({ error: err.message });

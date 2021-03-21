@@ -13,6 +13,10 @@ const Message = database.define(
             type: Sequelize.STRING,
             allowNull: false,
         },
+        userId: {
+            type: Sequelize.UUID,
+            allowNull: false,
+        },
     },
     { timestamps: true }
 );

@@ -1,18 +1,58 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import * as Styled from './styled';
+import io from 'socket.io-client';
+import { initialize, disconnect } from '../../constants/socket.js';
+import ENDPOINTS from '../../constants/endpoints';
 
 const Chat = ({ location, toggleContactsDrawer, toggleFilesDrawer }) => {
     const messagesRef = useRef();
+    let currentUserId;
+    const [msgs, setMessages] = useState([]);
+    const [socket, setSocket] = useState(io({ autoConnect: false }));
 
+    // !Only runs whenever the path name changes!
     useEffect(() => {
+        // somehow get currentUserId
         const currentChatId = location.pathname.split('/').pop();
+        // disconnects existing socket & clears the messages
+        disconnect(socket);
+        setMessages([]);
+        // connects a new socket & gets messages
+        const newSocket = initialize(currentChatId);
+        // caching them would be a good idea
+        const getMessages = async () => {
+            // Where UUID is the chatId
+            try {
+                const response = await fetch(
+                    `${ENDPOINTS.api}/${currentChatId}/messages` // <--- THIS WILL THROW AN ERROR! Integers are not a valid uuid.
+                ); // If You want to test it create a new chat, and copy and paste the uuid.
+                const data = await response.json();
+                setMessages(data);
+            } catch (err) {
+                console.log(err);
+            }
+        };
+        getMessages();
+        setSocket(newSocket);
     }, [location.pathname]);
 
     useEffect(() => {
+        socket.on('message', (message) => {
+            setMessages([...msgs, message]);
+        });
         const messages = messagesRef.current;
         messages.scrollTop = messages.scrollHeight;
-    }, []);
+    }, [msgs, socket]);
+
+    const sendMessage = () => {
+        socket.emit(
+            'sendMessage',
+            location.pathname.split('/').pop(),
+            document.getElementById('textInput').value
+        );
+        document.getElementById('textInput').value = '';
+    };
 
     return (
         <Styled.Chat>
@@ -25,42 +65,30 @@ const Chat = ({ location, toggleContactsDrawer, toggleFilesDrawer }) => {
                 </Styled.Control>
             </Styled.Controls>
             <Styled.Messages ref={messagesRef}>
-                {/* Template */}
-                {/* <Styled.Message key={messageId} currentUser>
-                        {messageContent}
-                    </Styled.Message> */}
-                <Styled.Message>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Nullam vitae leo ut erat faucibus feugiat. Nam dui ligula,
-                    ultrices quis pulvinar at, commodo ac sem.
-                </Styled.Message>
-                <Styled.Message currentUser>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                </Styled.Message>
-                <Styled.Message>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                </Styled.Message>
-                <Styled.Message currentUser>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                </Styled.Message>
-                <Styled.Message>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                </Styled.Message>
-                <Styled.Message currentUser>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Nullam vitae leo ut erat faucibus feugiat. Nam dui ligula,
-                    ultrices quis pulvinar at, commodo ac sem.
-                </Styled.Message>
-                <Styled.Message>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Nullam vitae leo ut erat faucibus feugiat. Nam dui ligula,
-                    ultrices quis pulvinar at, commodo ac sem.
-                </Styled.Message>
+                {msgs.map((msg) => {
+                    if (msg.userId === currentUserId) {
+                        // Checks if the person who sent the message is the current user or not.
+                        return (
+                            <Styled.Message key={msg.id} currentUser>
+                                {msg.content}
+                            </Styled.Message>
+                        );
+                    } else {
+                        return (
+                            <Styled.Message key={msg.id}>
+                                {msg.content}
+                            </Styled.Message>
+                        );
+                    }
+                })}
             </Styled.Messages>
             <Styled.Form>
-                <Styled.TextArea type="text" placeholder="Aa" />
+                <Styled.TextArea type="text" placeholder="Aa" id="textInput" />
                 <Styled.PositionedSendButton
-                    onClick={(e) => e.preventDefault()}
+                    onClick={(e) => {
+                        sendMessage();
+                        e.preventDefault();
+                    }}
                 />
             </Styled.Form>
         </Styled.Chat>

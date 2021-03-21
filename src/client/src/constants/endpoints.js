@@ -7,6 +7,7 @@ const ENDPOINTS = {
     photo: '/api/user/photo',
     skill: '/api/skill',
     user: '/api/user',
+    api: '/api',
 };
 
 export default ENDPOINTS;
