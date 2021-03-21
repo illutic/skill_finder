@@ -35,7 +35,7 @@ const User = database.define(
             allowNull: true,
         },
         description: {
-            type: Sequelize.STRING,
+            type: Sequelize.TEXT,
             allowNull: true,
         },
         profilePhoto: {

@@ -13,7 +13,8 @@ export const Banner = styled.div`
 export const Background = styled.div`
     position: relative;
     min-height: 150px;
-    background-image: url(https://picsum.photos/1000/300);
+    background: ${({ theme, src }) =>
+        src ? `url(${src})` : `${theme.colors.unique}`};
     background-repeat: no-repeat;
     background-size: cover;
     border-bottom: 1px solid ${({ theme }) => theme.colors.subtle};
@@ -96,11 +97,12 @@ export const SectionParagraph = styled.p`
 export const Skills = styled.div`
     display: flex;
     flex-wrap: wrap;
+    margin-top: 25px;
 `;
 
 export const Skill = styled.div`
     padding: 10px 15px;
-    margin: 25px 15px 0 0;
+    margin: 0 15px 25px 0;
     border: 1px solid ${({ theme }) => theme.colors.subtle};
     border-radius: 7px;
 `;

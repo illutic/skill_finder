@@ -3,6 +3,7 @@
  */
 import sequelize from 'sequelize';
 import User from '../models/User.js';
+import Message from '../models/Message.js';
 /** Chatrooms by user ID
  * @param {Request} req - HTTP REQUEST
  * @param {Response} res - HTTP RESPONSE
@@ -35,8 +36,13 @@ export const getChatrooms = async (req, res) => {
  * */
 export const getMessages = async (req, res) => {
     try {
-        res.sendStatus(200);
+        console.log(req.params.chatId);
+        const messages = await Message.findAll({
+            where: { ChatId: req.params.chatId },
+        });
+        res.send(messages);
     } catch (err) {
+        console.log(err);
         res.status(400).json({ error: err });
     }
 };

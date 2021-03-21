@@ -5,6 +5,8 @@ const ENDPOINTS = {
     check: '/auth/check',
     chats: '/api/chats',
     photo: '/api/user/photo',
+    skill: '/api/skill',
+    user: '/api/user',
     api: '/api',
 };
 

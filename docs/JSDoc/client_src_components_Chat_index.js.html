@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>constants/form-types.js - Documentation</title>
+    <title>client/src/components/Chat/index.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">constants/form-types.js</h1>
+    <h1 class="page-title">client/src/components/Chat/index.js</h1>
     
 
     
@@ -39,15 +39,81 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/** @constant FORM_TYPES */
-/**  Specifies the type of form.
- */
-const FORM_TYPES = {
-    signup: 0,
-    login: 1,
+            <pre class="prettyprint source linenums"><code>import { useEffect } from 'react';
+import { withRouter } from 'react-router-dom';
+import * as Styled from './styled';
+import { connect, socket } from '../../constants/socket.js';
+
+const Chat = ({ location, contactsAction, filesAction }) => {
+    connect();
+    const connectedSocket = socket.connect();
+    /** Connect to socket
+     * Join Chatroom
+     * Emit messages
+     *
+     * Message received on server
+     * Message saved in database
+     */
+    const sendMessage = (e) => {
+        e.preventDefault();
+    };
+
+    useEffect(() => {
+        const currentChatId = location.pathname.split('/').pop();
+    }, [location.pathname]);
+
+    return (
+        &lt;Styled.Chat>
+            &lt;Styled.Controls>
+                &lt;Styled.Control onClick={contactsAction}>
+                    Contacts
+                &lt;/Styled.Control>
+                &lt;Styled.Control onClick={filesAction}>Files&lt;/Styled.Control>
+            &lt;/Styled.Controls>
+            &lt;Styled.Messages>
+                {/* Template */}
+                {/* &lt;Styled.Message key={messageId} currentUser>
+                        {messageContent}
+                    &lt;/Styled.Message> */}
+                &lt;Styled.Message>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Nullam vitae leo ut erat faucibus feugiat. Nam dui ligula,
+                    ultrices quis pulvinar at, commodo ac sem.
+                &lt;/Styled.Message>
+                &lt;Styled.Message currentUser>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                &lt;/Styled.Message>
+                &lt;Styled.Message>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                &lt;/Styled.Message>
+                &lt;Styled.Message currentUser>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                &lt;/Styled.Message>
+                &lt;Styled.Message>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                &lt;/Styled.Message>
+                &lt;Styled.Message currentUser>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Nullam vitae leo ut erat faucibus feugiat. Nam dui ligula,
+                    ultrices quis pulvinar at, commodo ac sem.
+                &lt;/Styled.Message>
+                &lt;Styled.Message>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Nullam vitae leo ut erat faucibus feugiat. Nam dui ligula,
+                    ultrices quis pulvinar at, commodo ac sem.
+                &lt;/Styled.Message>
+            &lt;/Styled.Messages>
+            &lt;Styled.Form>
+                &lt;Styled.TextArea type="text" placeholder="Aa" />
+                &lt;Styled.PositionedSendButton
+                    onClick={(e) => e.preventDefault()}
+                />
+            &lt;/Styled.Form>
+        &lt;/Styled.Chat>
+    );
 };
 
-export default FORM_TYPES;
+export default withRouter(Chat);
 </code></pre>
         </article>
     </section>
