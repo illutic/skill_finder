@@ -35,8 +35,8 @@ const Messages = () => {
             <Styled.Wrapper>
                 <ContactsDrawer isActive={isContactsDrawerActive} />
                 <Chat
-                    contactsAction={toggleContactsDrawer}
-                    filesAction={toggleFilesDrawer}
+                    toggleContactsDrawer={toggleContactsDrawer}
+                    toggleFilesDrawer={toggleFilesDrawer}
                 />
                 <FilesDrawer isActive={isFilesDrawerActive} />
             </Styled.Wrapper>

@@ -1,15 +1,18 @@
 import { Link } from 'react-router-dom';
+import useOriginAuth from '../../hooks/useOriginAuth';
 import * as Styled from './styled';
-import withOriginAuth from '../../hoc/withOriginAuth';
 import FORM_TYPES from '../../constants/formTypes';
 import ROUTES from '../../constants/routes';
 import Button from '../Button/index';
 import GoogleButton from '../../components/GoogleButton/index';
+import FormSuccess from '../FormSuccess/index';
 import FormError from '../FormError/index';
 
-const AuthForm = ({ type, error, ...rest }) => {
+const AuthForm = ({ type, ...rest }) => {
+    const { originAuth, success, error } = useOriginAuth(type);
+
     return (
-        <Styled.Form {...rest}>
+        <Styled.Form onSubmit={originAuth} {...rest}>
             {type === FORM_TYPES.signup ? (
                 <Styled.Split>
                     <Styled.Group>
@@ -82,9 +85,10 @@ const AuthForm = ({ type, error, ...rest }) => {
                     <Link to={ROUTES.signup}>I don't have an account</Link>
                 )}
             </Styled.Choice>
+            {success ? <FormSuccess>{success}</FormSuccess> : null}
             {error ? <FormError>{error}</FormError> : null}
         </Styled.Form>
     );
 };
 
-export default withOriginAuth(AuthForm);
+export default AuthForm;

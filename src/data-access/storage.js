@@ -1,6 +1,6 @@
 import path from 'path';
 import multer from 'multer';
-import { v4 as uuidv4 } from 'uuid';
+import { v4 } from 'uuid';
 
 const storage = multer.diskStorage({
     destination(req, file, cb) {
@@ -8,8 +8,7 @@ const storage = multer.diskStorage({
         cb(null, directory);
     },
     filename(req, file, cb) {
-        const extension = path.extname(file.originalname);
-        cb(null, uuidv4() + extension);
+        cb(null, `${v4() + path.extname(file.originalname)}`);
     },
 });
 

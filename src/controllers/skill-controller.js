@@ -22,8 +22,9 @@ export const getSkill = async (req, res) => {
                     exclude: ['email', 'password'],
                 },
             },
+            limit: 15,
         });
-        res.json({ skill });
+        res.json(skill);
     } catch (err) {
         res.status(400).json({ error: err.message });
     }

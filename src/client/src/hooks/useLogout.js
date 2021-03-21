@@ -10,7 +10,7 @@ const useLogout = () => {
     const logOut = () => {
         fetch(ENDPOINTS.logout);
         setIsAuth(false);
-        history.push('/');
+        history.push('/login');
     };
 
     return logOut;

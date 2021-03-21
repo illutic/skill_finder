@@ -1,6 +1,6 @@
 const PHOTO_TYPES = {
-    profile: 'profile',
-    background: 'background',
+    profile: 'profilePhoto',
+    background: 'backgroundImage',
 };
 
 export default PHOTO_TYPES;

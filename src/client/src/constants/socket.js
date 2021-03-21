@@ -1,31 +1,25 @@
 import io from 'socket.io-client';
 
-export let socket;
-
-export const connect = () => {
-    let error = null;
-    socket = io({
+export const initialize = (chatId) => {
+    const socket = io({
         autoConnect: false,
     });
-
+    socket.connect();
     socket.on('connect', () => {
         socket.emit('authentication');
+
         socket.on('unauthorized', (reason) => {
-            console.log('Unauthorized:', reason);
-            error = reason.message;
-            socket.disconnect();
+            alert('Unauthorized:', reason);
+            disconnect(socket);
         });
         socket.on('authorized', () => {
-            socket.emit('join', 'chatId');
-            console.log('Connected');
+            socket.emit('join', chatId);
         });
     });
-    socket.on('disconnect', (reason) => {
-        console.log(`Disconnected: ${error || reason}`);
-        error = null;
-    });
+    return socket;
 };
 
-export const disconnect = () => {
+export const disconnect = (socket) => {
     socket.disconnect();
+    socket.off();
 };

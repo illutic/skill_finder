@@ -8,10 +8,12 @@ const Login = () => {
     return (
         <Container spaced>
             <Styled.Wrapper>
-                <Heading extra underlined>
-                    Log in
-                </Heading>
-                <AuthForm type={FORM_TYPES.login} />
+                <Styled.Box>
+                    <Heading large underlined>
+                        Log in
+                    </Heading>
+                    <AuthForm type={FORM_TYPES.login} />
+                </Styled.Box>
             </Styled.Wrapper>
         </Container>
     );
