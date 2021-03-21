@@ -6,7 +6,7 @@ import ROUTES from '../../constants/routes';
 const ProtectedRoute = ({ children, ...rest }) => {
     const { isAuth } = useContext(AuthContext);
 
-    if (!isAuth) {
+    if (isAuth === false && isAuth !== null) {
         return <Redirect to={ROUTES.protected} />;
     }
 

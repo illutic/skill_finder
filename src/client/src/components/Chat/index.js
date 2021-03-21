@@ -1,5 +1,6 @@
 import { useRef, useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
+import useLocationId from '../../hooks/useLocationId';
 import * as Styled from './styled';
 import io from 'socket.io-client';
 import { initialize, disconnect } from '../../helpers/socket.js';
@@ -8,7 +9,7 @@ import ENDPOINTS from '../../constants/endpoints';
 const Chat = ({ location, toggleContactsDrawer, toggleFilesDrawer }) => {
     const [socket, setSocket] = useState(io({ autoConnect: false }));
     const [messages, setMessages] = useState();
-    const [chatId, setChatId] = useState();
+    const { locationId: chatId } = useLocationId();
     const messagesContainerRef = useRef();
     const currentUserId = null;
 
@@ -26,10 +27,6 @@ const Chat = ({ location, toggleContactsDrawer, toggleFilesDrawer }) => {
         const messagesContainer = messagesContainerRef.current;
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
     };
-
-    useEffect(() => {
-        setChatId(location.pathname.split('/').pop());
-    }, [location.pathname]);
 
     useEffect(() => {
         disconnect(socket);

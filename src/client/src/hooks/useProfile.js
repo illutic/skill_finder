@@ -5,7 +5,7 @@ import ENDPOINTS from '../constants/endpoints';
 const useProfile = () => {
     const location = useLocation();
     const [userId, setUserId] = useState();
-    const [data, setData] = useState();
+    const [profile, setProfile] = useState();
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
@@ -20,13 +20,13 @@ const useProfile = () => {
                     return;
                 }
                 const response = await fetch(`${ENDPOINTS.user}/${userId}`);
-                const data = await response.json();
+                const profile = await response.json();
                 if (response.ok) {
-                    setData(data);
+                    setProfile(profile);
                     setIsLoading(false);
                     return;
                 }
-                setData(null);
+                setProfile(null);
                 // < Set error and redirect to 404 >
             } catch (err) {
                 console.log(err);
@@ -35,7 +35,7 @@ const useProfile = () => {
         getUser();
     }, [userId]);
 
-    return { data, isLoading };
+    return { profile, isLoading };
 };
 
 export default useProfile;

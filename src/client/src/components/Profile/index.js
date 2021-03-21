@@ -1,13 +1,18 @@
+import { Link } from 'react-router-dom';
 import useProfile from '../../hooks/useProfile';
+import useLocationId from '../../hooks/useLocationId';
 import * as Styled from './styled';
 import Container from '../Container/index';
 import Heading from '../Heading/index';
 import Button from '../Button/index';
 import Loading from '../Loading/index';
 import defaultProfilePhoto from '../../assets/profile.gif';
+import ROUTES from '../../constants/routes';
 
 const Profile = () => {
-    const { data: user, isLoading } = useProfile();
+    const { profile: user, isLoading } = useProfile();
+    const { locationId: userId } = useLocationId();
+
     return isLoading ? (
         <Loading />
     ) : (
@@ -38,7 +43,13 @@ const Profile = () => {
                             </Styled.UserTitle>
                         </Styled.User>
                         <Styled.Action>
-                            <Button>Reach out</Button>
+                            {user?.id === userId ? (
+                                <Link to={ROUTES.settings}>
+                                    <Button outlined>Edit profile</Button>
+                                </Link>
+                            ) : (
+                                <Button>Reach out</Button>
+                            )}
                         </Styled.Action>
                     </Styled.Bar>
                 </Styled.Banner>
