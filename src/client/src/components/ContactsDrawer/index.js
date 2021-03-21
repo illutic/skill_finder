@@ -4,7 +4,7 @@ import stopPropagation from '../../utils/stopPropagation';
 import ProfileThumbnail from '../ProfileThumbnail/index';
 import ROUTES from '../../constants/routes';
 import { ChatsContext } from '../../contexts/ChatsContextProvider';
-import defaultProfilePhoto from '../../assets/profile.gif';
+import defaultProfilePhoto from '../../assets/default.jpg';
 
 const ContactsDrawer = ({ isActive }) => {
     const { chats } = useContext(ChatsContext);

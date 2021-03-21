@@ -8,7 +8,7 @@ import Container from '../Container/index';
 import Heading from '../Heading/index';
 import Button from '../Button/index';
 import Loading from '../Loading/index';
-import defaultProfilePhoto from '../../assets/profile.gif';
+import defaultProfilePhoto from '../../assets/default.jpg';
 import ROUTES from '../../constants/routes';
 
 const Profile = () => {
