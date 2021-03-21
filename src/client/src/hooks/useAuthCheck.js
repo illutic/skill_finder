@@ -9,14 +9,15 @@ const useAuthCheck = () => {
 
     const checkAuth = async () => {
         const response = await fetch(ENDPOINTS.check);
+        const data = await response.json();
         if (response.ok) {
-            const user = await response.json();
-            setUser(user);
+            setUser(data);
             setIsAuth(true);
             return;
         }
         setUser(null);
         setIsAuth(false);
+        console.error(data.error);
     };
 
     useEffect(() => {

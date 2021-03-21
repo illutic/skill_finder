@@ -20,9 +20,13 @@ const authGoogle = async (token) => {
                 email: payload.email,
                 firstName: payload.given_name,
                 lastName: payload.family_name,
-                profilePhoto: payload.picture,
             },
         });
+        if (!user.profilePhoto) {
+            user.update({
+                profilePhoto: payload.picture,
+            });
+        }
         return { userId: user[0].id };
     } catch (err) {
         return { error: err };
