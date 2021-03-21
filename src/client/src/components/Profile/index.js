@@ -1,14 +1,13 @@
-import useUserData from '../../hooks/useUserData';
+import useProfile from '../../hooks/useProfile';
 import * as Styled from './styled';
 import Container from '../Container/index';
 import Heading from '../Heading/index';
 import Button from '../Button/index';
 import Loading from '../Loading/index';
-import PHOTO_TYPES from '../../constants/photoTypes';
 import defaultProfilePhoto from '../../assets/profile.gif';
 
 const Profile = () => {
-    const { data: user, isLoading } = useUserData();
+    const { data: user, isLoading } = useProfile();
     return isLoading ? (
         <Loading />
     ) : (
@@ -17,18 +16,15 @@ const Profile = () => {
                 <Styled.Banner>
                     <Styled.Background
                         src={
-                            user?.Photos?.find(
-                                (photo) => photo.type === PHOTO_TYPES.background
-                            )?.uri ?? null
+                            user?.backgroundImage ? user.backgroundImage : null
                         }
                     >
                         <Styled.AdjustedProfilePhoto
                             size={150}
                             src={
-                                user?.Photos?.find(
-                                    (photo) =>
-                                        photo.type === PHOTO_TYPES.profile
-                                )?.uri ?? defaultProfilePhoto
+                                user?.profilePhoto
+                                    ? user.profilePhoto
+                                    : defaultProfilePhoto
                             }
                         />
                     </Styled.Background>

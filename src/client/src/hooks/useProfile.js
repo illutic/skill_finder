@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import ENDPOINTS from '../constants/endpoints';
 
-const useUserData = () => {
+const useProfile = () => {
     const location = useLocation();
     const [userId, setUserId] = useState();
     const [data, setData] = useState();
@@ -38,4 +38,4 @@ const useUserData = () => {
     return { data, isLoading };
 };
 
-export default useUserData;
+export default useProfile;
