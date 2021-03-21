@@ -7,6 +7,7 @@ import LogoutModalContextProvider from './contexts/LogoutModalContextProvider';
 import Navigation from './components/Navigation/index';
 import LogoutModal from './components/LogoutModal/index';
 import ProtectedRoute from './components/ProtectedRoute/index';
+import AuthMessage from './components/AuthMessage';
 import Signup from './components/Signup/index';
 import Login from './components/Login/index';
 import SearchResults from './components/SearchResults/index';
@@ -31,6 +32,9 @@ function App() {
                     </LogoutModalContextProvider>
                 </NavigationContextProvider>
                 <Switch>
+                    <Route path={ROUTES.protected} exact>
+                        <AuthMessage />
+                    </Route>
                     <Route path={ROUTES.signup} exact>
                         <Signup />
                     </Route>

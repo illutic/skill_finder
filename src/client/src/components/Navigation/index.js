@@ -31,7 +31,7 @@ const Navigation = () => {
                 <Container>
                     <Styled.Relative>
                         <Styled.Box>
-                            <Link to={isAuth ? '' : ROUTES.login}>
+                            <Link to={isAuth ? '' : ROUTES.protected}>
                                 <ProfilePhoto src="" />
                             </Link>
                             <Styled.Buttons>
