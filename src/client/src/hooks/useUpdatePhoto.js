@@ -20,9 +20,9 @@ const useUpdatePhoto = () => {
                 const payload = await response.json();
                 throw payload.error;
             }
-            form.reset();
             setSuccess('Image updated.');
             setError(null);
+            form.reset();
         } catch (err) {
             setSuccess(null);
             setError(err);

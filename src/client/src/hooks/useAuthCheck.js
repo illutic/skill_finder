@@ -17,7 +17,6 @@ const useAuthCheck = () => {
         }
         setUser(null);
         setIsAuth(false);
-        console.error(data.error);
     }, [setIsAuth, setUser]);
 
     useEffect(() => {

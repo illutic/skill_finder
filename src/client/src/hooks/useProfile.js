@@ -30,11 +30,11 @@ const useProfile = () => {
                 setProfile(null);
                 history.push('/404');
             } catch (err) {
-                console.log(err);
+                console.error(err);
             }
         };
         getUser();
-    }, [userId]);
+    }, [userId, history]);
 
     return { profile, isLoading };
 };
