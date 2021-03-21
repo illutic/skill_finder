@@ -8,10 +8,12 @@ const Signup = () => {
     return (
         <Container spaced>
             <Styled.Wrapper>
-                <Heading extra underlined>
-                    Sign up
-                </Heading>
-                <AuthForm type={FORM_TYPES.signup} />
+                <Styled.Box>
+                    <Heading large underlined>
+                        Sign up
+                    </Heading>
+                    <AuthForm type={FORM_TYPES.signup} />
+                </Styled.Box>
             </Styled.Wrapper>
         </Container>
     );

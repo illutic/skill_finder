@@ -1,74 +1,48 @@
-import { useState, useEffect } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import useSearchEngine from '../../hooks/useSearchEngine';
 import * as Styled from './styled';
 import Container from '../Container/index';
 import Heading from '../Heading/index';
-import ProfilePhoto from '../ProfilePhoto/index';
 import Button from '../Button/index';
+import ProfileThumbnail from '../ProfileThumbnail';
 
-const SearchResults = ({ location }) => {
-    const [query, setQuery] = useState();
-
-    useEffect(() => {
-        const queryString = location.search.substring(1);
-        const searchParams = new URLSearchParams(queryString);
-        const decodedQuery = searchParams.get('query');
-        setQuery(decodedQuery);
-    }, [location.search]);
+const SearchResults = () => {
+    const { results, query } = useSearchEngine();
 
     return (
         <Container spaced>
             <Styled.Wrapper>
                 <Heading underlined>Results for {query}</Heading>
                 <Styled.Entries>
-                    <Styled.Entry>
-                        <Link to="/profile/1">
-                            <Styled.User>
-                                <ProfilePhoto
-                                    src="https://picsum.photos/100/100"
-                                    size={75}
-                                />
-                                <Styled.Details>
-                                    <Styled.Name>John Smith</Styled.Name>
-                                    <Styled.Title>
-                                        Teachnig Mathematics
-                                    </Styled.Title>
-                                </Styled.Details>
-                            </Styled.User>
-                        </Link>
-                        <Styled.Buttons>
-                            <Link to="/profile/1">
-                                <Button outlined>View profile</Button>
-                            </Link>
-                            <Button>Reach out</Button>
-                        </Styled.Buttons>
-                    </Styled.Entry>
-                    <Styled.Entry>
-                        <Link to="/profile/1">
-                            <Styled.User>
-                                <ProfilePhoto
-                                    src="https://picsum.photos/100/100"
-                                    size={75}
-                                />
-                                <Styled.Details>
-                                    <Styled.Name>Ian Jones</Styled.Name>
-                                    <Styled.Title>
-                                        Mathematics Passionate
-                                    </Styled.Title>
-                                </Styled.Details>
-                            </Styled.User>
-                        </Link>
-                        <Styled.Buttons>
-                            <Link to="/profile/1">
-                                <Button outlined>View profile</Button>
-                            </Link>
-                            <Button>Reach out</Button>
-                        </Styled.Buttons>
-                    </Styled.Entry>
+                    {results?.length
+                        ? results.map((skill) => {
+                              return skill.Users.map((user) => {
+                                  return (
+                                      <Styled.Entry key={user.id}>
+                                          <Link to={`/profile/${user.id}`}>
+                                              <ProfileThumbnail
+                                                  name={`${user.firstName} ${user.lastName}`}
+                                                  title={user.title}
+                                                  photo=""
+                                              />
+                                          </Link>
+                                          <Styled.Buttons>
+                                              <Link to={`/profile/${user.id}`}>
+                                                  <Button outlined>
+                                                      View profile
+                                                  </Button>
+                                              </Link>
+                                              <Button>Reach out</Button>
+                                          </Styled.Buttons>
+                                      </Styled.Entry>
+                                  );
+                              });
+                          })
+                        : 'Nothing found'}
                 </Styled.Entries>
             </Styled.Wrapper>
         </Container>
     );
 };
 
-export default withRouter(SearchResults);
+export default SearchResults;

@@ -1,8 +1,10 @@
 import GoogleLogin from 'react-google-login';
-import withGoogleAuth from '../../hoc/withGoogleAuth';
+import useGoogleSuccess from '../../hooks/useGoogleSuccess';
 import Button from '../Button/index';
 
-const GoogleButton = ({ onSuccess, children }) => {
+const GoogleButton = ({ children }) => {
+    const onSuccess = useGoogleSuccess();
+
     return (
         <GoogleLogin
             clientId="376637890849-b65grja0cmn3me29vvj7k4565k3jjoi7.apps.googleusercontent.com"
@@ -17,4 +19,4 @@ const GoogleButton = ({ onSuccess, children }) => {
     );
 };
 
-export default withGoogleAuth(GoogleButton);
+export default GoogleButton;
