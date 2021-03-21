@@ -22,7 +22,7 @@ const authGoogle = async (token) => {
                 lastName: payload.family_name,
             },
         });
-        if (!user.profilePhoto) {
+        if (!user[0].profilePhoto) {
             user[0].update({
                 profilePhoto: payload.picture,
             });
