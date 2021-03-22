@@ -1,10 +1,8 @@
-import fs from 'fs';
 import User from '../models/User.js';
 import Skill from '../models/Skill.js';
 import hashPassword from '../utils/hashPassword.js';
 import checkPassword from '../utils/checkPassword.js';
 import removeToken from '../utils/removeToken.js';
-import uploadImage from '../data-access/storage.js';
 
 /** Get User Data */
 export const getUser = async (req, res) => {
@@ -135,60 +133,6 @@ export const patchDescription = async (req, res) => {
     } catch (err) {
         res.status(400).json({ error: err.message });
     }
-};
-
-/** Post / Update Photo */
-export const postPhoto = async (req, res) => {
-    uploadImage(req, res, async (fileError) => {
-        try {
-            if (req.fileValidationError) {
-                throw Error(req.fileValidationError);
-            }
-            if (!req.file) {
-                throw Error('Please select an image to upload.');
-            }
-            if (fileError) {
-                throw Error(fileError);
-            }
-            const { userId } = req;
-            const { photoType } = req.params;
-            const user = await User.findOne({
-                where: { id: userId },
-            });
-            const oldPhoto = user[photoType];
-            if (oldPhoto) {
-                fs.unlink(oldPhoto, () => {});
-            }
-            user.update({
-                [photoType]: req.file.path,
-            });
-            res.sendStatus(200);
-        } catch (err) {
-            res.status(400).json({ error: err.message });
-        }
-    });
-};
-
-/** Remove Photo */
-export const removePhoto = async (req, res) => {
-    const { userId } = req;
-    const { photoType } = req.params;
-    const user = await User.findOne({
-        where: { id: userId },
-    });
-    const photo = user[photoType];
-    if (photo) {
-        fs.unlink(photo, async () => {
-            user.update({
-                [photoType]: null,
-            });
-            res.sendStatus(200);
-        });
-        return;
-    }
-    res.status(400).json({
-        error: 'Could not remove photo as it does not exist.',
-    });
 };
 
 /** Delete Account */
