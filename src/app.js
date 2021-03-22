@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser';
 import { Server } from 'socket.io';
 import AuthRoutes from './routes/auth-routes.js';
 import APIRoutes from './routes/api-routes.js';
+import FileRoutes from './routes/file-routes.js';
 import database from './data-access/database.js';
 import makeAssociations from './data-access/associations.js';
 import { WebSockets } from './sockets/WebSockets.js';
@@ -20,6 +21,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(DIRNAME, 'client', 'build')));
 app.use(AuthRoutes);
 app.use(APIRoutes);
+app.use(FileRoutes);
 app.get('*', (req, res) => {
     res.sendFile(path.join(DIRNAME, 'client', 'build', 'index.html'));
 });

@@ -10,14 +10,19 @@ import { v4 } from 'uuid';
  * @returns void
  */
 const createUploadDirectory = async (userId, chatId, callback) => {
-    let chatIdStr;
-    if (chatId === undefined) {
-        chatIdStr = 'photos';
+    let userDir;
+    if (!chatId) {
+        userDir = path.join('.', 'data-access', 'uploads', 'users', userId);
     } else {
-        chatIdStr = chatId;
+        userDir = path.join(
+            '.',
+            'data-access',
+            'uploads',
+            'chats',
+            chatId,
+            userId
+        );
     }
-    const userDir = path.join('.', 'data-access', 'uploads', userId, chatIdStr);
-
     fs.stat(userDir, async (error) => {
         if (error) {
             fs.mkdirSync(userDir, { recursive: true });
@@ -68,7 +73,7 @@ const imageFilter = (req, file, cb) => {
             'Only image files are allowed (.jpg, .jpeg, .png, .gif).';
         return cb('Only image files are allowed.');
     }
-    cb(null, true);
+    return cb(null, true);
 };
 
 /** Creates a multer object and passes the configuration above
