@@ -9,7 +9,6 @@ const Chat = ({ toggleContactsDrawer, toggleFilesDrawer }) => {
     const [socket, setSocket] = useState(io({ autoConnect: false }));
     const [messages, setMessages] = useState([]);
     const { locationId: chatId } = useLocationId();
-    // const chatId = 'aaa83c3c-e725-4c2a-97ae-2bc98759af3d';
     const messagesContainerRef = useRef();
     const currentUserId = null;
 
@@ -72,7 +71,6 @@ const Chat = ({ toggleContactsDrawer, toggleFilesDrawer }) => {
                 </Styled.Control>
             </Styled.Controls>
             <Styled.Messages ref={messagesContainerRef}>
-                {/** Map complained that it expected a return. : ^)  */}
                 {messages?.length
                     ? messages.map((message) => {
                           if (message.userId === currentUserId) {

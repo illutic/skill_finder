@@ -1,7 +1,9 @@
 import { useState } from 'react';
+import useUserSync from './useUserSync';
 import ENDPOINTS from '../constants/endpoints';
 
 const useUpdatePhoto = () => {
+    const syncUser = useUserSync();
     const [success, setSuccess] = useState();
     const [error, setError] = useState();
 
@@ -20,6 +22,7 @@ const useUpdatePhoto = () => {
                 const payload = await response.json();
                 throw payload.error;
             }
+            syncUser();
             setSuccess('Image updated.');
             setError(null);
             form.reset();
