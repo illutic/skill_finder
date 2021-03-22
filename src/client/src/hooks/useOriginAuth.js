@@ -1,15 +1,15 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { AuthContext } from '../contexts/AuthContextProvider';
+import useAuthCheck from '../hooks/useAuthCheck';
 import extractFormData from '../utils/extractFormData';
 import FORM_TYPES from '../constants/formTypes';
 import ENDPOINTS from '../constants/endpoints';
 
 const useOriginAuth = (type) => {
     const history = useHistory();
+    const checkAuth = useAuthCheck();
     const [success, setSuccess] = useState();
     const [error, setError] = useState();
-    const { setIsAuth } = useContext(AuthContext);
 
     const originAuth = async (e) => {
         e.preventDefault();
@@ -30,10 +30,8 @@ const useOriginAuth = (type) => {
             }
             setError(null);
             setSuccess('Success! Redirecting...');
-            setIsAuth(true);
-            setTimeout(() => {
-                history.push('/');
-            }, 1000);
+            checkAuth();
+            history.push('/');
         } catch (err) {
             setError(err.error);
         }

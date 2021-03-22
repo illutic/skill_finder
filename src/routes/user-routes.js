@@ -7,9 +7,8 @@ import {
     patchTitle,
     patchDescription,
     deleteAccount,
-    postPhoto,
-    removePhoto,
 } from '../controllers/user-controller.js';
+import { postPhoto, removePhoto } from '../controllers/file-controller.js';
 import auth from '../auth/auth.js';
 
 const router = Router();

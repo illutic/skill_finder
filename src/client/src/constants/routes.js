@@ -1,4 +1,5 @@
 const ROUTES = {
+    protected: '/protected',
     signup: '/signup',
     login: '/login',
     search: '/search',

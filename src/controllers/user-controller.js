@@ -1,12 +1,12 @@
-import fs from 'fs';
 import User from '../models/User.js';
 import Skill from '../models/Skill.js';
 import hashPassword from '../utils/hashPassword.js';
 import checkPassword from '../utils/checkPassword.js';
 import removeToken from '../utils/removeToken.js';
-import uploadImage from '../data-access/storage.js';
 
-/** Get User Data */
+/** Get User Data
+ * @param {uuid} userId - Requires a user Id in the request url.
+ */
 export const getUser = async (req, res) => {
     try {
         const userId = req.params.id;
@@ -45,7 +45,10 @@ export const getNotifications = async (req, res) => {
     }
 };
 
-/** Update Email */
+/** Update Email
+ * @param {string} email - Requires an email address in the request body.
+ * @param {string} password - Requires a password in the request body.
+ */
 export const patchEmail = async (req, res) => {
     try {
         const { userId } = req;
@@ -76,7 +79,10 @@ export const patchEmail = async (req, res) => {
     }
 };
 
-/** Update Password */
+/** Update Password
+ * @param {string} password - Requires a password string in the request body
+ * @param {string} confirmPassword - Requires a password confirmation string in the request body
+ */
 export const patchPassword = async (req, res) => {
     try {
         const { userId } = req;
@@ -97,7 +103,9 @@ export const patchPassword = async (req, res) => {
     }
 };
 
-/** Update Title */
+/** Update Title
+ * @param {string} title - Requires a title string in the request body
+ */
 export const patchTitle = async (req, res) => {
     try {
         const { userId } = req;
@@ -117,7 +125,9 @@ export const patchTitle = async (req, res) => {
     }
 };
 
-/** Update Description */
+/** Update Description
+ * @param {string} description - Requires a description string in the request body.
+ */
 export const patchDescription = async (req, res) => {
     try {
         const { userId } = req;
@@ -137,63 +147,17 @@ export const patchDescription = async (req, res) => {
     }
 };
 
-/** Post / Update Photo */
-export const postPhoto = async (req, res) => {
-    uploadImage(req, res, async (fileError) => {
-        try {
-            if (req.fileValidationError) {
-                throw Error(req.fileValidationError);
-            }
-            if (!req.file) {
-                throw Error('Please select an image to upload.');
-            }
-            if (fileError) {
-                throw Error(fileError);
-            }
-            const { userId } = req;
-            const { photoType } = req.params;
-            const user = await User.findOne({
-                where: { id: userId },
-            });
-            const oldPhoto = user[photoType];
-            if (oldPhoto) {
-                fs.unlink(oldPhoto, () => {});
-            }
-            user.update({
-                [photoType]: req.file.path,
-            });
-            res.sendStatus(200);
-        } catch (err) {
-            res.status(400).json({ error: err.message });
-        }
-    });
-};
-
-/** Remove Photo */
-export const removePhoto = async (req, res) => {
-    const { userId } = req;
-    const { photoType } = req.params;
-    const user = await User.findOne({
-        where: { id: userId },
-    });
-    const photo = user[photoType];
-    if (photo) {
-        fs.unlink(photo, async () => {
-            user.update({
-                [photoType]: null,
-            });
-            res.sendStatus(200);
-        });
-        return;
-    }
-    res.status(400).json({
-        error: 'Could not remove photo as it does not exist.',
-    });
-};
-
 /** Delete Account */
 export const deleteAccount = async (req, res) => {
     try {
+        /** TODO
+         * [ ] destroy all m:n table entities related to user
+         * [ ] destroy any requests linked to user
+         * [ ] remove uploaded files
+         * [ ] remove chats
+         * [X] remove token
+         * [X] destroy database entity
+         */
         const { userId } = req;
         const { password } = req.body;
         await checkPassword(userId, password);
