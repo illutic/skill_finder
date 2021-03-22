@@ -7,8 +7,9 @@ import ENDPOINTS from '../../constants/endpoints';
 
 const Chat = ({ toggleContactsDrawer, toggleFilesDrawer }) => {
     const [socket, setSocket] = useState(io({ autoConnect: false }));
-    const [messages, setMessages] = useState();
+    const [messages, setMessages] = useState([]);
     const { locationId: chatId } = useLocationId();
+    // const chatId = 'aaa83c3c-e725-4c2a-97ae-2bc98759af3d';
     const messagesContainerRef = useRef();
     const currentUserId = null;
 
@@ -47,9 +48,6 @@ const Chat = ({ toggleContactsDrawer, toggleFilesDrawer }) => {
         }
     }, [chatId]);
 
-    // I refactored the code and prepared it to be exported
-    // but I didn't bother to test it. If it fails,
-    // just revert this (latest) commit (git reset --hard HEAD^ + git push --force).
     useEffect(() => {
         breakConnection();
         establishConnection();
@@ -74,17 +72,23 @@ const Chat = ({ toggleContactsDrawer, toggleFilesDrawer }) => {
                 </Styled.Control>
             </Styled.Controls>
             <Styled.Messages ref={messagesContainerRef}>
+                {/** Map complained that it expected a return. : ^)  */}
                 {messages?.length
                     ? messages.map((message) => {
-                          message.userId === currentUserId ? (
-                              <Styled.Message key={message.id} currentUser>
-                                  {message.content}
-                              </Styled.Message>
-                          ) : (
-                              <Styled.Message key={message.id}>
-                                  {message.content}
-                              </Styled.Message>
-                          );
+                          if (message.userId === currentUserId) {
+                              return (
+                                  <Styled.Message key={message.id} currentUser>
+                                      {message.content}
+                                  </Styled.Message>
+                              );
+                          } else {
+                              return (
+                                  <Styled.Message key={message.id}>
+                                      {console.log(message)}
+                                      {message.content}
+                                  </Styled.Message>
+                              );
+                          }
                       })
                     : null}
             </Styled.Messages>
