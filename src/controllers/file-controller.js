@@ -30,7 +30,7 @@ export const postPhoto = async (req, res) => {
                 fs.unlink(oldPhoto, () => {});
             }
             await user.update({
-                [photoType]: req.file.path,
+                [photoType]: `/${req.file.path}`,
             });
             res.sendStatus(200);
         } catch (err) {
@@ -71,10 +71,9 @@ export const getPhoto = async (req, res) => {
         const { userId, photoName } = req.params;
         res.sendFile(
             path.join(
-                process.env.pwd,
+                process.env.PWD,
                 'data-access',
                 'uploads',
-                'photos',
                 userId,
                 photoName
             )
@@ -104,7 +103,7 @@ export const postFile = async (req, res) => {
             }
             const { chatId } = req.body;
             const databaseFile = await File.create({
-                uri: req.file.path,
+                uri: `/${req.file.path}`,
                 ChatId: chatId,
             });
             res.send(databaseFile);
@@ -144,7 +143,7 @@ export const getFile = async (req, res) => {
         const { chatId, userId, fileName } = req.params;
         res.sendFile(
             path.join(
-                process.env.pwd,
+                process.env.PWD,
                 'data-access',
                 'uploads',
                 'chats',

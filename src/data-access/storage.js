@@ -11,8 +11,8 @@ import { v4 } from 'uuid';
  */
 const createUploadDirectory = async (userId, chatId, callback) => {
     let userDir;
-    if (chatId === undefined) {
-        userDir = path.join('.', 'data-access', 'uploads', 'photos', userId);
+    if (!chatId) {
+        userDir = path.join('.', 'data-access', 'uploads', userId);
     } else {
         userDir = path.join(
             '.',
@@ -73,7 +73,7 @@ const imageFilter = (req, file, cb) => {
             'Only image files are allowed (.jpg, .jpeg, .png, .gif).';
         return cb('Only image files are allowed.');
     }
-    cb(null, true);
+    return cb(null, true);
 };
 
 /** Creates a multer object and passes the configuration above
