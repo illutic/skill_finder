@@ -1,4 +1,5 @@
 import fs from 'fs';
+import path from 'path';
 import User from '../models/User.js';
 import { uploadImage, uploadFile } from '../data-access/storage.js';
 import File from '../models/File.js';
@@ -26,12 +27,11 @@ export const postPhoto = async (req, res) => {
             });
             const oldPhoto = user[photoType];
             if (oldPhoto) {
-                fs.unlink(oldPhoto, () => {
-                    user.update({
-                        [photoType]: req.file.path,
-                    });
-                });
+                fs.unlink(oldPhoto, () => {});
             }
+            await user.update({
+                [photoType]: req.file.path,
+            });
             res.sendStatus(200);
         } catch (err) {
             res.status(400).json({ error: err.message });
@@ -63,6 +63,29 @@ export const removePhoto = async (req, res) => {
     });
 };
 
+/** Get File
+ * @param {URL} photoURI - Requires the uri of the photo in the request url.
+ */
+export const getPhoto = async (req, res) => {
+    try {
+        const { userId, photoName } = req.params;
+        res.sendFile(
+            path.join(
+                process.env.pwd,
+                'data-access',
+                'uploads',
+                'photos',
+                userId,
+                photoName
+            )
+        );
+    } catch (err) {
+        res.status(400).json({
+            error: 'Could not find photo as it does not exist.',
+        });
+    }
+};
+
 /** Uploads any file to the user's upload folder
  *  @param {String} chatId - Requires a chatId field in the request body! (otherwise it defaults to a photos folder) (append('chatId', chatId))
  *  @param {file} file - the file to be uploaded. (append('file',file))
@@ -84,7 +107,6 @@ export const postFile = async (req, res) => {
                 uri: req.file.path,
                 ChatId: chatId,
             });
-
             res.send(databaseFile);
         } catch (err) {
             res.status(400).json({ error: err.message });
@@ -115,20 +137,25 @@ export const removeFile = async (req, res) => {
 };
 
 /** Get File
- * @param {UUID} fileId - Requires the ID of the file in the request body.
+ * @param {URL} fileURI - Requires the uri of the file in the request url.
  */
 export const getFile = async (req, res) => {
     try {
-        const { fileId } = req.body;
-        const file = File.findOne({
-            where: {
-                id: fileId,
-            },
-        });
-        res.send(file);
+        const { chatId, userId, fileName } = req.params;
+        res.sendFile(
+            path.join(
+                process.env.pwd,
+                'data-access',
+                'uploads',
+                'chats',
+                chatId,
+                userId,
+                fileName
+            )
+        );
     } catch (err) {
         res.status(400).json({
-            error: 'Could not remove file as it does not exist.',
+            error: 'Could not find file as it does not exist.',
         });
     }
 };

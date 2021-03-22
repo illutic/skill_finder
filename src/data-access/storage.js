@@ -10,14 +10,19 @@ import { v4 } from 'uuid';
  * @returns void
  */
 const createUploadDirectory = async (userId, chatId, callback) => {
-    let chatIdStr;
+    let userDir;
     if (chatId === undefined) {
-        chatIdStr = 'photos';
+        userDir = path.join('.', 'data-access', 'uploads', 'photos', userId);
     } else {
-        chatIdStr = chatId;
+        userDir = path.join(
+            '.',
+            'data-access',
+            'uploads',
+            'chats',
+            chatId,
+            userId
+        );
     }
-    const userDir = path.join('.', 'data-access', 'uploads', userId, chatIdStr);
-
     fs.stat(userDir, async (error) => {
         if (error) {
             fs.mkdirSync(userDir, { recursive: true });
