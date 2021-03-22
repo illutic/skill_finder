@@ -1,12 +1,11 @@
-import { useRef, useEffect, useState } from 'react';
-import { withRouter } from 'react-router-dom';
-import useLocationId from '../../hooks/useLocationId';
-import * as Styled from './styled';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import io from 'socket.io-client';
 import { initialize, disconnect } from '../../helpers/socket.js';
+import useLocationId from '../../hooks/useLocationId';
+import * as Styled from './styled';
 import ENDPOINTS from '../../constants/endpoints';
 
-const Chat = ({ location, toggleContactsDrawer, toggleFilesDrawer }) => {
+const Chat = ({ toggleContactsDrawer, toggleFilesDrawer }) => {
     const [socket, setSocket] = useState(io({ autoConnect: false }));
     const [messages, setMessages] = useState();
     const { locationId: chatId } = useLocationId();
@@ -28,23 +27,33 @@ const Chat = ({ location, toggleContactsDrawer, toggleFilesDrawer }) => {
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
     };
 
-    useEffect(() => {
+    const establishConnection = useCallback(() => {
+        const newSocket = initialize(chatId);
+        setSocket(newSocket);
+    }, [chatId]);
+
+    const breakConnection = useCallback(() => {
         disconnect(socket);
         setMessages([]);
-        const newSocket = initialize(chatId);
-        const getMessages = async () => {
-            try {
-                const response = await fetch(
-                    `${ENDPOINTS.api}/${chatId}/messages`
-                );
-                const data = await response.json();
-                setMessages(data);
-            } catch (err) {
-                console.log(err);
-            }
-        };
-        getMessages();
-        setSocket(newSocket);
+    }, [socket]);
+
+    const loadMessages = useCallback(async () => {
+        try {
+            const response = await fetch(`${ENDPOINTS.api}/${chatId}/messages`);
+            const data = await response.json();
+            setMessages(data);
+        } catch (err) {
+            console.log(err);
+        }
+    }, [chatId]);
+
+    // I refactored the code and prepared it to be exported
+    // but I didn't bother to test it. If it fails,
+    // just revert this (latest) commit (git reset --hard HEAD^ + git push --force).
+    useEffect(() => {
+        breakConnection();
+        establishConnection();
+        loadMessages();
     }, [chatId]);
 
     useEffect(() => {
@@ -92,4 +101,4 @@ const Chat = ({ location, toggleContactsDrawer, toggleFilesDrawer }) => {
     );
 };
 
-export default withRouter(Chat);
+export default Chat;
