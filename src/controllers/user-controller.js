@@ -4,7 +4,9 @@ import hashPassword from '../utils/hashPassword.js';
 import checkPassword from '../utils/checkPassword.js';
 import removeToken from '../utils/removeToken.js';
 
-/** Get User Data */
+/** Get User Data
+ * @param {uuid} userId - Requires a user Id in the request url.
+ */
 export const getUser = async (req, res) => {
     try {
         const userId = req.params.id;
@@ -43,7 +45,10 @@ export const getNotifications = async (req, res) => {
     }
 };
 
-/** Update Email */
+/** Update Email
+ * @param {string} email - Requires an email address in the request body.
+ * @param {string} password - Requires a password in the request body.
+ */
 export const patchEmail = async (req, res) => {
     try {
         const { userId } = req;
@@ -74,7 +79,10 @@ export const patchEmail = async (req, res) => {
     }
 };
 
-/** Update Password */
+/** Update Password
+ * @param {string} password - Requires a password string in the request body
+ * @param {string} confirmPassword - Requires a password confirmation string in the request body
+ */
 export const patchPassword = async (req, res) => {
     try {
         const { userId } = req;
@@ -95,7 +103,9 @@ export const patchPassword = async (req, res) => {
     }
 };
 
-/** Update Title */
+/** Update Title
+ * @param {string} title - Requires a title string in the request body
+ */
 export const patchTitle = async (req, res) => {
     try {
         const { userId } = req;
@@ -115,7 +125,9 @@ export const patchTitle = async (req, res) => {
     }
 };
 
-/** Update Description */
+/** Update Description
+ * @param {string} description - Requires a description string in the request body.
+ */
 export const patchDescription = async (req, res) => {
     try {
         const { userId } = req;
@@ -138,6 +150,14 @@ export const patchDescription = async (req, res) => {
 /** Delete Account */
 export const deleteAccount = async (req, res) => {
     try {
+        /** TODO
+         * [ ] destroy all m:n table entities related to user
+         * [ ] destroy any requests linked to user
+         * [ ] remove uploaded files
+         * [ ] remove chats
+         * [X] remove token
+         * [X] destroy database entity
+         */
         const { userId } = req;
         const { password } = req.body;
         await checkPassword(userId, password);

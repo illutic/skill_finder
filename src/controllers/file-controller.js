@@ -1,34 +1,12 @@
 import fs from 'fs';
-import path from 'path';
 import User from '../models/User.js';
 import { uploadImage, uploadFile } from '../data-access/storage.js';
 import File from '../models/File.js';
 
-const createUploadDirectory = async (userId, chatId, callback) => {
-    let userDir;
-    if (chatId === undefined) {
-        userDir = path.join('.', 'data-access', 'uploads', userId);
-    } else {
-        userDir = path.join(
-            '.',
-            'data-access',
-            'uploads',
-            userId,
-            chatId,
-            'files'
-        );
-    }
-
-    fs.stat(userDir, async (error) => {
-        if (error) {
-            fs.mkdir(userDir, callback);
-        } else {
-            callback();
-        }
-    });
-};
-
-/** Post / Update Photo */
+/** Post / Update Photo
+ *  @param {string} photoType - Requires a phototype url parameter (profilePhoto or backgroundPhoto)
+ *  @param {image} image - Requires an 'image' string key and an image file as a value. Eg. .append('image', imageFile)
+ */
 export const postPhoto = async (req, res) => {
     uploadImage(req, res, async (fileError) => {
         try {
@@ -61,7 +39,9 @@ export const postPhoto = async (req, res) => {
     });
 };
 
-/** Remove Photo */
+/** Remove Photo
+ *  @param {string} photoType - Requires a phototype url parameter (profilePhoto or backgroundPhoto)
+ */
 export const removePhoto = async (req, res) => {
     const { userId } = req;
     const { photoType } = req.params;
@@ -110,4 +90,45 @@ export const postFile = async (req, res) => {
             res.status(400).json({ error: err.message });
         }
     });
+};
+
+/** Remove File
+ * @param {UUID} fileId - Requires the ID of the file to be removed, in the request body.
+ */
+export const removeFile = async (req, res) => {
+    const { fileId } = req.body;
+    const file = File.findOne({
+        where: {
+            id: fileId,
+        },
+    });
+    if (file) {
+        fs.unlink((await file).get('uri'), async () => {
+            (await file).destroy();
+            res.sendStatus(200);
+        });
+        return;
+    }
+    res.status(400).json({
+        error: 'Could not remove file as it does not exist.',
+    });
+};
+
+/** Get File
+ * @param {UUID} fileId - Requires the ID of the file in the request body.
+ */
+export const getFile = async (req, res) => {
+    try {
+        const { fileId } = req.body;
+        const file = File.findOne({
+            where: {
+                id: fileId,
+            },
+        });
+        res.send(file);
+    } catch (err) {
+        res.status(400).json({
+            error: 'Could not remove file as it does not exist.',
+        });
+    }
 };

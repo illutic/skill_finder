@@ -2,6 +2,9 @@ import Chat from '../models/Chat.js';
 import Request from '../models/Request.js';
 import User from '../models/User.js';
 
+/** Post a request to a user.
+ *  @param {toId} - The userId to which the request is for.
+ */
 export const postRequest = async (req, res) => {
     try {
         const { userId } = req;
@@ -21,6 +24,9 @@ export const postRequest = async (req, res) => {
     }
 };
 
+/** Deny a request.
+ *  @param {requestId} - The request Id that is denied.
+ */
 export const denyRequest = async (req, res) => {
     try {
         const { requestId } = req.body;
@@ -36,6 +42,9 @@ export const denyRequest = async (req, res) => {
     }
 };
 
+/** Accept a request.
+ *  @param {requestId} - The request Id that is accepted.
+ */
 export const acceptRequest = async (req, res) => {
     try {
         const { requestId } = req.body;
@@ -57,6 +66,9 @@ export const acceptRequest = async (req, res) => {
     }
 };
 
+/** Accept a request.
+ *  Get all pending requests of the user.
+ */
 export const getReceivedRequests = async (req, res) => {
     try {
         const { userId } = req;
@@ -77,6 +89,9 @@ export const getReceivedRequests = async (req, res) => {
     }
 };
 
+/** Accept a request.
+ *  Get all requests the user has sent.
+ */
 export const getSentRequests = async (req, res) => {
     try {
         const { userId } = req;

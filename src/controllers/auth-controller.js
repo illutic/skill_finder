@@ -10,8 +10,10 @@ import FORM_TYPES from '../constants/form-types.js';
 import AUTH_EXPIRY from '../constants/auth-expiry.js';
 
 /** Sign Up callback function - Uses the data provided in the request body to register a user.
- * @param {Request} req - HTTP REQUEST
- * @param {Response} res - HTTP RESPONSE
+ * @param {string} firstName - Requires a firstname string provided in the request body.
+ * @param {string} lastName - Requires a lastname string provided in the request body.
+ * @param {string} email - Requires an email string provided in the request body.
+ * @param {string} password - Requires a password string provided in the request body.
  */
 export const signUp = async (req, res) => {
     try {
@@ -23,7 +25,6 @@ export const signUp = async (req, res) => {
             email,
             password: await hashPassword(password),
         });
-        /** Creates a cookie based on the newly registered user */
         const token = createToken(user.id);
         res.cookie('origin', token, {
             httpOnly: true,
@@ -36,8 +37,9 @@ export const signUp = async (req, res) => {
 };
 
 /** Log In callback function - Uses the data provided in the request body to login a user.
- * @param {Request} req - HTTP REQUEST
- * @param {Response} res - HTTP RESPONSE
+ * @param {string} email - Requires an email string found in the request body.
+ * @param {string} password - Requires a password string found in the request body.
+ * @returns {cookie} Responds a cookie with a verification token attached.
  */
 export const logIn = async (req, res) => {
     try {
@@ -65,15 +67,15 @@ export const logIn = async (req, res) => {
         res.status(400).json({ error: err.message });
     }
 };
+
 /** Log out callback function - Returns an empty cookie
- * @param {Request} req - HTTP REQUEST
- * @param {Response} res - HTTP RESPONSE
  */
 export const logOut = async (req, res) => {
     removeToken(res);
     res.sendStatus(200);
 };
 
+/** Checks if a user exists */
 export const check = async (req, res) => {
     const { userId } = req;
     const user = await User.findOne({
