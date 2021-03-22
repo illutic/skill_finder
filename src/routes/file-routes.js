@@ -4,6 +4,6 @@ import auth from '../auth/auth.js';
 
 const router = Router();
 
-router.post('/file/', auth, postFile);
+router.post('/file', auth, postFile);
 
 export default router;

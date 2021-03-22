@@ -4,18 +4,32 @@ import User from '../models/User.js';
 import { uploadImage, uploadFile } from '../data-access/storage.js';
 import File from '../models/File.js';
 
-const createUploadDirectory = async (userId) => {
-    const userDir = path.join('.', 'data-access', 'uploads', userId);
+const createUploadDirectory = async (userId, chatId, callback) => {
+    let userDir;
+    if (chatId === undefined) {
+        userDir = path.join('.', 'data-access', 'uploads', userId);
+    } else {
+        userDir = path.join(
+            '.',
+            'data-access',
+            'uploads',
+            userId,
+            chatId,
+            'files'
+        );
+    }
+
     fs.stat(userDir, async (error) => {
         if (error) {
-            await fs.mkdir(userDir);
+            fs.mkdir(userDir, callback);
+        } else {
+            callback();
         }
     });
 };
 
 /** Post / Update Photo */
 export const postPhoto = async (req, res) => {
-    createUploadDirectory(req.userId);
     uploadImage(req, res, async (fileError) => {
         try {
             if (req.fileValidationError) {
@@ -34,11 +48,12 @@ export const postPhoto = async (req, res) => {
             });
             const oldPhoto = user[photoType];
             if (oldPhoto) {
-                fs.unlink(oldPhoto, () => {});
+                fs.unlink(oldPhoto, () => {
+                    user.update({
+                        [photoType]: req.file.path,
+                    });
+                });
             }
-            user.update({
-                [photoType]: req.file.path,
-            });
             res.sendStatus(200);
         } catch (err) {
             res.status(400).json({ error: err.message });
@@ -68,8 +83,11 @@ export const removePhoto = async (req, res) => {
     });
 };
 
+/** Uploads any file to the user's upload folder
+ *  @param {String} chatId - Requires a chatId field in the request body! (otherwise it defaults to a photos folder) (append('chatId', chatId))
+ *  @param {file} file - the file to be uploaded. (append('file',file))
+ */
 export const postFile = async (req, res) => {
-    createUploadDirectory(req.userId);
     uploadFile(req, res, async (fileError) => {
         try {
             if (req.fileValidationError) {
@@ -82,12 +100,12 @@ export const postFile = async (req, res) => {
                 throw Error(fileError);
             }
             const { chatId } = req.body;
-            const databaseFile = File.create({
+            const databaseFile = await File.create({
                 uri: req.file.path,
                 ChatId: chatId,
             });
 
-            res.sendStatus(200);
+            res.send(databaseFile);
         } catch (err) {
             res.status(400).json({ error: err.message });
         }
