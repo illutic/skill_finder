@@ -36,13 +36,11 @@ export const getChatrooms = async (req, res) => {
  * */
 export const getMessages = async (req, res) => {
     try {
-        console.log(req.params.chatId);
         const messages = await Message.findAll({
             where: { ChatId: req.params.chatId },
         });
         res.send(messages);
     } catch (err) {
-        console.log(err);
         res.status(400).json({ error: err });
     }
 };
