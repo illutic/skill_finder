@@ -1,4 +1,4 @@
-FROM node:15.10-alpine3.13
+FROM node:current-alpine3.13
 WORKDIR /home/app
 COPY ./client/*.json ./client/
 COPY ./package.json .
