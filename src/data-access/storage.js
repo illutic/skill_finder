@@ -12,7 +12,7 @@ import { v4 } from 'uuid';
 const createUploadDirectory = async (userId, chatId, callback) => {
     let userDir;
     if (!chatId) {
-        userDir = path.join('.', 'data-access', 'uploads', userId);
+        userDir = path.join('.', 'data-access', 'uploads', 'users', userId);
     } else {
         userDir = path.join(
             '.',

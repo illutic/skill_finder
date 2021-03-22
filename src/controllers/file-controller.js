@@ -74,6 +74,7 @@ export const getPhoto = async (req, res) => {
                 process.env.PWD,
                 'data-access',
                 'uploads',
+                'users',
                 userId,
                 photoName
             )

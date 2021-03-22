@@ -16,6 +16,6 @@ router.get(
     auth,
     getFile
 );
-router.get('/data-access/uploads/:userId/:photoName', getPhoto);
+router.get('/data-access/uploads/users/:userId/:photoName', getPhoto);
 
 export default router;
