@@ -4,6 +4,20 @@ import hashPassword from '../utils/hashPassword.js';
 import checkPassword from '../utils/checkPassword.js';
 import removeToken from '../utils/removeToken.js';
 
+/** Get Current (Logged In) User Data */
+export const getCurrentUser = async (req, res) => {
+    const { userId } = req;
+    const user = await User.findOne({
+        where: {
+            id: userId,
+        },
+        attributes: {
+            exclude: ['email', 'password'],
+        },
+    });
+    res.json(user);
+};
+
 /** Get User Data
  * @param {uuid} userId - Requires a user Id in the request url.
  */

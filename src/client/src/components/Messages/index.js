@@ -1,12 +1,17 @@
-import { useState, useEffect } from 'react';
+import { useState, useContext, useEffect } from 'react';
+import { Redirect } from 'react-router-dom';
 import * as Styled from './styled';
+import { ChatsContext } from '../../contexts/ChatsContextProvider';
 import ContactsDrawer from '../ContactsDrawer/index';
 import FilesDrawer from '../FilesDrawer/index';
 import Chat from '../Chat/index';
+import ChatsMessage from '../ChatsMessage/index';
+import ROUTES from '../../constants/routes';
 
 const Messages = () => {
     const [isContactsDrawerActive, setIsContactsDrawerActive] = useState(false);
     const [isFilesDrawerActive, setIsFilesDrawerActive] = useState(false);
+    const { chats } = useContext(ChatsContext);
 
     const closeAllDrawers = () => {
         setIsContactsDrawerActive(false);
@@ -32,14 +37,19 @@ const Messages = () => {
 
     return (
         <Styled.Container>
-            <Styled.Wrapper>
-                <ContactsDrawer isActive={isContactsDrawerActive} />
-                <Chat
-                    toggleContactsDrawer={toggleContactsDrawer}
-                    toggleFilesDrawer={toggleFilesDrawer}
-                />
-                <FilesDrawer isActive={isFilesDrawerActive} />
-            </Styled.Wrapper>
+            {chats?.length ? (
+                <Styled.Wrapper>
+                    <Redirect to={`${ROUTES.messages}/${chats[0].id}`} />
+                    <ContactsDrawer isActive={isContactsDrawerActive} />
+                    <Chat
+                        toggleContactsDrawer={toggleContactsDrawer}
+                        toggleFilesDrawer={toggleFilesDrawer}
+                    />
+                    <FilesDrawer isActive={isFilesDrawerActive} />
+                </Styled.Wrapper>
+            ) : (
+                <ChatsMessage />
+            )}
         </Styled.Container>
     );
 };

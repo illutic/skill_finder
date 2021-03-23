@@ -68,23 +68,13 @@ export const logIn = async (req, res) => {
     }
 };
 
-/** Log out callback function - Returns an empty cookie
- */
+/** Log out callback function - Overwrites auth cookies with empty, short-lived cookies. */
 export const logOut = async (req, res) => {
     removeToken(res);
     res.sendStatus(200);
 };
 
-/** Checks if a user exists */
+/** Auth check callback function - Evaluates on a protected route. */
 export const check = async (req, res) => {
-    const { userId } = req;
-    const user = await User.findOne({
-        where: {
-            id: userId,
-        },
-        attributes: {
-            exclude: ['email', 'password'],
-        },
-    });
-    res.json(user);
+    res.sendStatus(200);
 };

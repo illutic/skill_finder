@@ -2,7 +2,8 @@ import cookie from 'cookie';
 import auth from '../auth/sockets-auth.js';
 import Chat from '../models/Chat.js';
 import Message from '../models/Message.js';
-
+import Request from '../models/Request.js';
+import User from '../models/User.js';
 /** Web Socket Configuration
  * @param {Server} io - Requires a Websocket Server created from the http Server.
  */
@@ -18,6 +19,7 @@ export const WebSockets = (io) => {
             try {
                 const cookies = cookie.parse(socket.request.headers.cookie);
                 id = await auth(cookies);
+                socket.join(id);
                 socket.emit('authorized');
             } catch (err) {
                 socket.emit('unauthorized', err);
@@ -34,6 +36,60 @@ export const WebSockets = (io) => {
 
         socket.on('join', (chatId) => {
             socket.join(chatId);
+            console.log(socket.id, 'connected to Room', chatId);
+        });
+
+        socket.on('leaveRoom', (chatId) => {
+            socket.leave(chatId);
+            console.log(socket.id, 'left Room', chatId);
+        });
+
+        socket.on('requestNotification', async (userId, requestId) => {
+            io.to(userId).emit('notification', {
+                type: 'request',
+                from: id,
+                requestId,
+            });
+        });
+
+        /** On Receiving a Request Accept,
+         * @param {string} requestId - request id string, passed in from the client
+         * The server finds the database entity for the request, creates a chatroom, destroys the request and emits to the user who sent it that it was accepted.
+         */
+        socket.on('notificationAccept', async (requestId) => {
+            const request = await Request.findOne({
+                where: { id: requestId },
+            });
+            const teacher = await User.findOne({ where: { id: request.toId } });
+            const student = await User.findOne({
+                where: { id: request.fromId },
+            });
+            const chat = await Chat.create();
+            await chat.addUser(teacher);
+            await chat.addUser(student);
+            await request.destroy();
+
+            io.to(student.get('id')).emit('acceptRequest', {
+                from: id,
+                content: 'accepted',
+            });
+        });
+
+        /** On Receiving a Request Denial,
+         * @param {string} requestId - request id string, passed in from the client
+         * The server finds the database entity for the request destroys it and emits to the user who sent it that it was denied.
+         */
+        socket.on('notificationDeny', async (requestId) => {
+            const request = await Request.findOne({
+                where: { id: requestId },
+            });
+            const fromId = request.get('fromId');
+            await request.destroy();
+            io.to(fromId).emit('denyRequest', {
+                from: id,
+                content: 'denied',
+            });
+
         });
 
         /** On Receiving a message,
@@ -45,7 +101,7 @@ export const WebSockets = (io) => {
             const databaseMessage = await Message.create({
                 content: message,
                 userId: id,
-                ChatId: chatId, // chatId
+                ChatId: chatId,
             });
             io.to(chatId).emit('message', {
                 id: databaseMessage.id,

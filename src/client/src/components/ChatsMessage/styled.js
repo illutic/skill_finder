@@ -28,9 +28,3 @@ export const Paragraph = styled.p`
     max-width: 500px;
     text-align: center;
 `;
-
-export const Buttons = styled.div`
-    & > *:first-child {
-        margin-right: 15px;
-    }
-`;

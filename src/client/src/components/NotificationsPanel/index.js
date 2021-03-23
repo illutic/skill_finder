@@ -21,7 +21,8 @@ const NotificationsPanel = () => {
             window.removeEventListener('click', hideNotificationsPanel);
         };
     }, []);
-
+    // Get Received Requests through the API and display them
+    // Render 2 buttons for accept/deny
     return (
         <>
             <NotificationsButton

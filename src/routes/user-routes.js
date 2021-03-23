@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import {
+    getCurrentUser,
     getUser,
     getNotifications,
     patchEmail,
@@ -14,6 +15,7 @@ import auth from '../auth/auth.js';
 const router = Router();
 
 router.get('/user/:id', getUser);
+router.get('/user', auth, getCurrentUser);
 router.get('/notifications', auth, getNotifications);
 router.delete('/user/photo/:photoType', auth, removePhoto);
 router.post('/user/photo/:photoType', auth, postPhoto);
