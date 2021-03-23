@@ -1,18 +1,11 @@
-import { useEffect, useState, useContext, useRef, useCallback } from 'react';
+import { useContext } from 'react';
 import { UserContext } from '../../contexts/UserContextProvider';
-import io from 'socket.io-client';
-import { initialize, disconnect } from '../../helpers/socket.js';
-import useLocationId from '../../hooks/useLocationId';
 import * as Styled from './styled';
-import ENDPOINTS from '../../constants/endpoints';
+import { useChatSocket } from '../../hooks/useChatSocket';
 
 const Chat = ({ toggleContactsDrawer, toggleFilesDrawer }) => {
-    const [socket, setSocket] = useState(io({ autoConnect: false }));
-    const [messages, setMessages] = useState([]);
     const { user } = useContext(UserContext);
-    const { locationId: chatId } = useLocationId();
-    const messagesContainerRef = useRef();
-
+    const { socket, messages, messagesContainerRef, chatId } = useChatSocket();
     const sendMessage = (e) => {
         e.preventDefault();
         const form = e.target;
@@ -22,48 +15,6 @@ const Chat = ({ toggleContactsDrawer, toggleFilesDrawer }) => {
             form.reset();
         }
     };
-
-    const scrollDown = () => {
-        const messagesContainer = messagesContainerRef.current;
-        messagesContainer.scrollTop = messagesContainer.scrollHeight;
-    };
-
-    const establishConnection = useCallback(() => {
-        const newSocket = initialize(chatId);
-        setSocket(newSocket);
-    }, [chatId]);
-
-    const breakConnection = useCallback(() => {
-        disconnect(socket);
-        setMessages([]);
-    }, [socket]);
-
-    const loadMessages = useCallback(async () => {
-        if (chatId) {
-            try {
-                const response = await fetch(
-                    `${ENDPOINTS.api}/${chatId}/messages`
-                );
-                const data = await response.json();
-                setMessages(data);
-            } catch (err) {
-                console.log(err);
-            }
-        }
-    }, [chatId]);
-
-    useEffect(() => {
-        breakConnection();
-        establishConnection();
-        loadMessages();
-    }, [chatId]);
-
-    useEffect(() => {
-        socket.on('message', (message) => {
-            setMessages([...messages, message]);
-        });
-        scrollDown();
-    }, [messages, socket]);
 
     return (
         <Styled.Chat>
@@ -87,7 +38,6 @@ const Chat = ({ toggleContactsDrawer, toggleFilesDrawer }) => {
                           } else {
                               return (
                                   <Styled.Message key={message.id}>
-                                      {console.log(message)}
                                       {message.content}
                                   </Styled.Message>
                               );

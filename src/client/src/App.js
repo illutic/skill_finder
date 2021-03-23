@@ -18,17 +18,18 @@ import Messages from './components/Messages/index';
 import Home from './components/Home/index';
 import NotFound from './components/NotFound/index';
 import GlobalStyle from './styles/globalStyle';
+import SocketContextProvider from './contexts/SocketContextProvider';
 
 function App() {
     useAuthCheck();
     useUserSync();
     useChatsSync();
-
     return (
         <>
             <Router>
                 <NavigationContextProvider>
                     <LogoutModalContextProvider>
+                        <SocketContextProvider />
                         <Navigation />
                         <LogoutModal />
                     </LogoutModalContextProvider>

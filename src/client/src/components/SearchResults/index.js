@@ -5,10 +5,10 @@ import Container from '../Container/index';
 import Heading from '../Heading/index';
 import Button from '../Button/index';
 import ProfileThumbnail from '../ProfileThumbnail';
+import { request } from '../../hooks/useRequest';
 
 const SearchResults = () => {
     const { results, query } = useSearchEngine();
-
     return (
         <Container spaced>
             <Styled.Wrapper>
@@ -32,7 +32,13 @@ const SearchResults = () => {
                                                       View profile
                                                   </Button>
                                               </Link>
-                                              <Button>Reach out</Button>
+                                              <Button
+                                                  onClick={() =>
+                                                      request(user.id)
+                                                  }
+                                              >
+                                                  Reach out
+                                              </Button>
                                           </Styled.Buttons>
                                       </Styled.Entry>
                                   );
