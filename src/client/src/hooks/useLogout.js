@@ -10,7 +10,7 @@ const useLogout = () => {
     const history = useHistory();
     const checkAuth = useAuthCheck();
     const syncUser = useUserSync();
-    const [socket, setSocket] = useContext(SocketContext);
+    const { socket, setSocket } = useContext(SocketContext);
     const logOut = async () => {
         await fetch(ENDPOINTS.logout);
         checkAuth();

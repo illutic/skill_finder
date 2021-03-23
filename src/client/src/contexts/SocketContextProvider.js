@@ -7,7 +7,7 @@ const SocketContextProvider = ({ children }) => {
     const [socket, setSocket] = useState(io({ autoConnect: false }));
 
     return (
-        <SocketContext.Provider value={[socket, setSocket]}>
+        <SocketContext.Provider value={{ socket, setSocket }}>
             {children}
         </SocketContext.Provider>
     );

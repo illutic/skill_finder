@@ -5,7 +5,7 @@ import useLocationId from './useLocationId';
 import { SocketContext } from '../contexts/SocketContextProvider';
 
 export const useNotificationSocket = () => {
-    /*const [socket] = useContext(SocketContext);
+    /*const {socket} = useContext(SocketContext);
     const [notifications, setNotifications] = useState([]);
     // get notification Id
 

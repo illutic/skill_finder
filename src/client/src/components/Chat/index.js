@@ -7,12 +7,11 @@ import * as Styled from './styled';
 import useLocationId from '../../hooks/useLocationId';
 
 const Chat = ({ toggleContactsDrawer, toggleFilesDrawer }) => {
-    const { user } = useContext(UserContext);
-    const [socket] = useContext(SocketContext);
-    const { locationId: chatId } = useLocationId();
     const [messages, setMessages] = useState([]);
+    const { locationId: chatId } = useLocationId();
+    const { user } = useContext(UserContext);
+    const { socket } = useContext(SocketContext);
     const messagesContainerRef = useRef();
-    let prevChatId = chatId;
 
     const sendMessage = (e) => {
         e.preventDefault();
@@ -37,18 +36,30 @@ const Chat = ({ toggleContactsDrawer, toggleFilesDrawer }) => {
         }
     }, [chatId]);
 
-    const leaveCurrentChat = useCallback((chatId) => {
-        leaveChat(socket, prevChatId);
-        setMessages([]);
-        prevChatId = chatId;
-    }, []);
+    const leaveCurrentChat = useCallback(
+        (chatId) => {
+            leaveChat(socket, chatId);
+            setMessages([]);
+        },
+        [socket]
+    );
 
+    // Try to understand how this code works,
+    // it's useful when working with current/upcoming data.
     useEffect(() => {
-        leaveCurrentChat(chatId);
+        // 2. Then this function runs with a new chatId
+        // i.e. chatId=212
         initialize(socket);
         joinChat(socket, chatId);
         loadMessages();
-    }, [chatId]);
+        // 3. It also declares the function below with the new chatId=212,
+        // that will be run on chatId change. That's the entire lifecycle in fact.
+        return () => {
+            // 1. When chatId changes, this function runs first,
+            // using the current chatId i.e. chatId=105
+            leaveCurrentChat(chatId);
+        };
+    }, [chatId, socket, loadMessages, leaveCurrentChat]);
 
     useEffect(() => {
         if (socket) {
