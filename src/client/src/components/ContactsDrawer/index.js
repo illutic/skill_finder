@@ -32,21 +32,6 @@ const ContactsDrawer = ({ isActive }) => {
                       ))
                   )
                 : null}
-            {/* Template */}
-            {/* <Styled.Contact key={chatId} to={`${ROUTES.messages}/${chatId}`}>
-                <ProfileThumbnail
-                    name=fullName
-                    title=title
-                    photo=profilePhotoSource
-                    limited
-                    />
-                </Styled.Contact> */}
-            <Styled.Contact to={`${ROUTES.messages}/1`}>
-                <ProfileThumbnail name="John Doe" title="Mathematics" limited />
-            </Styled.Contact>
-            <Styled.Contact to={`${ROUTES.messages}/2`}>
-                <ProfileThumbnail name="John Doe" title="Mathematics" limited />
-            </Styled.Contact>
         </Styled.ContactsDrawer>
     );
 };

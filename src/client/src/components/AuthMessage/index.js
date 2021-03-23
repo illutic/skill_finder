@@ -1,11 +1,18 @@
-import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { Redirect, Link } from 'react-router-dom';
 import * as Styled from './styled';
 import Container from '../Container/index';
 import Heading from '../Heading/index';
 import Button from '../Button/index';
+import { AuthContext } from '../../contexts/AuthContextProvider';
+import ROUTES from '../../constants/routes';
 
 const AuthMessage = () => {
-    return (
+    const { isAuth } = useContext(AuthContext);
+
+    return isAuth ? (
+        <Redirect to={ROUTES.home} />
+    ) : (
         <Container spaced>
             <Styled.Wrapper>
                 <Styled.Box>
