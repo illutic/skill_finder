@@ -21,6 +21,7 @@ jobs:
           SERVER_PORT: 8081
           CLIENT_PORT: 3000
           ADMIN_PORT: 8080  
+
       - name: Run Docker Compose.
         id: run
         run: |
@@ -33,6 +34,9 @@ jobs:
           SERVER_PORT: 8081
           CLIENT_PORT: 3000
           ADMIN_PORT: 8080
+
+      - name: Build Client Dependencies.
+        run: docker exec -it docker_app_1 sh -c "npm install --prefix client --force"
 
       - name: Run Server, Database and Client.
         run: | 
