@@ -1,6 +1,5 @@
 FROM node:current-alpine3.13
 WORKDIR /home/app
-COPY ./client/package.json ./client
 COPY ./package.json .
 RUN npm install --force
 COPY . .
