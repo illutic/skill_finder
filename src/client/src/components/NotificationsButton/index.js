@@ -5,8 +5,8 @@ const NotificationsButton = ({ ...props }) => {
         <Styled.Button {...props}>
             <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="22.006"
-                height="27.544"
+                width="19.006"
+                height="24.544"
                 viewBox="0 0 22.006 27.544"
             >
                 <g transform="translate(-6.775 -3.93)">

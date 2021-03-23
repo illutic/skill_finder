@@ -39,6 +39,7 @@ export const Messages = styled.section`
         min-height: calc(100vh - 100px - 78px - 82px);
     }
     @media (min-width: ${SCREENS.large}) {
+        padding: 25px;
         min-height: calc(100vh - 100px - 78px);
     }
     @media (max-height: 550px) {
@@ -49,7 +50,7 @@ export const Messages = styled.section`
 export const Message = styled.p`
     align-self: ${({ currentUser }) =>
         currentUser ? 'flex-start' : 'flex-end'};
-    padding: 15px;
+    padding: 10px 15px;
     max-width: 80%;
     border-radius: 15px;
     background-color: ${({ theme, currentUser }) =>

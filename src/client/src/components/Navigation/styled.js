@@ -85,7 +85,7 @@ export const List = styled.ul`
         display: flex;
         justify-content: flex-end;
         left: auto;
-        right: 87px;
+        right: 80px;
         z-index: 1;
         max-width: 500px;
         transform: translateY(-100%);
