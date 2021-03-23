@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>authOrigin - Documentation</title>
+    <title>controllers/skill-controller.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,190 +29,103 @@
 
 <div id="main">
     
-    <h1 class="page-title">authOrigin</h1>
+    <h1 class="page-title">controllers/skill-controller.js</h1>
     
 
     
 
 
 
-
-<section>
-
-<header>
     
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-     
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="~authOrigin"><span class="type-signature">(async, inner) </span>authOrigin<span class="signature">(token)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Verify user token and return the userID.</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="auth_auth-origin.js.html">auth/auth-origin.js</a>, <a href="auth_auth-origin.js.html#line8">line 8</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>token</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>string</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                <p>An Authentication token</p>
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-        
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import sequelize from 'sequelize';
+import User from '../models/User.js';
+import Skill from '../models/Skill.js';
+
+const { Op } = sequelize;
+
+/** Get Users that teach a specific skill.
+ * @param {string} name - Requires a skill name url parameter.
+ */
+export const getSkill = async (req, res) => {
+    try {
+        const { name } = req.params;
+        if (!name) {
+            throw Error('No skill name provided.');
+        }
+        const skill = await Skill.findAll({
+            where: {
+                name: {
+                    [Op.iLike]: `${name}%`,
+                },
+            },
+            include: {
+                model: User,
+                attributes: {
+                    exclude: ['email', 'password'],
+                },
+            },
+            limit: 15,
+        });
+        res.json(skill);
+    } catch (err) {
+        res.status(400).json({ error: err.message });
+    }
+};
+
+/** Adds a skill to the user's Model.
+ * @param {string} name - Requires a skill name parameter in the request body.
+ */
+export const postSkill = async (req, res) => {
+    try {
+        const { name } = req.body;
+        const { userId } = req;
+        if (!name) {
+            throw Error('No skill name provided.');
+        }
+        const user = await User.findOne({
+            where: {
+                id: userId,
+            },
+        });
+        const skill = await Skill.findOrCreate({
+            where: {
+                name,
+            },
+        });
+        user.addSkill(skill[0]);
+        res.json({ skill });
+    } catch (err) {
+        res.status(400).json({ error: err.message });
+    }
+};
+
+/** Delete's a skill from the User Model.
+ * @param {uuid} skillId - Requires a skill Id parameter in the request body.
+ */
+export const deleteSkill = async (req, res) => {
+    try {
+        const { skillId } = req.body;
+        const { userId } = req;
+        if (!skillId) {
+            throw Error('No skill ID provided.');
+        }
+        const user = await User.findOne({
+            where: { id: userId },
+        });
+        const skill = await Skill.findOne({
+            where: { id: skillId },
+        });
+        user.removeSkill(skill);
+        res.sendStatus(200);
+    } catch (err) {
+        res.status(400).json({ error: err.message });
+    }
+};
+</code></pre>
+        </article>
+    </section>
 
 
 
