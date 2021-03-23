@@ -39,12 +39,16 @@ const Chat = ({ toggleContactsDrawer, toggleFilesDrawer }) => {
     }, [socket]);
 
     const loadMessages = useCallback(async () => {
-        try {
-            const response = await fetch(`${ENDPOINTS.api}/${chatId}/messages`);
-            const data = await response.json();
-            setMessages(data);
-        } catch (err) {
-            console.log(err);
+        if (chatId) {
+            try {
+                const response = await fetch(
+                    `${ENDPOINTS.api}/${chatId}/messages`
+                );
+                const data = await response.json();
+                setMessages(data);
+            } catch (err) {
+                console.log(err);
+            }
         }
     }, [chatId]);
 
