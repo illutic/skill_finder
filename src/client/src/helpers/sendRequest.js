@@ -1,10 +1,9 @@
-import ENDPOINTS from '../constants/endpoints.js';
+import ENDPOINTS from '../constants/endpoints';
 
-export const request = (userId) => {
+const sendRequest = async (userId) => {
     fetch(ENDPOINTS.request + '/new', {
         method: 'POST',
         headers: {
-            Accept: 'application/json',
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
@@ -12,3 +11,5 @@ export const request = (userId) => {
         }),
     });
 };
+
+export default sendRequest;
