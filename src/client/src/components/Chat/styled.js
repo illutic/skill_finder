@@ -54,13 +54,14 @@ export const Message = styled.p`
     border-radius: 15px;
     background-color: ${({ theme, currentUser }) =>
         currentUser ? theme.colors.attention : theme.colors.unique};
+    word-wrap: break-word;
     color: ${({ theme, currentUser }) =>
         currentUser ? theme.colors.positive : theme.colors.negative};
     &:not(:first-child) {
         margin-top: 25px;
     }
     @media (min-width: ${SCREENS.medium}) {
-        max-width: 66%;
+        max-width: 500px;
     }
 `;
 
@@ -71,12 +72,12 @@ export const Form = styled.form`
 `;
 
 export const TextArea = styled.textarea`
-display: block;
-padding: 25px 5px 25px 25px;
-width: 100%;
-height: 100%;
-resize: none;
-background-transparent;
+    display: block;
+    padding: 25px 5px 25px 25px;
+    width: 100%;
+    height: 100%;
+    resize: none;
+    background-transparent;
 `;
 
 export const PositionedSendButton = styled(SendButton)`

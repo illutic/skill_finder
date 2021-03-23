@@ -89,7 +89,6 @@ export const WebSockets = (io) => {
                 from: id,
                 content: 'denied',
             });
-
         });
 
         /** On Receiving a message,
@@ -98,8 +97,12 @@ export const WebSockets = (io) => {
          * The server creates a new database entity for the message and emits the database object to the room that was specified.
          */
         socket.on('sendMessage', async (chatId, message) => {
+            let newMessage = message;
+            if (newMessage.length > 255) {
+                newMessage = newMessage.substring(0, 255);
+            }
             const databaseMessage = await Message.create({
-                content: message,
+                content: newMessage,
                 userId: id,
                 ChatId: chatId,
             });
