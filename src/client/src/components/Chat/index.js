@@ -1,4 +1,5 @@
-import { useEffect, useState, useRef, useCallback } from 'react';
+import { useEffect, useState, useContext, useRef, useCallback } from 'react';
+import { UserContext } from '../../contexts/UserContextProvider';
 import io from 'socket.io-client';
 import { initialize, disconnect } from '../../helpers/socket.js';
 import useLocationId from '../../hooks/useLocationId';
@@ -8,9 +9,9 @@ import ENDPOINTS from '../../constants/endpoints';
 const Chat = ({ toggleContactsDrawer, toggleFilesDrawer }) => {
     const [socket, setSocket] = useState(io({ autoConnect: false }));
     const [messages, setMessages] = useState([]);
+    const { user } = useContext(UserContext);
     const { locationId: chatId } = useLocationId();
     const messagesContainerRef = useRef();
-    const currentUserId = null;
 
     const sendMessage = (e) => {
         e.preventDefault();
@@ -73,7 +74,7 @@ const Chat = ({ toggleContactsDrawer, toggleFilesDrawer }) => {
             <Styled.Messages ref={messagesContainerRef}>
                 {messages?.length
                     ? messages.map((message) => {
-                          if (message.userId === currentUserId) {
+                          if (message.userId === user.id) {
                               return (
                                   <Styled.Message key={message.id} currentUser>
                                       {message.content}
