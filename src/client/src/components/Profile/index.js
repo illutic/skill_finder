@@ -1,4 +1,4 @@
-import { useContext, useCallback } from 'react';
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import useProfile from '../../hooks/useProfile';
 import sendRequest from '../../helpers/sendRequest';
@@ -16,10 +16,6 @@ const Profile = () => {
     const { profile: user, isLoading } = useProfile();
     const { user: loggedInUser } = useContext(UserContext);
     const { isAuth } = useContext(AuthContext);
-
-    const sendDynamicRequest = useCallback(() => {
-        sendRequest(user.id);
-    }, [user]);
 
     return isLoading ? (
         <Loading />
@@ -57,7 +53,9 @@ const Profile = () => {
                                         <Button outlined>Edit profile</Button>
                                     </Link>
                                 ) : (
-                                    <Button onClick={sendDynamicRequest}>
+                                    <Button
+                                        onClick={() => sendRequest(user?.id)}
+                                    >
                                         Reach out
                                     </Button>
                                 )
