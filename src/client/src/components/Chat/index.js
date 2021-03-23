@@ -1,11 +1,19 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import { UserContext } from '../../contexts/UserContextProvider';
 import * as Styled from './styled';
-import { useChatSocket } from '../../hooks/useChatSocket';
+import useLocationId from '../../hooks/useLocationId';
+import { useChatSocket } from '../../hooks/useChatSocket.js';
 
 const Chat = ({ toggleContactsDrawer, toggleFilesDrawer }) => {
     const { user } = useContext(UserContext);
-    const { socket, messages, messagesContainerRef, chatId } = useChatSocket();
+    const { locationId: chatId } = useLocationId();
+    const { socket, messages, setMessages } = useChatSocket(chatId);
+    const messagesContainerRef = useRef();
+    const scrollDown = () => {
+        const messagesContainer = messagesContainerRef.current;
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    };
+
     const sendMessage = (e) => {
         e.preventDefault();
         const form = e.target;
@@ -16,6 +24,14 @@ const Chat = ({ toggleContactsDrawer, toggleFilesDrawer }) => {
         }
     };
 
+    useEffect(() => {
+        if (socket) {
+            socket.on('message', (message) => {
+                setMessages([...messages, message]);
+            });
+            scrollDown();
+        }
+    }, [messages, socket]);
     return (
         <Styled.Chat>
             <Styled.Controls>

@@ -15,7 +15,6 @@ const useGoogleSuccess = () => {
         checkAuth();
         syncUser();
         history.push('/');
-        window.location.reload();
     };
     return onSuccess;
 };

@@ -35,7 +35,6 @@ const useOriginAuth = (type) => {
             checkAuth();
             syncUser();
             history.push('/');
-            window.location.reload();
         } catch (err) {
             setError(err.error);
         }
