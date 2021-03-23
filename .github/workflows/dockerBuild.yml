@@ -5,7 +5,7 @@ on:
       - main
 jobs:
   build:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v2
@@ -36,7 +36,7 @@ jobs:
           ADMIN_PORT: 8080
 
       - name: Build Client Dependencies.
-        run: docker exec docker_app_1 sh -c "npm install --prefix client --force"
+        run: docker exec docker_app_1 sh -c "npm install --prefix client"
 
       - name: Run Server, Database and Client.
         run: | 
