@@ -1,17 +1,16 @@
 import { useState, useEffect, useContext } from 'react';
+import useRequest from '../../hooks/useRequest';
 import * as Styled from './styled';
 import ProfilePhoto from '../ProfilePhoto';
+import { RequestsContext } from '../../contexts/RequestsContextProvider';
 import NotificationsButton from '../NotificationsButton/index';
 import CloseButton from '../CloseButton/index';
-import { UserContext } from '../../contexts/UserContextProvider';
-import { useRequest } from '../../hooks/useRequest';
-import { Button } from '../NotificationsButton/styled';
-import useChatsSync from '../../hooks/useChatsSync';
+import Button from '../Button/index';
+
 const NotificationsPanel = () => {
-    const { user } = useContext(UserContext);
+    const { requests } = useContext(RequestsContext);
+    const { acceptRequest, denyRequest } = useRequest();
     const [showNotifications, setShowNotifications] = useState(false);
-    const { requests, setRequestId, setRequests } = useRequest();
-    const { syncChats } = useChatsSync();
 
     const toggleNotificationsPanel = () => {
         setShowNotifications((previous) => !previous);
@@ -21,11 +20,9 @@ const NotificationsPanel = () => {
         setShowNotifications(false);
     };
 
-    const removeRequestLocally = (requestId) => {
-        setRequests((previousRequests) =>
-            previousRequests.filter((request) => request.id !== requestId)
-        );
-    };
+    useEffect(() => {
+        console.log(requests);
+    }, [requests]);
 
     useEffect(() => {
         window.addEventListener('click', hideNotificationsPanel);
@@ -41,104 +38,28 @@ const NotificationsPanel = () => {
                 onClick={toggleNotificationsPanel}
             />
             <Styled.Notifications active={showNotifications}>
-                {requests?.length
-                    ? requests.map((request) => {
-                          // if the request id referes to current user
-                          if (request.toId === user.id) {
-                              // if the request has been answered
-                              if (!request.outcome) {
-                                  return (
-                                      <Styled.Notification key={request.id}>
-                                          <Styled.Group>
-                                              <ProfilePhoto
-                                                  src="https://picsum.photos/100/100"
-                                                  size={50}
-                                              />
-                                          </Styled.Group>
-                                          <Button
-                                              onClick={() => {
-                                                  setRequestId(request.id);
-                                                  syncChats();
-                                              }}
-                                          >
-                                              Accept
-                                          </Button>
-                                          <Styled.Content>
-                                              <Styled.Group>
-                                                  {request?.User?.firstName} has
-                                                  requested your help!
-                                              </Styled.Group>
+                <Styled.Notification>
+                    <Styled.Group>
+                        <ProfilePhoto
+                            src="https://picsum.photos/100/100"
+                            size={50}
+                        />
+                    </Styled.Group>
+                    <Styled.Content>
+                        <Styled.Group>X has requested your help!</Styled.Group>
 
-                                              <Styled.Group>
-                                                  <CloseButton
-                                                      onClick={() =>
-                                                          setRequestId(
-                                                              request.id
-                                                          )
-                                                      }
-                                                  />
-                                              </Styled.Group>
-                                          </Styled.Content>
-                                      </Styled.Notification>
-                                  );
-                              } else {
-                                  return (
-                                      <Styled.Notification key={request.id}>
-                                          <Styled.Group>
-                                              <ProfilePhoto
-                                                  src="https://picsum.photos/100/100"
-                                                  size={50}
-                                              />
-                                          </Styled.Group>
-                                          <Styled.Content>
-                                              <Styled.Group>
-                                                  You have {request.outcome}{' '}
-                                                  {request.User.firstName}'s
-                                                  request!
-                                              </Styled.Group>
-
-                                              <Styled.Group>
-                                                  <CloseButton
-                                                      onClick={() =>
-                                                          removeRequestLocally(
-                                                              request.id
-                                                          )
-                                                      }
-                                                  />
-                                              </Styled.Group>
-                                          </Styled.Content>
-                                      </Styled.Notification>
-                                  );
-                              }
-                          } else if (request.outcome) {
-                              return (
-                                  <Styled.Notification key={request.id}>
-                                      <Styled.Group>
-                                          <ProfilePhoto
-                                              src="https://picsum.photos/100/100"
-                                              size={50}
-                                          />
-                                      </Styled.Group>
-                                      <Styled.Content>
-                                          <Styled.Group>
-                                              {request.User.firstName}{' '}
-                                              {request.outcome} your Request !
-                                          </Styled.Group>
-                                          <Styled.Group>
-                                              <CloseButton
-                                                  onClick={() =>
-                                                      removeRequestLocally(
-                                                          request.id
-                                                      )
-                                                  }
-                                              />
-                                          </Styled.Group>
-                                      </Styled.Content>
-                                  </Styled.Notification>
-                              );
-                          }
-                      })
-                    : null}
+                        <Styled.Group>
+                            <CloseButton onClick={() => denyRequest()} />
+                            <Button
+                                onClick={() => {
+                                    acceptRequest();
+                                }}
+                            >
+                                Accept
+                            </Button>
+                        </Styled.Group>
+                    </Styled.Content>
+                </Styled.Notification>
             </Styled.Notifications>
         </>
     );

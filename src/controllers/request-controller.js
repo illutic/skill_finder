@@ -74,10 +74,7 @@ export const getRequests = async (req, res) => {
         const { userId } = req;
         const requests = await Request.findAll({
             where: {
-                [sequelize.Op.or]: {
-                    toId: userId,
-                    fromId: userId,
-                },
+                toId: userId,
             },
             include: {
                 model: User,

@@ -13,10 +13,11 @@ import defaultProfilePhoto from '../../assets/default.jpg';
 import ROUTES from '../../constants/routes';
 
 const Profile = () => {
-    const { profile: user, isLoading } = useProfile();
     const { user: loggedInUser } = useContext(UserContext);
     const { isAuth } = useContext(AuthContext);
-    const { setTeacher } = useRequest();
+    const { profile: user, isLoading } = useProfile();
+    const { sendRequest } = useRequest();
+
     return isLoading ? (
         <Loading />
     ) : (
@@ -53,7 +54,9 @@ const Profile = () => {
                                         <Button outlined>Edit profile</Button>
                                     </Link>
                                 ) : (
-                                    <Button onClick={() => setTeacher(user)}>
+                                    <Button
+                                        onClick={() => sendRequest(user?.id)}
+                                    >
                                         Reach out
                                     </Button>
                                 )

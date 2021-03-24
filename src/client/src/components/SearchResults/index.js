@@ -10,7 +10,8 @@ import defaultProfilePhoto from '../../assets/default.jpg';
 
 const SearchResults = () => {
     const { results, query } = useSearchEngine();
-    const { setTeacher } = useRequest();
+    const { sendRequest } = useRequest();
+
     return (
         <Container spaced>
             <Styled.Wrapper>
@@ -18,29 +19,29 @@ const SearchResults = () => {
                 <Styled.Entries>
                     {results?.length
                         ? results.map((skill) => {
-                              return skill.Users.map((user) => {
+                              return skill?.Users?.map((user) => {
                                   return (
-                                      <Styled.Entry key={user.id}>
-                                          <Link to={`/profile/${user.id}`}>
+                                      <Styled.Entry key={user?.id}>
+                                          <Link to={`/profile/${user?.id}`}>
                                               <ProfileThumbnail
-                                                  name={`${user.firstName} ${user.lastName}`}
-                                                  title={user.title}
+                                                  name={`${user?.firstName} ${user?.lastName}`}
+                                                  title={user?.title}
                                                   photo={
                                                       user.profilePhoto
-                                                          ? user.profilePhoto
+                                                          ? user?.profilePhoto
                                                           : defaultProfilePhoto
                                                   }
                                               />
                                           </Link>
                                           <Styled.Buttons>
-                                              <Link to={`/profile/${user.id}`}>
+                                              <Link to={`/profile/${user?.id}`}>
                                                   <Button outlined>
                                                       View profile
                                                   </Button>
                                               </Link>
                                               <Button
                                                   onClick={() =>
-                                                      setTeacher(user)
+                                                      sendRequest(user?.id)
                                                   }
                                               >
                                                   Reach out

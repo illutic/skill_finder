@@ -19,17 +19,20 @@ import Messages from './components/Messages/index';
 import Home from './components/Home/index';
 import NotFound from './components/NotFound/index';
 import GlobalStyle from './styles/globalStyle';
+import useRequestsSync from './hooks/useRequestsSync';
 
 function App() {
     const { checkAuth } = useAuthCheck();
     const { syncUser } = useUserSync();
     const { syncChats } = useChatsSync();
+    const { syncRequests } = useRequestsSync();
 
     useEffect(() => {
         checkAuth();
         syncUser();
         syncChats();
-    }, [checkAuth, syncUser, syncChats]);
+        syncRequests();
+    }, [checkAuth, syncUser, syncChats, syncRequests]);
 
     return (
         <>

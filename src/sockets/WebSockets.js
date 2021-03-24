@@ -44,38 +44,25 @@ export const WebSockets = (io) => {
             console.log(socket.id, 'left Room', chatId);
         });
 
-        socket.on('requestNotification', async (teacher) => {
-            if (teacher !== null) {
-                // console.log('Notification Request Received!');
-                await Request.findOrCreate({
-                    where: {
-                        toId: teacher.id,
-                        fromId: id,
-                        UserId: teacher.id,
-                    },
-                }).then(async (request) => {
-                    if (request[1]) {
-                        const student = await User.findOne({ where: { id } });
-                        // request[0] is the object instance, and 1 is created
-                        // console.log(`Emitting to ${user.id}`);
-                        // Emit to teacher
-                        io.to(teacher.id).emit('request', {
-                            id: request[0].id,
-                            toId: teacher.id,
-                            fromId: id,
-                            User: student,
-                        });
-                        // Emit to student
-                        // console.log(`Emitting to ${id}`);
-                        io.to(id).emit('request', {
-                            id: request[0].id,
-                            toId: teacher.id,
-                            fromId: id,
-                            User: teacher,
-                        });
-                    }
-                });
+        socket.on('requestNotification', async (receiverId) => {
+            if (!receiverId) {
+                return;
             }
+            const request = await Request.findOrCreate({
+                where: {
+                    toId: receiverId,
+                    fromId: id,
+                    UserId: receiverId,
+                },
+            });
+            // request[0] is the object instance, and 1 is created
+            // console.log(`Emitting to ${user.id}`);
+            // Emit to teacher
+            io.to(receiverId).emit('request', {
+                id: request[0].id,
+                toId: receiverId,
+                fromId: id,
+            });
         });
 
         /** On Receiving a Request Accept,
@@ -83,36 +70,36 @@ export const WebSockets = (io) => {
          * The server finds the database entity for the request, creates a chatroom, destroys the request and emits to the user who sent it that it was accepted.
          */
         socket.on('acceptRequest', async (requestId) => {
-            if (requestId !== null) {
-                const request = await Request.findOne({
-                    where: { id: requestId },
-                });
-                const teacher = await User.findOne({
-                    where: { id: request.toId },
-                });
-                const student = await User.findOne({
-                    where: { id: request.fromId },
-                });
-                const chat = await Chat.create();
-                await chat.addUser(teacher);
-                await chat.addUser(student);
-                await request.destroy();
-
-                io.to(student.id).emit('acceptedRequest', {
-                    id: requestId,
-                    toId: teacher.id,
-                    fromId: student.id,
-                    User: teacher,
-                    outcome: 'accepted',
-                });
-                io.to(teacher.id).emit('acceptedRequest', {
-                    id: requestId,
-                    toId: teacher.id,
-                    fromId: student.id,
-                    User: student,
-                    outcome: 'accepted',
-                });
+            if (!requestId) {
+                return;
             }
+            const request = await Request.findOne({
+                where: { id: requestId },
+            });
+            const teacher = await User.findOne({
+                where: { id: request.toId },
+            });
+            const student = await User.findOne({
+                where: { id: request.fromId },
+            });
+            const chat = await Chat.create();
+            await chat.addUser(teacher);
+            await chat.addUser(student);
+            await request.destroy();
+            io.to(student.id).emit('acceptedRequest', {
+                id: requestId,
+                toId: teacher.id,
+                fromId: student.id,
+                User: teacher,
+                outcome: 'accepted',
+            });
+            io.to(teacher.id).emit('acceptedRequest', {
+                id: requestId,
+                toId: teacher.id,
+                fromId: student.id,
+                User: student,
+                outcome: 'accepted',
+            });
         });
 
         /** On Receiving a Request Denial,
@@ -120,24 +107,25 @@ export const WebSockets = (io) => {
          * The server finds the database entity for the request destroys it and emits to the user who sent it that it was denied.
          */
         socket.on('denyRequest', async (requestId) => {
-            if (requestId !== null) {
-                const request = await Request.findOne({
-                    where: { id: requestId },
+            if (!requestId) {
+                return;
+            }
+            const request = await Request.findOne({
+                where: { id: requestId },
+            });
+            if (request) {
+                const { fromId, toId } = request;
+                await request.destroy();
+                io.to(fromId).emit('denyRequest', {
+                    id: requestId,
+                    from: id,
+                    outcome: 'denied',
                 });
-                if (request) {
-                    const { fromId, toId } = request;
-                    await request.destroy();
-                    io.to(fromId).emit('denyRequest', {
-                        id: requestId,
-                        from: id,
-                        outcome: 'denied',
-                    });
-                    io.to(toId).emit('denyRequest', {
-                        id: requestId,
-                        from: id,
-                        outcome: 'denied',
-                    });
-                }
+                io.to(toId).emit('denyRequest', {
+                    id: requestId,
+                    from: id,
+                    outcome: 'denied',
+                });
             }
         });
 
