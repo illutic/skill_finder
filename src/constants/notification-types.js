@@ -2,8 +2,8 @@
 /** Specifies the type of the notification.
  */
 const NOTIFICATION_TYPES = {
-    incomingRequest: 'incoming request',
-    acceptedRequest: 'accepted request',
+    incomingRequest: 'incomingRequest',
+    acceptedRequest: 'acceptedRequest',
 };
 
 export default NOTIFICATION_TYPES;
