@@ -3,7 +3,7 @@ import { SocketContext } from '../contexts/SocketContextProvider';
 
 export const useRequest = () => {
     const { socket } = useContext(SocketContext);
-    const [userId, setUserId] = useState('');
+    const [user, setUser] = useState(null);
     const emitRequest = useCallback(
         (userId) => {
             socket.emit('requestNotification', userId);
@@ -12,9 +12,9 @@ export const useRequest = () => {
     );
 
     useEffect(() => {
-        emitRequest(userId);
-    }, [emitRequest, userId]);
-    return { setUserId };
+        emitRequest(user);
+    }, [emitRequest, user]);
+    return { setUser };
 };
 
 export default useRequest;

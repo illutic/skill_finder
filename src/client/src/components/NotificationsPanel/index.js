@@ -10,6 +10,7 @@ const NotificationsPanel = () => {
     const { user } = useContext(UserContext);
     const [showNotifications, setShowNotifications] = useState(false);
     const { notifications } = useNotificationSocket();
+    /** When loading from the database (On reload) include names to display! */
     const toggleNotificationsPanel = () => {
         setShowNotifications((previous) => !previous);
     };
@@ -46,8 +47,8 @@ const NotificationsPanel = () => {
                                       </Styled.Group>
                                       <Styled.Content>
                                           <Styled.Group>
-                                              {request.fromId} has requested
-                                              your help!
+                                              {request.name} has requested your
+                                              help!
                                           </Styled.Group>
                                           <Styled.Group>
                                               <CloseButton />
@@ -66,8 +67,8 @@ const NotificationsPanel = () => {
                                       </Styled.Group>
                                       <Styled.Content>
                                           <Styled.Group>
-                                              You have requested{' '}
-                                              {request.fromId} for help!
+                                              You have requested {request.name}{' '}
+                                              for help!
                                           </Styled.Group>
                                           <Styled.Group>
                                               <CloseButton />

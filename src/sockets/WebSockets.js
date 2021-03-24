@@ -13,7 +13,7 @@ export const WebSockets = (io) => {
      * @param {websocket} socket - Requires a websocket object.
      */
     io.on('connection', async (socket) => {
-        console.log('Connected ', socket.id);
+        // console.log('Connected ', socket.id);
         let id;
         socket.on('authentication', async () => {
             try {
@@ -31,41 +31,44 @@ export const WebSockets = (io) => {
          */
         socket.on('disconnect', (chatId) => {
             socket.leave(chatId);
-            console.log(socket.id, ' disconnected');
+            // console.log(socket.id, ' disconnected');
         });
 
         socket.on('join', (chatId) => {
             socket.join(chatId);
-            console.log(socket.id, 'connected to Room', chatId);
+            // console.log(socket.id, 'connected to Room', chatId);
         });
 
         socket.on('leaveRoom', (chatId) => {
             socket.leave(chatId);
-            console.log(socket.id, 'left Room', chatId);
+            // console.log(socket.id, 'left Room', chatId);
         });
 
-        socket.on('requestNotification', async (userId) => {
-            if (userId !== '') {
-                console.log('Notification Request Received!');
+        socket.on('requestNotification', async (user) => {
+            if (user !== null) {
+                // console.log('Notification Request Received!');
                 await Request.findOrCreate({
                     where: {
-                        toId: userId,
+                        toId: user.id,
                         fromId: id,
                     },
-                }).then((request) => {
+                }).then(async (request) => {
                     if (request[1]) {
+                        const student = await User.findOne({ where: { id } });
                         // request[0] is the object instance, and 1 is created
-                        console.log(`Emitting to ${userId}`);
+                        // console.log(`Emitting to ${user.id}`);
                         // Emit to teacher
-                        io.to(userId).emit('notification', {
-                            toId: userId,
+                        io.to(user.id).emit('notification', {
+                            toId: user.id,
+                            name: student.firstName,
                             fromId: id,
                             id: request[0].id,
                         });
                         // Emit to student
-                        console.log(`Emitting to ${id}`);
+                        // console.log(`Emitting to ${id}`);
                         io.to(id).emit('notification', {
-                            toId: userId,
+                            toId: user.id,
+                            name: user.firstName,
                             fromId: id,
                             id: request[0].id,
                         });

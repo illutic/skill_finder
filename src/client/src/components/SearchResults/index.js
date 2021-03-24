@@ -10,7 +10,7 @@ import defaultProfilePhoto from '../../assets/default.jpg';
 
 const SearchResults = () => {
     const { results, query } = useSearchEngine();
-    const { setUserId } = useRequest();
+    const { setUser } = useRequest();
     return (
         <Container spaced>
             <Styled.Wrapper>
@@ -40,7 +40,7 @@ const SearchResults = () => {
                                               </Link>
                                               <Button
                                                   onClick={() => {
-                                                      setUserId(user.id);
+                                                      setUser(user);
                                                   }}
                                               >
                                                   Reach out
