@@ -17,7 +17,7 @@ const useLogout = () => {
         syncUser();
         if (socket) {
             socket.disconnect();
-            setSocket(null);
+            setSocket(io({ autoConnect: false }));
         }
         history.push('/login');
     };

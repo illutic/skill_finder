@@ -17,7 +17,7 @@ const useUserSync = () => {
             return;
         }
         setUser(null);
-    }, [setUser]);
+    }, [setUser, socket]);
 
     useEffect(() => {
         syncUser();

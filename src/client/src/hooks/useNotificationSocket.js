@@ -14,13 +14,13 @@ export const useNotificationSocket = () => {
 
     useEffect(() => {
         loadNotifications();
-    }, []);
+    }, [loadNotifications]);
 
     useEffect(() => {
         socket.on('notification', (notification) => {
             setNotifications([...notifications, notification]);
         });
-    }, []);
+    }, [notifications, socket]);
 
     return { socket, notifications };
 };

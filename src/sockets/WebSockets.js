@@ -52,19 +52,22 @@ export const WebSockets = (io) => {
                         toId: userId,
                         fromId: id,
                     },
-                }).then((request, created) => {
-                    if (created) {
+                }).then((request) => {
+                    if (request[1]) {
+                        // request[0] is the object instance, and 1 is created
+                        console.log(`Emitting to ${userId}`);
                         // Emit to teacher
                         io.to(userId).emit('notification', {
                             toId: userId,
                             fromId: id,
-                            id: request.id,
+                            id: request[0].id,
                         });
                         // Emit to student
+                        console.log(`Emitting to ${id}`);
                         io.to(id).emit('notification', {
                             toId: userId,
                             fromId: id,
-                            id: request.id,
+                            id: request[0].id,
                         });
                     }
                 });
@@ -122,8 +125,12 @@ export const WebSockets = (io) => {
          * The server creates a new database entity for the message and emits the database object to the room that was specified.
          */
         socket.on('sendMessage', async (chatId, message) => {
+            let newMessage = message;
+            if (newMessage.length > 255) {
+                newMessage = newMessage.substring(0, 255);
+            }
             const databaseMessage = await Message.create({
-                content: message,
+                content: newMessage,
                 userId: id,
                 ChatId: chatId,
             });
