@@ -100,12 +100,16 @@ export const WebSockets = (io) => {
 
                 io.to(student.id).emit('acceptedRequest', {
                     id: requestId,
-                    from: id,
+                    toId: teacher.id,
+                    fromId: student.id,
+                    User: teacher,
                     outcome: 'accepted',
                 });
                 io.to(teacher.id).emit('acceptedRequest', {
                     id: requestId,
-                    from: id,
+                    toId: teacher.id,
+                    fromId: student.id,
+                    User: student,
                     outcome: 'accepted',
                 });
             }

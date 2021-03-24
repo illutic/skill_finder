@@ -1,8 +1,8 @@
 import * as Styled from './styled';
 
-const CloseButton = ({ setRemoveId, removeId, ...rest }) => {
+const CloseButton = ({ onClick }) => {
     return (
-        <Styled.Button onClick={() => setRemoveId(removeId)}>
+        <Styled.Button onClick={onClick}>
             <Styled.SVG
                 xmlns="http://www.w3.org/2000/svg"
                 width="10"

@@ -5,7 +5,7 @@ import ENDPOINTS from '../constants/endpoints';
 export const useRequest = () => {
     const { socket } = useContext(SocketContext);
     const [teacher, setTeacher] = useState(null);
-    const [removeId, setRemoveId] = useState(null);
+    const [requestId, setRequestId] = useState(null);
     const [requests, setRequests] = useState([]);
 
     const loadRequests = useCallback(async () => {
@@ -17,6 +17,12 @@ export const useRequest = () => {
     const emitRequest = useCallback(
         (userId) => {
             socket.emit('requestNotification', userId);
+        },
+        [socket]
+    );
+    const emitAcceptRequest = useCallback(
+        (requestId) => {
+            socket.emit('acceptRequest', requestId);
         },
         [socket]
     );
@@ -43,24 +49,27 @@ export const useRequest = () => {
                 )
             );
         });
-        socket.on('acceptRequest', (acceptedRequest) => {
-            setRequests((previousRequests) =>
-                previousRequests.filter(
-                    (request) => request.id !== acceptedRequest.id
-                )
-            );
+        socket.on('acceptedRequest', (acceptedRequest) => {
+            setRequests((previousRequests) => [
+                ...previousRequests,
+                acceptedRequest,
+            ]);
         });
     }, [socket]);
+
+    useEffect(() => {
+        emitAcceptRequest(requestId);
+    }, [emitAcceptRequest, requestId]);
 
     useEffect(() => {
         emitRequest(teacher);
     }, [emitRequest, teacher]);
 
     useEffect(() => {
-        emitRemoveRequest(removeId);
-    }, [emitRemoveRequest, removeId]);
+        emitRemoveRequest(requestId);
+    }, [emitRemoveRequest, requestId]);
 
-    return { setTeacher, setRemoveId, socket, requests };
+    return { setTeacher, setRequestId, setRequests, socket, requests };
 };
 
 export default useRequest;
