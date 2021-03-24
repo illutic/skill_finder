@@ -9,9 +9,9 @@ import ENDPOINTS from '../constants/endpoints';
 
 const useOriginAuth = (type) => {
     const history = useHistory();
-    const checkAuth = useAuthCheck();
-    const syncUser = useUserSync();
-    const syncChats = useChatsSync();
+    const { checkAuth } = useAuthCheck();
+    const { syncUser } = useUserSync();
+    const { syncChats } = useChatsSync();
     const [success, setSuccess] = useState();
     const [error, setError] = useState();
 

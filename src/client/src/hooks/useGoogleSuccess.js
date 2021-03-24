@@ -5,9 +5,9 @@ import useChatsSync from '../hooks/useChatsSync';
 
 const useGoogleSuccess = () => {
     const history = useHistory();
-    const checkAuth = useAuthCheck();
-    const syncUser = useUserSync();
-    const syncChats = useChatsSync();
+    const { checkAuth } = useAuthCheck();
+    const { syncUser } = useUserSync();
+    const { syncChats } = useChatsSync();
 
     const onSuccess = (response) => {
         const tokenId = response.tokenObj.id_token;

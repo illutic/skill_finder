@@ -11,7 +11,7 @@ const LogoutModal = () => {
     const { isLogoutModalActive, hideLogoutModal } = useContext(
         LogoutModalContext
     );
-    const logOut = useLogout();
+    const { logOut } = useLogout();
 
     return ReactDOM.createPortal(
         <Styled.Wrapper active={isLogoutModalActive} onClick={hideLogoutModal}>

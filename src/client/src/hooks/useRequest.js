@@ -38,7 +38,6 @@ export const useRequest = () => {
     }, [loadRequests]);
 
     useEffect(() => {
-        console.log(requests);
         socket.on('request', (request) => {
             setRequests((previousRequests) => [...previousRequests, request]);
         });

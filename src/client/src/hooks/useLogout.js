@@ -8,9 +8,10 @@ import useUserSync from '../hooks/useUserSync';
 
 const useLogout = () => {
     const history = useHistory();
-    const checkAuth = useAuthCheck();
-    const syncUser = useUserSync();
+    const { checkAuth } = useAuthCheck();
+    const { syncUser } = useUserSync();
     const { socket, setSocket } = useContext(SocketContext);
+
     const logOut = async () => {
         await fetch(ENDPOINTS.logout);
         checkAuth();
@@ -22,7 +23,7 @@ const useLogout = () => {
         history.push('/login');
     };
 
-    return logOut;
+    return { logOut };
 };
 
 export default useLogout;

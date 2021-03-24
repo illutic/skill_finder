@@ -12,6 +12,7 @@ const NotificationsPanel = () => {
     const [showNotifications, setShowNotifications] = useState(false);
     const { requests, setRequestId, setRequests } = useRequest();
     const { syncChats } = useChatsSync();
+
     const toggleNotificationsPanel = () => {
         setShowNotifications((previous) => !previous);
     };
@@ -25,14 +26,14 @@ const NotificationsPanel = () => {
             previousRequests.filter((request) => request.id !== requestId)
         );
     };
+
     useEffect(() => {
         window.addEventListener('click', hideNotificationsPanel);
         return () => {
             window.removeEventListener('click', hideNotificationsPanel);
         };
     }, []);
-    // Get Received Requests through the API and display them
-    // Render 2 buttons for accept/deny
+
     return (
         <>
             <NotificationsButton
@@ -56,15 +57,15 @@ const NotificationsPanel = () => {
                                           </Styled.Group>
                                           <Button
                                               onClick={() => {
-                                                  syncChats();
                                                   setRequestId(request.id);
+                                                  syncChats();
                                               }}
                                           >
                                               Accept
                                           </Button>
                                           <Styled.Content>
                                               <Styled.Group>
-                                                  {request.User.firstName} has
+                                                  {request?.User?.firstName} has
                                                   requested your help!
                                               </Styled.Group>
 

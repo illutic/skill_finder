@@ -1,4 +1,4 @@
-import { useContext, useEffect, useCallback } from 'react';
+import { useContext, useCallback } from 'react';
 import { UserContext } from '../contexts/UserContextProvider';
 import { SocketContext } from '../contexts/SocketContextProvider';
 import { initialize } from '../helpers/socket';
@@ -19,11 +19,7 @@ const useUserSync = () => {
         setUser(null);
     }, [setUser, socket]);
 
-    useEffect(() => {
-        syncUser();
-    }, [syncUser]);
-
-    return syncUser;
+    return { syncUser };
 };
 
 export default useUserSync;

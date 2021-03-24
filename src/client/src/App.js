@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import useAuthCheck from './hooks/useAuthCheck';
 import useUserSync from './hooks/useUserSync';
@@ -20,9 +21,16 @@ import NotFound from './components/NotFound/index';
 import GlobalStyle from './styles/globalStyle';
 
 function App() {
-    useAuthCheck();
-    useUserSync();
-    useChatsSync();
+    const { checkAuth } = useAuthCheck();
+    const { syncUser } = useUserSync();
+    const { syncChats } = useChatsSync();
+
+    useEffect(() => {
+        checkAuth();
+        syncUser();
+        syncChats();
+    }, [checkAuth, syncUser, syncChats]);
+
     return (
         <>
             <Router>

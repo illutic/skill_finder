@@ -1,4 +1,4 @@
-import { useContext, useEffect, useCallback } from 'react';
+import { useContext, useCallback } from 'react';
 import { AuthContext } from '../contexts/AuthContextProvider';
 import ENDPOINTS from '../constants/endpoints';
 
@@ -14,11 +14,7 @@ const useAuthCheck = () => {
         setIsAuth(false);
     }, [setIsAuth]);
 
-    useEffect(() => {
-        checkAuth();
-    }, [setIsAuth, checkAuth]);
-
-    return checkAuth;
+    return { checkAuth };
 };
 
 export default useAuthCheck;
