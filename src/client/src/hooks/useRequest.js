@@ -32,20 +32,25 @@ export const useRequest = () => {
     }, [loadRequests]);
 
     useEffect(() => {
+        console.log(requests);
         socket.on('request', (request) => {
-            setRequests([...requests, request]);
+            setRequests((previousRequests) => [...previousRequests, request]);
         });
         socket.on('denyRequest', (deniedRequest) => {
-            setRequests(
-                requests.filter((request) => request.id !== deniedRequest.id)
+            setRequests((previousRequests) =>
+                previousRequests.filter(
+                    (request) => request.id !== deniedRequest.id
+                )
             );
         });
         socket.on('acceptRequest', (acceptedRequest) => {
-            setRequests(
-                requests.filter((request) => request.id !== acceptedRequest.id)
+            setRequests((previousRequests) =>
+                previousRequests.filter(
+                    (request) => request.id !== acceptedRequest.id
+                )
             );
         });
-    }, [requests, socket]);
+    }, [socket]);
 
     useEffect(() => {
         emitRequest(teacher);
