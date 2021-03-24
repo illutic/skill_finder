@@ -44,13 +44,14 @@ export const WebSockets = (io) => {
             // console.log(socket.id, 'left Room', chatId);
         });
 
-        socket.on('requestNotification', async (user) => {
-            if (user !== null) {
+        socket.on('requestNotification', async (teacher) => {
+            if (teacher !== null) {
                 // console.log('Notification Request Received!');
                 await Request.findOrCreate({
                     where: {
-                        toId: user.id,
+                        toId: teacher.id,
                         fromId: id,
+                        UserId: teacher.id,
                     },
                 }).then(async (request) => {
                     if (request[1]) {
@@ -58,19 +59,19 @@ export const WebSockets = (io) => {
                         // request[0] is the object instance, and 1 is created
                         // console.log(`Emitting to ${user.id}`);
                         // Emit to teacher
-                        io.to(user.id).emit('notification', {
-                            toId: user.id,
-                            name: student.firstName,
-                            fromId: id,
+                        io.to(teacher.id).emit('notification', {
                             id: request[0].id,
+                            toId: teacher.id,
+                            fromId: id,
+                            User: student,
                         });
                         // Emit to student
                         // console.log(`Emitting to ${id}`);
                         io.to(id).emit('notification', {
-                            toId: user.id,
-                            name: user.firstName,
-                            fromId: id,
                             id: request[0].id,
+                            toId: teacher.id,
+                            fromId: id,
+                            User: teacher,
                         });
                     }
                 });

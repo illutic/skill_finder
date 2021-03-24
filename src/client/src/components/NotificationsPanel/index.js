@@ -47,8 +47,8 @@ const NotificationsPanel = () => {
                                       </Styled.Group>
                                       <Styled.Content>
                                           <Styled.Group>
-                                              {request.name} has requested your
-                                              help!
+                                              {request.User.firstName} has
+                                              requested your help!
                                           </Styled.Group>
                                           <Styled.Group>
                                               <CloseButton />
@@ -67,8 +67,8 @@ const NotificationsPanel = () => {
                                       </Styled.Group>
                                       <Styled.Content>
                                           <Styled.Group>
-                                              You have requested {request.name}{' '}
-                                              for help!
+                                              You have requested{' '}
+                                              {request.User.firstName} for help!
                                           </Styled.Group>
                                           <Styled.Group>
                                               <CloseButton />
