@@ -13,7 +13,7 @@ export const WebSockets = (io) => {
      * @param {websocket} socket - Requires a websocket object.
      */
     io.on('connection', async (socket) => {
-        // console.log('Connected ', socket.id);
+        console.log('Connected ', socket.id);
         let id;
         socket.on('authentication', async () => {
             try {
@@ -31,17 +31,17 @@ export const WebSockets = (io) => {
          */
         socket.on('disconnect', (chatId) => {
             socket.leave(chatId);
-            // console.log(socket.id, ' disconnected');
+            console.log(socket.id, ' disconnected');
         });
 
         socket.on('join', (chatId) => {
             socket.join(chatId);
-            // console.log(socket.id, 'connected to Room', chatId);
+            console.log(socket.id, 'connected to Room', chatId);
         });
 
         socket.on('leaveRoom', (chatId) => {
             socket.leave(chatId);
-            // console.log(socket.id, 'left Room', chatId);
+            console.log(socket.id, 'left Room', chatId);
         });
 
         socket.on('requestNotification', async (teacher) => {
@@ -82,8 +82,8 @@ export const WebSockets = (io) => {
          * @param {string} requestId - request id string, passed in from the client
          * The server finds the database entity for the request, creates a chatroom, destroys the request and emits to the user who sent it that it was accepted.
          */
-        socket.on('notificationAccept', async (requestId) => {
-            if (requestId !== '') {
+        socket.on('acceptRequest', async (requestId) => {
+            if (requestId !== null) {
                 const request = await Request.findOne({
                     where: { id: requestId },
                 });
@@ -98,9 +98,15 @@ export const WebSockets = (io) => {
                 await chat.addUser(student);
                 await request.destroy();
 
-                io.to(student.id).emit('acceptRequest', {
+                io.to(student.id).emit('acceptedRequest', {
+                    id: requestId,
                     from: id,
-                    content: 'accepted',
+                    outcome: 'accepted',
+                });
+                io.to(teacher.id).emit('acceptedRequest', {
+                    id: requestId,
+                    from: id,
+                    outcome: 'accepted',
                 });
             }
         });
@@ -109,17 +115,25 @@ export const WebSockets = (io) => {
          * @param {string} requestId - request id string, passed in from the client
          * The server finds the database entity for the request destroys it and emits to the user who sent it that it was denied.
          */
-        socket.on('notificationDeny', async (requestId) => {
-            if (requestId !== '') {
+        socket.on('denyRequest', async (requestId) => {
+            if (requestId !== null) {
                 const request = await Request.findOne({
                     where: { id: requestId },
                 });
-                const { fromId } = request;
-                await request.destroy();
-                io.to(fromId).emit('denyRequest', {
-                    from: id,
-                    content: 'denied',
-                });
+                if (request) {
+                    const { fromId, toId } = request;
+                    await request.destroy();
+                    io.to(fromId).emit('denyRequest', {
+                        id: requestId,
+                        from: id,
+                        outcome: 'denied',
+                    });
+                    io.to(toId).emit('denyRequest', {
+                        id: requestId,
+                        from: id,
+                        outcome: 'denied',
+                    });
+                }
             }
         });
 

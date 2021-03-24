@@ -39,9 +39,9 @@ const SearchResults = () => {
                                                   </Button>
                                               </Link>
                                               <Button
-                                                  onClick={() => {
-                                                      setTeacher(user);
-                                                  }}
+                                                  onClick={() =>
+                                                      setTeacher(user)
+                                                  }
                                               >
                                                   Reach out
                                               </Button>

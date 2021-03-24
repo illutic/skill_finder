@@ -5,11 +5,10 @@ import NotificationsButton from '../NotificationsButton/index';
 import CloseButton from '../CloseButton/index';
 import { UserContext } from '../../contexts/UserContextProvider';
 import { useRequest } from '../../hooks/useRequest';
-
 const NotificationsPanel = () => {
     const { user } = useContext(UserContext);
     const [showNotifications, setShowNotifications] = useState(false);
-    const { requests } = useRequest();
+    const { requests, setRemoveId } = useRequest();
     const toggleNotificationsPanel = () => {
         setShowNotifications((previous) => !previous);
     };
@@ -50,7 +49,10 @@ const NotificationsPanel = () => {
                                               requested your help!
                                           </Styled.Group>
                                           <Styled.Group>
-                                              <CloseButton />
+                                              <CloseButton
+                                                  setRemoveId={setRemoveId}
+                                                  removeId={request.id}
+                                              />
                                           </Styled.Group>
                                       </Styled.Content>
                                   </Styled.Notification>
@@ -70,7 +72,10 @@ const NotificationsPanel = () => {
                                               {request.User.firstName} for help!
                                           </Styled.Group>
                                           <Styled.Group>
-                                              <CloseButton />
+                                              <CloseButton
+                                                  setRemoveId={setRemoveId}
+                                                  removeId={request.id}
+                                              />
                                           </Styled.Group>
                                       </Styled.Content>
                                   </Styled.Notification>
