@@ -4,13 +4,12 @@ import ProfilePhoto from '../ProfilePhoto';
 import NotificationsButton from '../NotificationsButton/index';
 import CloseButton from '../CloseButton/index';
 import { UserContext } from '../../contexts/UserContextProvider';
-import { useNotificationSocket } from '../../hooks/useNotificationSocket';
+import { useRequest } from '../../hooks/useRequest';
 
 const NotificationsPanel = () => {
     const { user } = useContext(UserContext);
     const [showNotifications, setShowNotifications] = useState(false);
-    const { notifications } = useNotificationSocket();
-    /** When loading from the database (On reload) include names to display! */
+    const { requests } = useRequest();
     const toggleNotificationsPanel = () => {
         setShowNotifications((previous) => !previous);
     };
@@ -34,8 +33,8 @@ const NotificationsPanel = () => {
                 onClick={toggleNotificationsPanel}
             />
             <Styled.Notifications active={showNotifications}>
-                {notifications?.length
-                    ? notifications.map((request) => {
+                {requests?.length
+                    ? requests.map((request) => {
                           if (request.toId === user.id) {
                               return (
                                   <Styled.Notification key={request.id}>

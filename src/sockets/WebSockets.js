@@ -59,7 +59,7 @@ export const WebSockets = (io) => {
                         // request[0] is the object instance, and 1 is created
                         // console.log(`Emitting to ${user.id}`);
                         // Emit to teacher
-                        io.to(teacher.id).emit('notification', {
+                        io.to(teacher.id).emit('request', {
                             id: request[0].id,
                             toId: teacher.id,
                             fromId: id,
@@ -67,7 +67,7 @@ export const WebSockets = (io) => {
                         });
                         // Emit to student
                         // console.log(`Emitting to ${id}`);
-                        io.to(id).emit('notification', {
+                        io.to(id).emit('request', {
                             id: request[0].id,
                             toId: teacher.id,
                             fromId: id,

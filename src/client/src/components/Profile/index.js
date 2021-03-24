@@ -16,7 +16,7 @@ const Profile = () => {
     const { profile: user, isLoading } = useProfile();
     const { user: loggedInUser } = useContext(UserContext);
     const { isAuth } = useContext(AuthContext);
-    const { setUser } = useRequest();
+    const { setTeacher } = useRequest();
     return isLoading ? (
         <Loading />
     ) : (
@@ -53,7 +53,7 @@ const Profile = () => {
                                         <Button outlined>Edit profile</Button>
                                     </Link>
                                 ) : (
-                                    <Button onClick={() => setUser(user)}>
+                                    <Button onClick={() => setTeacher(user)}>
                                         Reach out
                                     </Button>
                                 )
