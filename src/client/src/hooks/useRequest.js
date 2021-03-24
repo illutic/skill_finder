@@ -25,7 +25,6 @@ export const useRequest = () => {
     }, []);
 
     useEffect(() => {
-        console.log(userId);
         //postRequest(userId);
         emitRequest(userId);
     }, [userId]);

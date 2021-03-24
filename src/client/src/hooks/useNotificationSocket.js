@@ -9,7 +9,7 @@ export const useNotificationSocket = () => {
     const loadNotifications = useCallback(async () => {
         const requests = await fetch(`${ENDPOINTS.request}`);
         const data = await requests.json();
-        setNotifications(data.request);
+        setNotifications(data);
     }, []);
 
     useEffect(() => {
@@ -22,5 +22,5 @@ export const useNotificationSocket = () => {
         });
     }, []);
 
-    return { socket, notifications, loadNotifications };
+    return { socket, notifications };
 };
