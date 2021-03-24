@@ -15,6 +15,6 @@ export const useChatsSync = () => {
         syncChats();
     }, [syncChats]);
 
-    return syncChats;
+    return { syncChats };
 };
 export default useChatsSync;

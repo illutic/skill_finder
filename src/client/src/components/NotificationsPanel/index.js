@@ -6,10 +6,12 @@ import CloseButton from '../CloseButton/index';
 import { UserContext } from '../../contexts/UserContextProvider';
 import { useRequest } from '../../hooks/useRequest';
 import { Button } from '../NotificationsButton/styled';
+import useChatsSync from '../../hooks/useChatsSync';
 const NotificationsPanel = () => {
     const { user } = useContext(UserContext);
     const [showNotifications, setShowNotifications] = useState(false);
     const { requests, setRequestId, setRequests } = useRequest();
+    const { syncChats } = useChatsSync();
     const toggleNotificationsPanel = () => {
         setShowNotifications((previous) => !previous);
     };
@@ -53,9 +55,10 @@ const NotificationsPanel = () => {
                                               />
                                           </Styled.Group>
                                           <Button
-                                              onClick={() =>
-                                                  setRequestId(request.id)
-                                              }
+                                              onClick={() => {
+                                                  syncChats();
+                                                  setRequestId(request.id);
+                                              }}
                                           >
                                               Accept
                                           </Button>
