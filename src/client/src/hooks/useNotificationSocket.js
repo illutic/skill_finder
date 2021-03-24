@@ -1,50 +1,27 @@
-import { useEffect, useState, useRef, useCallback, useContext } from 'react';
+import { useEffect, useState, useCallback, useContext } from 'react';
 import ENDPOINTS from '../constants/endpoints';
-import { initialize, leaveChat, joinChat } from '../helpers/socket.js';
-import useLocationId from './useLocationId';
 import { SocketContext } from '../contexts/SocketContextProvider';
 
 export const useNotificationSocket = () => {
-    /*const [socket] = useContext(SocketContext);
+    const { socket } = useContext(SocketContext);
     const [notifications, setNotifications] = useState([]);
     // get notification Id
 
     const loadNotifications = useCallback(async () => {
-        try {
-            const response = await fetch(`${ENDPOINTS.api}/${chatId}/messages`);
-            const data = await response.json();
-            setNotifications(data);
-        } catch (err) {
-            console.log(err);
-        }
+        const requests = await fetch(`${ENDPOINTS.request}`);
+        const data = await requests.json();
+        setNotifications(data.request);
     }, []);
 
-    const leaveCurrentChat = useCallback((chatId) => {
-        leaveChat(socket, prevChatId);
-        setMessages([]);
-        prevChatId = chatId;
+    useEffect(() => {
+        loadNotifications();
     }, []);
 
-    const scrollDown = () => {
-        const messagesContainer = messagesContainerRef.current;
-        messagesContainer.scrollTop = messagesContainer.scrollHeight;
-    };
-
     useEffect(() => {
-        leaveCurrentChat(chatId);
-        initialize(socket);
-        joinChat(socket, chatId);
-        loadMessages();
-    }, [chatId]);
+        socket.on('notification', (notification) => {
+            setNotifications([...notifications, notification]);
+        });
+    });
 
-    useEffect(() => {
-        if (socket) {
-            socket.on('message', (message) => {
-                setMessages([...messages, message]);
-            });
-            scrollDown();
-        }
-    }, [messages, socket]);
-
-    return { socket, messages, messagesContainerRef, chatId };*/
+    return { socket, notifications, loadNotifications };
 };

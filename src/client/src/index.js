@@ -10,15 +10,15 @@ import SocketContextProvider from './contexts/SocketContextProvider';
 ReactDOM.render(
     <React.StrictMode>
         <AuthContextProvider>
-            <SocketContextProvider>
-                <UserContextProvider>
+            <UserContextProvider>
+                <SocketContextProvider>
                     <ChatsContextProvider>
                         <ThemeContextProvider>
                             <App />
                         </ThemeContextProvider>
                     </ChatsContextProvider>
-                </UserContextProvider>
-            </SocketContextProvider>
+                </SocketContextProvider>
+            </UserContextProvider>
         </AuthContextProvider>
     </React.StrictMode>,
     document.getElementById('root')

@@ -1,12 +1,15 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import * as Styled from './styled';
 import ProfilePhoto from '../ProfilePhoto';
 import NotificationsButton from '../NotificationsButton/index';
 import CloseButton from '../CloseButton/index';
+import { UserContext } from '../../contexts/UserContextProvider';
+import { useNotificationSocket } from '../../hooks/useNotificationSocket';
 
 const NotificationsPanel = () => {
+    const { user } = useContext(UserContext);
     const [showNotifications, setShowNotifications] = useState(false);
-
+    const { notifications } = useNotificationSocket();
     const toggleNotificationsPanel = () => {
         setShowNotifications((previous) => !previous);
     };
@@ -30,57 +33,51 @@ const NotificationsPanel = () => {
                 onClick={toggleNotificationsPanel}
             />
             <Styled.Notifications active={showNotifications}>
-                <Styled.Notification>
-                    <Styled.Group>
-                        <ProfilePhoto
-                            src="https://picsum.photos/100/100"
-                            size={50}
-                        />
-                    </Styled.Group>
-                    <Styled.Content>
-                        <Styled.Group>
-                            <Styled.Name>Rich Oswald</Styled.Name> has accepted
-                            your help request! You can now contact via messages.
-                        </Styled.Group>
-                        <Styled.Group>
-                            <CloseButton />
-                        </Styled.Group>
-                    </Styled.Content>
-                </Styled.Notification>
-                <Styled.Notification>
-                    <Styled.Group>
-                        <ProfilePhoto
-                            src="https://picsum.photos/100/100"
-                            size={50}
-                        />
-                    </Styled.Group>
-                    <Styled.Content>
-                        <Styled.Group>
-                            <Styled.Name>Anna Doe</Styled.Name> has accepted
-                            your help request! You can now contact via messages.
-                        </Styled.Group>
-                        <Styled.Group>
-                            <CloseButton />
-                        </Styled.Group>
-                    </Styled.Content>
-                </Styled.Notification>
-                <Styled.Notification>
-                    <Styled.Group>
-                        <ProfilePhoto
-                            src="https://picsum.photos/100/100"
-                            size={50}
-                        />
-                    </Styled.Group>
-                    <Styled.Content>
-                        <Styled.Group>
-                            <Styled.Name>Ian Jones</Styled.Name> has accepted
-                            your help request! You can now contact via messages.
-                        </Styled.Group>
-                        <Styled.Group>
-                            <CloseButton />
-                        </Styled.Group>
-                    </Styled.Content>
-                </Styled.Notification>
+                {notifications?.length
+                    ? notifications.map((request) => {
+                          if (request.toId === user.id) {
+                              return (
+                                  <Styled.Notification key={request.id}>
+                                      <Styled.Group>
+                                          <ProfilePhoto
+                                              src="https://picsum.photos/100/100"
+                                              size={50}
+                                          />
+                                      </Styled.Group>
+                                      <Styled.Content>
+                                          <Styled.Group>
+                                              {request.fromId} has requested
+                                              your help!
+                                          </Styled.Group>
+                                          <Styled.Group>
+                                              <CloseButton />
+                                          </Styled.Group>
+                                      </Styled.Content>
+                                  </Styled.Notification>
+                              );
+                          } else {
+                              return (
+                                  <Styled.Notification key={request.id}>
+                                      <Styled.Group>
+                                          <ProfilePhoto
+                                              src="https://picsum.photos/100/100"
+                                              size={50}
+                                          />
+                                      </Styled.Group>
+                                      <Styled.Content>
+                                          <Styled.Group>
+                                              You have requested{' '}
+                                              {request.fromId} for help!
+                                          </Styled.Group>
+                                          <Styled.Group>
+                                              <CloseButton />
+                                          </Styled.Group>
+                                      </Styled.Content>
+                                  </Styled.Notification>
+                              );
+                          }
+                      })
+                    : null}
             </Styled.Notifications>
         </>
     );

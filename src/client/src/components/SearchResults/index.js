@@ -5,10 +5,11 @@ import Container from '../Container/index';
 import Heading from '../Heading/index';
 import Button from '../Button/index';
 import ProfileThumbnail from '../ProfileThumbnail';
-import { request } from '../../hooks/useRequest';
+import { useRequest } from '../../hooks/useRequest';
 
 const SearchResults = () => {
     const { results, query } = useSearchEngine();
+    const { setUserId } = useRequest();
     return (
         <Container spaced>
             <Styled.Wrapper>
@@ -33,9 +34,9 @@ const SearchResults = () => {
                                                   </Button>
                                               </Link>
                                               <Button
-                                                  onClick={() =>
-                                                      request(user.id)
-                                                  }
+                                                  onClick={() => {
+                                                      setUserId(user.id);
+                                                  }}
                                               >
                                                   Reach out
                                               </Button>

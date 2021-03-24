@@ -1,7 +1,6 @@
 import { Router } from 'express';
 import {
-    getSentRequests,
-    getReceivedRequests,
+    getRequests,
     postRequest,
     acceptRequest,
     denyRequest,
@@ -10,8 +9,7 @@ import auth from '../auth/auth.js';
 
 const router = Router();
 
-router.get('/requests/sent', auth, getSentRequests);
-router.get('/requests/received', auth, getReceivedRequests);
+router.get('/requests/', auth, getRequests);
 router.post('/requests/new', auth, postRequest);
 router.post('/requests/accept', auth, acceptRequest);
 router.post('/requests/deny', auth, denyRequest);

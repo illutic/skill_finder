@@ -1,7 +1,7 @@
+import sequelize from 'sequelize';
 import Chat from '../models/Chat.js';
 import Request from '../models/Request.js';
 import User from '../models/User.js';
-
 /** Post a request to a user.
  *  @param {toId} - The userId to which the request is for.
  */
@@ -18,7 +18,7 @@ export const postRequest = async (req, res) => {
                 fromId: userId,
             },
         });
-        res.send.json({ request });
+        res.send({ request });
     } catch (err) {
         res.status(400).json({ error: err.message });
     }
@@ -69,35 +69,12 @@ export const acceptRequest = async (req, res) => {
 /** Accept a request.
  *  Get all pending requests of the user.
  */
-export const getReceivedRequests = async (req, res) => {
+export const getRequests = async (req, res) => {
     try {
         const { userId } = req;
         const request = await Request.findAll({
             where: {
-                toId: userId,
-            },
-            include: {
-                model: User,
-                attributes: {
-                    exclude: ['email', 'password'],
-                },
-            },
-        });
-        res.status(200).json({ request });
-    } catch (err) {
-        res.status(400).json({ error: err.message });
-    }
-};
-
-/** Accept a request.
- *  Get all requests the user has sent.
- */
-export const getSentRequests = async (req, res) => {
-    try {
-        const { userId } = req;
-        const request = await Request.findAll({
-            where: {
-                fromId: userId,
+                [sequelize.Op.or]: { toId: userId, fromId: userId },
             },
             include: {
                 model: User,

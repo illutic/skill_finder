@@ -1,14 +1,14 @@
 import { useContext, useEffect, useCallback, useRef, useState } from 'react';
 import { UserContext } from '../../contexts/UserContextProvider';
 import { SocketContext } from '../../contexts/SocketContextProvider';
-import { initialize, leaveChat, joinChat } from '../../helpers/socket';
+import { leaveChat, joinChat } from '../../helpers/socket';
 import ENDPOINTS from '../../constants/endpoints';
 import * as Styled from './styled';
 import useLocationId from '../../hooks/useLocationId';
 
 const Chat = ({ toggleContactsDrawer, toggleFilesDrawer }) => {
     const { user } = useContext(UserContext);
-    const [socket] = useContext(SocketContext);
+    const { socket } = useContext(SocketContext);
     const { locationId: chatId } = useLocationId();
     const [messages, setMessages] = useState([]);
     const messagesContainerRef = useRef();
@@ -45,7 +45,6 @@ const Chat = ({ toggleContactsDrawer, toggleFilesDrawer }) => {
 
     useEffect(() => {
         leaveCurrentChat(chatId);
-        initialize(socket);
         joinChat(socket, chatId);
         loadMessages();
     }, [chatId]);
