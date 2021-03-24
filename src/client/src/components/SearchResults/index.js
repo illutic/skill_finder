@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import useSearchEngine from '../../hooks/useSearchEngine';
-import sendRequest from '../../helpers/sendRequest';
 import * as Styled from './styled';
 import Container from '../Container/index';
 import Heading from '../Heading/index';

@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import useProfile from '../../hooks/useProfile';
-import sendRequest from '../../helpers/sendRequest';
+import { useRequest } from '../../hooks/useRequest';
 import { UserContext } from '../../contexts/UserContextProvider';
 import { AuthContext } from '../../contexts/AuthContextProvider';
 import * as Styled from './styled';
@@ -16,7 +16,7 @@ const Profile = () => {
     const { profile: user, isLoading } = useProfile();
     const { user: loggedInUser } = useContext(UserContext);
     const { isAuth } = useContext(AuthContext);
-
+    const { setUserId } = useRequest();
     return isLoading ? (
         <Loading />
     ) : (
@@ -53,9 +53,7 @@ const Profile = () => {
                                         <Button outlined>Edit profile</Button>
                                     </Link>
                                 ) : (
-                                    <Button
-                                        onClick={() => sendRequest(user?.id)}
-                                    >
+                                    <Button onClick={() => setUserId(user?.id)}>
                                         Reach out
                                     </Button>
                                 )

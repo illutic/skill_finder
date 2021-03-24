@@ -5,7 +5,6 @@ import { SocketContext } from '../contexts/SocketContextProvider';
 export const useNotificationSocket = () => {
     const { socket } = useContext(SocketContext);
     const [notifications, setNotifications] = useState([]);
-    // get notification Id
 
     const loadNotifications = useCallback(async () => {
         const requests = await fetch(`${ENDPOINTS.request}`);
@@ -21,7 +20,7 @@ export const useNotificationSocket = () => {
         socket.on('notification', (notification) => {
             setNotifications([...notifications, notification]);
         });
-    });
+    }, []);
 
     return { socket, notifications, loadNotifications };
 };

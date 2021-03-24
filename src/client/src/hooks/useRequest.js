@@ -6,7 +6,7 @@ export const useRequest = () => {
     const { socket } = useContext(SocketContext);
     const [userId, setUserId] = useState('');
 
-    const postRequest = useCallback((userId) => {
+    /*const postRequest = useCallback((userId) => {
         fetch(ENDPOINTS.request + '/new', {
             method: 'POST',
             headers: {
@@ -17,7 +17,7 @@ export const useRequest = () => {
                 toId: userId,
             }),
         });
-    }, []);
+    }, []);*/
 
     const emitRequest = useCallback((userId) => {
         console.log('You have requested ', userId);
@@ -32,4 +32,4 @@ export const useRequest = () => {
     return { setUserId };
 };
 
-export default sendRequest;
+export default useRequest;
