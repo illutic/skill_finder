@@ -54,7 +54,7 @@ export const useRequest = () => {
             // I think it's all done already - commenting for clarity.
             syncChats();
         });
-    }, [socket, syncRequests, syncChats]);
+    }, [socket, syncChats]);
 
     return { sendRequest, acceptRequest, denyRequest };
 };
