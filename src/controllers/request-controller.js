@@ -36,7 +36,7 @@ export const denyRequest = async (req, res) => {
         await Request.destroy({
             where: { id: requestId },
         });
-        res.status(200);
+        res.sendStatus(200);
     } catch (err) {
         res.status(400).json({ error: err.message });
     }
@@ -60,7 +60,7 @@ export const acceptRequest = async (req, res) => {
         await chat.addUser(teacher);
         await chat.addUser(student);
         await request.destroy();
-        res.send(chat);
+        res.status(200).json(chat);
     } catch (err) {
         res.status(400).json({ error: err.message });
     }
@@ -72,7 +72,7 @@ export const acceptRequest = async (req, res) => {
 export const getRequests = async (req, res) => {
     try {
         const { userId } = req;
-        const request = await Request.findAll({
+        const requests = await Request.findAll({
             where: {
                 [sequelize.Op.or]: { toId: userId, fromId: userId },
             },
@@ -83,7 +83,7 @@ export const getRequests = async (req, res) => {
                 },
             },
         });
-        res.status(200).json({ request });
+        res.status(200).json(requests);
     } catch (err) {
         res.status(400).json({ error: err.message });
     }

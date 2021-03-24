@@ -13,7 +13,6 @@ export const WebSockets = (io) => {
      * @param {websocket} socket - Requires a websocket object.
      */
     io.on('connection', async (socket) => {
-        console.log('Connected ', socket.id);
         let id;
         socket.on('authentication', async () => {
             try {
@@ -31,17 +30,14 @@ export const WebSockets = (io) => {
          */
         socket.on('disconnect', (chatId) => {
             socket.leave(chatId);
-            console.log(socket.id, ' disconnected');
         });
 
         socket.on('join', (chatId) => {
             socket.join(chatId);
-            console.log(socket.id, 'connected to Room', chatId);
         });
 
         socket.on('leaveRoom', (chatId) => {
             socket.leave(chatId);
-            console.log(socket.id, 'left Room', chatId);
         });
 
         socket.on('requestNotification', async (userId) => {
@@ -118,8 +114,12 @@ export const WebSockets = (io) => {
          * The server creates a new database entity for the message and emits the database object to the room that was specified.
          */
         socket.on('sendMessage', async (chatId, message) => {
+            let newMessage = message;
+            if (newMessage.length > 255) {
+                newMessage = newMessage.substring(0, 255);
+            }
             const databaseMessage = await Message.create({
-                content: message,
+                content: newMessage,
                 userId: id,
                 ChatId: chatId,
             });

@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import useProfile from '../../hooks/useProfile';
+import sendRequest from '../../helpers/sendRequest';
 import { UserContext } from '../../contexts/UserContextProvider';
 import { AuthContext } from '../../contexts/AuthContextProvider';
 import * as Styled from './styled';
@@ -52,7 +53,11 @@ const Profile = () => {
                                         <Button outlined>Edit profile</Button>
                                     </Link>
                                 ) : (
-                                    <Button>Reach out</Button>
+                                    <Button
+                                        onClick={() => sendRequest(user?.id)}
+                                    >
+                                        Reach out
+                                    </Button>
                                 )
                             ) : null}
                         </Styled.Action>

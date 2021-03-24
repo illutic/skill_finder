@@ -4,8 +4,7 @@ export const initialize = (socket, chatId) => {
         socket.emit('authentication');
     });
 
-    socket.on('unauthorized', (reason) => {
-        alert('Unauthorized:', reason);
+    socket.on('unauthorized', () => {
         leaveChat(socket, chatId);
         socket.disconnect();
     });

@@ -1,11 +1,13 @@
 import { Link } from 'react-router-dom';
 import useSearchEngine from '../../hooks/useSearchEngine';
+import sendRequest from '../../helpers/sendRequest';
 import * as Styled from './styled';
 import Container from '../Container/index';
 import Heading from '../Heading/index';
 import Button from '../Button/index';
 import ProfileThumbnail from '../ProfileThumbnail';
 import { useRequest } from '../../hooks/useRequest';
+import defaultProfilePhoto from '../../assets/default.jpg';
 
 const SearchResults = () => {
     const { results, query } = useSearchEngine();
@@ -24,7 +26,11 @@ const SearchResults = () => {
                                               <ProfileThumbnail
                                                   name={`${user.firstName} ${user.lastName}`}
                                                   title={user.title}
-                                                  photo=""
+                                                  photo={
+                                                      user.profilePhoto
+                                                          ? user.profilePhoto
+                                                          : defaultProfilePhoto
+                                                  }
                                               />
                                           </Link>
                                           <Styled.Buttons>

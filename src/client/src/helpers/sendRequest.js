@@ -31,3 +31,5 @@ export const useRequest = () => {
     }, [userId]);
     return { setUserId };
 };
+
+export default sendRequest;
