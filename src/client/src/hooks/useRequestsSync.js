@@ -6,9 +6,13 @@ export const useRequestsSync = () => {
     const { setRequests } = useContext(RequestsContext);
 
     const syncRequests = useCallback(async () => {
-        const requests = await fetch(`${ENDPOINTS.request}`);
-        const data = await requests.json();
-        setRequests(data);
+        const response = await fetch(`${ENDPOINTS.request}`);
+        const data = await response.json();
+        if (response.ok) {
+            setRequests(data.reverse());
+            return;
+        }
+        setRequests(null);
     }, [setRequests]);
 
     return { syncRequests };

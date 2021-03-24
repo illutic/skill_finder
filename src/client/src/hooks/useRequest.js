@@ -1,51 +1,42 @@
 import { useEffect, useContext, useCallback } from 'react';
+import useRequestsSync from './useRequestsSync';
+import useChatsSync from './useChatsSync';
 import { SocketContext } from '../contexts/SocketContextProvider';
-import { RequestsContext } from '../contexts/RequestsContextProvider';
 
 export const useRequest = () => {
     const { socket } = useContext(SocketContext);
-    const { setRequests } = useContext(RequestsContext);
+    const { syncRequests } = useRequestsSync();
+    const { syncChats } = useChatsSync();
 
     const sendRequest = useCallback(
         (toId) => {
-            console.log(toId);
             socket.emit('request', toId);
             socket.emit('requestNotification', toId);
+            syncRequests();
         },
-        [socket]
+        [socket, syncRequests]
     );
 
     const acceptRequest = useCallback(
         (requestId) => {
             socket.emit('acceptRequest', requestId);
+            syncRequests();
         },
-        [socket]
+        [socket, syncRequests]
     );
     const denyRequest = useCallback(
         (requestId) => {
             socket.emit('denyRequest', requestId);
+            syncRequests();
         },
-        [socket]
+        [socket, syncRequests]
     );
 
     useEffect(() => {
-        socket.on('request', (request) => {
-            setRequests((previousRequests) => [...previousRequests, request]);
-        });
         socket.on('acceptedRequest', (acceptedRequest) => {
-            setRequests((previousRequests) => [
-                ...previousRequests,
-                acceptedRequest,
-            ]);
+            syncChats();
         });
-        socket.on('denyRequest', (deniedRequest) => {
-            setRequests((previousRequests) =>
-                previousRequests.filter(
-                    (request) => request.id !== deniedRequest.id
-                )
-            );
-        });
-    }, [socket, setRequests]);
+    }, [socket, syncRequests, syncChats]);
 
     return { sendRequest, acceptRequest, denyRequest };
 };

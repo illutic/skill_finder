@@ -4,6 +4,7 @@ import Chat from '../models/Chat.js';
 import Message from '../models/Message.js';
 import Request from '../models/Request.js';
 import User from '../models/User.js';
+
 /** Web Socket Configuration
  * @param {Server} io - Requires a Websocket Server created from the http Server.
  */
@@ -25,6 +26,7 @@ export const WebSockets = (io) => {
                 socket.emit('unauthorized', err);
             }
         });
+
         /** Disconnection
          * @param {string} chatId - A chatId is passed when the socket disconnects
          * On socket disconnection the server removes the socket from the specified room.
@@ -76,6 +78,9 @@ export const WebSockets = (io) => {
             const request = await Request.findOne({
                 where: { id: requestId },
             });
+            if (!request) {
+                return;
+            }
             const teacher = await User.findOne({
                 where: { id: request.toId },
             });

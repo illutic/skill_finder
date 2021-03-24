@@ -38,28 +38,42 @@ const NotificationsPanel = () => {
                 onClick={toggleNotificationsPanel}
             />
             <Styled.Notifications active={showNotifications}>
-                <Styled.Notification>
-                    <Styled.Group>
-                        <ProfilePhoto
-                            src="https://picsum.photos/100/100"
-                            size={50}
-                        />
-                    </Styled.Group>
-                    <Styled.Content>
-                        <Styled.Group>X has requested your help!</Styled.Group>
+                {/* We should iterate through notifications, not requests here. */}
+                {requests?.length
+                    ? requests.map((request) => {
+                          return (
+                              <Styled.Notification key={request.id}>
+                                  <Styled.Group>
+                                      <ProfilePhoto
+                                          src="https://picsum.photos/100/100"
+                                          size={50}
+                                      />
+                                  </Styled.Group>
+                                  <Styled.Content>
+                                      <Styled.Group>
+                                          {request.fromId} has requested your
+                                          help.
+                                      </Styled.Group>
 
-                        <Styled.Group>
-                            <CloseButton onClick={() => denyRequest()} />
-                            <Button
-                                onClick={() => {
-                                    acceptRequest();
-                                }}
-                            >
-                                Accept
-                            </Button>
-                        </Styled.Group>
-                    </Styled.Content>
-                </Styled.Notification>
+                                      <Styled.Group>
+                                          <CloseButton
+                                              onClick={() =>
+                                                  denyRequest(request.id)
+                                              }
+                                          />
+                                          <Button
+                                              onClick={() =>
+                                                  acceptRequest(request.id)
+                                              }
+                                          >
+                                              Accept
+                                          </Button>
+                                      </Styled.Group>
+                                  </Styled.Content>
+                              </Styled.Notification>
+                          );
+                      })
+                    : null}
             </Styled.Notifications>
         </>
     );

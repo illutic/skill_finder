@@ -13,7 +13,6 @@ const useUserSync = () => {
         if (response.ok) {
             setUser(data);
             initialize(socket);
-
             return;
         }
         setUser(null);
