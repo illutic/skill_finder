@@ -6,7 +6,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v2
       - name: Clear Previous Containers
@@ -21,6 +21,7 @@ jobs:
           SERVER_PORT: 8081
           CLIENT_PORT: 3000
           ADMIN_PORT: 8080  
+
       - name: Run Docker Compose.
         id: run
         run: |
@@ -34,11 +35,14 @@ jobs:
           CLIENT_PORT: 3000
           ADMIN_PORT: 8080
 
+#      - name: Build Client Dependencies.
+#        run: docker exec docker_app_1 sh -c "npm install --prefix client"
+
       - name: Run Server, Database and Client.
         run: | 
           docker start docker_db_1 && \
           docker start docker_app_1 && \
-          docker exec -itd docker_app_1 sh -c "npm run client"
+          docker exec -d docker_app_1 sh -c "npm run client"
 
       - name: Tag the Application Image.
         run: docker tag docker_app docker.pkg.github.com/m30819-2020/cw-code-t33/skill-finder:latest

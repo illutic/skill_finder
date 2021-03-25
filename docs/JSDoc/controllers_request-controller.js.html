@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>controllers/user-controller.js - Documentation</title>
+    <title>controllers/request-controller.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">controllers/user-controller.js</h1>
+    <h1 class="page-title">controllers/request-controller.js</h1>
     
 
     
@@ -39,186 +39,115 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import User from '../models/User.js';
-import Skill from '../models/Skill.js';
-import hashPassword from '../utils/hashPassword.js';
-import checkPassword from '../utils/checkPassword.js';
-import removeToken from '../utils/removeToken.js';
+            <pre class="prettyprint source linenums"><code>import Chat from '../models/Chat.js';
+import Request from '../models/Request.js';
+import User from '../models/User.js';
 
-/** Get Current (Logged In) User Data */
-export const getCurrentUser = async (req, res) => {
-    const { userId } = req;
-    const user = await User.findOne({
-        where: {
-            id: userId,
-        },
-        attributes: {
-            exclude: ['email', 'password'],
-        },
-    });
-    res.json(user);
-};
-
-/** Get User Data
- * @param {uuid} userId - Requires a user Id in the request url.
+/** Post a request to a user.
+ *  @param {toId} - The userId to which the request is for.
  */
-export const getUser = async (req, res) => {
-    try {
-        const userId = req.params.id;
-        if (!userId) {
-            throw Error('No user ID provided.');
-        }
-        const user = await User.findOne({
-            where: { id: req.params.id },
-            include: Skill,
-            attributes: {
-                exclude: ['email', 'password'],
-            },
-        });
-        if (!user) {
-            throw Error('Incorrect user ID.');
-        }
-        res.status(200).json(user);
-    } catch (err) {
-        res.status(400).json({ error: err.message });
-    }
-};
-
-/** Get User Notifications */
-export const getNotifications = async (req, res) => {
+export const postRequest = async (req, res) => {
     try {
         const { userId } = req;
-        const user = await User.findOne({
+        const { toId } = req.body;
+        if (!toId) {
+            throw Error('No receiver ID provided.');
+        }
+        const request = await Request.findOrCreate({
             where: {
-                id: userId,
+                toId,
+                fromId: userId,
             },
         });
-        const notifications = await user.getNotifications();
-        res.status(200).json({ notifications });
+        res.send.json({ request });
     } catch (err) {
         res.status(400).json({ error: err.message });
     }
 };
 
-/** Update Email
- * @param {string} email - Requires an email address in the request body.
- * @param {string} password - Requires a password in the request body.
+/** Deny a request.
+ *  @param {requestId} - The request Id that is denied.
  */
-export const patchEmail = async (req, res) => {
+export const denyRequest = async (req, res) => {
+    try {
+        const { requestId } = req.body;
+        if (!requestId) {
+            throw Error('No request ID provided.');
+        }
+        await Request.destroy({
+            where: { id: requestId },
+        });
+        res.status(200);
+    } catch (err) {
+        res.status(400).json({ error: err.message });
+    }
+};
+
+/** Accept a request.
+ *  @param {requestId} - The request Id that is accepted.
+ */
+export const acceptRequest = async (req, res) => {
+    try {
+        const { requestId } = req.body;
+        if (!requestId) {
+            throw Error('No request ID provided.');
+        }
+        const request = await Request.findOne({
+            where: { id: requestId },
+        });
+        const teacher = await User.findOne({ where: { id: request.toId } });
+        const student = await User.findOne({ where: { id: request.fromId } });
+        const chat = await Chat.create();
+        await chat.addUser(teacher);
+        await chat.addUser(student);
+        await request.destroy();
+        res.send(chat);
+    } catch (err) {
+        res.status(400).json({ error: err.message });
+    }
+};
+
+/** Accept a request.
+ *  Get all pending requests of the user.
+ */
+export const getReceivedRequests = async (req, res) => {
     try {
         const { userId } = req;
-        const { email, password } = req.body;
-        const emailRegExp = new RegExp(
-            /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g
-        );
-        if (!email || !emailRegExp.test(email)) {
-            throw Error('Please enter a valid email address.');
-        }
-        if (!password) {
-            throw Error('No password provided.');
-        }
-        await checkPassword(userId, password);
-        User.update(
-            {
-                email,
+        const request = await Request.findAll({
+            where: {
+                toId: userId,
             },
-            {
-                where: {
-                    id: userId,
+            include: {
+                model: User,
+                attributes: {
+                    exclude: ['email', 'password'],
                 },
-            }
-        );
-        res.status(200);
+            },
+        });
+        res.status(200).json({ request });
     } catch (err) {
         res.status(400).json({ error: err.message });
     }
 };
 
-/** Update Password
- * @param {string} password - Requires a password string in the request body
- * @param {string} confirmPassword - Requires a password confirmation string in the request body
+/** Accept a request.
+ *  Get all requests the user has sent.
  */
-export const patchPassword = async (req, res) => {
+export const getSentRequests = async (req, res) => {
     try {
         const { userId } = req;
-        const { password, confirmPassword } = req.body;
-        if (!password) {
-            throw Error('No old password provided.');
-        }
-        await checkPassword(userId, confirmPassword);
-        const user = await User.findOne({
-            where: { id: userId },
+        const request = await Request.findAll({
+            where: {
+                fromId: userId,
+            },
+            include: {
+                model: User,
+                attributes: {
+                    exclude: ['email', 'password'],
+                },
+            },
         });
-        user.update({
-            password: await hashPassword(password),
-        });
-        res.status(200).json({ message: user });
-    } catch (err) {
-        res.status(400).json({ error: err.message });
-    }
-};
-
-/** Update Title
- * @param {string} title - Requires a title string in the request body
- */
-export const patchTitle = async (req, res) => {
-    try {
-        const { userId } = req;
-        const { title } = req.body;
-        if (!title) {
-            throw Error('No title provided.');
-        }
-        const user = await User.findOne({
-            where: { id: userId },
-        });
-        user.update({
-            title,
-        });
-        res.status(200).json({ user });
-    } catch (err) {
-        res.status(400).json({ error: err.message });
-    }
-};
-
-/** Update Description
- * @param {string} description - Requires a description string in the request body.
- */
-export const patchDescription = async (req, res) => {
-    try {
-        const { userId } = req;
-        const { description } = req.body;
-        if (!description) {
-            throw Error('No description provided');
-        }
-        const user = await User.findOne({
-            where: { id: userId },
-        });
-        user.update({
-            description,
-        });
-        res.status(200).json({ user });
-    } catch (err) {
-        res.status(400).json({ error: err.message });
-    }
-};
-
-/** Delete Account */
-export const deleteAccount = async (req, res) => {
-    try {
-        /** TODO
-         * [ ] destroy all m:n table entities related to user
-         * [ ] destroy any requests linked to user
-         * [ ] remove uploaded files
-         * [ ] remove chats
-         * [X] remove token
-         * [X] destroy database entity
-         */
-        const { userId } = req;
-        const { password } = req.body;
-        await checkPassword(userId, password);
-        User.destroy({ where: { id: userId } });
-        removeToken(res);
-        res.status(200);
+        res.status(200).json({ request });
     } catch (err) {
         res.status(400).json({ error: err.message });
     }

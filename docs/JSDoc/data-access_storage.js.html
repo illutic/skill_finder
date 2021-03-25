@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>controllers/user-controller.js - Documentation</title>
+    <title>data-access/storage.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">controllers/user-controller.js</h1>
+    <h1 class="page-title">data-access/storage.js</h1>
     
 
     
@@ -39,190 +39,99 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import User from '../models/User.js';
-import Skill from '../models/Skill.js';
-import hashPassword from '../utils/hashPassword.js';
-import checkPassword from '../utils/checkPassword.js';
-import removeToken from '../utils/removeToken.js';
+            <pre class="prettyprint source linenums"><code>import path from 'path';
+import fs from 'fs';
+import multer from 'multer';
+import { v4 } from 'uuid';
 
-/** Get Current (Logged In) User Data */
-export const getCurrentUser = async (req, res) => {
-    const { userId } = req;
-    const user = await User.findOne({
-        where: {
-            id: userId,
-        },
-        attributes: {
-            exclude: ['email', 'password'],
-        },
+/** Creates a user upload directory if it doesn't exist.
+ * @param {string} userId- the user the dir is for.
+ * @param {string} chatId- can be undefined, defaults to photos directory
+ * @param {function} callback - Function that is executed after creating the dir.
+ * @returns void
+ */
+const createUploadDirectory = async (userId, chatId, callback) => {
+    let userDir;
+    if (!chatId) {
+        userDir = path.join('.', 'data-access', 'uploads', 'users', userId);
+    } else {
+        userDir = path.join(
+            '.',
+            'data-access',
+            'uploads',
+            'chats',
+            chatId,
+            userId
+        );
+    }
+    fs.stat(userDir, async (error) => {
+        if (error) {
+            fs.mkdirSync(userDir, { recursive: true });
+            callback(userDir);
+            return;
+        }
+        callback(userDir);
     });
-    res.json(user);
 };
 
-/** Get User Data
- * @param {uuid} userId - Requires a user Id in the request url.
+/** Creates a multer Storage Component.
+ * @param {Request} req - Content-type must be of: 'multipart/form-data'
+ * @param {file} file - the file information included in the Request parameter.
+ * @param {function} cb - callback function to be called when the file operation is complete.
  */
-export const getUser = async (req, res) => {
-    try {
-        const userId = req.params.id;
-        if (!userId) {
-            throw Error('No user ID provided.');
-        }
-        const user = await User.findOne({
-            where: { id: req.params.id },
-            include: Skill,
-            attributes: {
-                exclude: ['email', 'password'],
-            },
+const storage = multer.diskStorage({
+    destination(req, file, cb) {
+        createUploadDirectory(req.userId, req.body.chatId, (userDir) => {
+            cb(null, userDir);
         });
-        if (!user) {
-            throw Error('Incorrect user ID.');
-        }
-        res.status(200).json(user);
-    } catch (err) {
-        res.status(400).json({ error: err.message });
-    }
-};
+    },
+    /** Generates a new random uuid for the file name */
+    filename(req, file, cb) {
+        cb(null, `${v4() + path.extname(file.originalname)}`);
+    },
+});
 
-/** Get User Notifications */
-export const getNotifications = async (req, res) => {
-    try {
-        const { userId } = req;
-        const user = await User.findOne({
-            where: {
-                id: userId,
-            },
-        });
-        const notifications = await user.getNotifications();
-        res.status(200).json({ notifications });
-    } catch (err) {
-        res.status(400).json({ error: err.message });
-    }
-};
-
-/** Update Email
- * @param {string} email - Requires an email address in the request body.
- * @param {string} password - Requires a password in the request body.
+/** Creates a multer Storage Component.
+ * @param {Request} req - Content-type must be of: 'multipart/form-data'
+ * @param {file} file - the file information included in the Request parameter.
+ * @param {function} cb - callback function to be called when the file operation is complete.
  */
-export const patchEmail = async (req, res) => {
-    try {
-        const { userId } = req;
-        const { email, password } = req.body;
-        const emailRegExp = new RegExp(
-            /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g
-        );
-        if (!email || !emailRegExp.test(email)) {
-            throw Error('Please enter a valid email address.');
-        }
-        if (!password) {
-            throw Error('No password provided.');
-        }
-        await checkPassword(userId, password);
-        User.update(
-            {
-                email,
-            },
-            {
-                where: {
-                    id: userId,
-                },
-            }
-        );
-        res.status(200);
-    } catch (err) {
-        res.status(400).json({ error: err.message });
+const fileStorage = multer.diskStorage({
+    destination(req, file, cb) {
+        createUploadDirectory(req.userId, req.body.chatId, (userDir) => {
+            cb(null, userDir);
+        });
+    },
+    /** Keeps file name intact */
+    filename(req, file, cb) {
+        cb(null, `${file.originalname}`);
+    },
+});
+
+const imageFilter = (req, file, cb) => {
+    if (!file.originalname.match(/\.(jpg|JPG|jpeg|JPEG|png|PNG|gif|GIF)$/)) {
+        req.fileValidationError =
+            'Only image files are allowed (.jpg, .jpeg, .png, .gif).';
+        return cb('Only image files are allowed.');
     }
+    return cb(null, true);
 };
 
-/** Update Password
- * @param {string} password - Requires a password string in the request body
- * @param {string} confirmPassword - Requires a password confirmation string in the request body
+/** Creates a multer object and passes the configuration above
+ * @requires [storage,fileFilter,limits] Requires a multer diskStorage component, optionally a fileFilter function and a limits object.
+ * @middleware [.single('tag')] Populates the Request with the file that has the specified string tagged. eg. ['image', image]
  */
-export const patchPassword = async (req, res) => {
-    try {
-        const { userId } = req;
-        const { password, confirmPassword } = req.body;
-        if (!password) {
-            throw Error('No old password provided.');
-        }
-        await checkPassword(userId, confirmPassword);
-        const user = await User.findOne({
-            where: { id: userId },
-        });
-        user.update({
-            password: await hashPassword(password),
-        });
-        res.status(200).json({ message: user });
-    } catch (err) {
-        res.status(400).json({ error: err.message });
-    }
-};
+export const uploadImage = multer({
+    storage,
+    fileFilter: imageFilter,
+    limits: { fileSize: 2048 * 2048 },
+}).single('image');
 
-/** Update Title
- * @param {string} title - Requires a title string in the request body
- */
-export const patchTitle = async (req, res) => {
-    try {
-        const { userId } = req;
-        const { title } = req.body;
-        if (!title) {
-            throw Error('No title provided.');
-        }
-        const user = await User.findOne({
-            where: { id: userId },
-        });
-        user.update({
-            title,
-        });
-        res.status(200).json({ user });
-    } catch (err) {
-        res.status(400).json({ error: err.message });
-    }
-};
+export const uploadFile = multer({
+    storage: fileStorage,
+}).single('file');
 
-/** Update Description
- * @param {string} description - Requires a description string in the request body.
- */
-export const patchDescription = async (req, res) => {
-    try {
-        const { userId } = req;
-        const { description } = req.body;
-        if (!description) {
-            throw Error('No description provided');
-        }
-        const user = await User.findOne({
-            where: { id: userId },
-        });
-        user.update({
-            description,
-        });
-        res.status(200).json({ user });
-    } catch (err) {
-        res.status(400).json({ error: err.message });
-    }
-};
-
-/** Delete Account */
-export const deleteAccount = async (req, res) => {
-    try {
-        /** TODO
-         * [ ] destroy all m:n table entities related to user
-         * [ ] destroy any requests linked to user
-         * [ ] remove uploaded files
-         * [ ] remove chats
-         * [X] remove token
-         * [X] destroy database entity
-         */
-        const { userId } = req;
-        const { password } = req.body;
-        await checkPassword(userId, password);
-        User.destroy({ where: { id: userId } });
-        removeToken(res);
-        res.status(200);
-    } catch (err) {
-        res.status(400).json({ error: err.message });
-    }
-};
+export default { uploadImage, uploadFile };
 </code></pre>
         </article>
     </section>

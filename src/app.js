@@ -1,5 +1,5 @@
-import express from 'express';
 import path from 'path';
+import express from 'express';
 import cookieParser from 'cookie-parser';
 import { Server } from 'socket.io';
 import AuthRoutes from './routes/auth-routes.js';
@@ -9,19 +9,24 @@ import database from './data-access/database.js';
 import makeAssociations from './data-access/associations.js';
 import { WebSockets } from './sockets/WebSockets.js';
 
+/** Define local constants */
 const PORT = process.env.PORT ?? 8081;
-
 const DIRNAME = process.env.PWD ?? '';
 
+/** Create Express application */
 const app = express();
 
+/** Set up middleware */
 app.use(express.json());
 app.use(cookieParser());
 
-app.use(express.static(path.join(DIRNAME, 'client', 'build')));
+/** Install routes */
 app.use(AuthRoutes);
 app.use(APIRoutes);
 app.use(FileRoutes);
+
+/** Serve static files */
+app.use(express.static(path.join(DIRNAME, 'client', 'build')));
 app.get('*', (req, res) => {
     res.sendFile(path.join(DIRNAME, 'client', 'build', 'index.html'));
 });
