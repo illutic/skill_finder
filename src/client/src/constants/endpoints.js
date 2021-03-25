@@ -3,12 +3,13 @@ const ENDPOINTS = {
     login: '/auth/login',
     logout: '/auth/logout',
     check: '/auth/check',
-    chats: '/api/chats',
+    api: '/api',
+    user: '/api/user',
     photo: '/api/user/photo',
     skill: '/api/skill',
+    chats: '/api/chats',
     notifications: '/api/notifications',
-    user: '/api/user',
-    api: '/api',
+    denyRequest: '/api/requests/deny',
 };
 
 export default ENDPOINTS;

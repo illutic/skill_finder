@@ -2,6 +2,7 @@ import { useEffect, useContext, useCallback } from 'react';
 import useNotificationsSync from './useNotificationsSync';
 import useChatsSync from './useChatsSync';
 import { SocketContext } from '../contexts/SocketContextProvider';
+import ENDPOINTS from '../constants/endpoints';
 
 export const useRequest = () => {
     const { socket } = useContext(SocketContext);
@@ -21,8 +22,16 @@ export const useRequest = () => {
         },
         [socket]
     );
-    const denyRequest = useCallback(async () => {
-        fetch('/api/requests/deny');
+    const denyRequest = useCallback(async (requestId) => {
+        await fetch(ENDPOINTS.denyRequest, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                requestId,
+            }),
+        });
     }, []);
 
     useEffect(() => {
