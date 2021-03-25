@@ -7,6 +7,7 @@ import ProfilePhoto from '../ProfilePhoto';
 import NotificationsButton from '../NotificationsButton/index';
 import Button from '../Button/index';
 import CloseButton from '../CloseButton/index';
+import defaultProfilePhoto from '../../assets/default.jpg';
 
 const NotificationsPanel = () => {
     const { notifications } = useContext(NotificationsContext);
@@ -41,7 +42,13 @@ const NotificationsPanel = () => {
                           <Styled.Notification key={notification.id}>
                               <Styled.Group>
                                   <ProfilePhoto
-                                      src="https://picsum.photos/100/100"
+                                      src={
+                                          notification.content.fromUser
+                                              ?.profilePhoto
+                                              ? notification.content.fromUser
+                                                    .profilePhoto
+                                              : defaultProfilePhoto
+                                      }
                                       size={50}
                                   />
                               </Styled.Group>
