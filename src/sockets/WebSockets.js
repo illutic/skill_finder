@@ -49,6 +49,8 @@ export const WebSockets = (io) => {
             if (!toId) {
                 return;
             }
+
+            // Find/create request and check if it's active
             const request = await Request.findOrCreate({
                 where: {
                     toId,
@@ -58,6 +60,8 @@ export const WebSockets = (io) => {
             if (request[0].pending === false) {
                 return;
             }
+
+            // Find involved users
             const toUser = await User.findOne({
                 where: {
                     id: toId,
@@ -68,27 +72,31 @@ export const WebSockets = (io) => {
                     id,
                 },
             });
-            if (!toUser) {
+            if (!toUser || !fromUser) {
                 return;
             }
+
+            // Create notification for request receiver
             const notification = await Notification.create({
                 type: NOTIFICATION_TYPES.incomingRequest,
                 content: { requestId: request[0].id, fromUser },
             });
             toUser.addNotification(notification);
+
+            // Emit
             io.to(toId).emit('incomingRequest');
         });
 
         /** On Receiving a Request Accept,
          * @param {string} requestId - request id string, passed in from the client
-         * The server finds the database entity for the request, creates a chatroom, destroys the request and emits to the user who sent it that it was accepted.
+         * The server finds the database entity for the request, creates a chatroom, deactivates the request and emits to the user who sent it that it was accepted.
          */
         socket.on('acceptRequest', async (requestId) => {
             if (!requestId) {
                 return;
             }
 
-            // Get request and set pending to false
+            // Find request and set pending to false
             const request = await Request.findOne({
                 where: { id: requestId },
             });
@@ -98,7 +106,7 @@ export const WebSockets = (io) => {
             request.pending = false;
             await request.save();
 
-            // Get involved users
+            // Find involved users
             const fromUser = await User.findOne({
                 where: { id: request.fromId },
             });
@@ -125,21 +133,25 @@ export const WebSockets = (io) => {
 
         /** On Receiving a Request Denial,
          * @param {string} requestId - request id string, passed in from the client
-         * The server finds the database entity for the request destroys it and emits to the user who sent it that it was denied.
+         * The server finds the database entity for the request, deactivates it and emits to the user who sent it that it was denied.
          */
         socket.on('denyRequest', async (requestId) => {
             if (!requestId) {
                 return;
             }
+
+            // Find request and set pending to false
             const request = await Request.findOne({
                 where: { id: requestId },
             });
-            if (request) {
-                const { fromId, toId } = request;
-                await request.destroy();
-                io.to(fromId).emit('denyRequest');
-                io.to(toId).emit('denyRequest');
+            if (!request) {
+                return;
             }
+            request.pending = false;
+            await request.save();
+
+            // Emit
+            io.to(request.toId).emit('deniedRequest');
         });
 
         /** On Receiving a message,
