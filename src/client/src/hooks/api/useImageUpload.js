@@ -2,12 +2,12 @@ import { useState } from 'react';
 import useUserSync from '../sync/useUserSync';
 import ENDPOINTS from '../../constants/endpoints';
 
-const useUpdatePhoto = () => {
+const useImageUpload = () => {
     const syncUser = useUserSync();
     const [success, setSuccess] = useState();
     const [error, setError] = useState();
 
-    const updatePhoto = async (e, type) => {
+    const uploadImage = async (e, type) => {
         e.preventDefault();
         const form = e.target;
         const file = form.image.files[0];
@@ -32,7 +32,7 @@ const useUpdatePhoto = () => {
         }
     };
 
-    return { updatePhoto, success, error };
+    return { uploadImage, success, error };
 };
 
-export default useUpdatePhoto;
+export default useImageUpload;

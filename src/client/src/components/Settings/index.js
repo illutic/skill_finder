@@ -1,5 +1,5 @@
 import * as Styled from './styled';
-import useUpdatePhoto from '../../hooks/api/useUpdatePhoto';
+import useImageUpload from '../../hooks/api/useImageUpload';
 import Container from '../Container/index';
 import Heading from '../Heading/index';
 import FormSuccess from '../FormSuccess';
@@ -9,15 +9,15 @@ import PHOTO_TYPES from '../../constants/photoTypes';
 
 const Settings = () => {
     const {
-        updatePhoto: updateProfilePhoto,
+        uploadImage: uploadProfilePhoto,
         success: profilePhotoSuccess,
         error: profilePhotoError,
-    } = useUpdatePhoto();
+    } = useImageUpload();
     const {
-        updatePhoto: updateBackgroundPhoto,
+        uploadImage: uploadBackgroundImage,
         success: backgroundPhotoSuccess,
         error: backgroundPhotoError,
-    } = useUpdatePhoto();
+    } = useImageUpload();
 
     return (
         <Container spaced>
@@ -28,7 +28,7 @@ const Settings = () => {
                         <Styled.Subheading>Profile Photo</Styled.Subheading>
                         <Styled.FileForm
                             onSubmit={(e) =>
-                                updateProfilePhoto(e, PHOTO_TYPES.profile)
+                                uploadProfilePhoto(e, PHOTO_TYPES.profile)
                             }
                         >
                             <Styled.Group>
@@ -58,7 +58,7 @@ const Settings = () => {
                         <Styled.Subheading>Background Image</Styled.Subheading>
                         <Styled.FileForm
                             onSubmit={(e) =>
-                                updateBackgroundPhoto(e, PHOTO_TYPES.background)
+                                uploadBackgroundImage(e, PHOTO_TYPES.background)
                             }
                         >
                             <Styled.Group>
