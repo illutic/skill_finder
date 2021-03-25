@@ -1,15 +1,17 @@
 import { useState, useEffect, useContext } from 'react';
 import useRequest from '../../hooks/useRequest';
+import useNotification from '../../hooks/useNotification';
+import { NotificationsContext } from '../../contexts/NotificationsContextProvider';
 import * as Styled from './styled';
 import ProfilePhoto from '../ProfilePhoto';
-import { NotificationsContext } from '../../contexts/NotificationsContextProvider';
 import NotificationsButton from '../NotificationsButton/index';
-import CloseButton from '../CloseButton/index';
 import Button from '../Button/index';
+import CloseButton from '../CloseButton/index';
 
 const NotificationsPanel = () => {
     const { notifications } = useContext(NotificationsContext);
     const { acceptRequest, denyRequest } = useRequest();
+    const { deleteNotification } = useNotification();
     const [showNotifications, setShowNotifications] = useState(false);
 
     const toggleNotificationsPanel = () => {
@@ -51,8 +53,8 @@ const NotificationsPanel = () => {
                                   <Styled.Group>
                                       <CloseButton
                                           onClick={() =>
-                                              denyRequest(
-                                                  notification.content.requestId
+                                              deleteNotification(
+                                                  notification.id
                                               )
                                           }
                                       />
@@ -64,6 +66,15 @@ const NotificationsPanel = () => {
                                           }
                                       >
                                           Accept
+                                      </Button>
+                                      <Button
+                                          onClick={() =>
+                                              denyRequest(
+                                                  notification.content.requestId
+                                              )
+                                          }
+                                      >
+                                          Deny
                                       </Button>
                                   </Styled.Group>
                               </Styled.Content>

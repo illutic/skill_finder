@@ -1,3 +1,4 @@
+import Notification from '../models/Notification.js';
 import User from '../models/User.js';
 
 /** Get User Notifications */
@@ -16,4 +17,19 @@ export const getNotifications = async (req, res) => {
     }
 };
 
-export const X = true;
+export const deleteNotification = async (req, res) => {
+    try {
+        const { notificationId } = req.body;
+        if (!notificationId) {
+            throw Error('No notification ID provided.');
+        }
+        await Notification.destroy({
+            where: {
+                id: notificationId,
+            },
+        });
+        res.sendStatus(200);
+    } catch (err) {
+        res.status(400).json({ error: err.message });
+    }
+};
