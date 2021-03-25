@@ -8,18 +8,23 @@ import ENDPOINTS from '../../constants/endpoints';
 
 const Chat = ({ toggleContactsDrawer, toggleFilesDrawer }) => {
     const [messages, setMessages] = useState([]);
+    const [newMessage, setNewMessage] = useState();
     const { locationId: chatId } = useLocationId();
     const { user } = useContext(UserContext);
     const { socket } = useContext(SocketContext);
     const messagesContainerRef = useRef();
+    const messagesFormRef = useRef();
 
     const sendMessage = (e) => {
-        e.preventDefault();
-        const form = e.target;
-        const newMessage = form.newMessage.value;
-        if (newMessage) {
-            socket.emit('sendMessage', chatId, newMessage);
-            form.reset();
+        const isKeydown = e.type === 'keydown' && e.keyCode === 13;
+        const isClick = e.type === 'click';
+        if (isKeydown || isClick) {
+            e.preventDefault();
+            if (newMessage) {
+                socket.emit('sendMessage', chatId, newMessage);
+                setNewMessage(null);
+                messagesFormRef.current.reset();
+            }
         }
     };
 
@@ -90,14 +95,16 @@ const Chat = ({ toggleContactsDrawer, toggleFilesDrawer }) => {
                       })
                     : null}
             </Styled.Messages>
-            <Styled.Form onSubmit={sendMessage}>
+            <Styled.Form ref={messagesFormRef}>
                 <Styled.TextArea
                     type="text"
                     placeholder="Aa"
                     name="newMessage"
                     id="newMessage"
+                    onChange={(e) => setNewMessage(e.target.value)}
+                    onKeyDown={sendMessage}
                 />
-                <Styled.PositionedSendButton />
+                <Styled.PositionedSendButton onClick={sendMessage} />
             </Styled.Form>
         </Styled.Chat>
     );
