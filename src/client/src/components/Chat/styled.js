@@ -20,7 +20,7 @@ export const Controls = styled.div`
 
 export const Control = styled.button`
     flex: 1;
-    padding: 25px;
+    padding: 10px;
     background: transparent;
     cursor: pointer;
     &:first-child {
@@ -32,18 +32,18 @@ export const Messages = styled.section`
     display: flex;
     flex-direction: column;
     padding: 25px;
-    min-height: calc(100vh - 100px - 137px - 82px);
+    height: calc(100vh - 100px - 137px - 82px);
     overflow-y: scroll;
     @media (min-width: ${SCREENS.medium}) {
         padding: 50px;
-        min-height: calc(100vh - 100px - 78px - 82px);
+        height: calc(100vh - 100px - 78px - 82px);
     }
     @media (min-width: ${SCREENS.large}) {
         padding: 25px;
-        min-height: calc(100vh - 100px - 78px);
+        height: calc(100vh - 100px - 78px);
     }
     @media (max-height: 550px) {
-        min-height: calc(100vh);
+        height: calc(100vh);
     }
 `;
 

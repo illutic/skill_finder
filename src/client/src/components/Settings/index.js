@@ -42,7 +42,7 @@ const Settings = () => {
                                 />
                             </Styled.Group>
                             <Styled.FileSubmit outlined>
-                                Change
+                                Upload
                             </Styled.FileSubmit>
                         </Styled.FileForm>
                         {profilePhotoSuccess ? (
@@ -72,7 +72,7 @@ const Settings = () => {
                                 />
                             </Styled.Group>
                             <Styled.FileSubmit outlined>
-                                Change
+                                Upload
                             </Styled.FileSubmit>
                         </Styled.FileForm>
                         {backgroundPhotoSuccess ? (
@@ -231,7 +231,7 @@ const Settings = () => {
                             <Styled.Split>
                                 <Styled.Side>
                                     <Styled.Label htmlFor="confirm">
-                                        Type "Delete account" to confirm
+                                        Type "Delete account"
                                     </Styled.Label>
                                     <Styled.Input
                                         name="confirm"
@@ -253,7 +253,7 @@ const Settings = () => {
                                 </Styled.Side>
                             </Styled.Split>
                         </Styled.Group>
-                        <Styled.Submit outlined>Update</Styled.Submit>
+                        <Styled.Submit outlined>Delete</Styled.Submit>
                     </Styled.Form>
                     {/* <FormError>Error</FormError> */}
                 </Styled.Subsection>
