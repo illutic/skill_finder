@@ -39,13 +39,16 @@ const NotificationsPanel = () => {
             <Styled.Notifications active={showNotifications}>
                 {notifications?.length
                     ? notifications.map((notification) => (
+                          // Create Notification components for each
+                          // notification type. Pass
+                          // content={notification.content} property.
                           <Styled.Notification key={notification.id}>
                               <Styled.Group>
                                   <ProfilePhoto
                                       src={
-                                          notification.content.fromUser
+                                          notification.content.user
                                               ?.profilePhoto
-                                              ? notification.content.fromUser
+                                              ? notification.content.user
                                                     .profilePhoto
                                               : defaultProfilePhoto
                                       }

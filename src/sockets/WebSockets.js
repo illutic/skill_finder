@@ -79,7 +79,7 @@ export const WebSockets = (io) => {
             // Create notification for request receiver
             const notification = await Notification.create({
                 type: NOTIFICATION_TYPES.incomingRequest,
-                content: { requestId: request[0].id, fromUser },
+                content: { requestId: request[0].id, user: fromUser },
             });
             toUser.addNotification(notification);
 
@@ -122,7 +122,7 @@ export const WebSockets = (io) => {
             // Create notification for request sender
             const notification = await Notification.create({
                 type: NOTIFICATION_TYPES.acceptedRequest,
-                content: { chatId: chat.id, toUser },
+                content: { chatId: chat.id, user: toUser },
             });
             fromUser.addNotification(notification);
 
