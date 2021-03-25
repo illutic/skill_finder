@@ -63,12 +63,17 @@ export const WebSockets = (io) => {
                     id: toId,
                 },
             });
+            const fromUser = await User.findOne({
+                where: {
+                    id,
+                },
+            });
             if (!toUser) {
                 return;
             }
             const notification = await Notification.create({
                 type: NOTIFICATION_TYPES.incomingRequest,
-                content: { requestId: request[0].id, toUser },
+                content: { requestId: request[0].id, fromUser },
             });
             toUser.addNotification(notification);
             io.to(toId).emit('incomingRequest');
@@ -82,27 +87,38 @@ export const WebSockets = (io) => {
             if (!requestId) {
                 return;
             }
+
+            // Get request and set pending to false
             const request = await Request.findOne({
                 where: { id: requestId },
             });
             if (!request) {
                 return;
             }
+            request.pending = false;
+            await request.save();
+
+            // Get involved users
             const fromUser = await User.findOne({
                 where: { id: request.fromId },
             });
             const toUser = await User.findOne({
                 where: { id: request.toId },
             });
+
+            // Create chat for involved users
             const chat = await Chat.create();
-            await chat.addUsers([fromUser, toUser]);
-            // await chat.addUser(toUser);
-            // await chat.addUser(sender);
+            await chat.addUser(fromUser);
+            await chat.addUser(toUser);
 
-            // Create notification for sender
+            // Create notification for request sender
+            const notification = await Notification.create({
+                type: NOTIFICATION_TYPES.acceptedRequest,
+                content: { chatId: chat.id, toUser },
+            });
+            fromUser.addNotification(notification);
 
-            // Set pending to false instead of destroying
-            // await request.destroy();
+            // Emit
             io.to(fromUser.id).emit('acceptedRequest');
             io.to(toUser.id).emit('acceptedRequest');
         });

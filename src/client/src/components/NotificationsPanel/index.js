@@ -34,28 +34,42 @@ const NotificationsPanel = () => {
                 onClick={toggleNotificationsPanel}
             />
             <Styled.Notifications active={showNotifications}>
-                {/* <Styled.Notification key={request.id}>
-                    <Styled.Group>
-                        <ProfilePhoto
-                            src="https://picsum.photos/100/100"
-                            size={50}
-                        />
-                    </Styled.Group>
-                    <Styled.Content>
-                        <Styled.Group>
-                            {request.fromId} has requested your help.
-                        </Styled.Group>
+                {notifications?.length
+                    ? notifications.map((notification) => (
+                          <Styled.Notification key={notification.id}>
+                              <Styled.Group>
+                                  <ProfilePhoto
+                                      src="https://picsum.photos/100/100"
+                                      size={50}
+                                  />
+                              </Styled.Group>
+                              <Styled.Content>
+                                  <Styled.Group>
+                                      {notification.type}
+                                  </Styled.Group>
 
-                        <Styled.Group>
-                            <CloseButton
-                                onClick={() => denyRequest(request.id)}
-                            />
-                            <Button onClick={() => acceptRequest(request.id)}>
-                                Accept
-                            </Button>
-                        </Styled.Group>
-                    </Styled.Content>
-                </Styled.Notification> */}
+                                  <Styled.Group>
+                                      <CloseButton
+                                          onClick={() =>
+                                              denyRequest(
+                                                  notification.content.requestId
+                                              )
+                                          }
+                                      />
+                                      <Button
+                                          onClick={() =>
+                                              acceptRequest(
+                                                  notification.content.requestId
+                                              )
+                                          }
+                                      >
+                                          Accept
+                                      </Button>
+                                  </Styled.Group>
+                              </Styled.Content>
+                          </Styled.Notification>
+                      ))
+                    : null}
             </Styled.Notifications>
         </>
     );

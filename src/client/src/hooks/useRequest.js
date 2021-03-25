@@ -11,36 +11,26 @@ export const useRequest = () => {
     const sendRequest = useCallback(
         (toId) => {
             socket.emit('newRequest', toId);
-            // Emit X that will make the server
-            // create a new notification for toId.
-            syncNotifications();
         },
-        [socket, syncNotifications]
+        [socket]
     );
 
     const acceptRequest = useCallback(
         (requestId) => {
             socket.emit('acceptRequest', requestId);
-            // Emit X that will make the server
-            // create a new notification for fromId
-
-            syncNotifications();
         },
-        [socket, syncNotifications]
+        [socket]
     );
     const denyRequest = useCallback(
         (requestId) => {
             socket.emit('denyRequest', requestId);
-            // We are not informing users about denied requests
-            // nor do we delete them. Only delete a notification
-            // about the request for toId.
-            syncNotifications();
         },
-        [socket, syncNotifications]
+        [socket]
     );
 
     useEffect(() => {
         socket.on('acceptedRequest', () => {
+            syncNotifications();
             syncChats();
         });
         socket.on('incomingRequest', (notification) => {
