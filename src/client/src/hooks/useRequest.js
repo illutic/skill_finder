@@ -21,13 +21,9 @@ export const useRequest = () => {
         },
         [socket]
     );
-    const denyRequest = useCallback(
-        // Await HTTP and syncNotifications
-        (requestId) => {
-            socket.emit('denyRequest', requestId);
-        },
-        [socket]
-    );
+    const denyRequest = useCallback(async () => {
+        fetch('/api/requests/deny');
+    }, []);
 
     useEffect(() => {
         socket.on('incomingRequest', () => {
@@ -36,9 +32,6 @@ export const useRequest = () => {
         socket.on('acceptedRequest', () => {
             syncNotifications();
             syncChats();
-        });
-        socket.on('deniedRequest', () => {
-            syncNotifications();
         });
     }, [socket, syncChats, syncNotifications]);
 

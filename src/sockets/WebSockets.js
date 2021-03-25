@@ -131,29 +131,6 @@ export const WebSockets = (io) => {
             io.to(toUser.id).emit('acceptedRequest');
         });
 
-        /** On Receiving a Request Denial,
-         * @param {string} requestId - request id string, passed in from the client
-         * The server finds the database entity for the request, deactivates it and emits to the user who sent it that it was denied.
-         */
-        socket.on('denyRequest', async (requestId) => {
-            if (!requestId) {
-                return;
-            }
-
-            // Find request and set pending to false
-            const request = await Request.findOne({
-                where: { id: requestId },
-            });
-            if (!request) {
-                return;
-            }
-            request.pending = false;
-            await request.save();
-
-            // Emit
-            io.to(request.toId).emit('deniedRequest');
-        });
-
         /** On Receiving a message,
          * @param {string} chatId - chat id string, passed in from the client
          * @param {string} message - the message content that the client sent.
