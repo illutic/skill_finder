@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import useAuthCheck from './useAuthCheck';
-import useUserSync from '../sync/useUserSync';
-import useChatsSync from '../sync/useChatsSync';
+import useGlobalDataSync from '../sync/useGlobalDataSync';
 import extractFormData from '../../utils/extractFormData';
 import FORM_TYPES from '../../constants/formTypes';
 import ENDPOINTS from '../../constants/endpoints';
@@ -10,8 +9,7 @@ import ENDPOINTS from '../../constants/endpoints';
 const useOriginAuth = (type) => {
     const history = useHistory();
     const checkAuth = useAuthCheck();
-    const syncUser = useUserSync();
-    const syncChats = useChatsSync();
+    const syncGlobalData = useGlobalDataSync();
     const [success, setSuccess] = useState();
     const [error, setError] = useState();
 
@@ -35,8 +33,7 @@ const useOriginAuth = (type) => {
             setError(null);
             setSuccess('Success! Redirecting...');
             checkAuth();
-            syncUser();
-            syncChats();
+            syncGlobalData();
             history.push('/');
         } catch (err) {
             setError(err.error);

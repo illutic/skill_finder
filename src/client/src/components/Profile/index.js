@@ -17,7 +17,7 @@ const Profile = () => {
     const { user } = useContext(UserContext);
     const { profile, setProfileId } = useProfile();
     const { locationId } = useLocationId();
-    const sendRequest = useRequest();
+    const { sendRequest } = useRequest();
 
     useEffect(() => {
         setProfileId(locationId);
