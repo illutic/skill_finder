@@ -1,7 +1,7 @@
 import * as Styled from './styled';
 
-const Loading = ({ ...props }) => {
+const LoadingScreen = ({ ...props }) => {
     return <Styled.Container {...props}></Styled.Container>;
 };
 
-export default Loading;
+export default LoadingScreen;

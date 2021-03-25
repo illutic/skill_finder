@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import useSearchEngine from '../../hooks/api/useSearchEngine';
 import useRequest from '../../hooks/api/useRequest';
 import * as Styled from './styled';
+import LoadingScreen from '../LoadingScreen';
 import Container from '../Container/index';
 import Heading from '../Heading/index';
 import Button from '../Button/index';
@@ -9,10 +10,12 @@ import ProfileThumbnail from '../ProfileThumbnail';
 import defaultProfilePhoto from '../../assets/default.jpg';
 
 const SearchResults = () => {
-    const { results, query } = useSearchEngine();
+    const { query, results, areResultsLoading } = useSearchEngine();
     const { sendRequest } = useRequest();
 
-    return (
+    return areResultsLoading ? (
+        <LoadingScreen />
+    ) : (
         <Container spaced>
             <Styled.Wrapper>
                 <Heading underlined>Results for {query}</Heading>
@@ -51,7 +54,7 @@ const SearchResults = () => {
                                   );
                               });
                           })
-                        : 'Nothing found'}
+                        : 'Nothing found.'}
                 </Styled.Entries>
             </Styled.Wrapper>
         </Container>

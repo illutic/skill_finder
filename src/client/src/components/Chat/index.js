@@ -44,18 +44,10 @@ const Chat = ({ toggleContactsDrawer, toggleFilesDrawer }) => {
         [socket]
     );
 
-    // Try to understand how this code works,
-    // it's useful when working with current/upcoming data.
     useEffect(() => {
-        // 2. Then this function runs with a new chatId
-        // i.e. chatId=212
         joinChat(socket, chatId);
         loadMessages();
-        // 3. It also declares the function below with the new chatId=212,
-        // that will be run on chatId change. That's the entire lifecycle in fact.
         return () => {
-            // 1. When chatId changes, this function runs first,
-            // using the current chatId i.e. chatId=105
             leaveCurrentChat(chatId);
         };
     }, [chatId, socket, loadMessages, leaveCurrentChat]);

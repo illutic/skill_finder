@@ -6,6 +6,7 @@ const useSearchEngine = () => {
     const location = useLocation();
     const [query, setQuery] = useState();
     const [results, setResults] = useState();
+    const [areResultsLoading, setAreResultsLoading] = useState(true);
 
     useEffect(() => {
         const queryString = location.search.substring(1);
@@ -21,16 +22,17 @@ const useSearchEngine = () => {
             }
             const response = await fetch(`${ENDPOINTS.skill}/${query}`);
             const data = await response.json();
-            if (data.length) {
+            if (response.ok) {
                 setResults(data);
+                setAreResultsLoading(false);
                 return;
             }
-            setResults([]);
+            setResults(null);
         };
         getResults();
     }, [query]);
 
-    return { results, query };
+    return { query, results, areResultsLoading };
 };
 
 export default useSearchEngine;

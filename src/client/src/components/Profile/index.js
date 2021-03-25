@@ -6,6 +6,7 @@ import useRequest from '../../hooks/api/useRequest';
 import { UserContext } from '../../contexts/UserContextProvider';
 import { AuthContext } from '../../contexts/AuthContextProvider';
 import * as Styled from './styled';
+import LoadingScreen from '../LoadingScreen';
 import Container from '../Container/index';
 import Heading from '../Heading/index';
 import Button from '../Button/index';
@@ -15,7 +16,7 @@ import ROUTES from '../../constants/routes';
 const Profile = () => {
     const { isAuth } = useContext(AuthContext);
     const { user } = useContext(UserContext);
-    const { profile, setProfileId } = useProfile();
+    const { profile, isProfileLoading, setProfileId } = useProfile();
     const { locationId } = useLocationId();
     const { sendRequest } = useRequest();
 
@@ -23,7 +24,9 @@ const Profile = () => {
         setProfileId(locationId);
     }, [locationId, setProfileId]);
 
-    return (
+    return isProfileLoading ? (
+        <LoadingScreen />
+    ) : (
         <Container spaced>
             <Styled.Wrapper>
                 <Styled.Banner>

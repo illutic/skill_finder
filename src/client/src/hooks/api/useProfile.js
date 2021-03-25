@@ -5,6 +5,7 @@ import ENDPOINTS from '../../constants/endpoints';
 const useProfile = (id) => {
     const [profileId, setProfileId] = useState(id);
     const [profile, setProfile] = useState();
+    const [isProfileLoading, setIsProfileLoading] = useState(true);
     const history = useHistory();
 
     useEffect(() => {
@@ -17,6 +18,7 @@ const useProfile = (id) => {
                 const profile = await response.json();
                 if (response.ok) {
                     setProfile(profile);
+                    setIsProfileLoading(false);
                     return;
                 }
                 setProfile(null);
@@ -27,7 +29,7 @@ const useProfile = (id) => {
         getProfile();
     }, [profileId, history]);
 
-    return { profile, setProfileId };
+    return { profile, isProfileLoading, setProfileId };
 };
 
 export default useProfile;
