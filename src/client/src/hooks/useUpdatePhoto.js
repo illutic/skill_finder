@@ -3,7 +3,7 @@ import useUserSync from './useUserSync';
 import ENDPOINTS from '../constants/endpoints';
 
 const useUpdatePhoto = () => {
-    const syncUser = useUserSync();
+    const { syncUser } = useUserSync();
     const [success, setSuccess] = useState();
     const [error, setError] = useState();
 
