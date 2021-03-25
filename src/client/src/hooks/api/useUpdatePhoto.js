@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import useUserSync from './useUserSync';
-import ENDPOINTS from '../constants/endpoints';
+import useUserSync from '../sync/useUserSync';
+import ENDPOINTS from '../../constants/endpoints';
 
 const useUpdatePhoto = () => {
-    const { syncUser } = useUserSync();
+    const syncUser = useUserSync();
     const [success, setSuccess] = useState();
     const [error, setError] = useState();
 

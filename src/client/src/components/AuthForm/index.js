@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
-import useOriginAuth from '../../hooks/useOriginAuth';
+import useOriginAuth from '../../hooks/auth/useOriginAuth';
 import * as Styled from './styled';
-import FORM_TYPES from '../../constants/formTypes';
-import ROUTES from '../../constants/routes';
 import Button from '../Button/index';
 import GoogleButton from '../../components/GoogleButton/index';
 import FormSuccess from '../FormSuccess/index';
 import FormError from '../FormError/index';
+import FORM_TYPES from '../../constants/formTypes';
+import ROUTES from '../../constants/routes';
 
 const AuthForm = ({ type, ...rest }) => {
     const { originAuth, success, error } = useOriginAuth(type);

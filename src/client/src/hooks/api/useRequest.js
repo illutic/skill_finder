@@ -1,13 +1,13 @@
 import { useEffect, useContext, useCallback } from 'react';
-import useNotificationsSync from './useNotificationsSync';
-import useChatsSync from './useChatsSync';
-import { SocketContext } from '../contexts/SocketContextProvider';
-import ENDPOINTS from '../constants/endpoints';
+import useNotificationsSync from '../sync/useNotificationsSync';
+import useChatsSync from '../sync/useChatsSync';
+import { SocketContext } from '../../contexts/SocketContextProvider';
+import ENDPOINTS from '../../constants/endpoints';
 
-export const useRequest = () => {
+const useRequest = () => {
     const { socket } = useContext(SocketContext);
-    const { syncNotifications } = useNotificationsSync();
-    const { syncChats } = useChatsSync();
+    const syncNotifications = useNotificationsSync();
+    const syncChats = useChatsSync();
 
     const sendRequest = useCallback(
         (toId) => {

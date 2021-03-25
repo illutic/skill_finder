@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import ENDPOINTS from '../constants/endpoints';
+import ENDPOINTS from '../../constants/endpoints';
 
 const useProfile = (id) => {
     const [profileId, setProfileId] = useState(id);

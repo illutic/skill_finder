@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import ENDPOINTS from '../constants/endpoints';
+import ENDPOINTS from '../../constants/endpoints';
 
 const useSearchEngine = () => {
     const location = useLocation();

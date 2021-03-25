@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 import ReactDOM from 'react-dom';
-import useLogout from '../../hooks/useLogout';
-import * as Styled from './styled';
+import useLogout from '../../hooks/auth/useLogout';
 import { LogoutModalContext } from '../../contexts/LogoutModalContextProvider';
+import * as Styled from './styled';
 import stopPropagation from '../../utils/stopPropagation';
 import Heading from '../Heading';
 import Button from '../Button/index';
@@ -11,7 +11,7 @@ const LogoutModal = () => {
     const { isLogoutModalActive, hideLogoutModal } = useContext(
         LogoutModalContext
     );
-    const { logOut } = useLogout();
+    const logOut = useLogout();
 
     return ReactDOM.createPortal(
         <Styled.Wrapper active={isLogoutModalActive} onClick={hideLogoutModal}>

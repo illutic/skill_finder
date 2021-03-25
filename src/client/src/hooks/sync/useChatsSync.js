@@ -1,8 +1,8 @@
 import { useContext, useCallback } from 'react';
-import { ChatsContext } from '../contexts/ChatsContextProvider.js';
-import ENDPOINTS from '../constants/endpoints.js';
+import { ChatsContext } from '../../contexts/ChatsContextProvider.js';
+import ENDPOINTS from '../../constants/endpoints.js';
 
-export const useChatsSync = () => {
+const useChatsSync = () => {
     const { setChats } = useContext(ChatsContext);
 
     const syncChats = useCallback(async () => {
@@ -11,6 +11,6 @@ export const useChatsSync = () => {
         setChats(data.chats);
     }, [setChats]);
 
-    return { syncChats };
+    return syncChats;
 };
 export default useChatsSync;

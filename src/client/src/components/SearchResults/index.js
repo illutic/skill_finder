@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
-import useSearchEngine from '../../hooks/useSearchEngine';
+import useSearchEngine from '../../hooks/api/useSearchEngine';
+import useRequest from '../../hooks/api/useRequest';
 import * as Styled from './styled';
 import Container from '../Container/index';
 import Heading from '../Heading/index';
 import Button from '../Button/index';
 import ProfileThumbnail from '../ProfileThumbnail';
-import { useRequest } from '../../hooks/useRequest';
 import defaultProfilePhoto from '../../assets/default.jpg';
 
 const SearchResults = () => {

@@ -1,11 +1,11 @@
 import * as Styled from './styled';
-import useUpdatePhoto from '../../hooks/useUpdatePhoto';
-import PHOTO_TYPES from '../../constants/photoTypes';
+import useUpdatePhoto from '../../hooks/api/useUpdatePhoto';
 import Container from '../Container/index';
 import Heading from '../Heading/index';
 import FormSuccess from '../FormSuccess';
 import FormError from '../FormError/index';
 import CloseButton from '../CloseButton/index';
+import PHOTO_TYPES from '../../constants/photoTypes';
 
 const Settings = () => {
     const {

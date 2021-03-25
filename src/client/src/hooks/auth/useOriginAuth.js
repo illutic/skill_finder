@@ -1,17 +1,17 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import useAuthCheck from '../hooks/useAuthCheck';
-import useUserSync from '../hooks/useUserSync';
-import useChatsSync from '../hooks/useChatsSync';
-import extractFormData from '../utils/extractFormData';
-import FORM_TYPES from '../constants/formTypes';
-import ENDPOINTS from '../constants/endpoints';
+import useAuthCheck from './useAuthCheck';
+import useUserSync from '../sync/useUserSync';
+import useChatsSync from '../sync/useChatsSync';
+import extractFormData from '../../utils/extractFormData';
+import FORM_TYPES from '../../constants/formTypes';
+import ENDPOINTS from '../../constants/endpoints';
 
 const useOriginAuth = (type) => {
     const history = useHistory();
-    const { checkAuth } = useAuthCheck();
-    const { syncUser } = useUserSync();
-    const { syncChats } = useChatsSync();
+    const checkAuth = useAuthCheck();
+    const syncUser = useUserSync();
+    const syncChats = useChatsSync();
     const [success, setSuccess] = useState();
     const [error, setError] = useState();
 

@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
-import * as Styled from './styled';
 import { ChatsContext } from '../../contexts/ChatsContextProvider';
+import * as Styled from './styled';
 import ContactsDrawer from '../ContactsDrawer/index';
 import FilesDrawer from '../FilesDrawer/index';
 import Chat from '../Chat/index';

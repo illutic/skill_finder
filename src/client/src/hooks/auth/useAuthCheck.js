@@ -1,6 +1,6 @@
 import { useContext, useCallback } from 'react';
-import { AuthContext } from '../contexts/AuthContextProvider';
-import ENDPOINTS from '../constants/endpoints';
+import { AuthContext } from '../../contexts/AuthContextProvider';
+import ENDPOINTS from '../../constants/endpoints';
 
 const useAuthCheck = () => {
     const { setIsAuth } = useContext(AuthContext);
@@ -14,7 +14,7 @@ const useAuthCheck = () => {
         setIsAuth(false);
     }, [setIsAuth]);
 
-    return { checkAuth };
+    return checkAuth;
 };
 
 export default useAuthCheck;

@@ -1,9 +1,9 @@
 import { useCallback } from 'react';
-import { useNotificationsSync } from './useNotificationsSync';
-import ENDPOINTS from '../constants/endpoints';
+import useNotificationsSync from '../sync/useNotificationsSync';
+import ENDPOINTS from '../../constants/endpoints';
 
 const useNotification = () => {
-    const { syncNotifications } = useNotificationsSync();
+    const syncNotifications = useNotificationsSync();
 
     const deleteNotification = useCallback(
         async (notificationId) => {

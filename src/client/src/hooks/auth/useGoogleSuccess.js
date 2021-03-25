@@ -1,13 +1,13 @@
 import { useHistory } from 'react-router-dom';
-import useAuthCheck from '../hooks/useAuthCheck';
-import useUserSync from '../hooks/useUserSync';
-import useChatsSync from '../hooks/useChatsSync';
+import useAuthCheck from '../auth/useAuthCheck';
+import useUserSync from '../sync/useUserSync';
+import useChatsSync from '../sync/useChatsSync';
 
 const useGoogleSuccess = () => {
     const history = useHistory();
-    const { checkAuth } = useAuthCheck();
-    const { syncUser } = useUserSync();
-    const { syncChats } = useChatsSync();
+    const checkAuth = useAuthCheck();
+    const syncUser = useUserSync();
+    const syncChats = useChatsSync();
 
     const onSuccess = (response) => {
         const tokenId = response.tokenObj.id_token;

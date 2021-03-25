@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
-import useRequest from '../../hooks/useRequest';
-import useNotification from '../../hooks/useNotification';
+import useRequest from '../../hooks/api/useRequest';
+import useNotification from '../../hooks/api/useNotification';
 import { NotificationsContext } from '../../contexts/NotificationsContextProvider';
 import * as Styled from './styled';
 import ProfilePhoto from '../ProfilePhoto';

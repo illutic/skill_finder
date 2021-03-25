@@ -1,15 +1,15 @@
+import io from 'socket.io-client';
 import { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import io from 'socket.io-client';
-import ENDPOINTS from '../constants/endpoints';
-import { SocketContext } from '../contexts/SocketContextProvider';
-import useAuthCheck from '../hooks/useAuthCheck';
-import useUserSync from '../hooks/useUserSync';
+import useAuthCheck from '../auth/useAuthCheck';
+import useUserSync from '../sync/useUserSync';
+import { SocketContext } from '../../contexts/SocketContextProvider';
+import ENDPOINTS from '../../constants/endpoints';
 
 const useLogout = () => {
     const history = useHistory();
-    const { checkAuth } = useAuthCheck();
-    const { syncUser } = useUserSync();
+    const checkAuth = useAuthCheck();
+    const syncUser = useUserSync();
     const { socket, setSocket } = useContext(SocketContext);
 
     const logOut = async () => {
@@ -23,7 +23,7 @@ const useLogout = () => {
         history.push('/login');
     };
 
-    return { logOut };
+    return logOut;
 };
 
 export default useLogout;

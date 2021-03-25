@@ -1,8 +1,8 @@
 import { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import useLocationId from '../../hooks/useLocationId';
-import useProfile from '../../hooks/useProfile';
-import { useRequest } from '../../hooks/useRequest';
+import useLocationId from '../../hooks/other/useLocationId';
+import useProfile from '../../hooks/api/useProfile';
+import useRequest from '../../hooks/api/useRequest';
 import { UserContext } from '../../contexts/UserContextProvider';
 import { AuthContext } from '../../contexts/AuthContextProvider';
 import * as Styled from './styled';
@@ -17,7 +17,7 @@ const Profile = () => {
     const { user } = useContext(UserContext);
     const { profile, setProfileId } = useProfile();
     const { locationId } = useLocationId();
-    const { sendRequest } = useRequest();
+    const sendRequest = useRequest();
 
     useEffect(() => {
         setProfileId(locationId);

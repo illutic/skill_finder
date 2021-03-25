@@ -1,8 +1,8 @@
 import { useContext, useCallback } from 'react';
-import { NotificationsContext } from '../contexts/NotificationsContextProvider.js';
-import ENDPOINTS from '../constants/endpoints.js';
+import { NotificationsContext } from '../../contexts/NotificationsContextProvider.js';
+import ENDPOINTS from '../../constants/endpoints.js';
 
-export const useNotificationsSync = () => {
+const useNotificationsSync = () => {
     const { setNotifications } = useContext(NotificationsContext);
 
     const syncNotifications = useCallback(async () => {
@@ -15,6 +15,6 @@ export const useNotificationsSync = () => {
         setNotifications(null);
     }, [setNotifications]);
 
-    return { syncNotifications };
+    return syncNotifications;
 };
 export default useNotificationsSync;

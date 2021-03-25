@@ -1,10 +1,10 @@
 import { useContext, useEffect, useCallback, useRef, useState } from 'react';
+import useLocationId from '../../hooks/other/useLocationId';
 import { UserContext } from '../../contexts/UserContextProvider';
 import { SocketContext } from '../../contexts/SocketContextProvider';
 import { leaveChat, joinChat } from '../../helpers/socket';
-import ENDPOINTS from '../../constants/endpoints';
 import * as Styled from './styled';
-import useLocationId from '../../hooks/useLocationId';
+import ENDPOINTS from '../../constants/endpoints';
 
 const Chat = ({ toggleContactsDrawer, toggleFilesDrawer }) => {
     const [messages, setMessages] = useState([]);

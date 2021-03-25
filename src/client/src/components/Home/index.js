@@ -3,7 +3,7 @@ import * as Styled from './styled';
 import Heading from '../Heading/index';
 import HomeSlider from '../HomeSlider';
 import ProfileThumbnail from '../ProfileThumbnail/index';
-import CommunitySource from '../../assets/community.jpg';
+import communityPhoto from '../../assets/community.jpg';
 
 const Home = () => {
     return (
@@ -42,7 +42,7 @@ const Home = () => {
                         </Styled.Profiles>
                     </Styled.Content>
                     <Styled.Display>
-                        <Styled.Image src={CommunitySource} />
+                        <Styled.Image src={communityPhoto} />
                     </Styled.Display>
                 </Styled.Split>
             </Styled.Section>

@@ -1,8 +1,9 @@
 import { useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import useAuthCheck from './hooks/useAuthCheck';
-import useUserSync from './hooks/useUserSync';
-import useChatsSync from './hooks/useChatsSync';
+import useAuthCheck from './hooks/auth/useAuthCheck';
+import useUserSync from './hooks/sync/useUserSync';
+import useChatsSync from './hooks/sync/useChatsSync';
+import useNotificationsSync from './hooks/sync/useNotificationsSync';
 import ROUTES from './constants/routes';
 import NavigationContextProvider from './contexts/NavigationContextProvider';
 import LogoutModalContextProvider from './contexts/LogoutModalContextProvider';
@@ -19,13 +20,12 @@ import Messages from './components/Messages/index';
 import Home from './components/Home/index';
 import NotFound from './components/NotFound/index';
 import GlobalStyle from './styles/globalStyle';
-import useNotificationsSync from './hooks/useNotificationsSync';
 
 function App() {
-    const { checkAuth } = useAuthCheck();
-    const { syncUser } = useUserSync();
-    const { syncChats } = useChatsSync();
-    const { syncNotifications } = useNotificationsSync();
+    const checkAuth = useAuthCheck();
+    const syncUser = useUserSync();
+    const syncChats = useChatsSync();
+    const syncNotifications = useNotificationsSync();
 
     useEffect(() => {
         checkAuth();
