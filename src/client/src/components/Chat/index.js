@@ -7,14 +7,18 @@ import * as Styled from './styled';
 import ENDPOINTS from '../../constants/endpoints';
 
 const Chat = ({ toggleContactsDrawer, toggleFilesDrawer }) => {
-    const [messages, setMessages] = useState([]);
-    const [newMessage, setNewMessage] = useState();
+    // useChat hook
     const { locationId: chatId } = useLocationId();
-    const { user } = useContext(UserContext);
     const { socket } = useContext(SocketContext);
-    const messagesContainerRef = useRef();
-    const messagesFormRef = useRef();
+    const [messages, setMessages] = useState([]); // Export
 
+    // Local
+    const { user: currentUser } = useContext(UserContext);
+    const [newMessage, setNewMessage] = useState();
+    const messagesFormRef = useRef();
+    const messagesContainerRef = useRef();
+
+    // useChat hook
     const sendMessage = (e) => {
         const isKeydown = e.type === 'keydown' && e.keyCode === 13;
         const isClick = e.type === 'click';
@@ -23,15 +27,19 @@ const Chat = ({ toggleContactsDrawer, toggleFilesDrawer }) => {
             if (newMessage) {
                 socket.emit('sendMessage', chatId, newMessage);
                 setNewMessage(null);
-                messagesFormRef.current.reset();
             }
         }
     };
 
-    const scrollDown = () => {
+    // Local
+    useEffect(() => {
+        // resetForm callback
+        messagesFormRef.current.reset();
+
+        // scrollDown callback
         const messagesContainer = messagesContainerRef.current;
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
-    };
+    }, [messages]);
 
     // useMessages hook -> useChat hook
     const loadMessages = useCallback(async () => {
@@ -70,7 +78,6 @@ const Chat = ({ toggleContactsDrawer, toggleFilesDrawer }) => {
                 ]);
             });
         }
-        scrollDown();
     }, [socket]);
 
     return (
@@ -86,7 +93,7 @@ const Chat = ({ toggleContactsDrawer, toggleFilesDrawer }) => {
             <Styled.Messages ref={messagesContainerRef}>
                 {messages?.length
                     ? messages.map((message) => {
-                          if (message.userId === user.id) {
+                          if (message.userId === currentUser.id) {
                               return (
                                   <Styled.Message key={message.id} currentUser>
                                       {message.content}
