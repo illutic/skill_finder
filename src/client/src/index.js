@@ -5,7 +5,7 @@ import AuthContextProvider from './contexts/AuthContextProvider';
 import UserContextProvider from './contexts/UserContextProvider';
 import SocketContextProvider from './contexts/SocketContextProvider';
 import ChatsContextProvider from './contexts/ChatsContextProvider';
-import RequestsContextProvider from './contexts/RequestsContextProvider';
+import NotificationsContextProvider from './contexts/NotificationsContextProvider';
 import ThemeContextProvider from './contexts/ThemeContextProvider';
 
 ReactDOM.render(
@@ -14,11 +14,11 @@ ReactDOM.render(
             <UserContextProvider>
                 <SocketContextProvider>
                     <ChatsContextProvider>
-                        <RequestsContextProvider>
+                        <NotificationsContextProvider>
                             <ThemeContextProvider>
                                 <App />
                             </ThemeContextProvider>
-                        </RequestsContextProvider>
+                        </NotificationsContextProvider>
                     </ChatsContextProvider>
                 </SocketContextProvider>
             </UserContextProvider>

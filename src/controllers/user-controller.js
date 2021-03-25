@@ -43,22 +43,6 @@ export const getUser = async (req, res) => {
     }
 };
 
-/** Get User Notifications */
-export const getNotifications = async (req, res) => {
-    try {
-        const { userId } = req;
-        const user = await User.findOne({
-            where: {
-                id: userId,
-            },
-        });
-        const notifications = await user.getNotifications();
-        res.status(200).json({ notifications });
-    } catch (err) {
-        res.status(400).json({ error: err.message });
-    }
-};
-
 /** Update Email
  * @param {string} email - Requires an email address in the request body.
  * @param {string} password - Requires a password in the request body.

@@ -9,7 +9,7 @@ import auth from '../auth/auth.js';
 
 const router = Router();
 
-router.get('/requests/', auth, getRequests);
+router.get('/requests', auth, getRequests);
 router.post('/requests/new', auth, postRequest);
 router.post('/requests/accept', auth, acceptRequest);
 router.post('/requests/deny', auth, denyRequest);

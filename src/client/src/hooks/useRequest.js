@@ -1,26 +1,23 @@
 import { useEffect, useContext, useCallback } from 'react';
-import useRequestsSync from './useRequestsSync';
+import useNotificationsSync from './useNotificationsSync';
 import useChatsSync from './useChatsSync';
 import { SocketContext } from '../contexts/SocketContextProvider';
 
 export const useRequest = () => {
     const { socket } = useContext(SocketContext);
-    const { syncRequests } = useRequestsSync();
+    const { syncNotifications } = useNotificationsSync();
     const { syncChats } = useChatsSync();
 
     const sendRequest = useCallback(
         (toId) => {
-            socket.emit('request', toId);
-
-            // Delete requestNotification
-            // and emit X that will make the server
+            socket.emit('newRequest', toId);
+            // Emit X that will make the server
             // create a new notification for toId.
-            socket.emit('requestNotification', toId);
 
-            syncRequests();
+            syncNotifications();
             // ^ We will sync notifications here eventually.
         },
-        [socket, syncRequests]
+        [socket, syncNotifications]
     );
 
     const acceptRequest = useCallback(
@@ -29,10 +26,10 @@ export const useRequest = () => {
             // Emit X that will make the server
             // create a new notification for fromId
 
-            syncRequests();
+            syncNotifications();
             // ^ We will sync notifications here eventually.
         },
-        [socket, syncRequests]
+        [socket, syncNotifications]
     );
     const denyRequest = useCallback(
         (requestId) => {
@@ -41,10 +38,10 @@ export const useRequest = () => {
             // nor do we delete them. Only delete a notification
             // about the request for toId.
 
-            syncRequests();
+            syncNotifications();
             // ^ We will sync notifications here eventually.
         },
-        [socket, syncRequests]
+        [socket, syncNotifications]
     );
 
     useEffect(() => {

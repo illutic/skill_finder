@@ -1,4 +1,3 @@
-import sequelize from 'sequelize';
 import Chat from '../models/Chat.js';
 import Request from '../models/Request.js';
 import User from '../models/User.js';
