@@ -33,6 +33,7 @@ const Chat = ({ toggleContactsDrawer, toggleFilesDrawer }) => {
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
     };
 
+    // useMessages hook -> useChat hook
     const loadMessages = useCallback(async () => {
         if (chatId) {
             const response = await fetch(`${ENDPOINTS.api}/${chatId}/messages`);
@@ -41,6 +42,7 @@ const Chat = ({ toggleContactsDrawer, toggleFilesDrawer }) => {
         }
     }, [chatId]);
 
+    // useChat hook
     const leaveCurrentChat = useCallback(
         (chatId) => {
             leaveChat(socket, chatId);
@@ -49,6 +51,7 @@ const Chat = ({ toggleContactsDrawer, toggleFilesDrawer }) => {
         [socket]
     );
 
+    // useChat hook
     useEffect(() => {
         joinChat(socket, chatId);
         loadMessages();
@@ -57,14 +60,18 @@ const Chat = ({ toggleContactsDrawer, toggleFilesDrawer }) => {
         };
     }, [chatId, socket, loadMessages, leaveCurrentChat]);
 
+    // useChat hook
     useEffect(() => {
         if (socket) {
             socket.on('message', (message) => {
-                setMessages([...messages, message]);
+                setMessages((previousMessages) => [
+                    ...previousMessages,
+                    message,
+                ]);
             });
         }
         scrollDown();
-    }, [messages, socket]);
+    }, [socket]);
 
     return (
         <Styled.Chat>
