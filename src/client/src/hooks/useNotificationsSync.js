@@ -9,7 +9,6 @@ export const useNotificationsSync = () => {
         const response = await fetch(`${ENDPOINTS.notifications}`);
         const data = await response.json();
         if (response.ok) {
-            console.log(data);
             setNotifications(data.reverse());
             return;
         }

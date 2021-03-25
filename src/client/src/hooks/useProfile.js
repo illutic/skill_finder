@@ -1,42 +1,33 @@
 import { useState, useEffect } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import ENDPOINTS from '../constants/endpoints';
 
-const useProfile = () => {
-    const history = useHistory();
-    const location = useLocation();
-    const [userId, setUserId] = useState();
+const useProfile = (id) => {
+    const [profileId, setProfileId] = useState(id);
     const [profile, setProfile] = useState();
-    const [isLoading, setIsLoading] = useState(true);
+    const history = useHistory();
 
     useEffect(() => {
-        const userId = location.pathname.split('/').pop();
-        setUserId(userId);
-    }, [location.pathname]);
-
-    useEffect(() => {
-        const getUser = async () => {
+        const getProfile = async () => {
             try {
-                if (!userId) {
+                if (!profileId) {
                     return;
                 }
-                const response = await fetch(`${ENDPOINTS.user}/${userId}`);
+                const response = await fetch(`${ENDPOINTS.user}/${profileId}`);
                 const profile = await response.json();
                 if (response.ok) {
                     setProfile(profile);
-                    setIsLoading(false);
                     return;
                 }
                 setProfile(null);
-                history.push('/404');
             } catch (err) {
                 console.error(err);
             }
         };
-        getUser();
-    }, [userId, history]);
+        getProfile();
+    }, [profileId, history]);
 
-    return { profile, isLoading };
+    return { profile, setProfileId };
 };
 
 export default useProfile;

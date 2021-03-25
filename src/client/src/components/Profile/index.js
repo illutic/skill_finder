@@ -1,5 +1,6 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import useLocationId from '../../hooks/useLocationId';
 import useProfile from '../../hooks/useProfile';
 import { useRequest } from '../../hooks/useRequest';
 import { UserContext } from '../../contexts/UserContextProvider';
@@ -8,32 +9,36 @@ import * as Styled from './styled';
 import Container from '../Container/index';
 import Heading from '../Heading/index';
 import Button from '../Button/index';
-import Loading from '../Loading/index';
 import defaultProfilePhoto from '../../assets/default.jpg';
 import ROUTES from '../../constants/routes';
 
 const Profile = () => {
-    const { user: loggedInUser } = useContext(UserContext);
     const { isAuth } = useContext(AuthContext);
-    const { profile: user, isLoading } = useProfile();
+    const { user } = useContext(UserContext);
+    const { profile, setProfileId } = useProfile();
+    const { locationId } = useLocationId();
     const { sendRequest } = useRequest();
 
-    return isLoading ? (
-        <Loading />
-    ) : (
+    useEffect(() => {
+        setProfileId(locationId);
+    }, [locationId, setProfileId]);
+
+    return (
         <Container spaced>
             <Styled.Wrapper>
                 <Styled.Banner>
                     <Styled.Background
                         src={
-                            user?.backgroundImage ? user.backgroundImage : null
+                            profile?.backgroundImage
+                                ? profile.backgroundImage
+                                : null
                         }
                     >
                         <Styled.AdjustedProfilePhoto
                             size={150}
                             src={
-                                user?.profilePhoto
-                                    ? user.profilePhoto
+                                profile?.profilePhoto
+                                    ? profile.profilePhoto
                                     : defaultProfilePhoto
                             }
                         />
@@ -41,21 +46,21 @@ const Profile = () => {
                     <Styled.Bar>
                         <Styled.User>
                             <Heading>
-                                {user?.firstName} {user?.lastName}
+                                {profile?.firstName} {profile?.lastName}
                             </Heading>
                             <Styled.UserTitle>
-                                {user?.title ? user.title : null}
+                                {profile?.title ? profile.title : null}
                             </Styled.UserTitle>
                         </Styled.User>
                         <Styled.Action>
                             {isAuth ? (
-                                user?.id === loggedInUser?.id ? (
+                                profile?.id === user?.id ? (
                                     <Link to={ROUTES.settings}>
                                         <Button outlined>Edit profile</Button>
                                     </Link>
                                 ) : (
                                     <Button
-                                        onClick={() => sendRequest(user?.id)}
+                                        onClick={() => sendRequest(profile?.id)}
                                     >
                                         Reach out
                                     </Button>
@@ -68,16 +73,16 @@ const Profile = () => {
                     <Styled.Section>
                         <Styled.SectionTitle>Description</Styled.SectionTitle>
                         <Styled.SectionParagraph>
-                            {user?.description
-                                ? user.description
+                            {profile?.description
+                                ? profile.description
                                 : 'No description.'}
                         </Styled.SectionParagraph>
                     </Styled.Section>
                     <Styled.Section>
                         <Styled.SectionTitle>Skills</Styled.SectionTitle>
                         <Styled.Skills>
-                            {user?.Skills?.length
-                                ? user.Skills.map((skill) => {
+                            {profile?.Skills?.length
+                                ? profile.Skills.map((skill) => {
                                       return (
                                           <Styled.Skill
                                               key={skill.id}
