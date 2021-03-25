@@ -10,12 +10,6 @@ const Notification = database.define(
             defaultValue: Sequelize.UUIDV4,
             primaryKey: true,
         },
-        content: {
-            type: Sequelize.STRING,
-            allowNull: false,
-        },
-        // We need type attribute to apply different logic
-        // on the client-side, based on the notification type.
         type: {
             type: Sequelize.ENUM(
                 NOTIFICATION_TYPES.incomingRequest,
@@ -23,11 +17,7 @@ const Notification = database.define(
             ),
             allowNull: false,
         },
-        // We can use the payload to pass useful data
-        // along with the notification e.g. a requestId.
-        // It will save us a lot of effort on the client-side.
-        // JSON allows us for extra flexibility.
-        payload: {
+        content: {
             type: Sequelize.JSON,
             allowNull: true,
         },

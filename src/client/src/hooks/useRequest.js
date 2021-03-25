@@ -13,9 +13,7 @@ export const useRequest = () => {
             socket.emit('newRequest', toId);
             // Emit X that will make the server
             // create a new notification for toId.
-
             syncNotifications();
-            // ^ We will sync notifications here eventually.
         },
         [socket, syncNotifications]
     );
@@ -27,7 +25,6 @@ export const useRequest = () => {
             // create a new notification for fromId
 
             syncNotifications();
-            // ^ We will sync notifications here eventually.
         },
         [socket, syncNotifications]
     );
@@ -37,21 +34,19 @@ export const useRequest = () => {
             // We are not informing users about denied requests
             // nor do we delete them. Only delete a notification
             // about the request for toId.
-
             syncNotifications();
-            // ^ We will sync notifications here eventually.
         },
         [socket, syncNotifications]
     );
 
     useEffect(() => {
-        socket.on('acceptedRequest', (acceptedRequest) => {
-            // This socket should create a chatroom for
-            // toId and fromId. Then we synchronise chats for both users here.
-            // I think it's all done already - commenting for clarity.
+        socket.on('acceptedRequest', () => {
             syncChats();
         });
-    }, [socket, syncChats]);
+        socket.on('incomingRequest', (notification) => {
+            syncNotifications();
+        });
+    }, [socket, syncChats, syncNotifications]);
 
     return { sendRequest, acceptRequest, denyRequest };
 };

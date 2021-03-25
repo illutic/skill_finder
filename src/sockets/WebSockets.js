@@ -1,9 +1,11 @@
 import cookie from 'cookie';
 import auth from '../auth/sockets-auth.js';
+import NOTIFICATION_TYPES from '../constants/notification-types.js';
 import Chat from '../models/Chat.js';
 import Message from '../models/Message.js';
 import Request from '../models/Request.js';
 import User from '../models/User.js';
+import Notification from '../models/Notification.js';
 
 /** Web Socket Configuration
  * @param {Server} io - Requires a Websocket Server created from the http Server.
@@ -43,19 +45,33 @@ export const WebSockets = (io) => {
             socket.leave(chatId);
         });
 
-        socket.on('newRequest', async (receiverId) => {
-            if (!receiverId) {
+        socket.on('newRequest', async (toId) => {
+            if (!toId) {
                 return;
             }
-            console.log('Request to', receiverId);
-            // const request = await Request.findOrCreate({
-            //     where: {
-            //         toId: receiverId,
-            //         fromId: id,
-            //     },
-            // });
-
-            // const notification = ...
+            const request = await Request.findOrCreate({
+                where: {
+                    toId,
+                    fromId: id,
+                },
+            });
+            if (request[0].pending === false) {
+                return;
+            }
+            const toUser = await User.findOne({
+                where: {
+                    id: toId,
+                },
+            });
+            if (!toUser) {
+                return;
+            }
+            const notification = await Notification.create({
+                type: NOTIFICATION_TYPES.incomingRequest,
+                content: { requestId: request[0].id, toUser },
+            });
+            toUser.addNotification(notification);
+            io.to(toId).emit('incomingRequest');
         });
 
         /** On Receiving a Request Accept,
