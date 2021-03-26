@@ -6,7 +6,7 @@ const useSearchEngine = () => {
     const location = useLocation();
     const [query, setQuery] = useState();
     const [results, setResults] = useState();
-
+    const [loaded, setLoaded] = useState(false);
     useEffect(() => {
         const queryString = location.search.substring(1);
         const searchParams = new URLSearchParams(queryString);
@@ -19,18 +19,21 @@ const useSearchEngine = () => {
             if (!query) {
                 return;
             }
+            setLoaded(false);
             const response = await fetch(`${ENDPOINTS.skill}/${query}`);
             const data = await response.json();
             if (response.ok) {
                 setResults(data);
+                setLoaded(true);
                 return;
             }
+            setLoaded(true);
             setResults(null);
         };
         getResults();
     }, [query]);
 
-    return { query, results };
+    return { query, results, loaded };
 };
 
 export default useSearchEngine;

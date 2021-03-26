@@ -10,50 +10,60 @@ import ProfileThumbnail from '../ProfileThumbnail';
 import defaultProfilePhoto from '../../assets/default.jpg';
 
 const SearchResults = () => {
-    const { query, results } = useSearchEngine();
+    const { query, results, loaded } = useSearchEngine();
     const { sendRequest } = useRequest();
 
-    return results ? (
-        <Container spaced>
-            <Styled.Wrapper>
-                <Heading underlined>Showing results for {results.name}</Heading>
-                <Styled.Entries>
-                    {results.Users.map((user) => {
-                        return (
-                            <Styled.Entry key={user?.id}>
-                                <Link to={`/profile/${user?.id}`}>
-                                    <ProfileThumbnail
-                                        name={`${user?.firstName} ${user?.lastName}`}
-                                        title={user?.title}
-                                        photo={
-                                            user.profilePhoto
-                                                ? user?.profilePhoto
-                                                : defaultProfilePhoto
-                                        }
-                                    />
-                                </Link>
-                                <Styled.Buttons>
+    return loaded ? (
+        results ? (
+            <Container spaced>
+                <Styled.Wrapper>
+                    <Heading underlined>
+                        Showing results for {results.name}
+                    </Heading>
+                    <Styled.Entries>
+                        {results.Users.map((user) => {
+                            return (
+                                <Styled.Entry key={user?.id}>
                                     <Link to={`/profile/${user?.id}`}>
-                                        <Button outlined>View profile</Button>
+                                        <ProfileThumbnail
+                                            name={`${user?.firstName} ${user?.lastName}`}
+                                            title={user?.title}
+                                            photo={
+                                                user.profilePhoto
+                                                    ? user?.profilePhoto
+                                                    : defaultProfilePhoto
+                                            }
+                                        />
                                     </Link>
-                                    <Button
-                                        onClick={() => sendRequest(user?.id)}
-                                    >
-                                        Reach out
-                                    </Button>
-                                </Styled.Buttons>
-                            </Styled.Entry>
-                        );
-                    })}
-                </Styled.Entries>
-            </Styled.Wrapper>
-        </Container>
+                                    <Styled.Buttons>
+                                        <Link to={`/profile/${user?.id}`}>
+                                            <Button outlined>
+                                                View profile
+                                            </Button>
+                                        </Link>
+                                        <Button
+                                            onClick={() =>
+                                                sendRequest(user?.id)
+                                            }
+                                        >
+                                            Reach out
+                                        </Button>
+                                    </Styled.Buttons>
+                                </Styled.Entry>
+                            );
+                        })}
+                    </Styled.Entries>
+                </Styled.Wrapper>
+            </Container>
+        ) : (
+            <Container spaced>
+                <Styled.Wrapper>
+                    <Heading underlined>No results for {query}</Heading>
+                </Styled.Wrapper>
+            </Container>
+        )
     ) : (
-        <Container spaced>
-            <Styled.Wrapper>
-                <Heading underlined>No results for {query}</Heading>
-            </Styled.Wrapper>
-        </Container>
+        <LoadingScreen />
     );
 };
 
