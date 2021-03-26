@@ -1,3 +1,4 @@
+import Fuse from 'fuse.js';
 import sequelize from 'sequelize';
 import User from '../models/User.js';
 import Skill from '../models/Skill.js';
@@ -9,25 +10,29 @@ const { Op } = sequelize;
  */
 export const getSkill = async (req, res) => {
     try {
+        const { userId } = req;
         const { name } = req.params;
         if (!name) {
             throw Error('No skill name provided.');
         }
-        const skill = await Skill.findAll({
-            where: {
-                name: {
-                    [Op.iLike]: `${name}%`,
-                },
-            },
+        const searchOptions = {
+            includeScore: true,
+            keys: ['name'],
+        };
+        const skills = await Skill.findAll({
             include: {
                 model: User,
+                where: { id: { [Op.not]: userId } },
                 attributes: {
                     exclude: ['email', 'password'],
                 },
             },
+
             limit: 15,
         });
-        res.json(skill);
+        const fuse = new Fuse(skills, searchOptions);
+        const fuseResult = fuse.search(name);
+        res.json(fuseResult[0].item);
     } catch (err) {
         res.status(400).json({ error: err.message });
     }

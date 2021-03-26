@@ -6,7 +6,6 @@ const useSearchEngine = () => {
     const location = useLocation();
     const [query, setQuery] = useState();
     const [results, setResults] = useState();
-    const [areResultsLoading, setAreResultsLoading] = useState(true);
 
     useEffect(() => {
         const queryString = location.search.substring(1);
@@ -24,7 +23,6 @@ const useSearchEngine = () => {
             const data = await response.json();
             if (response.ok) {
                 setResults(data);
-                setAreResultsLoading(false);
                 return;
             }
             setResults(null);
@@ -32,7 +30,7 @@ const useSearchEngine = () => {
         getResults();
     }, [query]);
 
-    return { query, results, areResultsLoading };
+    return { query, results };
 };
 
 export default useSearchEngine;
