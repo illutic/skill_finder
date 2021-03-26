@@ -41,6 +41,14 @@ const Messages = () => {
                 <Styled.Wrapper>
                     <Redirect to={`${ROUTES.messages}/${chats[0].id}`} />
                     <ContactsDrawer isActive={isContactsDrawerActive} />
+                    <Styled.Controls>
+                        <Styled.Control onClick={toggleContactsDrawer}>
+                            Contacts
+                        </Styled.Control>
+                        <Styled.Control onClick={toggleFilesDrawer}>
+                            Files
+                        </Styled.Control>
+                    </Styled.Controls>
                     <Chat
                         toggleContactsDrawer={toggleContactsDrawer}
                         toggleFilesDrawer={toggleFilesDrawer}

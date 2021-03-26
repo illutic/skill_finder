@@ -8,26 +8,6 @@ export const Chat = styled.div`
     flex-direction: column;
 `;
 
-export const Controls = styled.div`
-    position: relative;
-    display: flex;
-    justify-content: space-around;
-    border-bottom: 1px solid ${({ theme }) => theme.colors.subtle};
-    @media (min-width: ${SCREENS.large}) {
-        display: none;
-    }
-`;
-
-export const Control = styled.button`
-    flex: 1;
-    padding: 10px;
-    background: transparent;
-    cursor: pointer;
-    &:first-child {
-        border-right: 1px solid ${({ theme }) => theme.colors.subtle};
-    }
-`;
-
 export const Messages = styled.section`
     display: flex;
     flex-direction: column;
@@ -66,7 +46,7 @@ export const Message = styled.p`
     }
 `;
 
-export const Form = styled.form`
+export const MessageBox = styled.form`
     display: flex;
     height: 100px;
     border-top: 1px solid ${({ theme }) => theme.colors.subtle};

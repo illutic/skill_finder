@@ -1,99 +1,36 @@
-import { useContext, useEffect, useCallback, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useCallback } from 'react';
 import useLocationId from '../../hooks/other/useLocationId';
+import useChat from '../../hooks/api/useChat';
 import { UserContext } from '../../contexts/UserContextProvider';
-import { SocketContext } from '../../contexts/SocketContextProvider';
-import { leaveChat, joinChat } from '../../helpers/socket';
 import * as Styled from './styled';
-import ENDPOINTS from '../../constants/endpoints';
 
-const Chat = ({ toggleContactsDrawer, toggleFilesDrawer }) => {
-    // useChat hook
-    const { locationId: chatId } = useLocationId();
-    const { socket } = useContext(SocketContext);
-    const [messages, setMessages] = useState([]); // Export
-
-    // Local
-    const { user: currentUser } = useContext(UserContext);
-    const [newMessage, setNewMessage] = useState();
+const Chat = () => {
+    const { user } = useContext(UserContext);
+    const { locationId } = useLocationId();
+    const { messages, setNewMessage, sendMessage } = useChat(locationId);
     const messagesFormRef = useRef();
     const messagesContainerRef = useRef();
 
-    // useChat hook
-    const sendMessage = (e) => {
-        const isKeydown = e.type === 'keydown' && e.keyCode === 13;
-        const isClick = e.type === 'click';
-        if (isKeydown || isClick) {
-            e.preventDefault();
-            if (newMessage) {
-                socket.emit('sendMessage', chatId, newMessage);
-                setNewMessage(null);
-            }
-        }
-    };
-
-    // Local
-    useEffect(() => {
-        // resetForm callback
+    const clearMessageBox = useCallback(() => {
         messagesFormRef.current.reset();
+    }, []);
 
-        // scrollDown callback
+    const scrollMessageBox = useCallback(() => {
         const messagesContainer = messagesContainerRef.current;
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
-    }, [messages]);
+    }, []);
 
-    // useMessages hook -> useChat hook
-    const loadMessages = useCallback(async () => {
-        if (chatId) {
-            const response = await fetch(`${ENDPOINTS.api}/${chatId}/messages`);
-            const data = await response.json();
-            setMessages(data);
-        }
-    }, [chatId]);
-
-    // useChat hook
-    const leaveCurrentChat = useCallback(
-        (chatId) => {
-            leaveChat(socket, chatId);
-            setMessages([]);
-        },
-        [socket]
-    );
-
-    // useChat hook
     useEffect(() => {
-        joinChat(socket, chatId);
-        loadMessages();
-        return () => {
-            leaveCurrentChat(chatId);
-        };
-    }, [chatId, socket, loadMessages, leaveCurrentChat]);
-
-    // useChat hook
-    useEffect(() => {
-        if (socket) {
-            socket.on('message', (message) => {
-                setMessages((previousMessages) => [
-                    ...previousMessages,
-                    message,
-                ]);
-            });
-        }
-    }, [socket]);
+        clearMessageBox();
+        scrollMessageBox();
+    }, [messages, clearMessageBox, scrollMessageBox]);
 
     return (
         <Styled.Chat>
-            <Styled.Controls>
-                <Styled.Control onClick={toggleContactsDrawer}>
-                    Contacts
-                </Styled.Control>
-                <Styled.Control onClick={toggleFilesDrawer}>
-                    Files
-                </Styled.Control>
-            </Styled.Controls>
             <Styled.Messages ref={messagesContainerRef}>
                 {messages?.length
                     ? messages.map((message) => {
-                          if (message.userId === currentUser.id) {
+                          if (message.userId === user.id) {
                               return (
                                   <Styled.Message key={message.id} currentUser>
                                       {message.content}
@@ -109,7 +46,7 @@ const Chat = ({ toggleContactsDrawer, toggleFilesDrawer }) => {
                       })
                     : null}
             </Styled.Messages>
-            <Styled.Form ref={messagesFormRef}>
+            <Styled.MessageBox ref={messagesFormRef}>
                 <Styled.TextArea
                     type="text"
                     placeholder="Aa"
@@ -119,7 +56,7 @@ const Chat = ({ toggleContactsDrawer, toggleFilesDrawer }) => {
                     onKeyDown={sendMessage}
                 />
                 <Styled.PositionedSendButton onClick={sendMessage} />
-            </Styled.Form>
+            </Styled.MessageBox>
         </Styled.Chat>
     );
 };
