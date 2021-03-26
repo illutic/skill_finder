@@ -24,6 +24,11 @@ const Request = database.define(
             defaultValue: true,
             allowNull: false,
         },
+        accepted: {
+            type: Sequelize.BOOLEAN,
+            defaultValue: false,
+            allowNull: false,
+        },
     },
     { timestamps: false }
 );

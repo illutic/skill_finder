@@ -57,7 +57,7 @@ export const WebSockets = (io) => {
                     fromId: id,
                 },
             });
-            if (request[0].pending === false) {
+            if (request[0].accepted === true || request[0].pending === false) {
                 return;
             }
 
@@ -103,9 +103,10 @@ export const WebSockets = (io) => {
             if (!request) {
                 return;
             }
-            if (request.pending === false) {
+            if (request.accepted === true || request.pending === false) {
                 return;
             }
+            request.accepted = true;
             request.pending = false;
             await request.save();
 
@@ -143,7 +144,7 @@ export const WebSockets = (io) => {
                 return;
             }
 
-            // Find request and set pending to false
+            // Find the request
             const request = await Request.findOne({
                 where: { id: requestId },
             });
@@ -162,7 +163,7 @@ export const WebSockets = (io) => {
                 where: { id: request.toId },
             });
 
-            // Destroy the request that has been denied
+            // Destroy the request
             await request.destroy();
 
             // Create notification for request sender
