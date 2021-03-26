@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import useNotificationsSync from '../sync/useNotificationsSync';
 import ENDPOINTS from '../../constants/endpoints';
 
-const useNotification = () => {
+const useDeleteNotification = () => {
     const syncNotifications = useNotificationsSync();
 
     const deleteNotification = useCallback(
@@ -23,7 +23,7 @@ const useNotification = () => {
         [syncNotifications]
     );
 
-    return { deleteNotification };
+    return deleteNotification;
 };
 
-export default useNotification;
+export default useDeleteNotification;

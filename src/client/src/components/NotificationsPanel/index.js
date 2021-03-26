@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import useRequest from '../../hooks/api/useRequest';
-import useNotification from '../../hooks/api/useNotification';
+import useDeleteNotification from '../../hooks/api/useDeleteNotification';
 import { NotificationsContext } from '../../contexts/NotificationsContextProvider';
 import * as Styled from './styled';
 import ProfilePhoto from '../ProfilePhoto';
@@ -12,7 +12,7 @@ import defaultProfilePhoto from '../../assets/default.jpg';
 const NotificationsPanel = () => {
     const { notifications } = useContext(NotificationsContext);
     const { acceptRequest, denyRequest } = useRequest();
-    const { deleteNotification } = useNotification();
+    const deleteNotification = useDeleteNotification();
     const [showNotifications, setShowNotifications] = useState(false);
 
     const toggleNotificationsPanel = () => {

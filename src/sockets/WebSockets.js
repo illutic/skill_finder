@@ -103,6 +103,9 @@ export const WebSockets = (io) => {
             if (!request) {
                 return;
             }
+            if (request.pending === false) {
+                return;
+            }
             request.pending = false;
             await request.save();
 
@@ -129,6 +132,47 @@ export const WebSockets = (io) => {
             // Emit
             io.to(fromUser.id).emit('acceptedRequest');
             io.to(toUser.id).emit('acceptedRequest');
+        });
+
+        /** On Receiving a Request Deny,
+         * @param {string} requestId - request id string, passed in from the client
+         * The server finds the database entity for the request, deactivates the request and emits to the user who sent it that it was denied.
+         */
+        socket.on('denyRequest', async (requestId) => {
+            if (!requestId) {
+                return;
+            }
+
+            // Find request and set pending to false
+            const request = await Request.findOne({
+                where: { id: requestId },
+            });
+            if (!request) {
+                throw Error('Could not deny request as it does not exist.');
+            }
+            if (request.pending === false) {
+                return;
+            }
+            request.pending = false;
+            await request.save();
+
+            // Find involved users
+            const fromUser = await User.findOne({
+                where: { id: request.fromId },
+            });
+            const toUser = await User.findOne({
+                where: { id: request.toId },
+            });
+
+            // Create notification for request sender
+            const notification = await Notification.create({
+                type: NOTIFICATION_TYPES.deniedRequest,
+                content: { user: toUser },
+            });
+            fromUser.addNotification(notification);
+
+            // Emit
+            io.to(fromUser.id).emit('deniedRequest');
         });
 
         /** On Receiving a message,

@@ -9,7 +9,6 @@ const ENDPOINTS = {
     skill: '/api/skill',
     chats: '/api/chats',
     notifications: '/api/notifications',
-    denyRequest: '/api/requests/deny',
 };
 
 export default ENDPOINTS;

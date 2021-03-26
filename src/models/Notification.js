@@ -13,7 +13,8 @@ const Notification = database.define(
         type: {
             type: Sequelize.ENUM(
                 NOTIFICATION_TYPES.incomingRequest,
-                NOTIFICATION_TYPES.acceptedRequest
+                NOTIFICATION_TYPES.acceptedRequest,
+                NOTIFICATION_TYPES.deniedRequest
             ),
             allowNull: false,
         },
