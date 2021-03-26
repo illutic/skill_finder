@@ -8,7 +8,7 @@ import auth from '../auth/auth.js';
 
 const router = Router();
 
-router.get('/skill/:name', auth, getSkill);
+router.get('/skill/:name', getSkill);
 router.post('/skill', auth, postSkill);
 router.delete('/skill', auth, deleteSkill);
 

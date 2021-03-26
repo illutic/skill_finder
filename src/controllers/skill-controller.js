@@ -1,16 +1,12 @@
 import Fuse from 'fuse.js';
-import sequelize from 'sequelize';
 import User from '../models/User.js';
 import Skill from '../models/Skill.js';
-
-const { Op } = sequelize;
 
 /** Get Users By Skill Name
  * @param {string} name - Requires a skill name passed as URL parameter.
  */
 export const getSkill = async (req, res) => {
     try {
-        const { userId } = req;
         const { name } = req.params;
         if (!name) {
             throw Error('No skill name provided.');
@@ -22,7 +18,6 @@ export const getSkill = async (req, res) => {
         const skills = await Skill.findAll({
             include: {
                 model: User,
-                where: { id: { [Op.not]: userId } },
                 attributes: {
                     exclude: ['email', 'password'],
                 },
