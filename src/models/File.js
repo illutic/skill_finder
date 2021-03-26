@@ -13,6 +13,10 @@ const File = database.define(
             type: Sequelize.STRING,
             allowNull: false,
         },
+        fileName: {
+            type: Sequelize.STRING,
+            allowNull: false,
+        },
     },
     { timestamps: false }
 );

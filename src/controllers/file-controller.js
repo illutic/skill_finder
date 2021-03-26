@@ -102,8 +102,11 @@ export const postFile = async (req, res) => {
                 throw Error(fileError);
             }
             const { chatId } = req.body;
+
+            const fileName = req.file.path.split(/[\\/]/).pop();
             const databaseFile = await File.create({
-                uri: `/${req.file.path}`,
+                fileName,
+                uri: `${req.file.path}`,
                 ChatId: chatId,
             });
             res.send(databaseFile);
@@ -155,6 +158,20 @@ export const getFile = async (req, res) => {
     } catch (err) {
         res.status(400).json({
             error: 'Could not find file as it does not exist.',
+        });
+    }
+};
+
+export const getFiles = async (req, res) => {
+    try {
+        const { chatId } = req.params;
+        const files = await File.findAll({
+            where: { ChatId: chatId },
+        });
+        res.send(files);
+    } catch (err) {
+        res.status(400).json({
+            error: 'Could not find files. ',
         });
     }
 };

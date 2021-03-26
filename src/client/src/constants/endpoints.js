@@ -8,6 +8,7 @@ const ENDPOINTS = {
     photo: '/api/user/photo',
     skill: '/api/skill',
     chats: '/api/chats',
+    files: '/api/file',
     notifications: '/api/notifications',
 };
 
