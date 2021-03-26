@@ -1,6 +1,5 @@
 import { useState, useContext, useCallback, useEffect } from 'react';
 import { SocketContext } from '../../contexts/SocketContextProvider';
-import { leaveChat, joinChat } from '../../helpers/socket';
 import ENDPOINTS from '../../constants/endpoints';
 
 const useChat = (chatId) => {
@@ -9,11 +8,15 @@ const useChat = (chatId) => {
     const { socket } = useContext(SocketContext);
 
     const joinCurrentChat = useCallback(() => {
-        joinChat(socket, chatId);
+        if (chatId) {
+            socket.emit('joinChat', chatId);
+        }
     }, [socket, chatId]);
 
     const leaveCurrentChat = useCallback(() => {
-        leaveChat(socket, chatId);
+        if (chatId) {
+            socket.emit('leaveChat', chatId);
+        }
         setMessages([]);
     }, [socket, chatId]);
 

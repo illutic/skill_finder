@@ -17,6 +17,7 @@ export const getNotifications = async (req, res) => {
     }
 };
 
+/** Delete User Notification */
 export const deleteNotification = async (req, res) => {
     try {
         const { notificationId } = req.body;

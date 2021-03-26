@@ -4,20 +4,7 @@ export const initialize = (socket, chatId) => {
         socket.emit('authentication');
     });
     socket.on('unauthorized', () => {
-        leaveChat(socket, chatId);
         socket.disconnect();
     });
     return socket;
-};
-
-export const joinChat = (socket, chatId) => {
-    if (chatId) {
-        socket.emit('join', chatId);
-    }
-};
-
-export const leaveChat = (socket, chatId) => {
-    if (chatId) {
-        socket.emit('leaveRoom', chatId);
-    }
 };

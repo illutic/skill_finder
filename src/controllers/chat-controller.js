@@ -2,8 +2,7 @@ import sequelize from 'sequelize';
 import User from '../models/User.js';
 import Message from '../models/Message.js';
 
-/** Chatrooms by user ID
- */
+/** Get User Chatrooms */
 export const getChatrooms = async (req, res) => {
     try {
         const { userId } = req;
@@ -25,8 +24,8 @@ export const getChatrooms = async (req, res) => {
     }
 };
 
-/** Messages by chatroom ID
- * @param {uuid} chatId - Requires a chatId in the request url
+/** Get Chat Messages
+ * @param {uuid} chatId - Requires a chatId passed as URL parameter.
  * */
 export const getMessages = async (req, res) => {
     try {
@@ -39,8 +38,7 @@ export const getMessages = async (req, res) => {
     }
 };
 
-/** delete a chatroom
- * */
+/** Delete Chat */
 export const deleteChat = async (req, res) => {
     try {
         res.sendStatus(200);

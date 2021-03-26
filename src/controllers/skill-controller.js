@@ -4,8 +4,8 @@ import Skill from '../models/Skill.js';
 
 const { Op } = sequelize;
 
-/** Get Users that teach a specific skill.
- * @param {string} name - Requires a skill name url parameter.
+/** Get Users By Skill Name
+ * @param {string} name - Requires a skill name passed as URL parameter.
  */
 export const getSkill = async (req, res) => {
     try {
@@ -33,8 +33,8 @@ export const getSkill = async (req, res) => {
     }
 };
 
-/** Adds a skill to the user's Model.
- * @param {string} name - Requires a skill name parameter in the request body.
+/** Add User Skill
+ * @param {string} name - Requires a skill name parameter passed in the request body.
  */
 export const postSkill = async (req, res) => {
     try {
@@ -60,8 +60,8 @@ export const postSkill = async (req, res) => {
     }
 };
 
-/** Delete's a skill from the User Model.
- * @param {uuid} skillId - Requires a skill Id parameter in the request body.
+/** Delete User Skill
+ * @param {uuid} skillId - Requires a skill ID parameter passed in the request body.
  */
 export const deleteSkill = async (req, res) => {
     try {

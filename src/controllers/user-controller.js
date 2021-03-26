@@ -4,7 +4,7 @@ import hashPassword from '../utils/hashPassword.js';
 import checkPassword from '../utils/checkPassword.js';
 import removeToken from '../utils/removeToken.js';
 
-/** Get Current (Logged In) User Data */
+/** Get Current User Data */
 export const getCurrentUser = async (req, res) => {
     const { userId } = req;
     const user = await User.findOne({
@@ -18,8 +18,8 @@ export const getCurrentUser = async (req, res) => {
     res.json(user);
 };
 
-/** Get User Data
- * @param {uuid} userId - Requires a user Id in the request url.
+/** Get Any User Data
+ * @param {uuid} userId - Requires user ID passed as URL parameter.
  */
 export const getUser = async (req, res) => {
     try {
@@ -44,8 +44,8 @@ export const getUser = async (req, res) => {
 };
 
 /** Update Email
- * @param {string} email - Requires an email address in the request body.
- * @param {string} password - Requires a password in the request body.
+ * @param {string} email - Requires an email address passed in the request body.
+ * @param {string} password - Requires a password passed in the request body.
  */
 export const patchEmail = async (req, res) => {
     try {
@@ -78,8 +78,8 @@ export const patchEmail = async (req, res) => {
 };
 
 /** Update Password
- * @param {string} password - Requires a password string in the request body
- * @param {string} confirmPassword - Requires a password confirmation string in the request body
+ * @param {string} password - Requires a new password passed in the request body.
+ * @param {string} confirmPassword - Requires an old password passed in the request body.
  */
 export const patchPassword = async (req, res) => {
     try {
@@ -124,7 +124,7 @@ export const patchTitle = async (req, res) => {
 };
 
 /** Update Description
- * @param {string} description - Requires a description string in the request body.
+ * @param {string} description - Requires a new description passed in the request body.
  */
 export const patchDescription = async (req, res) => {
     try {
