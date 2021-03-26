@@ -9,6 +9,7 @@ const ENDPOINTS = {
     skill: '/api/skill',
     chats: '/api/chats',
     files: '/api/file',
+    requests: '/api/requests',
     notifications: '/api/notifications',
 };
 
