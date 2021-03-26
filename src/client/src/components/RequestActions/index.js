@@ -1,27 +1,30 @@
 import { useState, useContext, useEffect } from 'react';
+import useRequest from '../../hooks/api/useRequest';
 import { RequestsContext } from '../../contexts/RequestsContextProvider';
 import * as Styled from './styled';
 import Button from '../Button/index';
+import REQUEST_STATUS from '../../constants/requestStatus';
 
 const RequestActions = ({ userId }) => {
     const [actionType, setActionType] = useState();
     const [requestId, setRequestId] = useState();
     const { requests } = useContext(RequestsContext);
+    const { acceptRequest, denyRequest, sendRequest } = useRequest();
 
     useEffect(() => {
         if (!userId) {
             return;
         }
         // Connected Button
-        const isConnected = requests?.acceptedRequests?.find((request) => {
+        const isAccepted = requests?.acceptedRequests?.find((request) => {
             return (
                 (request.fromId === userId || request.toId === userId) &&
                 request.pending === false &&
                 request.accepted === true
             );
         });
-        if (isConnected) {
-            setActionType('connected');
+        if (isAccepted) {
+            setActionType(REQUEST_STATUS.accepted);
             setRequestId(null);
             return;
         }
@@ -34,7 +37,8 @@ const RequestActions = ({ userId }) => {
             );
         });
         if (isPending) {
-            setActionType('pending');
+            setActionType(REQUEST_STATUS.pending);
+            setRequestId(isPending.id);
             return;
         }
         // Sent Button
@@ -46,25 +50,41 @@ const RequestActions = ({ userId }) => {
             );
         });
         if (isSent) {
-            setActionType('sent');
+            setActionType(REQUEST_STATUS.sent);
             return;
         }
+
+        setActionType(null);
     }, [userId, requests, setActionType]);
 
     switch (actionType) {
-        case 'connected':
-            return <Button outlined>Connected</Button>;
-        case 'pending':
+        case REQUEST_STATUS.accepted:
+            return (
+                <Button outlined disabled>
+                    Connected
+                </Button>
+            );
+        case REQUEST_STATUS.pending:
             return (
                 <Styled.Buttons>
-                    <Button>Accept</Button>
-                    <Button outlined>Deny</Button>
+                    <Button onClick={() => acceptRequest(requestId)}>
+                        Accept
+                    </Button>
+                    <Button outlined onClick={() => denyRequest(requestId)}>
+                        Deny
+                    </Button>
                 </Styled.Buttons>
             );
-        case 'sent':
-            return <Button outlined>Pending</Button>;
+        case REQUEST_STATUS.sent:
+            return (
+                <Button outlined disabled>
+                    Sent
+                </Button>
+            );
         default:
-            return <Button>Reach out</Button>;
+            return (
+                <Button onClick={() => sendRequest(userId)}>Reach out</Button>
+            );
     }
 };
 

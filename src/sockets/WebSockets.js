@@ -150,7 +150,7 @@ export const WebSockets = (io) => {
                 where: { id: requestId },
             });
             if (!request) {
-                throw Error('Could not deny request as it does not exist.');
+                return;
             }
             if (request.pending === false) {
                 return;
@@ -176,6 +176,7 @@ export const WebSockets = (io) => {
 
             // Emit
             io.to(fromUser.id).emit('deniedRequest');
+            io.to(toUser.id).emit('deniedRequest');
         });
 
         /** On Receiving a message,
