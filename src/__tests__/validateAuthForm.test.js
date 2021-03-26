@@ -142,46 +142,44 @@ test('Cannot enter numerical values in name field ', () => {
     expect (didValidate).toBe (false);
 });
 
-// test('Cannot enter numerical values in name field ', () => { 
+test('Cannot enter numerical values in name field ', () => { 
 
-//     const mockUser = {  firstName: "Bob", lastName: "324", email: "bsmith@gmail.com", password: "1234567", confirmPassword: "1234567"}; 
-//     didValidate = false; 
-//     try{
-//         test = form.validateAuthForm(mockUser, FORM_TYPES.signup);
-//         didValidate = true;
-//     }catch (error) {
+    const mockUser = {  firstName: "Bob", lastName: "324", email: "bsmith@gmail.com", password: "1234567", confirmPassword: "1234567"}; 
+    didValidate = false; 
+    try{
+        test = form.validateAuthForm(mockUser, FORM_TYPES.signup);
+        didValidate = true;
+    }catch (error) {
   
-//     }
-//     expect (didValidate).toBe (false);
-// });
+    }
+    expect (didValidate).toBe (false);
+});
 
-// test(' Symbols in name field', () => { 
+test('Special characters in text field', () => {
 
-//     const mockUser = {  firstName: "%%%%&&&", lastName: "smith", email: "bsmith@gmail.com", password: "1234567", confirmPassword: "1234567"}; 
-//     didValidate = false; 
-//     try{
-//         test = form.validateAuthForm(mockUser, FORM_TYPES.signup);
-//         didValidate = true;
-//     }catch (error) {
+    const mockUser = {  firstName: "###@@%", lastName: "smith", email: "bsmith@gmail.com", password: "1234567", confirmPassword: "1234567"}; 
+    didValidate = false; 
+    try{
+        test = form.validateAuthForm(mockUser, FORM_TYPES.signup);
+        didValidate = true;
+    }catch (error) {
+    }
+    expect (didValidate).toBe (false);
+});
+test(' Symbols in last name field', () => { 
+
+    const mockUser = {  firstName: "Bob", lastName: "£££$$%%^", email: "bsmith@gmail.com", password: "1234567", confirmPassword: "1234567"}; 
+    didValidate = false; 
+    try{
+        test = form.validateAuthForm(mockUser, FORM_TYPES.signup);
+        didValidate = true;
+    }catch (error) {
   
-//     }
-//     expect (didValidate).toBe (false);
-// });
+    }
+    expect (didValidate).toBe (false);
+});
 
-// test(' Symbols in name field', () => { 
-
-//     const mockUser = {  firstName: "Bob", lastName: "£££$$%%^", email: "bsmith@gmail.com", password: "1234567", confirmPassword: "1234567"}; 
-//     didValidate = false; 
-//     try{
-//         test = form.validateAuthForm(mockUser, FORM_TYPES.signup);
-//         didValidate = true;
-//     }catch (error) {
-  
-//     }
-//     expect (didValidate).toBe (false);
-// });
-
-test('Cannot have empty spaces as name ', () => { 
+test('Cannot have empty spaces as first name ', () => { 
 
     const mockUser = {  firstName: "   ", lastName: "smith", email: "bsmith@gmail.com", password: "1234567", confirmPassword: "1234567"}; 
     didValidate = false; 
@@ -194,9 +192,22 @@ test('Cannot have empty spaces as name ', () => {
     expect (didValidate).toBe (false);
 });
 
-test('Cannot have empty spaces as name ', () => { 
+test('Cannot have empty spaces as last name ', () => { 
 
     const mockUser = {  firstName: "Bob", lastName: "    ", email: "bsmith@gmail.com", password: "1234567", confirmPassword: "1234567"}; 
+    didValidate = false; 
+    try{
+        test = form.validateAuthForm(mockUser, FORM_TYPES.signup);
+        didValidate = true;
+    }catch (error) {
+  
+    }
+    expect (didValidate).toBe (false);
+});
+
+test('Cannot have empty spaces as email ', () => { 
+
+    const mockUser = {  firstName: "Bob", lastName: "Smith", email: "   ", password: "1234567", confirmPassword: "1234567"}; 
     didValidate = false; 
     try{
         test = form.validateAuthForm(mockUser, FORM_TYPES.signup);
