@@ -84,7 +84,8 @@ export const WebSockets = (io) => {
             toUser.addNotification(notification);
 
             // Emit
-            io.to(toId).emit('incomingRequest');
+            io.to(fromUser.id).emit('incomingRequest');
+            io.to(toUser.id).emit('incomingRequest');
         });
 
         /** On Receiving a Request Accept

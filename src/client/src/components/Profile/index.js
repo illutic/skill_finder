@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import useLocationId from '../../hooks/other/useLocationId';
 import useProfile from '../../hooks/api/useProfile';
 import useRequest from '../../hooks/api/useRequest';
-import { UserContext } from '../../contexts/UserContextProvider';
 import { AuthContext } from '../../contexts/AuthContextProvider';
+import { UserContext } from '../../contexts/UserContextProvider';
 import * as Styled from './styled';
 import LoadingScreen from '../LoadingScreen';
 import Container from '../Container/index';
@@ -12,6 +12,8 @@ import Heading from '../Heading/index';
 import Button from '../Button/index';
 import defaultProfilePhoto from '../../assets/default.jpg';
 import ROUTES from '../../constants/routes';
+
+import RequestActions from '../RequestActions/index';
 
 const Profile = () => {
     const { isAuth } = useContext(AuthContext);
@@ -58,15 +60,18 @@ const Profile = () => {
                         <Styled.Action>
                             {isAuth ? (
                                 profile?.id === user?.id ? (
+                                    // EditButton
                                     <Link to={ROUTES.settings}>
                                         <Button outlined>Edit profile</Button>
                                     </Link>
                                 ) : (
-                                    <Button
-                                        onClick={() => sendRequest(profile?.id)}
-                                    >
-                                        Reach out
-                                    </Button>
+                                    // RequestButtons
+                                    // <Button
+                                    //     onClick={() => sendRequest(profile?.id)}
+                                    // >
+                                    //     Reach out
+                                    // </Button>
+                                    <RequestActions userId={profile?.id} />
                                 )
                             ) : null}
                         </Styled.Action>

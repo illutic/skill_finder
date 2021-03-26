@@ -1,6 +1,9 @@
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import useSearchEngine from '../../hooks/api/useSearchEngine';
 import useRequest from '../../hooks/api/useRequest';
+import { AuthContext } from '../../contexts/AuthContextProvider';
+import { UserContext } from '../../contexts/UserContextProvider';
 import * as Styled from './styled';
 import LoadingScreen from '../LoadingScreen';
 import Container from '../Container/index';
@@ -8,8 +11,11 @@ import Heading from '../Heading/index';
 import Button from '../Button/index';
 import ProfileThumbnail from '../ProfileThumbnail';
 import defaultProfilePhoto from '../../assets/default.jpg';
+import ROUTES from '../../constants/routes';
 
 const SearchResults = () => {
+    const { isAuth } = useContext(AuthContext);
+    const { user: currentUser } = useContext(UserContext);
     const { query, results, loaded } = useSearchEngine();
     const { sendRequest } = useRequest();
 
@@ -41,13 +47,25 @@ const SearchResults = () => {
                                                 View profile
                                             </Button>
                                         </Link>
-                                        <Button
-                                            onClick={() =>
-                                                sendRequest(user?.id)
-                                            }
-                                        >
-                                            Reach out
-                                        </Button>
+                                        {isAuth ? (
+                                            user?.id === currentUser?.id ? (
+                                                // EditButton
+                                                <Link to={ROUTES.settings}>
+                                                    <Button outlined>
+                                                        Edit profile
+                                                    </Button>
+                                                </Link>
+                                            ) : (
+                                                // RequestButtons
+                                                <Button
+                                                    onClick={() =>
+                                                        sendRequest(user?.id)
+                                                    }
+                                                >
+                                                    Reach out
+                                                </Button>
+                                            )
+                                        ) : null}
                                     </Styled.Buttons>
                                 </Styled.Entry>
                             );

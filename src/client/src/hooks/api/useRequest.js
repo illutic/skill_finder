@@ -1,10 +1,12 @@
 import { useEffect, useContext, useCallback } from 'react';
+import useRequestsSync from '../sync/useRequestsSync';
 import useNotificationsSync from '../sync/useNotificationsSync';
 import useChatsSync from '../sync/useChatsSync';
 import { SocketContext } from '../../contexts/SocketContextProvider';
 
 const useRequest = () => {
     const { socket } = useContext(SocketContext);
+    const syncRequests = useRequestsSync();
     const syncNotifications = useNotificationsSync();
     const syncChats = useChatsSync();
 
@@ -30,16 +32,19 @@ const useRequest = () => {
 
     useEffect(() => {
         socket.on('incomingRequest', () => {
+            syncRequests();
             syncNotifications();
         });
         socket.on('acceptedRequest', () => {
+            syncRequests();
             syncNotifications();
             syncChats();
         });
         socket.on('deniedRequest', () => {
+            syncRequests();
             syncNotifications();
         });
-    }, [socket, syncChats, syncNotifications]);
+    }, [socket, syncRequests, syncNotifications, syncChats]);
 
     return { sendRequest, acceptRequest, denyRequest };
 };

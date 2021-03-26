@@ -9,7 +9,6 @@ const useRequestsSync = () => {
         const response = await fetch(`${ENDPOINTS.requests}`);
         const data = await response.json();
         if (response.ok) {
-            console.log(data);
             setRequests(data);
             return;
         }
