@@ -3,11 +3,14 @@ import useLocationId from '../../hooks/other/useLocationId';
 import useChat from '../../hooks/api/useChat';
 import { UserContext } from '../../contexts/UserContextProvider';
 import * as Styled from './styled';
-
+import useFileUpload from '../../hooks/api/useFileUpload';
+import useFiles from '../../hooks/api/useFiles';
 const Chat = () => {
     const { user } = useContext(UserContext);
     const { locationId } = useLocationId();
+    const { uploadFile, setFilePayload } = useFileUpload();
     const { messages, setNewMessage, sendMessage } = useChat(locationId);
+    const { setFilesFor } = useFiles();
     const messagesFormRef = useRef();
     const messagesContainerRef = useRef();
 
@@ -46,7 +49,21 @@ const Chat = () => {
                       })
                     : null}
             </Styled.Messages>
-            <Styled.MessageBox ref={messagesFormRef}>
+            <Styled.FileForm>
+                <Styled.Label htmlFor="newFile" />
+                <span id="fileName"> Add a File </span>
+                <Styled.File
+                    id="newFile"
+                    type="file"
+                    hidden={true}
+                    onChange={(e) => {
+                        const fileLabel = document.getElementById('fileName');
+                        fileLabel.textContent = e.target.files[0].name;
+                        setFilePayload(e.target.files[0]);
+                    }}
+                />
+            </Styled.FileForm>
+            <Styled.MessageBox ref={messagesFormRef} onSubmit={sendMessage}>
                 <Styled.TextArea
                     type="text"
                     placeholder="Aa"
@@ -55,7 +72,13 @@ const Chat = () => {
                     onChange={(e) => setNewMessage(e.target.value)}
                     onKeyDown={sendMessage}
                 />
-                <Styled.PositionedSendButton onClick={sendMessage} />
+                <Styled.PositionedSendButton
+                    onClick={(e) => {
+                        sendMessage(e);
+                        uploadFile();
+                        setFilesFor();
+                    }}
+                />
             </Styled.MessageBox>
         </Styled.Chat>
     );

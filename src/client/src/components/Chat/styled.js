@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import SCREENS from '../../constants/screens';
+import AddButton from '../AddButton';
 import SendButton from '../SendButton/index';
 
 export const Chat = styled.div`
@@ -65,3 +66,17 @@ export const PositionedSendButton = styled(SendButton)`
     align-self: center;
     margin-right: 15px;
 `;
+
+export const File = styled.input`
+    padding: 10px 0;
+`;
+
+export const FileSubmit = styled(SendButton)`
+    margin-top: 25px;
+`;
+
+export const FileForm = styled.form`
+    margin-top: 35px;
+`;
+
+export const Label = styled(AddButton)``;
