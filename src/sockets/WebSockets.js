@@ -153,8 +153,6 @@ export const WebSockets = (io) => {
             if (request.pending === false) {
                 return;
             }
-            request.pending = false;
-            await request.save();
 
             // Find involved users
             const fromUser = await User.findOne({
@@ -163,6 +161,9 @@ export const WebSockets = (io) => {
             const toUser = await User.findOne({
                 where: { id: request.toId },
             });
+
+            // Destroy the request that has been denied
+            await request.destroy();
 
             // Create notification for request sender
             const notification = await Notification.create({
