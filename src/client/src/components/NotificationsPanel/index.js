@@ -1,17 +1,15 @@
 import { useState, useEffect, useContext } from 'react';
-import useRequest from '../../hooks/api/useRequest';
 import useDeleteNotification from '../../hooks/api/useDeleteNotification';
 import { NotificationsContext } from '../../contexts/NotificationsContextProvider';
 import * as Styled from './styled';
 import ProfilePhoto from '../ProfilePhoto';
 import NotificationsButton from '../NotificationsButton/index';
-import Button from '../Button/index';
 import CloseButton from '../CloseButton/index';
 import defaultProfilePhoto from '../../assets/default.jpg';
+import RequestActions from '../RequestActions';
 
 const NotificationsPanel = () => {
     const { notifications } = useContext(NotificationsContext);
-    const { acceptRequest, denyRequest } = useRequest();
     const deleteNotification = useDeleteNotification();
     const [showNotifications, setShowNotifications] = useState(false);
 
@@ -57,7 +55,7 @@ const NotificationsPanel = () => {
                               </Styled.Group>
                               <Styled.Content>
                                   <Styled.Group>
-                                      {notification.type}
+                                      {`${notification.content.user.firstName} ${notification.content.user.lastName} requested your help.`}
                                   </Styled.Group>
 
                                   <Styled.Group>
@@ -68,24 +66,9 @@ const NotificationsPanel = () => {
                                               )
                                           }
                                       />
-                                      <Button
-                                          onClick={() =>
-                                              acceptRequest(
-                                                  notification.content.requestId
-                                              )
-                                          }
-                                      >
-                                          Accept
-                                      </Button>
-                                      <Button
-                                          onClick={() =>
-                                              denyRequest(
-                                                  notification.content.requestId
-                                              )
-                                          }
-                                      >
-                                          Deny
-                                      </Button>
+                                      <RequestActions
+                                          userId={notification.content.user.id}
+                                      />
                                   </Styled.Group>
                               </Styled.Content>
                           </Styled.Notification>
