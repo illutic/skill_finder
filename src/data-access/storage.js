@@ -4,10 +4,9 @@ import multer from 'multer';
 import { v4 } from 'uuid';
 
 /** Creates a user upload directory if it doesn't exist.
- * @param {string} userId- the user the dir is for.
- * @param {string} chatId- can be undefined, defaults to photos directory
- * @param {function} callback - Function that is executed after creating the dir.
- * @returns void
+ * @param {string} userId - The user the directory is for.
+ * @param {string} chatId - Can be undefined, defaults to photos directory.
+ * @param {function} callback - A callback function that is executed after creating the directory.
  */
 const createUploadDirectory = async (userId, chatId, callback) => {
     let userDir;
@@ -33,7 +32,7 @@ const createUploadDirectory = async (userId, chatId, callback) => {
     });
 };
 
-/** Creates a multer Storage Component.
+/** Creates a multer storage component.
  * @param {Request} req - Content-type must be of: 'multipart/form-data'
  * @param {file} file - the file information included in the Request parameter.
  * @param {function} cb - callback function to be called when the file operation is complete.
@@ -51,9 +50,9 @@ const storage = multer.diskStorage({
 });
 
 /** Creates a multer Storage Component.
- * @param {Request} req - Content-type must be of: 'multipart/form-data'
- * @param {file} file - the file information included in the Request parameter.
- * @param {function} cb - callback function to be called when the file operation is complete.
+ * @param {Request} req - Content-type must be of: 'multipart/form-data'.
+ * @param {file} file - The file passed by Multer middleware.
+ * @param {function} cb - A callback function to be called when the file operation is complete.
  */
 const fileStorage = multer.diskStorage({
     destination(req, file, cb) {
@@ -76,7 +75,7 @@ const imageFilter = (req, file, cb) => {
     return cb(null, true);
 };
 
-/** Creates a multer object and passes the configuration above
+/** Creates a Multer object and passes the configuration.
  * @requires [storage,fileFilter,limits] Requires a multer diskStorage component, optionally a fileFilter function and a limits object.
  * @middleware [.single('tag')] Populates the Request with the file that has the specified string tagged. eg. ['image', image]
  */

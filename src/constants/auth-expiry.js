@@ -1,5 +1,5 @@
 /** @constant AUTH_EXPIRY */
-/**  How many seconds will the cookie last. */
+/**  Defines how long the auth token will last. */
 const AUTH_EXPIRY = {
     seconds: 604800,
     miliseconds: 604800000,
