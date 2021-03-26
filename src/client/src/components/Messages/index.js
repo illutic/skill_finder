@@ -40,7 +40,10 @@ const Messages = () => {
             {chats?.length ? (
                 <Styled.Wrapper>
                     <Redirect to={`${ROUTES.messages}/${chats[0].id}`} />
-                    <ContactsDrawer isActive={isContactsDrawerActive} />
+                    <ContactsDrawer
+                        isActive={isContactsDrawerActive}
+                        closeAllDrawers={closeAllDrawers}
+                    />
                     <Styled.Controls>
                         <Styled.Control onClick={toggleContactsDrawer}>
                             Contacts

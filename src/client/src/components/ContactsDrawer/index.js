@@ -6,7 +6,7 @@ import stopPropagation from '../../utils/stopPropagation';
 import defaultProfilePhoto from '../../assets/default.jpg';
 import ROUTES from '../../constants/routes';
 
-const ContactsDrawer = ({ isActive }) => {
+const ContactsDrawer = ({ isActive, closeAllDrawers }) => {
     const { chats } = useContext(ChatsContext);
 
     return (
@@ -17,6 +17,7 @@ const ContactsDrawer = ({ isActive }) => {
                           <Styled.Contact
                               key={chat.id}
                               to={`${ROUTES.messages}/${chat.id}`}
+                              onClick={closeAllDrawers}
                           >
                               <ProfileThumbnail
                                   name={`${user.firstName} ${user.lastName}`}

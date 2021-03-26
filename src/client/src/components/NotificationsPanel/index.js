@@ -90,7 +90,7 @@ const NotificationsPanel = () => {
                               </Styled.Content>
                           </Styled.Notification>
                       ))
-                    : null}
+                    : "You're all caught up"}
             </Styled.Notifications>
         </>
     );

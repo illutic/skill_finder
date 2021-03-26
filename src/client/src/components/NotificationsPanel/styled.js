@@ -6,8 +6,9 @@ export const Notifications = styled.div`
     top: 50px;
     right: 0;
     padding: 5px 20px;
-    max-width: 375px;
-    max-height: 275px;
+    width: 375px;
+    max-width: 100%;
+    height: 275px;
     overflow-y: scroll;
     border: 1px solid ${({ theme }) => theme.colors.subtle};
     border-radius: 15px;
