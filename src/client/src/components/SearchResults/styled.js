@@ -22,6 +22,7 @@ export const Entry = styled.div`
 export const Buttons = styled.div`
     margin-top: 10px;
     display: flex;
+    flex-wrap: wrap;
     & > *:first-child {
         margin-right: 15px;
     }
