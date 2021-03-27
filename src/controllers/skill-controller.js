@@ -27,6 +27,9 @@ export const getSkill = async (req, res) => {
         });
         const fuse = new Fuse(skills, searchOptions);
         const fuseResult = fuse.search(name);
+        if (!fuseResult.length) {
+            throw Error('Nothing found.');
+        }
         res.json(fuseResult[0].item);
     } catch (err) {
         res.status(400).json({ error: err.message });

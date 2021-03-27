@@ -16,71 +16,65 @@ import ROUTES from '../../constants/routes';
 const SearchResults = () => {
     const { isAuth } = useContext(AuthContext);
     const { user: currentUser } = useContext(UserContext);
-    const { query, results, loaded } = useSearchEngine();
+    const { query, areResultsLoading, results } = useSearchEngine();
 
-    return loaded ? (
-        results ? (
-            <Container spaced>
-                <Styled.Wrapper>
-                    <Heading underlined>
-                        Showing results for {results.name}
-                    </Heading>
-                    <Styled.Entries>
-                        {results.Users.map((user) => {
-                            return (
-                                <Styled.Entry key={user?.id}>
-                                    <Link to={`/profile/${user?.id}`}>
-                                        <ProfileThumbnail
-                                            name={`${user?.firstName} ${
-                                                user?.lastName
-                                            } ${
-                                                user?.id === currentUser.id
-                                                    ? '(you)'
-                                                    : ''
-                                            }`}
-                                            title={user?.title}
-                                            photo={
-                                                user.profilePhoto
-                                                    ? user?.profilePhoto
-                                                    : defaultProfilePhoto
-                                            }
-                                        />
-                                    </Link>
-                                    <Styled.Buttons>
-                                        <Link to={`/profile/${user?.id}`}>
-                                            <Button outlined>
-                                                View profile
-                                            </Button>
-                                        </Link>
-                                        {isAuth ? (
-                                            user?.id === currentUser?.id ? (
-                                                <Link to={ROUTES.settings}>
-                                                    <Button outlined>
-                                                        Edit profile
-                                                    </Button>
-                                                </Link>
-                                            ) : (
-                                                <RequestActions
-                                                    userId={user?.id}
-                                                />
-                                            )
-                                        ) : null}
-                                    </Styled.Buttons>
-                                </Styled.Entry>
-                            );
-                        })}
-                    </Styled.Entries>
-                </Styled.Wrapper>
-            </Container>
-        ) : (
-            <Container spaced>
-                <Styled.Wrapper>
-                    <Heading underlined>No results for {query}</Heading>
-                </Styled.Wrapper>
-            </Container>
-        )
-    ) : (
+    return areResultsLoading ? (
         <LoadingScreen />
+    ) : results ? (
+        <Container spaced>
+            <Styled.Wrapper>
+                <Heading underlined>
+                    Showing results for {results?.name}
+                </Heading>
+                <Styled.Entries>
+                    {results?.Users?.map((user) => {
+                        return (
+                            <Styled.Entry key={user?.id}>
+                                <Link to={`/profile/${user?.id}`}>
+                                    <ProfileThumbnail
+                                        name={`${user?.firstName} ${
+                                            user?.lastName
+                                        } ${
+                                            user?.id === currentUser?.id
+                                                ? '(you)'
+                                                : ''
+                                        }`}
+                                        title={user?.title}
+                                        photo={
+                                            user?.profilePhoto
+                                                ? user.profilePhoto
+                                                : defaultProfilePhoto
+                                        }
+                                    />
+                                </Link>
+                                <Styled.Buttons>
+                                    <Link to={`/profile/${user?.id}`}>
+                                        <Button outlined>View profile</Button>
+                                    </Link>
+                                    {isAuth ? (
+                                        user?.id === currentUser?.id ? (
+                                            <Link to={ROUTES.settings}>
+                                                <Button outlined>
+                                                    Edit profile
+                                                </Button>
+                                            </Link>
+                                        ) : (
+                                            <RequestActions userId={user?.id} />
+                                        )
+                                    ) : null}
+                                </Styled.Buttons>
+                            </Styled.Entry>
+                        );
+                    })}
+                </Styled.Entries>
+            </Styled.Wrapper>
+        </Container>
+    ) : (
+        <Container spaced>
+            <Styled.Wrapper>
+                <Heading underlined>No results for {query}</Heading>
+            </Styled.Wrapper>
+        </Container>
     );
 };
 
