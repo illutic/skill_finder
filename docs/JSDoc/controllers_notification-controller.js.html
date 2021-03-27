@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>authGoogle - Documentation</title>
+    <title>controllers/notification-controller.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,190 +29,55 @@
 
 <div id="main">
     
-    <h1 class="page-title">authGoogle</h1>
+    <h1 class="page-title">controllers/notification-controller.js</h1>
     
 
     
 
 
 
-
-<section>
-
-<header>
     
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-     
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="~authGoogle"><span class="type-signature">(async, inner) </span>authGoogle<span class="signature">(token)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Exchange token to access the Google API and get an email address, and the full name of the user.</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="auth_auth-google.js.html">auth/auth-google.js</a>, <a href="auth_auth-google.js.html#line10">line 10</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>token</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>string</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                <p>An Authentication token</p>
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-        
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import Notification from '../models/Notification.js';
+import User from '../models/User.js';
+
+/** Get User Notifications */
+export const getNotifications = async (req, res) => {
+    try {
+        const { userId } = req;
+        const user = await User.findOne({
+            where: {
+                id: userId,
+            },
+        });
+        const notifications = await user.getNotifications();
+        res.status(200).json(notifications);
+    } catch (err) {
+        res.status(400).json({ error: err.message });
+    }
+};
+
+/** Delete User Notification */
+export const deleteNotification = async (req, res) => {
+    try {
+        const { notificationId } = req.body;
+        if (!notificationId) {
+            throw Error('No notification ID provided.');
+        }
+        await Notification.destroy({
+            where: {
+                id: notificationId,
+            },
+        });
+        res.sendStatus(200);
+    } catch (err) {
+        res.status(400).json({ error: err.message });
+    }
+};
+</code></pre>
+        </article>
+    </section>
 
 
 
