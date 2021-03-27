@@ -1,10 +1,10 @@
 import { useContext } from 'react';
 import { Redirect, Link } from 'react-router-dom';
+import { AuthContext } from '../../contexts/AuthContextProvider';
 import * as Styled from './styled';
 import Container from '../Container/index';
 import Heading from '../Heading/index';
 import Button from '../Button/index';
-import { AuthContext } from '../../contexts/AuthContextProvider';
 import ROUTES from '../../constants/routes';
 
 const AuthMessage = () => {

@@ -1,7 +1,7 @@
+import { useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import useAuthCheck from './hooks/useAuthCheck';
-import useUserSync from './hooks/useUserSync';
-import useChatsSync from './hooks/useChatsSync';
+import useAuthCheck from './hooks/auth/useAuthCheck';
+import useGlobalDataSync from './hooks/sync/useGlobalDataSync';
 import ROUTES from './constants/routes';
 import NavigationContextProvider from './contexts/NavigationContextProvider';
 import LogoutModalContextProvider from './contexts/LogoutModalContextProvider';
@@ -18,18 +18,21 @@ import Messages from './components/Messages/index';
 import Home from './components/Home/index';
 import NotFound from './components/NotFound/index';
 import GlobalStyle from './styles/globalStyle';
-import SocketContextProvider from './contexts/SocketContextProvider';
 
 function App() {
-    useAuthCheck();
-    useUserSync();
-    useChatsSync();
+    const checkAuth = useAuthCheck();
+    const syncGlobalData = useGlobalDataSync();
+
+    useEffect(() => {
+        checkAuth();
+        syncGlobalData();
+    }, [checkAuth, syncGlobalData]);
+
     return (
         <>
             <Router>
                 <NavigationContextProvider>
                     <LogoutModalContextProvider>
-                        <SocketContextProvider />
                         <Navigation />
                         <LogoutModal />
                     </LogoutModalContextProvider>

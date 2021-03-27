@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import * as Styled from './styled';
 import mathematicsSource from '../../assets/mathematics.jpg';
 import computerScienceSource from '../../assets/computer-science.jpg';
-import physicsSource from '../../assets/physics.jpg';
-import programmingSource from '../../assets/programming.jpg';
-import geographySource from '../../assets/geography.jpg';
-import chemistrySource from '../../assets/chemistry.jpg';
+import physicsPhoto from '../../assets/physics.jpg';
+import programmingPhoto from '../../assets/programming.jpg';
+import geographyPhoto from '../../assets/geography.jpg';
+import chemistryPhoto from '../../assets/chemistry.jpg';
 
 const sliderSettings = {
     adaptiveHeight: true,
@@ -49,25 +49,25 @@ const HomeSlider = () => {
                 </Link>
                 <Link to="/search?query=Physics">
                     <Styled.Slide>
-                        <Styled.Image src={physicsSource} />
+                        <Styled.Image src={physicsPhoto} />
                         <Styled.Content>Physics</Styled.Content>
                     </Styled.Slide>
                 </Link>
                 <Link to="/search?query=Geography">
                     <Styled.Slide>
-                        <Styled.Image src={geographySource} />
+                        <Styled.Image src={geographyPhoto} />
                         <Styled.Content>Geography</Styled.Content>
                     </Styled.Slide>
                 </Link>
                 <Link to="/search?query=Programming">
                     <Styled.Slide>
-                        <Styled.Image src={programmingSource} />
+                        <Styled.Image src={programmingPhoto} />
                         <Styled.Content>Programming</Styled.Content>
                     </Styled.Slide>
                 </Link>
                 <Link to="/search?query=Chemistry">
                     <Styled.Slide>
-                        <Styled.Image src={chemistrySource} />
+                        <Styled.Image src={chemistryPhoto} />
                         <Styled.Content>Chemistry</Styled.Content>
                     </Styled.Slide>
                 </Link>

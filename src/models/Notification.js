@@ -1,5 +1,6 @@
 import { Sequelize } from 'sequelize';
 import database from '../data-access/database.js';
+import NOTIFICATION_TYPES from '../constants/notification-types.js';
 
 const Notification = database.define(
     'Notification',
@@ -9,9 +10,17 @@ const Notification = database.define(
             defaultValue: Sequelize.UUIDV4,
             primaryKey: true,
         },
-        content: {
-            type: Sequelize.STRING,
+        type: {
+            type: Sequelize.ENUM(
+                NOTIFICATION_TYPES.incomingRequest,
+                NOTIFICATION_TYPES.acceptedRequest,
+                NOTIFICATION_TYPES.deniedRequest
+            ),
             allowNull: false,
+        },
+        content: {
+            type: Sequelize.JSON,
+            allowNull: true,
         },
     },
     { timestamps: true }

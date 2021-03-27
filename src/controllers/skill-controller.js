@@ -1,11 +1,9 @@
-import sequelize from 'sequelize';
+import Fuse from 'fuse.js';
 import User from '../models/User.js';
 import Skill from '../models/Skill.js';
 
-const { Op } = sequelize;
-
-/** Get Users that teach a specific skill.
- * @param {string} name - Requires a skill name url parameter.
+/** Get Users By Skill Name
+ * @param {string} name - Requires a skill name passed as URL parameter.
  */
 export const getSkill = async (req, res) => {
     try {
@@ -13,28 +11,33 @@ export const getSkill = async (req, res) => {
         if (!name) {
             throw Error('No skill name provided.');
         }
-        const skill = await Skill.findAll({
-            where: {
-                name: {
-                    [Op.iLike]: `${name}%`,
-                },
-            },
+        const searchOptions = {
+            includeScore: true,
+            keys: ['name'],
+        };
+        const skills = await Skill.findAll({
             include: {
                 model: User,
                 attributes: {
                     exclude: ['email', 'password'],
                 },
             },
+
             limit: 15,
         });
-        res.json(skill);
+        const fuse = new Fuse(skills, searchOptions);
+        const fuseResult = fuse.search(name);
+        if (!fuseResult.length) {
+            throw Error('Nothing found.');
+        }
+        res.json(fuseResult[0].item);
     } catch (err) {
         res.status(400).json({ error: err.message });
     }
 };
 
-/** Adds a skill to the user's Model.
- * @param {string} name - Requires a skill name parameter in the request body.
+/** Add User Skill
+ * @param {string} name - Requires a skill name parameter passed in the request body.
  */
 export const postSkill = async (req, res) => {
     try {
@@ -60,8 +63,8 @@ export const postSkill = async (req, res) => {
     }
 };
 
-/** Delete's a skill from the User Model.
- * @param {uuid} skillId - Requires a skill Id parameter in the request body.
+/** Delete User Skill
+ * @param {uuid} skillId - Requires a skill ID parameter passed in the request body.
  */
 export const deleteSkill = async (req, res) => {
     try {

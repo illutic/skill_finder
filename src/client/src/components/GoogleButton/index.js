@@ -1,5 +1,5 @@
 import GoogleLogin from 'react-google-login';
-import useGoogleSuccess from '../../hooks/useGoogleSuccess';
+import useGoogleSuccess from '../../hooks/auth/useGoogleSuccess';
 import Button from '../Button/index';
 
 const GoogleButton = ({ children }) => {

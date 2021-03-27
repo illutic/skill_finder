@@ -1,5 +1,5 @@
 /** @constant FORM_TYPES */
-/**  Specifies the type of form.
+/**  Specifies the type of form to be validated.
  */
 const FORM_TYPES = {
     signup: 0,

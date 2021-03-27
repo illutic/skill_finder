@@ -1,8 +1,8 @@
 import * as Styled from './styled';
 
-const CloseButton = () => {
+const CloseButton = ({ ...props }) => {
     return (
-        <Styled.Button>
+        <Styled.Button {...props}>
             <Styled.SVG
                 xmlns="http://www.w3.org/2000/svg"
                 width="10"

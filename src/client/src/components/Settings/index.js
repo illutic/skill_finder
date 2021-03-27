@@ -1,23 +1,23 @@
 import * as Styled from './styled';
-import useUpdatePhoto from '../../hooks/useUpdatePhoto';
-import PHOTO_TYPES from '../../constants/photoTypes';
+import useImageUpload from '../../hooks/api/useImageUpload';
 import Container from '../Container/index';
 import Heading from '../Heading/index';
 import FormSuccess from '../FormSuccess';
 import FormError from '../FormError/index';
 import CloseButton from '../CloseButton/index';
+import PHOTO_TYPES from '../../constants/photoTypes';
 
 const Settings = () => {
     const {
-        updatePhoto: updateProfilePhoto,
+        uploadImage: uploadProfilePhoto,
         success: profilePhotoSuccess,
         error: profilePhotoError,
-    } = useUpdatePhoto();
+    } = useImageUpload();
     const {
-        updatePhoto: updateBackgroundPhoto,
+        uploadImage: uploadBackgroundImage,
         success: backgroundPhotoSuccess,
         error: backgroundPhotoError,
-    } = useUpdatePhoto();
+    } = useImageUpload();
 
     return (
         <Container spaced>
@@ -28,7 +28,7 @@ const Settings = () => {
                         <Styled.Subheading>Profile Photo</Styled.Subheading>
                         <Styled.FileForm
                             onSubmit={(e) =>
-                                updateProfilePhoto(e, PHOTO_TYPES.profile)
+                                uploadProfilePhoto(e, PHOTO_TYPES.profile)
                             }
                         >
                             <Styled.Group>
@@ -42,7 +42,7 @@ const Settings = () => {
                                 />
                             </Styled.Group>
                             <Styled.FileSubmit outlined>
-                                Change
+                                Upload
                             </Styled.FileSubmit>
                         </Styled.FileForm>
                         {profilePhotoSuccess ? (
@@ -58,7 +58,7 @@ const Settings = () => {
                         <Styled.Subheading>Background Image</Styled.Subheading>
                         <Styled.FileForm
                             onSubmit={(e) =>
-                                updateBackgroundPhoto(e, PHOTO_TYPES.background)
+                                uploadBackgroundImage(e, PHOTO_TYPES.background)
                             }
                         >
                             <Styled.Group>
@@ -72,7 +72,7 @@ const Settings = () => {
                                 />
                             </Styled.Group>
                             <Styled.FileSubmit outlined>
-                                Change
+                                Upload
                             </Styled.FileSubmit>
                         </Styled.FileForm>
                         {backgroundPhotoSuccess ? (
@@ -231,7 +231,7 @@ const Settings = () => {
                             <Styled.Split>
                                 <Styled.Side>
                                     <Styled.Label htmlFor="confirm">
-                                        Type "Delete account" to confirm
+                                        Type "Delete account"
                                     </Styled.Label>
                                     <Styled.Input
                                         name="confirm"
@@ -253,7 +253,7 @@ const Settings = () => {
                                 </Styled.Side>
                             </Styled.Split>
                         </Styled.Group>
-                        <Styled.Submit outlined>Update</Styled.Submit>
+                        <Styled.Submit outlined>Delete</Styled.Submit>
                     </Styled.Form>
                     {/* <FormError>Error</FormError> */}
                 </Styled.Subsection>

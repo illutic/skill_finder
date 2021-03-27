@@ -15,3 +15,23 @@ export const Wrapper = styled.div`
         height: calc(100vh - 78px);
     }
 `;
+
+export const Controls = styled.div`
+    position: relative;
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 1px solid ${({ theme }) => theme.colors.subtle};
+    @media (min-width: ${SCREENS.large}) {
+        display: none;
+    }
+`;
+
+export const Control = styled.button`
+    flex: 1;
+    padding: 10px;
+    background: transparent;
+    cursor: pointer;
+    &:first-child {
+        border-right: 1px solid ${({ theme }) => theme.colors.subtle};
+    }
+`;

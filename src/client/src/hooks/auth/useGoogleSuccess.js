@@ -1,11 +1,11 @@
 import { useHistory } from 'react-router-dom';
-import useAuthCheck from '../hooks/useAuthCheck';
-import useUserSync from '../hooks/useUserSync';
+import useAuthCheck from '../auth/useAuthCheck';
+import useGlobalDataSync from '../sync/useGlobalDataSync';
 
 const useGoogleSuccess = () => {
     const history = useHistory();
     const checkAuth = useAuthCheck();
-    const syncUser = useUserSync();
+    const syncGlobalData = useGlobalDataSync();
 
     const onSuccess = (response) => {
         const tokenId = response.tokenObj.id_token;
@@ -13,9 +13,8 @@ const useGoogleSuccess = () => {
         const expires = response.tokenObj.expires_in;
         document.cookie = `google=${tokenId};max-age=${maxAge};expires=${expires}`;
         checkAuth();
-        syncUser();
+        syncGlobalData();
         history.push('/');
-        window.location.reload();
     };
     return onSuccess;
 };

@@ -1,31 +1,35 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useRef, useCallback } from 'react';
+import useLocationId from '../../hooks/other/useLocationId';
+import useChat from '../../hooks/api/useChat';
 import { UserContext } from '../../contexts/UserContextProvider';
 import * as Styled from './styled';
-import { useChatSocket } from '../../hooks/useChatSocket';
-
-const Chat = ({ toggleContactsDrawer, toggleFilesDrawer }) => {
+import useFileUpload from '../../hooks/api/useFileUpload';
+import useFiles from '../../hooks/api/useFiles';
+const Chat = () => {
     const { user } = useContext(UserContext);
-    const { socket, messages, messagesContainerRef, chatId } = useChatSocket();
-    const sendMessage = (e) => {
-        e.preventDefault();
-        const form = e.target;
-        const newMessage = form.newMessage.value;
-        if (newMessage) {
-            socket.emit('sendMessage', chatId, newMessage);
-            form.reset();
-        }
-    };
+    const { locationId } = useLocationId();
+    const { uploadFile, setFilePayload } = useFileUpload();
+    const { messages, setNewMessage, sendMessage } = useChat(locationId);
+    const { setFilesFor } = useFiles();
+    const messagesFormRef = useRef();
+    const messagesContainerRef = useRef();
+
+    const clearMessageBox = useCallback(() => {
+        messagesFormRef.current.reset();
+    }, []);
+
+    const scrollMessageBox = useCallback(() => {
+        const messagesContainer = messagesContainerRef.current;
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }, []);
+
+    useEffect(() => {
+        clearMessageBox();
+        scrollMessageBox();
+    }, [messages, clearMessageBox, scrollMessageBox]);
 
     return (
         <Styled.Chat>
-            <Styled.Controls>
-                <Styled.Control onClick={toggleContactsDrawer}>
-                    Contacts
-                </Styled.Control>
-                <Styled.Control onClick={toggleFilesDrawer}>
-                    Files
-                </Styled.Control>
-            </Styled.Controls>
             <Styled.Messages ref={messagesContainerRef}>
                 {messages?.length
                     ? messages.map((message) => {
@@ -45,15 +49,37 @@ const Chat = ({ toggleContactsDrawer, toggleFilesDrawer }) => {
                       })
                     : null}
             </Styled.Messages>
-            <Styled.Form onSubmit={sendMessage}>
+            <Styled.FileForm>
+                <Styled.Label htmlFor="newFile" />
+                <span id="fileName"> Add a File </span>
+                <Styled.File
+                    id="newFile"
+                    type="file"
+                    hidden={true}
+                    onChange={(e) => {
+                        const fileLabel = document.getElementById('fileName');
+                        fileLabel.textContent = e.target.files[0].name;
+                        setFilePayload(e.target.files[0]);
+                    }}
+                />
+            </Styled.FileForm>
+            <Styled.MessageBox ref={messagesFormRef} onSubmit={sendMessage}>
                 <Styled.TextArea
                     type="text"
                     placeholder="Aa"
                     name="newMessage"
                     id="newMessage"
+                    onChange={(e) => setNewMessage(e.target.value)}
+                    onKeyDown={sendMessage}
                 />
-                <Styled.PositionedSendButton />
-            </Styled.Form>
+                <Styled.PositionedSendButton
+                    onClick={(e) => {
+                        sendMessage(e);
+                        uploadFile();
+                        setFilesFor();
+                    }}
+                />
+            </Styled.MessageBox>
         </Styled.Chat>
     );
 };
