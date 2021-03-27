@@ -60,30 +60,36 @@ const RequestActions = ({ userId }) => {
     switch (actionType) {
         case REQUEST_STATUS.accepted:
             return (
-                <Button outlined disabled>
+                <Button outlined fixed disabled>
                     Connected
                 </Button>
             );
         case REQUEST_STATUS.pending:
             return (
                 <Styled.Buttons>
-                    <Button onClick={() => acceptRequest(requestId)}>
+                    <Button fixed onClick={() => acceptRequest(requestId)}>
                         Accept
                     </Button>
-                    <Button outlined onClick={() => denyRequest(requestId)}>
+                    <Button
+                        outlined
+                        fixed
+                        onClick={() => denyRequest(requestId)}
+                    >
                         Deny
                     </Button>
                 </Styled.Buttons>
             );
         case REQUEST_STATUS.sent:
             return (
-                <Button outlined disabled>
+                <Button outlined fixed disabled>
                     Sent
                 </Button>
             );
         default:
             return (
-                <Button onClick={() => sendRequest(userId)}>Reach out</Button>
+                <Button fixed onClick={() => sendRequest(userId)}>
+                    Reach out
+                </Button>
             );
     }
 };

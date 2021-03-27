@@ -59,7 +59,9 @@ const Profile = () => {
                             {isAuth ? (
                                 profile?.id === user?.id ? (
                                     <Link to={ROUTES.settings}>
-                                        <Button outlined>Edit profile</Button>
+                                        <Button outlined fixed>
+                                            Edit profile
+                                        </Button>
                                     </Link>
                                 ) : (
                                     <RequestActions userId={profile?.id} />

@@ -54,7 +54,7 @@ const SearchResults = () => {
                                     {isAuth ? (
                                         user?.id === currentUser?.id ? (
                                             <Link to={ROUTES.settings}>
-                                                <Button outlined>
+                                                <Button outlined fixed>
                                                     Edit profile
                                                 </Button>
                                             </Link>
