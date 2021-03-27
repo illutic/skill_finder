@@ -17,7 +17,6 @@
         "socket.io": "^4.0.0",
         "socket.io-client": "^4.0.0",
         "styled-components": "^5.2.1",
-        "undefined": "file:..",
         "web-vitals": "^1.1.0"
     },
     "devDependencies": {

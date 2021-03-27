@@ -2,7 +2,6 @@ import { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import useLocationId from '../../hooks/other/useLocationId';
 import useProfile from '../../hooks/api/useProfile';
-import useRequest from '../../hooks/api/useRequest';
 import { AuthContext } from '../../contexts/AuthContextProvider';
 import { UserContext } from '../../contexts/UserContextProvider';
 import * as Styled from './styled';
@@ -20,7 +19,6 @@ const Profile = () => {
     const { user } = useContext(UserContext);
     const { profile, isProfileLoading, setProfileId } = useProfile();
     const { locationId } = useLocationId();
-    const { sendRequest } = useRequest();
 
     useEffect(() => {
         setProfileId(locationId);
@@ -60,17 +58,10 @@ const Profile = () => {
                         <Styled.Action>
                             {isAuth ? (
                                 profile?.id === user?.id ? (
-                                    // EditButton
                                     <Link to={ROUTES.settings}>
                                         <Button outlined>Edit profile</Button>
                                     </Link>
                                 ) : (
-                                    // RequestButtons
-                                    // <Button
-                                    //     onClick={() => sendRequest(profile?.id)}
-                                    // >
-                                    //     Reach out
-                                    // </Button>
                                     <RequestActions userId={profile?.id} />
                                 )
                             ) : null}
