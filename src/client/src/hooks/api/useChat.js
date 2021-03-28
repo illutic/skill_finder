@@ -34,7 +34,11 @@ const useChat = (chatId) => {
         if (isKeydown || isClick) {
             e.preventDefault();
             if (newMessage) {
-                socket.emit('sendMessage', chatId, newMessage);
+                let newestMessage = newMessage;
+                if (newestMessage.length > 255) {
+                    newestMessage = newMessage.substring(0, 255);
+                }
+                socket.emit('sendMessage', chatId, newestMessage);
                 setNewMessage(null);
             }
         }
