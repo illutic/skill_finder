@@ -2,6 +2,7 @@ import { useState, useContext, useCallback, useEffect } from 'react';
 import useFilesSync from '../sync/useFilesSync';
 import { SocketContext } from '../../contexts/SocketContextProvider';
 import ENDPOINTS from '../../constants/endpoints';
+import { codeMarkdown, htmlEncoder } from '../../helpers/htmlEncoder';
 
 const useChat = (chatId) => {
     const syncFiles = useFilesSync();
@@ -40,10 +41,12 @@ const useChat = (chatId) => {
         if (isKeydown || isClick) {
             e.preventDefault();
             if (newMessage) {
-                let newestMessage = newMessage;
-                if (newestMessage.length > 255) {
-                    newestMessage = newMessage.substring(0, 255);
-                }
+                let newestMessage = htmlEncoder(newMessage);
+                newestMessage = codeMarkdown(newMessage);
+                // if (newestMessage.length > 255) {
+                //     newestMessage = newMessage.substring(0, 255);
+                // }
+                console.log(newestMessage);
                 socket.emit('sendMessage', chatId, newestMessage);
                 setNewMessage(null);
             }

@@ -3,12 +3,12 @@ import useLocationId from '../other/useLocationId';
 import useFilesSync from '../sync/useFilesSync';
 import ENDPOINTS from '../../constants/endpoints';
 import { SocketContext } from '../../contexts/SocketContextProvider';
+import { htmlFileEncoder } from '../../helpers/htmlEncoder';
 
 const useFileUpload = () => {
     const { locationId: chatId } = useLocationId();
     const syncFiles = useFilesSync();
     const [filePayload, setFilePayload] = useState();
-
     const { socket } = useContext(SocketContext);
 
     const uploadFile = useCallback(async () => {
@@ -27,20 +27,7 @@ const useFileUpload = () => {
             throw payload.error;
         }
         const fileType = filePayload.name.split('.').pop();
-        let htmlMarkup;
-
-        // Move the conditional rendering to Chat.js
-        // and render based on the message type.
-        if (fileType.match(/(jpg|JPG|jpeg|JPEG|png|PNG|gif|GIF)$/)) {
-            htmlMarkup = `<a download="${filePayload.name}" href="http://localhost:8081/api/${payload.uri}">
-                                    <img src="http://localhost:8081/api/${payload.uri}" style="width:250px;" />
-                                </a>`;
-        } else {
-            htmlMarkup = `<a download="${filePayload.name}" href="http://localhost:8081/api/${payload.uri}">
-                                ${filePayload.name}
-                            </a>`;
-        }
-        // socket.emit('sendMessage', chatId, messageType);
+        let htmlMarkup = htmlFileEncoder(fileType, filePayload, payload);
         socket.emit('sendMessage', chatId, htmlMarkup);
         syncFiles(chatId);
     }, [chatId, filePayload, socket, syncFiles]);
