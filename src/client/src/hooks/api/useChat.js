@@ -1,9 +1,11 @@
 import { useState, useContext, useCallback, useEffect } from 'react';
+import useFilesSync from '../sync/useFilesSync';
 import { SocketContext } from '../../contexts/SocketContextProvider';
 import ENDPOINTS from '../../constants/endpoints';
 import { codeMarkdown, htmlEncoder } from '../../helpers/htmlEncoder';
 
 const useChat = (chatId) => {
+    const syncFiles = useFilesSync();
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState();
     const { socket } = useContext(SocketContext);
@@ -29,7 +31,11 @@ const useChat = (chatId) => {
         }
     }, [chatId]);
 
-    const sendMessage = async (e) => {
+    const loadFiles = useCallback(() => {
+        syncFiles(chatId);
+    }, [chatId, syncFiles]);
+
+    const sendMessage = (e) => {
         const isKeydown = e.type === 'keydown' && e.keyCode === 13;
         const isClick = e.type === 'click';
         if (isKeydown || isClick) {
@@ -61,10 +67,11 @@ const useChat = (chatId) => {
     useEffect(() => {
         joinCurrentChat();
         loadMessages();
+        loadFiles();
         return () => {
             leaveCurrentChat();
         };
-    }, [joinCurrentChat, loadMessages, leaveCurrentChat]);
+    }, [joinCurrentChat, loadMessages, loadFiles, leaveCurrentChat]);
 
     useEffect(() => {
         listenForNewMessages();

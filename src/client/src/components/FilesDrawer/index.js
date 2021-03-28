@@ -1,18 +1,12 @@
-import { useEffect } from 'react';
-import useLocationId from '../../hooks/other/useLocationId';
-import useFiles from '../../hooks/api/useFiles';
-import useFilesDownload from '../../hooks/api/useFileDownload';
+import { useContext } from 'react';
+import { FilesContext } from '../../contexts/FilesContextProvider';
+import useFileDownload from '../../hooks/api/useFileDownload';
 import stopPropagation from '../../utils/stopPropagation';
 import * as Styled from './styled';
 
 const FilesDrawer = ({ isActive }) => {
-    const { locationId } = useLocationId();
-    const { files, setFilesFor } = useFiles();
-    const { downloadFile } = useFilesDownload();
-
-    useEffect(() => {
-        setFilesFor(locationId);
-    }, [locationId, setFilesFor]);
+    const { downloadFile } = useFileDownload();
+    const { files } = useContext(FilesContext);
 
     return (
         <Styled.FilesDrawer active={isActive} onClick={stopPropagation}>
