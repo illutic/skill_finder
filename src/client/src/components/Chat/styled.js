@@ -26,7 +26,7 @@ export const Messages = styled.section`
     }
 `;
 
-export const Message = styled.p`
+export const Message = styled.span`
     align-self: ${({ currentUser }) =>
         currentUser ? 'flex-start' : 'flex-end'};
     padding: 10px 15px;

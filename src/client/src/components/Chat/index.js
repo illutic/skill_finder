@@ -77,15 +77,22 @@ const Chat = () => {
                     ? messages.map((message) => {
                           if (message.userId === user.id) {
                               return (
-                                  <Styled.Message key={message.id} currentUser>
-                                      {message.content}
-                                  </Styled.Message>
+                                  <Styled.Message
+                                      key={message.id}
+                                      currentUser
+                                      dangerouslySetInnerHTML={{
+                                          __html: message.content,
+                                      }}
+                                  ></Styled.Message>
                               );
                           } else {
                               return (
-                                  <Styled.Message key={message.id}>
-                                      {message.content}
-                                  </Styled.Message>
+                                  <Styled.Message
+                                      key={message.id}
+                                      dangerouslySetInnerHTML={{
+                                          __html: message.content,
+                                      }}
+                                  ></Styled.Message>
                               );
                           }
                       })
