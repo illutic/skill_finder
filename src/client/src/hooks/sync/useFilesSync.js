@@ -7,11 +7,10 @@ const useFilesSync = () => {
 
     const syncFiles = useCallback(
         async (chatId) => {
-            console.log(chatId);
             if (!chatId) {
                 return;
             }
-            const response = await fetch(`${ENDPOINTS.files}/getAll/${chatId}`);
+            const response = await fetch(`${ENDPOINTS.files}/all/${chatId}`);
             const data = await response.json();
             if (response.ok) {
                 setFiles(data);
