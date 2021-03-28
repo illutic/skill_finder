@@ -1,6 +1,7 @@
 import { useState, useContext, useCallback, useEffect } from 'react';
 import { SocketContext } from '../../contexts/SocketContextProvider';
 import ENDPOINTS from '../../constants/endpoints';
+import { codeMarkdown, htmlEncoder } from '../../helpers/htmlEncoder';
 
 const useChat = (chatId) => {
     const [messages, setMessages] = useState([]);
@@ -28,16 +29,18 @@ const useChat = (chatId) => {
         }
     }, [chatId]);
 
-    const sendMessage = (e) => {
+    const sendMessage = async (e) => {
         const isKeydown = e.type === 'keydown' && e.keyCode === 13;
         const isClick = e.type === 'click';
         if (isKeydown || isClick) {
             e.preventDefault();
             if (newMessage) {
-                let newestMessage = newMessage;
-                if (newestMessage.length > 255) {
-                    newestMessage = newMessage.substring(0, 255);
-                }
+                let newestMessage = htmlEncoder(newMessage);
+                newestMessage = codeMarkdown(newMessage);
+                // if (newestMessage.length > 255) {
+                //     newestMessage = newMessage.substring(0, 255);
+                // }
+                console.log(newestMessage);
                 socket.emit('sendMessage', chatId, newestMessage);
                 setNewMessage(null);
             }

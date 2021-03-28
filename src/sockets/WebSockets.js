@@ -188,6 +188,9 @@ export const WebSockets = (io) => {
             // if (newMessage.length > 255) {
             //     newMessage = newMessage.substring(0, 255);
             // }
+            if (!message) {
+                return;
+            }
             const databaseMessage = await Message.create({
                 content: message,
                 userId: id,

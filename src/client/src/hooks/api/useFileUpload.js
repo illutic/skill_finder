@@ -2,6 +2,7 @@ import { useContext, useState } from 'react';
 import useFilesFor from '../api/useFiles';
 import ENDPOINTS from '../../constants/endpoints';
 import { SocketContext } from '../../contexts/SocketContextProvider';
+import { htmlFileEncoder } from '../../helpers/htmlEncoder';
 
 const useFileUpload = () => {
     const { setFilesFor } = useFilesFor();
@@ -29,16 +30,7 @@ const useFileUpload = () => {
             }
             /** Embeded files */
             const fileType = filePayload.name.split('.').pop();
-            let htmlMarkup;
-            if (fileType.match(/(jpg|JPG|jpeg|JPEG|png|PNG|gif|GIF)$/)) {
-                htmlMarkup = `<a download="${filePayload.name}" href="http://localhost:8081/api/${payload.uri}">
-                                    <img src="http://localhost:8081/api/${payload.uri}" style="width:250px;" />
-                                </a>`;
-            } else {
-                htmlMarkup = `<a download="${filePayload.name}" href="http://localhost:8081/api/${payload.uri}">
-                                ${filePayload.name}
-                            </a>`;
-            }
+            let htmlMarkup = htmlFileEncoder(fileType, filePayload, payload);
             socket.emit('sendMessage', chatId, htmlMarkup);
 
             setFilesFor();
