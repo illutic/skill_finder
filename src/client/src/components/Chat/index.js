@@ -1,10 +1,12 @@
 import { useContext, useEffect, useRef, useCallback } from 'react';
 import useLocationId from '../../hooks/other/useLocationId';
 import useChat from '../../hooks/api/useChat';
+import useFileUpload from '../../hooks/api/useFileUpload';
 import { UserContext } from '../../contexts/UserContextProvider';
 import * as Styled from './styled';
 import CloseButton from '../CloseButton/index';
-import useFileUpload from '../../hooks/api/useFileUpload';
+import AttachButton from '../AttachButton/index';
+import SendButton from '../SendButton/index';
 
 const Chat = () => {
     const { user } = useContext(UserContext);
@@ -48,7 +50,8 @@ const Chat = () => {
         setFilePayload(null);
     }, [setFilePayload]);
 
-    const openFileInput = useCallback(() => {
+    const openFileInput = useCallback((e) => {
+        e.preventDefault();
         fileInputRef.current.click();
     }, []);
 
@@ -116,8 +119,12 @@ const Chat = () => {
                         ref={fileInputRef}
                     />
                 </Styled.FileUpload>
-                <Styled.PositionedSendButton onClick={(e) => sendAll(e)} />
-                <div onClick={openFileInput}>Add file</div>
+                <Styled.Buttons>
+                    <AttachButton onClick={openFileInput}>
+                        Add file
+                    </AttachButton>
+                    <SendButton onClick={(e) => sendAll(e)} />
+                </Styled.Buttons>
             </Styled.MessageBox>
         </Styled.Chat>
     );

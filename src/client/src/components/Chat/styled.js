@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import SCREENS from '../../constants/screens';
-import SendButton from '../SendButton/index';
 
 export const Chat = styled.div`
     flex: 1;
@@ -65,9 +64,20 @@ export const TextArea = styled.textarea`
     }
 `;
 
-export const PositionedSendButton = styled(SendButton)`
-    align-self: center;
-    margin-right: 15px;
+export const Buttons = styled.div`
+    display: flex;
+
+    & > * {
+        align-self: center;
+    }
+
+    & > *:first-child {
+        margin-right: 10px;
+    }
+
+    & > *:last-child {
+        margin-right: 15px;
+    }
 `;
 
 export const FileUpload = styled.div``;
