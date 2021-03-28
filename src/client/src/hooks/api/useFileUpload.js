@@ -10,6 +10,9 @@ const useFileUpload = () => {
 
     const uploadFile = async () => {
         const chatId = window.location.href.split(`/`).pop();
+        if (!chatId || !filePayload) {
+            return;
+        }
         const formData = new FormData();
         formData.append('chatId', chatId);
         formData.append('file', filePayload);

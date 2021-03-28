@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import SCREENS from '../../constants/screens';
-import AddButton from '../AddButton';
 import SendButton from '../SendButton/index';
 
 export const Chat = styled.div`
@@ -48,6 +47,7 @@ export const Message = styled.p`
 `;
 
 export const MessageBox = styled.form`
+    position: relative;
     display: flex;
     height: 100px;
     border-top: 1px solid ${({ theme }) => theme.colors.subtle};
@@ -59,7 +59,10 @@ export const TextArea = styled.textarea`
     width: 100%;
     height: 100%;
     resize: none;
-    background-transparent;
+    background: transparent;
+    &:disabled {
+        background: transparent:
+    }
 `;
 
 export const PositionedSendButton = styled(SendButton)`
@@ -67,16 +70,33 @@ export const PositionedSendButton = styled(SendButton)`
     margin-right: 15px;
 `;
 
-export const File = styled.input`
-    padding: 10px 0;
+export const FileUpload = styled.div``;
+
+export const FileLabel = styled.label`
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    display: none;
+    &.active {
+        display: flex;
+        align-items: center;
+        padding: 10px 15px;
+        background-color: ${({ theme }) => theme.colors.positive};
+        border: 1px solid ${({ theme }) => theme.colors.subtle};
+        border-radius: 7px;
+        cursor: pointer;
+    }
 `;
 
-export const FileSubmit = styled(SendButton)`
-    margin-top: 25px;
+export const FileName = styled.div`
+    margin-right: 15px;
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-decoration: underline;
+    @media (min-width: ${SCREENS.medium}) {
+        max-width: 200px;
+    }
 `;
 
-export const FileForm = styled.form`
-    margin-top: 35px;
-`;
-
-export const Label = styled(AddButton)``;
+export const FileInput = styled.input``;

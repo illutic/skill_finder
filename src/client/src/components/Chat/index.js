@@ -3,16 +3,20 @@ import useLocationId from '../../hooks/other/useLocationId';
 import useChat from '../../hooks/api/useChat';
 import { UserContext } from '../../contexts/UserContextProvider';
 import * as Styled from './styled';
+import CloseButton from '../CloseButton/index';
 import useFileUpload from '../../hooks/api/useFileUpload';
-import useFiles from '../../hooks/api/useFiles';
+
 const Chat = () => {
     const { user } = useContext(UserContext);
     const { locationId } = useLocationId();
     const { uploadFile, setFilePayload } = useFileUpload();
     const { messages, setNewMessage, sendMessage } = useChat(locationId);
-    const { setFilesFor } = useFiles();
     const messagesFormRef = useRef();
     const messagesContainerRef = useRef();
+    const fileInputRef = useRef();
+    const fileNameRef = useRef();
+    const fileLabelRef = useRef();
+    const messageBoxRef = useRef();
 
     const clearMessageBox = useCallback(() => {
         messagesFormRef.current.reset();
@@ -22,6 +26,41 @@ const Chat = () => {
         const messagesContainer = messagesContainerRef.current;
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
     }, []);
+
+    const addFilePayload = useCallback(
+        (e) => {
+            if (!e.target.files[0]) {
+                return;
+            }
+            fileNameRef.current.textContent = e.target.files[0].name;
+            fileLabelRef.current.classList.add('active');
+            messageBoxRef.current.value = '';
+            messageBoxRef.current.setAttribute('disabled', '');
+            setFilePayload(e.target.files[0]);
+            setNewMessage('');
+        },
+        [setFilePayload, setNewMessage]
+    );
+
+    const clearFilePayload = useCallback(() => {
+        fileLabelRef.current.classList.remove('active');
+        messageBoxRef.current.removeAttribute('disabled');
+        setFilePayload(null);
+    }, [setFilePayload]);
+
+    const openFileInput = useCallback(() => {
+        fileInputRef.current.click();
+    }, []);
+
+    const sendAll = useCallback(
+        (e) => {
+            e.preventDefault();
+            uploadFile();
+            sendMessage(e);
+            clearFilePayload();
+        },
+        [sendMessage, uploadFile, clearFilePayload]
+    );
 
     useEffect(() => {
         clearMessageBox();
@@ -49,20 +88,6 @@ const Chat = () => {
                       })
                     : null}
             </Styled.Messages>
-            <Styled.FileForm>
-                <Styled.Label htmlFor="newFile" />
-                <span id="fileName"> Add a File </span>
-                <Styled.File
-                    id="newFile"
-                    type="file"
-                    hidden={true}
-                    onChange={(e) => {
-                        const fileLabel = document.getElementById('fileName');
-                        fileLabel.textContent = e.target.files[0].name;
-                        setFilePayload(e.target.files[0]);
-                    }}
-                />
-            </Styled.FileForm>
             <Styled.MessageBox ref={messagesFormRef} onSubmit={sendMessage}>
                 <Styled.TextArea
                     type="text"
@@ -71,14 +96,28 @@ const Chat = () => {
                     id="newMessage"
                     onChange={(e) => setNewMessage(e.target.value)}
                     onKeyDown={sendMessage}
-                />
-                <Styled.PositionedSendButton
-                    onClick={(e) => {
-                        sendMessage(e);
-                        uploadFile();
-                        setFilesFor();
-                    }}
-                />
+                    ref={messageBoxRef}
+                ></Styled.TextArea>
+                <Styled.FileUpload>
+                    <Styled.FileLabel htmlFor="newFile" ref={fileLabelRef}>
+                        <Styled.FileName ref={fileNameRef}></Styled.FileName>
+                        <CloseButton
+                            onClick={(e) => {
+                                e.preventDefault();
+                                clearFilePayload();
+                            }}
+                        />
+                    </Styled.FileLabel>
+                    <Styled.FileInput
+                        id="newFile"
+                        type="file"
+                        hidden
+                        onChange={addFilePayload}
+                        ref={fileInputRef}
+                    />
+                </Styled.FileUpload>
+                <Styled.PositionedSendButton onClick={(e) => sendAll(e)} />
+                <div onClick={openFileInput}>Add file</div>
             </Styled.MessageBox>
         </Styled.Chat>
     );
