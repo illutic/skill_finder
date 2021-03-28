@@ -18,7 +18,13 @@ const useLogout = () => {
         syncGlobalData();
         if (socket) {
             socket.disconnect();
-            setSocket(io({ autoConnect: false }));
+            setSocket(
+                io({
+                    autoConnect: false,
+                    reconnection: false,
+                    forceNew: true,
+                })
+            );
         }
         history.push('/login');
     };

@@ -10,7 +10,7 @@ const Message = database.define(
             primaryKey: true,
         },
         content: {
-            type: Sequelize.STRING,
+            type: Sequelize.TEXT,
             allowNull: false,
         },
         userId: {
