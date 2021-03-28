@@ -23,6 +23,9 @@ export const Files = styled.ul`
 
 export const File = styled.li`
     text-decoration: underline;
+    max-width: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
     &:not(:first-child) {
         margin-top: 15px;
     }
