@@ -98,7 +98,7 @@ const Chat = () => {
                       })
                     : null}
             </Styled.Messages>
-            <Styled.MessageBox ref={messagesFormRef} onSubmit={sendMessage}>
+            <Styled.MessageBox ref={messagesFormRef}>
                 <Styled.TextArea
                     type="text"
                     placeholder="Aa"

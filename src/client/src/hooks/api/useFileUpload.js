@@ -18,7 +18,6 @@ const useFileUpload = () => {
         const formData = new FormData();
         formData.append('chatId', chatId);
         formData.append('file', filePayload);
-
         const response = await fetch(`${ENDPOINTS.files}`, {
             method: 'POST',
             body: formData,
@@ -27,9 +26,11 @@ const useFileUpload = () => {
         if (!response.ok) {
             throw payload.error;
         }
-        /** Embeded files */
         const fileType = filePayload.name.split('.').pop();
         let htmlMarkup;
+
+        // Move the conditional rendering to Chat.js
+        // and render based on the message type.
         if (fileType.match(/(jpg|JPG|jpeg|JPEG|png|PNG|gif|GIF)$/)) {
             htmlMarkup = `<a download="${filePayload.name}" href="http://localhost:8081/api/${payload.uri}">
                                     <img src="http://localhost:8081/api/${payload.uri}" style="width:250px;" />
@@ -39,6 +40,7 @@ const useFileUpload = () => {
                                 ${filePayload.name}
                             </a>`;
         }
+        // socket.emit('sendMessage', chatId, messageType);
         socket.emit('sendMessage', chatId, htmlMarkup);
         syncFiles(chatId);
     }, [chatId, filePayload, socket, syncFiles]);
