@@ -1,9 +1,10 @@
 import { useContext } from 'react';
 import * as Styled from './styled';
-import useImageUpload from '../../hooks/api/useImageUpload';
-import useTitleUpdate from '../../hooks/api/useTitleUpdate';
-import useDescriptionUpdate from '../../hooks/api/useDescriptionUpdate';
+import useUploadImage from '../../hooks/api/useUploadImage';
+import useUpdateTitle from '../../hooks/api/useUpdateTitle';
+import useUpdateDescription from '../../hooks/api/useUpdateDescription';
 import useAddSkill from '../../hooks/api/useAddSkill';
+import useDeleteSkill from '../../hooks/api/useDeleteSkill';
 import { UserContext } from '../../contexts/UserContextProvider';
 import Container from '../Container/index';
 import Heading from '../Heading/index';
@@ -18,23 +19,24 @@ const Settings = () => {
         uploadImage: uploadProfilePhoto,
         success: profilePhotoSuccess,
         error: profilePhotoError,
-    } = useImageUpload();
+    } = useUploadImage();
     const {
         uploadImage: uploadBackgroundImage,
         success: backgroundPhotoSuccess,
         error: backgroundPhotoError,
-    } = useImageUpload();
+    } = useUploadImage();
     const {
         updateTitle,
         success: titleSuccess,
         error: titleError,
-    } = useTitleUpdate();
+    } = useUpdateTitle();
     const {
         updateDescription,
         success: descriptionSuccess,
         error: descriptionError,
-    } = useDescriptionUpdate();
+    } = useUpdateDescription();
     const { addSkill, error: skillError } = useAddSkill();
+    const { deleteSkill } = useDeleteSkill();
 
     return (
         <Container spaced>
@@ -165,11 +167,13 @@ const Settings = () => {
                     {skillError ? <FormError>{skillError}</FormError> : null}
                     <Styled.Skills>
                         {user?.Skills?.map((skill) => (
-                            <Styled.Skill>
+                            <Styled.Skill key={skill.id}>
                                 <Styled.SkillName>
                                     {skill.name}
                                 </Styled.SkillName>
-                                <CloseButton />
+                                <CloseButton
+                                    onClick={(e) => deleteSkill(e, skill.id)}
+                                />
                             </Styled.Skill>
                         )).reverse()}
                     </Styled.Skills>

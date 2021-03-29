@@ -1,29 +1,29 @@
 import { useState } from 'react';
 import ENDPOINTS from '../../constants/endpoints';
 
-const useDescriptionUpdate = () => {
+const useUpdateTitle = () => {
     const [success, setSuccess] = useState();
     const [error, setError] = useState();
 
-    const updateDescription = async (e) => {
+    const updateTitle = async (e) => {
         e.preventDefault();
         const form = e.target;
-        const description = form.newDescription.value;
+        const title = form.newTitle.value;
         try {
-            const response = await fetch(ENDPOINTS.description, {
+            const response = await fetch(ENDPOINTS.title, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    description,
+                    title,
                 }),
             });
             if (!response.ok) {
                 const payload = await response.json();
                 throw payload.error;
             }
-            setSuccess('Description has been updated.');
+            setSuccess('Title has been updated.');
             setError(null);
             form.reset();
         } catch (err) {
@@ -32,7 +32,7 @@ const useDescriptionUpdate = () => {
         }
     };
 
-    return { updateDescription, success, error };
+    return { updateTitle, success, error };
 };
 
-export default useDescriptionUpdate;
+export default useUpdateTitle;

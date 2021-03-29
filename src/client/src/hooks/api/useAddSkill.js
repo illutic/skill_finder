@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import ENDPOINTS from '../../constants/endpoints';
 import useUserSync from '../sync/useUserSync';
+import ENDPOINTS from '../../constants/endpoints';
 
 const useAddSkill = () => {
     const [error, setError] = useState();
