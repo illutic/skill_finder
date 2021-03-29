@@ -49,7 +49,7 @@ const useChat = (chatId) => {
                         cappedMessage = cappedMessage.substring(0, 255);
                     }
                     let encodedMessage = htmlEncoder(cappedMessage);
-                    encodedMessage = codeMarkdown(cappedMessage);
+                    encodedMessage = codeMarkdown(encodedMessage);
                     socket.emit(
                         'sendMessage',
                         chatId,

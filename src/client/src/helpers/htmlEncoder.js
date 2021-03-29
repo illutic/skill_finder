@@ -19,6 +19,7 @@ export const codeMarkdown = (string) => {
     console.log(string.match(/^(```)|(```)$/g));
     if (subStringArray) {
         subStringArray.forEach((codeBlock) => {
+            console.log(subStringArray, string);
             const htmlMarkup = `<pre style="background: #F5966a;
             page-break-inside: avoid;
             font-family: monospace;
@@ -31,8 +32,7 @@ export const codeMarkdown = (string) => {
             display: flex;
             word-wrap: break-word;"><code> ${codeBlock} </code></pre>`;
             string = string.replace(codeBlock, htmlMarkup);
-            string = string.replaceAll(/^(```)|(```)$/g, '');
-            // Needs tweaking I just have to find the correct RegEx formula D:
+            string = string.replace(/^(```)|(```)/gm, '');
         });
         return string;
     }
