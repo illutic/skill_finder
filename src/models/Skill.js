@@ -10,7 +10,7 @@ const Skill = database.define(
             primaryKey: true,
         },
         name: {
-            type: Sequelize.STRING,
+            type: Sequelize.STRING(35),
             allowNull: false,
         },
     },

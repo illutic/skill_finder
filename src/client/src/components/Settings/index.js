@@ -1,7 +1,10 @@
+import { useContext } from 'react';
 import * as Styled from './styled';
 import useImageUpload from '../../hooks/api/useImageUpload';
 import useTitleUpdate from '../../hooks/api/useTitleUpdate';
 import useDescriptionUpdate from '../../hooks/api/useDescriptionUpdate';
+import useAddSkill from '../../hooks/api/useAddSkill';
+import { UserContext } from '../../contexts/UserContextProvider';
 import Container from '../Container/index';
 import Heading from '../Heading/index';
 import FormSuccess from '../FormSuccess';
@@ -10,6 +13,7 @@ import CloseButton from '../CloseButton/index';
 import PHOTO_TYPES from '../../constants/photoTypes';
 
 const Settings = () => {
+    const { user } = useContext(UserContext);
     const {
         uploadImage: uploadProfilePhoto,
         success: profilePhotoSuccess,
@@ -30,6 +34,7 @@ const Settings = () => {
         success: descriptionSuccess,
         error: descriptionError,
     } = useDescriptionUpdate();
+    const { addSkill, error: skillError } = useAddSkill();
 
     return (
         <Container spaced>
@@ -143,7 +148,7 @@ const Settings = () => {
                 </Styled.Subsection>
                 <Styled.Subsection>
                     <Styled.Subheading>Skills</Styled.Subheading>
-                    <Styled.Form onSubmit={(e) => e.preventDefault()}>
+                    <Styled.Form onSubmit={addSkill}>
                         <Styled.Group>
                             <Styled.Label htmlFor="newSkill">
                                 New Skill
@@ -157,16 +162,16 @@ const Settings = () => {
                         </Styled.Group>
                         <Styled.Submit outlined>Add</Styled.Submit>
                     </Styled.Form>
-                    {/* <FormError>Error</FormError> */}
+                    {skillError ? <FormError>{skillError}</FormError> : null}
                     <Styled.Skills>
-                        <Styled.Skill>
-                            <Styled.SkillName>Mathematics</Styled.SkillName>
-                            <CloseButton />
-                        </Styled.Skill>
-                        <Styled.Skill>
-                            <Styled.SkillName>Physics</Styled.SkillName>
-                            <CloseButton />
-                        </Styled.Skill>
+                        {user?.Skills?.map((skill) => (
+                            <Styled.Skill>
+                                <Styled.SkillName>
+                                    {skill.name}
+                                </Styled.SkillName>
+                                <CloseButton />
+                            </Styled.Skill>
+                        )).reverse()}
                     </Styled.Skills>
                 </Styled.Subsection>
             </Styled.Section>

@@ -11,6 +11,7 @@ export const getCurrentUser = async (req, res) => {
         where: {
             id: userId,
         },
+        include: Skill,
         attributes: {
             exclude: ['email', 'password'],
         },
