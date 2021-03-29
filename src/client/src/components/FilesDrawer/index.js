@@ -1,17 +1,25 @@
-import { useContext } from 'react';
+import { useState, useContext } from 'react';
 import { FilesContext } from '../../contexts/FilesContextProvider';
 import useFileDownload from '../../hooks/api/useFileDownload';
 import stopPropagation from '../../utils/stopPropagation';
 import * as Styled from './styled';
 
 const FilesDrawer = ({ isActive }) => {
-    const { downloadFile } = useFileDownload();
+    const [areFilesShown, setAreFilesShown] = useState(false);
     const { files } = useContext(FilesContext);
+    const { downloadFile } = useFileDownload();
+
+    const toggleFiles = () => {
+        setAreFilesShown((previous) => !previous);
+    };
 
     return (
         <Styled.FilesDrawer active={isActive} onClick={stopPropagation}>
-            <Styled.Shared>Shared Files</Styled.Shared>
-            <Styled.Files>
+            <Styled.Shared onClick={toggleFiles}>
+                Shared Files
+                <Styled.DisappearingArrowButton active={areFilesShown} />
+            </Styled.Shared>
+            <Styled.Files active={areFilesShown}>
                 {files?.map((file) => {
                     return (
                         <Styled.File key={file.id}>
