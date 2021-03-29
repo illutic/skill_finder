@@ -1,17 +1,20 @@
 import { useContext, useEffect, useRef, useCallback } from 'react';
 import useLocationId from '../../hooks/other/useLocationId';
 import useChat from '../../hooks/api/useChat';
-import useFileUpload from '../../hooks/api/useFileUpload';
+import useChatUpload from '../../hooks/api/useChatUpload';
 import { UserContext } from '../../contexts/UserContextProvider';
 import * as Styled from './styled';
 import CloseButton from '../CloseButton/index';
 import AttachButton from '../AttachButton/index';
 import SendButton from '../SendButton/index';
+import MESSAGE_TYPES from '../../constants/messageTypes';
+import useFileDownload from '../../hooks/api/useFileDownload';
 
 const Chat = () => {
     const { user } = useContext(UserContext);
     const { locationId } = useLocationId();
-    const { uploadFile, setFilePayload } = useFileUpload();
+    const { downloadFile } = useFileDownload();
+    const { uploadFile, setFilePayload } = useChatUpload();
     const { messages, setNewMessage, sendMessage } = useChat(locationId);
     const messagesFormRef = useRef();
     const messagesContainerRef = useRef();
@@ -75,24 +78,41 @@ const Chat = () => {
             <Styled.Messages ref={messagesContainerRef}>
                 {messages?.length
                     ? messages.map((message) => {
-                          if (message.userId === user.id) {
+                          const currentUser =
+                              message.userId === user.id
+                                  ? { currentUser: 'true' }
+                                  : {};
+                          if (message.type === MESSAGE_TYPES.text) {
                               return (
                                   <Styled.Message
                                       key={message.id}
-                                      currentUser
-                                      dangerouslySetInnerHTML={{
-                                          __html: message.content,
-                                      }}
-                                  ></Styled.Message>
+                                      {...currentUser}
+                                  >
+                                      {message.content}
+                                  </Styled.Message>
                               );
-                          } else {
+                          }
+                          if (message.type === MESSAGE_TYPES.image) {
                               return (
-                                  <Styled.Message
+                                  <Styled.MessageImage
                                       key={message.id}
-                                      dangerouslySetInnerHTML={{
-                                          __html: message.content,
-                                      }}
-                                  ></Styled.Message>
+                                      src={`/${message.content}`}
+                                      alt=""
+                                  />
+                              );
+                          }
+                          if (message.type === MESSAGE_TYPES.file) {
+                              const fileUri = `/${message.content}`;
+                              const fileName = message.content.split('/').pop();
+                              return (
+                                  <Styled.MessageFile
+                                      key={message.id}
+                                      onClick={() =>
+                                          downloadFile(fileUri, fileName)
+                                      }
+                                  >
+                                      {fileName}
+                                  </Styled.MessageFile>
                               );
                           }
                       })

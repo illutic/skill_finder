@@ -26,7 +26,7 @@ export const Messages = styled.section`
     }
 `;
 
-export const Message = styled.span`
+export const Message = styled.p`
     align-self: ${({ currentUser }) =>
         currentUser ? 'flex-start' : 'flex-end'};
     padding: 10px 15px;
@@ -43,6 +43,23 @@ export const Message = styled.span`
     @media (min-width: ${SCREENS.medium}) {
         max-width: 500px;
     }
+`;
+
+export const MessageImage = styled.img`
+    width: 100%;
+    border: 1px solid ${({ theme }) => theme.colors.subtle};
+    border-radius: 15px;
+    &:not(:first-child) {
+        margin-top: 25px;
+    }
+    @media (min-width: ${SCREENS.medium}) {
+        max-width: 55%;
+    }
+`;
+
+export const MessageFile = styled(Message)`
+    text-decoration: underline;
+    cursor: pointer;
 `;
 
 export const MessageBox = styled.form`

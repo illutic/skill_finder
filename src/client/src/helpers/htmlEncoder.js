@@ -38,11 +38,3 @@ export const codeMarkdown = (string) => {
     }
     return string;
 };
-
-export const htmlFileEncoder = async (fileType, filePayload, payload) => {
-    if (fileType.match(/(jpg|JPG|jpeg|JPEG|png|PNG|gif|GIF)$/)) {
-        return `<a download="${filePayload.name}" href="http://localhost:8081/api/${payload.uri}"><img src="http://localhost:8081/api/${payload.uri}" style="width:250px;" /></a>`;
-    } else {
-        return `<a download="${filePayload.name}" href="http://localhost:8081/api/${payload.uri}">${filePayload.name}</a>`;
-    }
-};

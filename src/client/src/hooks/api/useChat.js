@@ -3,6 +3,8 @@ import useFilesSync from '../sync/useFilesSync';
 import { SocketContext } from '../../contexts/SocketContextProvider';
 import ENDPOINTS from '../../constants/endpoints';
 import { codeMarkdown, htmlEncoder } from '../../helpers/htmlEncoder';
+import checkMessageFile from '../../helpers/checkMessageFile';
+import MESSAGE_TYPES from '../../constants/messageTypes';
 
 const useChat = (chatId) => {
     const syncFiles = useFilesSync();
@@ -35,23 +37,36 @@ const useChat = (chatId) => {
         syncFiles(chatId);
     }, [chatId, syncFiles]);
 
-    const sendMessage = (e) => {
-        const isKeydown = e.type === 'keydown' && e.keyCode === 13;
-        const isClick = e.type === 'click';
-        if (isKeydown || isClick) {
-            e.preventDefault();
-            if (newMessage) {
-                let newestMessage = htmlEncoder(newMessage);
-                newestMessage = codeMarkdown(newMessage);
-                // if (newestMessage.length > 255) {
-                //     newestMessage = newMessage.substring(0, 255);
-                // }
-                console.log(newestMessage);
-                socket.emit('sendMessage', chatId, newestMessage);
-                setNewMessage(null);
+    const sendMessage = useCallback(
+        (e) => {
+            const isKeydown = e.type === 'keydown' && e.keyCode === 13;
+            const isClick = e.type === 'click';
+            if (isKeydown || isClick) {
+                e.preventDefault();
+                if (newMessage) {
+                    let encodedMessage = htmlEncoder(newMessage);
+                    encodedMessage = codeMarkdown(newMessage);
+                    socket.emit(
+                        'sendMessage',
+                        chatId,
+                        encodedMessage,
+                        MESSAGE_TYPES.text
+                    );
+                    setNewMessage(null);
+                }
             }
-        }
-    };
+        },
+        [socket, chatId, newMessage]
+    );
+
+    const sendFile = useCallback(
+        (file, uri) => {
+            const messageType = checkMessageFile(file);
+            socket.emit('sendMessage', chatId, uri, messageType);
+            syncFiles(chatId);
+        },
+        [socket, chatId, syncFiles]
+    );
 
     const listenForNewMessages = useCallback(() => {
         if (socket) {
@@ -77,7 +92,7 @@ const useChat = (chatId) => {
         listenForNewMessages();
     }, [listenForNewMessages]);
 
-    return { messages, setNewMessage, sendMessage };
+    return { messages, setNewMessage, sendMessage, sendFile };
 };
 
 export default useChat;
