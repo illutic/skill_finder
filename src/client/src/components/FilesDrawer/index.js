@@ -14,12 +14,16 @@ const FilesDrawer = ({ isActive }) => {
     };
 
     return (
-        <Styled.FilesDrawer active={isActive} onClick={stopPropagation}>
+        <Styled.FilesDrawer
+            active={isActive}
+            areFilesShown={areFilesShown}
+            onClick={stopPropagation}
+        >
             <Styled.Shared onClick={toggleFiles}>
                 Shared Files
-                <Styled.DisappearingArrowButton active={areFilesShown} />
+                <Styled.DisappearingArrowButton areFilesShown={areFilesShown} />
             </Styled.Shared>
-            <Styled.Files active={areFilesShown}>
+            <Styled.Files areFilesShown={areFilesShown}>
                 {files?.map((file) => {
                     return (
                         <Styled.File key={file.id}>

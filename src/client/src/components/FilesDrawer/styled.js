@@ -8,6 +8,8 @@ export const FilesDrawer = styled(Drawer)`
     @media (min-width: ${SCREENS.large}) {
         position: relative;
         z-index: 1;
+        overflow: ${({ areFilesShown }) =>
+            areFilesShown ? 'scroll' : 'hidden'};
         border-left: 1px solid ${({ theme }) => theme.colors.subtle};
     }
 `;
@@ -28,7 +30,9 @@ export const DisappearingArrowButton = styled(ArrowButton)`
     @media (min-width: ${SCREENS.large}) {
         display: block;
         margin-left: 15px;
-        transform: rotate(${({ active }) => (active ? '-180' : '0')}deg);
+        transform: rotate(
+            ${({ areFilesShown }) => (areFilesShown ? '-180' : '0')}deg
+        );
         transition: transform 0.25s ease-in-out;
     }
 `;
@@ -41,7 +45,9 @@ export const Files = styled.ul`
     @media (min-width: ${SCREENS.large}) {
         position: relative;
         z-index: -1;
-        transform: translateY(${({ active }) => (active ? '0' : '-100%')});
+        transform: translateY(
+            ${({ areFilesShown }) => (areFilesShown ? '0' : '-100%')}
+        );
         transition: transform 0.5s ease-in-out;
     }
 `;
