@@ -31,7 +31,7 @@ const User = database.define(
             // ^ Set to true for Google users
         },
         title: {
-            type: Sequelize.STRING,
+            type: Sequelize.STRING(35),
             allowNull: true,
         },
         description: {

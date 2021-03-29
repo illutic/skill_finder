@@ -109,7 +109,12 @@ export const patchTitle = async (req, res) => {
         const { userId } = req;
         const { title } = req.body;
         if (!title) {
-            throw Error('No title provided.');
+            throw Error('Please enter your new title.');
+        }
+        if (title.length > 35) {
+            throw Error(
+                'Your new title cannot not be longer than 35 characters.'
+            );
         }
         const user = await User.findOne({
             where: { id: userId },

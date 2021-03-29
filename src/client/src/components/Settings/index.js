@@ -1,5 +1,6 @@
 import * as Styled from './styled';
 import useImageUpload from '../../hooks/api/useImageUpload';
+import useTitleUpdate from '../../hooks/api/useTitleUpdate';
 import Container from '../Container/index';
 import Heading from '../Heading/index';
 import FormSuccess from '../FormSuccess';
@@ -18,6 +19,11 @@ const Settings = () => {
         success: backgroundPhotoSuccess,
         error: backgroundPhotoError,
     } = useImageUpload();
+    const {
+        updateTitle,
+        success: titleSuccess,
+        error: titleError,
+    } = useTitleUpdate();
 
     return (
         <Container spaced>
@@ -87,7 +93,7 @@ const Settings = () => {
                 </Styled.Split>
                 <Styled.Subsection>
                     <Styled.Subheading>Title</Styled.Subheading>
-                    <Styled.Form onSubmit={(e) => e.preventDefault()}>
+                    <Styled.Form onSubmit={updateTitle}>
                         <Styled.Group>
                             <Styled.Label htmlFor="newTitle">
                                 New Title
@@ -101,7 +107,10 @@ const Settings = () => {
                         </Styled.Group>
                         <Styled.Submit outlined>Update</Styled.Submit>
                     </Styled.Form>
-                    {/* <FormError>Error</FormError> */}
+                    {titleSuccess ? (
+                        <FormSuccess>{titleSuccess}</FormSuccess>
+                    ) : null}
+                    {titleError ? <FormError>{titleError}</FormError> : null}
                 </Styled.Subsection>
                 <Styled.Subsection>
                     <Styled.Subheading>Description</Styled.Subheading>

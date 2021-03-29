@@ -51,7 +51,9 @@ export const User = styled.div`
     text-align: center;
 `;
 
-export const UserTitle = styled.div``;
+export const UserTitle = styled.div`
+    word-break: break-word;
+`;
 
 export const Action = styled.div`
     margin-top: 25px;
