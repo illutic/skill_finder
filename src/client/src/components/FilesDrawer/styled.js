@@ -33,7 +33,6 @@ export const DisappearingArrowButton = styled(ArrowButton)`
         transform: rotate(
             ${({ areFilesShown }) => (areFilesShown ? '-180' : '0')}deg
         );
-        transition: transform 0.25s ease-in-out;
     }
 `;
 
@@ -48,7 +47,6 @@ export const Files = styled.ul`
         transform: translateY(
             ${({ areFilesShown }) => (areFilesShown ? '0' : '-100%')}
         );
-        transition: transform 0.5s ease-in-out;
     }
 `;
 
