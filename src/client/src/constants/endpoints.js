@@ -6,6 +6,7 @@ const ENDPOINTS = {
     api: '/api',
     user: '/api/user',
     title: '/api/user/title',
+    description: '/api/user/description',
     photo: '/api/user/photo',
     skill: '/api/skill',
     chats: '/api/chats',

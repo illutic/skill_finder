@@ -23,7 +23,7 @@ const useImageUpload = () => {
                 throw payload.error;
             }
             syncUser();
-            setSuccess('Image updated.');
+            setSuccess('Image has been updated.');
             setError(null);
             form.reset();
         } catch (err) {

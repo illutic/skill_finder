@@ -1,6 +1,7 @@
 import * as Styled from './styled';
 import useImageUpload from '../../hooks/api/useImageUpload';
 import useTitleUpdate from '../../hooks/api/useTitleUpdate';
+import useDescriptionUpdate from '../../hooks/api/useDescriptionUpdate';
 import Container from '../Container/index';
 import Heading from '../Heading/index';
 import FormSuccess from '../FormSuccess';
@@ -24,6 +25,11 @@ const Settings = () => {
         success: titleSuccess,
         error: titleError,
     } = useTitleUpdate();
+    const {
+        updateDescription,
+        success: descriptionSuccess,
+        error: descriptionError,
+    } = useDescriptionUpdate();
 
     return (
         <Container spaced>
@@ -114,7 +120,7 @@ const Settings = () => {
                 </Styled.Subsection>
                 <Styled.Subsection>
                     <Styled.Subheading>Description</Styled.Subheading>
-                    <Styled.Form onSubmit={(e) => e.preventDefault()}>
+                    <Styled.Form onSubmit={updateDescription}>
                         <Styled.Group>
                             <Styled.Label htmlFor="newDescription">
                                 New Description
@@ -128,7 +134,12 @@ const Settings = () => {
                         </Styled.Group>
                         <Styled.Submit outlined>Update</Styled.Submit>
                     </Styled.Form>
-                    {/* <FormError>Error</FormError> */}
+                    {descriptionSuccess ? (
+                        <FormSuccess>{descriptionSuccess}</FormSuccess>
+                    ) : null}
+                    {descriptionError ? (
+                        <FormError>{descriptionError}</FormError>
+                    ) : null}
                 </Styled.Subsection>
                 <Styled.Subsection>
                     <Styled.Subheading>Skills</Styled.Subheading>

@@ -136,7 +136,12 @@ export const patchDescription = async (req, res) => {
         const { userId } = req;
         const { description } = req.body;
         if (!description) {
-            throw Error('No description provided');
+            throw Error('Please enter your new description.');
+        }
+        if (description.length > 500) {
+            throw Error(
+                'Your new description cannot not be longer than 500 characters.'
+            );
         }
         const user = await User.findOne({
             where: { id: userId },
