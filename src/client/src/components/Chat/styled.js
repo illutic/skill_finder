@@ -45,12 +45,20 @@ export const Message = styled.p`
     }
 `;
 
-export const MessageImage = styled.img`
+export const MessageImage = styled.a`
+    align-self: ${({ currentUser }) =>
+        currentUser ? 'flex-start' : 'flex-end'};
     width: 100%;
-    border: 1px solid ${({ theme }) => theme.colors.subtle};
     border-radius: 15px;
     &:not(:first-child) {
         margin-top: 25px;
+    }
+    & > img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 15px;
+        border: 1px solid ${({ theme }) => theme.colors.subtle};
     }
     @media (min-width: ${SCREENS.medium}) {
         max-width: 55%;

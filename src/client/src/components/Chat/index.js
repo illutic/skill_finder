@@ -93,12 +93,15 @@ const Chat = () => {
                               );
                           }
                           if (message.type === MESSAGE_TYPES.image) {
+                              const imageUri = `/${message.content}`;
                               return (
                                   <Styled.MessageImage
                                       key={message.id}
-                                      src={`/${message.content}`}
-                                      alt=""
-                                  />
+                                      href={imageUri}
+                                      {...currentUser}
+                                  >
+                                      <img src={imageUri} alt="" />
+                                  </Styled.MessageImage>
                               );
                           }
                           if (message.type === MESSAGE_TYPES.file) {
@@ -107,6 +110,7 @@ const Chat = () => {
                               return (
                                   <Styled.MessageFile
                                       key={message.id}
+                                      {...currentUser}
                                       onClick={() =>
                                           downloadFile(fileUri, fileName)
                                       }
