@@ -44,8 +44,12 @@ const useChat = (chatId) => {
             if (isKeydown || isClick) {
                 e.preventDefault();
                 if (newMessage) {
-                    let encodedMessage = htmlEncoder(newMessage);
-                    encodedMessage = codeMarkdown(newMessage);
+                    let cappedMessage = newMessage;
+                    if (cappedMessage.length > 255) {
+                        cappedMessage = cappedMessage.substring(0, 255);
+                    }
+                    let encodedMessage = htmlEncoder(cappedMessage);
+                    encodedMessage = codeMarkdown(cappedMessage);
                     socket.emit(
                         'sendMessage',
                         chatId,
