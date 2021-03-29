@@ -2,7 +2,7 @@ import { useContext, useEffect, useRef, useCallback } from 'react';
 import useLocationId from '../../hooks/other/useLocationId';
 import useChat from '../../hooks/api/useChat';
 import useChatUpload from '../../hooks/api/useChatUpload';
-import useFileDownload from '../../hooks/api/useFileDownload';
+import useDownloadFile from '../../hooks/api/useDownloadFile';
 import { UserContext } from '../../contexts/UserContextProvider';
 import * as Styled from './styled';
 import AttachButton from '../AttachButton/index';
@@ -13,7 +13,7 @@ import MESSAGE_TYPES from '../../constants/messageTypes';
 const Chat = () => {
     const { user } = useContext(UserContext);
     const { locationId } = useLocationId();
-    const { downloadFile } = useFileDownload();
+    const { downloadFile } = useDownloadFile();
     const { uploadFile, setFilePayload } = useChatUpload();
     const { messages, setNewMessage, sendMessage } = useChat(locationId);
     const messagesFormRef = useRef();

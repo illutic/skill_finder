@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import ENDPOINTS from '../../constants/endpoints.js';
 
-const useFileDownload = () => {
+const useDownloadFile = () => {
     // <https://roytuts.com/download-file-from-server-using-react/>
     const downloadFile = useCallback(async (fileUri, fileName) => {
         if (!fileUri) {
@@ -18,4 +18,4 @@ const useFileDownload = () => {
 
     return { downloadFile };
 };
-export default useFileDownload;
+export default useDownloadFile;
