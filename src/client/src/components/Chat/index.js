@@ -87,9 +87,10 @@ const Chat = () => {
                                   <Styled.Message
                                       key={message.id}
                                       {...currentUser}
-                                  >
-                                      {message.content}
-                                  </Styled.Message>
+                                      dangerouslySetInnerHTML={{
+                                          __html: message.content,
+                                      }}
+                                  />
                               );
                           }
                           if (message.type === MESSAGE_TYPES.image) {

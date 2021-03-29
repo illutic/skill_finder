@@ -187,13 +187,9 @@ export const WebSockets = (io) => {
             if (!message) {
                 return;
             }
-            let cappedMessage = message;
-            if (cappedMessage.length > 255) {
-                cappedMessage = cappedMessage.substring(0, 255);
-            }
             const newMessage = await Message.create({
                 type,
-                content: cappedMessage,
+                content: message,
                 userId: id,
                 ChatId: chatId,
             });
