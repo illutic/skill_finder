@@ -16,10 +16,8 @@ export const htmlEncoder = (string) => {
 export const codeMarkdown = (string) => {
     let subStringArray;
     subStringArray = string.match(/(?<=(```))((.|\n)*)(?=(```))/g);
-    console.log(string.match(/^(```)|(```)$/g));
     if (subStringArray) {
         subStringArray.forEach((codeBlock) => {
-            console.log(subStringArray, string);
             const htmlMarkup = `<pre style="background: #F5966a;
             page-break-inside: avoid;
             font-family: monospace;
