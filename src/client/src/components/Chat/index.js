@@ -2,13 +2,13 @@ import { useContext, useEffect, useRef, useCallback } from 'react';
 import useLocationId from '../../hooks/other/useLocationId';
 import useChat from '../../hooks/api/useChat';
 import useChatUpload from '../../hooks/api/useChatUpload';
+import useFileDownload from '../../hooks/api/useFileDownload';
 import { UserContext } from '../../contexts/UserContextProvider';
 import * as Styled from './styled';
-import CloseButton from '../CloseButton/index';
 import AttachButton from '../AttachButton/index';
 import SendButton from '../SendButton/index';
+import CloseButton from '../CloseButton/index';
 import MESSAGE_TYPES from '../../constants/messageTypes';
-import useFileDownload from '../../hooks/api/useFileDownload';
 
 const Chat = () => {
     const { user } = useContext(UserContext);
