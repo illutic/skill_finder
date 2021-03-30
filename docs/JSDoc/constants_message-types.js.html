@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>constants/notification-types.js - Documentation</title>
+    <title>constants/message-types.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">constants/notification-types.js</h1>
+    <h1 class="page-title">constants/message-types.js</h1>
     
 
     
@@ -39,16 +39,17 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/** @constant NOTIFICATION_TYPES */
-/** Specifies the type of the notification a user can get.
+            <pre class="prettyprint source linenums"><code>/** @constant MESSAGE_TYPES */
+/** Specifies the type of the message that a user can send via chat.
  */
-const NOTIFICATION_TYPES = {
-    incomingRequest: 'incomingRequest',
-    acceptedRequest: 'acceptedRequest',
-    deniedRequest: 'deniedRequest',
+const MESSAGE_TYPES = {
+    text: 'text',
+    code: 'code',
+    file: 'file',
+    image: 'image',
 };
 
-export default NOTIFICATION_TYPES;
+export default MESSAGE_TYPES;
 </code></pre>
         </article>
     </section>
