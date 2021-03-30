@@ -52,14 +52,14 @@ export const FileInputGroup = styled.div`
 `;
 
 export const Label = styled.label`
-    margin-bottom: 10px;
+    margin-bottom: ${({ spaced }) => (spaced ? '10px' : '5px')};
     text-decoration: ${({ interactive }) =>
         interactive ? 'underline' : 'none'};
     cursor: ${({ interactive }) => (interactive ? 'pointer' : 'auto')}; ;
 `;
 
 export const Input = styled.input`
-    padding: 10px 0;
+    padding: 5px 0 10px 0;
     border-bottom: 1px solid ${({ theme }) => theme.colors.subtle};
     transition: border 0.15s ease-in-out;
     &[type='password'] {
@@ -121,13 +121,11 @@ export const Submit = styled(Button)`
     margin-top: 25px;
     @media (min-width: ${SCREENS.medium}) {
         margin-top: 0;
-        margin-left: 50px;
+        margin-left: 30px;
     }
 `;
 
-export const FileSubmit = styled(Button)`
-    // margin-top: 25px;
-`;
+export const FileSubmit = styled(Button)``;
 
 export const Skills = styled.div`
     display: flex;

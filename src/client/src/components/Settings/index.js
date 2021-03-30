@@ -123,6 +123,7 @@ const Settings = () => {
                                 <Styled.FileInputGroup>
                                     <Styled.Label
                                         interactive
+                                        spaced
                                         htmlFor="newPhoto"
                                         ref={profilePhotoLabelRef}
                                     >
@@ -180,6 +181,7 @@ const Settings = () => {
                                 <Styled.FileInputGroup>
                                     <Styled.Label
                                         interactive
+                                        spaced
                                         htmlFor="newBackground"
                                         ref={backgroundImageLabelRef}
                                     >
