@@ -24,6 +24,7 @@ export const Background = styled.div`
 `;
 
 export const Bar = styled.div`
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -49,6 +50,11 @@ export const AdjustedProfilePhoto = styled(ProfilePhoto)`
 
 export const User = styled.div`
     text-align: center;
+    @media (min-width: ${SCREENS.medium}) {
+        position: relative;
+        left: 108px;
+        transform: translateX(-50%);
+    }
 `;
 
 export const UserTitle = styled.div`
