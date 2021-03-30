@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import useUserSync from '../sync/useUserSync';
 import ENDPOINTS from '../../constants/endpoints';
 
 const useUpdateEmail = () => {
     const [success, setSuccess] = useState();
     const [error, setError] = useState();
+    const syncUser = useUserSync();
 
     const updateEmail = async (e) => {
         e.preventDefault();
@@ -28,6 +30,7 @@ const useUpdateEmail = () => {
             setSuccess('Email has been updated.');
             setError(null);
             form.reset();
+            syncUser();
         } catch (err) {
             setSuccess(null);
             setError(err);

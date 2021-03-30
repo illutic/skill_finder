@@ -64,17 +64,22 @@ export const patchEmail = async (req, res) => {
             throw Error('No password provided.');
         }
         await checkPassword(userId, password);
-        User.update(
-            {
+        const existingUser = await User.findOne({
+            where: {
                 email,
             },
-            {
-                where: {
-                    id: userId,
-                },
-            }
-        );
-        res.status(200);
+        });
+        if (existingUser) {
+            throw Error('This e-mail address is already in use.');
+        }
+        const user = await User.findOne({
+            where: {
+                id: userId,
+            },
+        });
+        user.email = email;
+        user.save();
+        res.sendStatus(200);
     } catch (err) {
         res.status(400).json({ error: err.message });
     }
