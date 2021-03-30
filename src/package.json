@@ -29,7 +29,7 @@
         "prettier": "^2.2.1"
     },
     "scripts": {
-        "postinstall": "npm install --legacy-peer-deps --prefix client",
+        "postinstall": "npm install ./client --legacy-peer-deps",
         "server": "nodemon app.js",
         "client": "npm start --prefix client",
         "dev": "concurrently \"npm run server\" \"npm run client\"",
