@@ -89,7 +89,7 @@ const Profile = () => {
                                               key={skill.id}
                                           >{`${skill.name}`}</Styled.Skill>
                                       );
-                                  }).reverse()
+                                  })
                                 : 'No skills to show.'}
                         </Styled.Skills>
                     </Styled.Section>

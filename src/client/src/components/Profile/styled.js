@@ -52,6 +52,7 @@ export const User = styled.div`
 `;
 
 export const UserTitle = styled.div`
+    margin-top: 5px;
     word-break: break-word;
 `;
 

@@ -46,6 +46,12 @@ const User = database.define(
             type: Sequelize.STRING,
             allowNull: true,
         },
+        foreign: {
+            // ^ Used to identify users
+            // signed up using identity providers i.e. Google
+            type: Sequelize.BOOLEAN,
+            defaultValue: false,
+        },
     },
     { timestamps: false }
 );

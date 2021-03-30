@@ -5,6 +5,7 @@ import useUpdateTitle from '../../hooks/api/useUpdateTitle';
 import useUpdateDescription from '../../hooks/api/useUpdateDescription';
 import useAddSkill from '../../hooks/api/useAddSkill';
 import useDeleteSkill from '../../hooks/api/useDeleteSkill';
+import useUpdateEmail from '../../hooks/api/useUpdateEmail';
 import { UserContext } from '../../contexts/UserContextProvider';
 import Container from '../Container/index';
 import Heading from '../Heading/index';
@@ -37,6 +38,11 @@ const Settings = () => {
     } = useUpdateDescription();
     const { addSkill, error: skillError } = useAddSkill();
     const { deleteSkill } = useDeleteSkill();
+    const {
+        updateEmail,
+        success: emailSuccess,
+        error: emailError,
+    } = useUpdateEmail();
 
     return (
         <Container spaced>
@@ -175,87 +181,98 @@ const Settings = () => {
                                     onClick={(e) => deleteSkill(e, skill.id)}
                                 />
                             </Styled.Skill>
-                        )).reverse()}
+                        ))}
                     </Styled.Skills>
                 </Styled.Subsection>
             </Styled.Section>
             <Styled.Section>
                 <Heading underlined>Account Settings</Heading>
-                <Styled.Subsection>
-                    <Styled.Header>
-                        <Styled.Subheading>Email Address</Styled.Subheading>
-                        <Styled.CurrentEmail>
-                            Your current email address is {user.email}
-                        </Styled.CurrentEmail>
-                    </Styled.Header>
-                    <Styled.Form onSubmit={(e) => e.preventDefault()}>
-                        <Styled.Group>
-                            <Styled.Split>
-                                <Styled.Side>
-                                    <Styled.Label htmlFor="newEmail">
-                                        New Email
-                                    </Styled.Label>
-                                    <Styled.Input
-                                        name="newEmail"
-                                        id="newEmail"
-                                        type="email"
-                                        placeholder="@"
-                                        autoComplete="email"
-                                    />
-                                </Styled.Side>
-                                <Styled.Side>
-                                    <Styled.Label htmlFor="confirmPassword-1">
-                                        Confirm Password
-                                    </Styled.Label>
-                                    <Styled.Input
-                                        name="confirmPassword-1"
-                                        id="confirmPassword-1"
-                                        type="password"
-                                        placeholder="*"
-                                        autoComplete="current-password"
-                                    />
-                                </Styled.Side>
-                            </Styled.Split>
-                        </Styled.Group>
-                        <Styled.Submit outlined>Update</Styled.Submit>
-                    </Styled.Form>
-                    {/* <FormError>Error</FormError> */}
-                </Styled.Subsection>
-                <Styled.Subsection>
-                    <Styled.Subheading>Password</Styled.Subheading>
-                    <Styled.Form onSubmit={(e) => e.preventDefault()}>
-                        <Styled.Group>
-                            <Styled.Split>
-                                <Styled.Side>
-                                    <Styled.Label htmlFor="newPassword">
-                                        New Password
-                                    </Styled.Label>
-                                    <Styled.Input
-                                        name="newPassword"
-                                        id="newPassword"
-                                        type="password"
-                                        placeholder="*"
-                                        autoComplete="new-password"
-                                    />
-                                </Styled.Side>
-                                <Styled.Side>
-                                    <Styled.Label htmlFor="oldPassword">
-                                        Old Password
-                                    </Styled.Label>
-                                    <Styled.Input
-                                        name="oldPassword"
-                                        id="oldPassword"
-                                        type="password"
-                                        placeholder="*"
-                                        autoComplete="current-password"
-                                    />
-                                </Styled.Side>
-                            </Styled.Split>
-                        </Styled.Group>
-                        <Styled.Submit outlined>Update</Styled.Submit>
-                    </Styled.Form>
-                    {/* <FormError>Error</FormError> */}
-                </Styled.Subsection>
+                {user?.foreign ? null : (
+                    <>
+                        <Styled.Subsection>
+                            <Styled.Header>
+                                <Styled.Subheading>
+                                    Email Address
+                                </Styled.Subheading>
+                                <Styled.CurrentEmail>
+                                    Your current email address is {user?.email}
+                                </Styled.CurrentEmail>
+                            </Styled.Header>
+                            <Styled.Form onSubmit={updateEmail}>
+                                <Styled.Group>
+                                    <Styled.Split>
+                                        <Styled.Side>
+                                            <Styled.Label htmlFor="newEmail">
+                                                New Email
+                                            </Styled.Label>
+                                            <Styled.Input
+                                                name="newEmail"
+                                                id="newEmail"
+                                                type="email"
+                                                placeholder="@"
+                                                autoComplete="email"
+                                            />
+                                        </Styled.Side>
+                                        <Styled.Side>
+                                            <Styled.Label htmlFor="confirmPassword-1">
+                                                Confirm Password
+                                            </Styled.Label>
+                                            <Styled.Input
+                                                name="confirmPassword-1"
+                                                id="confirmPassword-1"
+                                                type="password"
+                                                placeholder="*"
+                                                autoComplete="current-password"
+                                            />
+                                        </Styled.Side>
+                                    </Styled.Split>
+                                </Styled.Group>
+                                <Styled.Submit outlined>Update</Styled.Submit>
+                            </Styled.Form>
+                            {emailSuccess ? (
+                                <FormSuccess spaced>{emailSuccess}</FormSuccess>
+                            ) : null}
+                            {emailError ? (
+                                <FormError spaced>{emailError}</FormError>
+                            ) : null}
+                        </Styled.Subsection>
+                        <Styled.Subsection>
+                            <Styled.Subheading>Password</Styled.Subheading>
+                            <Styled.Form onSubmit={(e) => e.preventDefault()}>
+                                <Styled.Group>
+                                    <Styled.Split>
+                                        <Styled.Side>
+                                            <Styled.Label htmlFor="newPassword">
+                                                New Password
+                                            </Styled.Label>
+                                            <Styled.Input
+                                                name="newPassword"
+                                                id="newPassword"
+                                                type="password"
+                                                placeholder="*"
+                                                autoComplete="new-password"
+                                            />
+                                        </Styled.Side>
+                                        <Styled.Side>
+                                            <Styled.Label htmlFor="oldPassword">
+                                                Old Password
+                                            </Styled.Label>
+                                            <Styled.Input
+                                                name="oldPassword"
+                                                id="oldPassword"
+                                                type="password"
+                                                placeholder="*"
+                                                autoComplete="current-password"
+                                            />
+                                        </Styled.Side>
+                                    </Styled.Split>
+                                </Styled.Group>
+                                <Styled.Submit outlined>Update</Styled.Submit>
+                            </Styled.Form>
+                            {/* <FormError>Error</FormError> */}
+                        </Styled.Subsection>
+                    </>
+                )}
                 <Styled.Subsection>
                     <Styled.Subheading>Delete Account</Styled.Subheading>
                     <Styled.Form onSubmit={(e) => e.preventDefault()}>
