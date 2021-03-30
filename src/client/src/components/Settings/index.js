@@ -132,6 +132,7 @@ const Settings = () => {
                                         name="image"
                                         id="newPhoto"
                                         type="file"
+                                        accept="image/*"
                                         hidden
                                         ref={profilePhotoInputRef}
                                         onChange={() => {
@@ -188,6 +189,7 @@ const Settings = () => {
                                         name="image"
                                         id="newBackground"
                                         type="file"
+                                        accept="image/*"
                                         hidden
                                         ref={backgroundImageInputRef}
                                         onChange={() => {
