@@ -94,16 +94,21 @@ export const patchPassword = async (req, res) => {
         const { userId } = req;
         const { password, confirmPassword } = req.body;
         if (!password) {
-            throw Error('No old password provided.');
+            throw Error('Please enter your new password.');
+        }
+        if (password.length < 6) {
+            throw Error('Your password must be at least 6 characters long.');
+        }
+        if (!confirmPassword) {
+            throw Error('Please confirm your old password');
         }
         await checkPassword(userId, confirmPassword);
         const user = await User.findOne({
             where: { id: userId },
         });
-        user.update({
-            password: await hashPassword(password),
-        });
-        res.status(200).json({ message: user });
+        user.password = await hashPassword(password);
+        user.save();
+        res.sendStatus(200);
     } catch (err) {
         res.status(400).json({ error: err.message });
     }

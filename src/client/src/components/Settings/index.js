@@ -6,6 +6,7 @@ import useUpdateDescription from '../../hooks/api/useUpdateDescription';
 import useAddSkill from '../../hooks/api/useAddSkill';
 import useDeleteSkill from '../../hooks/api/useDeleteSkill';
 import useUpdateEmail from '../../hooks/api/useUpdateEmail';
+import useUpdatePassword from '../../hooks/api/useUpdatePassword';
 import { UserContext } from '../../contexts/UserContextProvider';
 import Container from '../Container/index';
 import Heading from '../Heading/index';
@@ -43,6 +44,11 @@ const Settings = () => {
         success: emailSuccess,
         error: emailError,
     } = useUpdateEmail();
+    const {
+        updatePassword,
+        success: passwordSuccess,
+        error: passwordError,
+    } = useUpdatePassword();
 
     return (
         <Container spaced>
@@ -238,7 +244,7 @@ const Settings = () => {
                         </Styled.Subsection>
                         <Styled.Subsection>
                             <Styled.Subheading>Password</Styled.Subheading>
-                            <Styled.Form onSubmit={(e) => e.preventDefault()}>
+                            <Styled.Form onSubmit={updatePassword}>
                                 <Styled.Group>
                                     <Styled.Split>
                                         <Styled.Side>
@@ -269,7 +275,14 @@ const Settings = () => {
                                 </Styled.Group>
                                 <Styled.Submit outlined>Update</Styled.Submit>
                             </Styled.Form>
-                            {/* <FormError>Error</FormError> */}
+                            {passwordSuccess ? (
+                                <FormSuccess spaced>
+                                    {passwordSuccess}
+                                </FormSuccess>
+                            ) : null}
+                            {passwordError ? (
+                                <FormError spaced>{passwordError}</FormError>
+                            ) : null}
                         </Styled.Subsection>
                     </>
                 )}
