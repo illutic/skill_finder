@@ -10,7 +10,7 @@ import Container from '../Container/index';
 import NotificationsPanel from '../NotificationsPanel/index';
 import ProfilePhoto from '../ProfilePhoto/index';
 import NavigationButton from '../NavigationButton/index';
-import defaultProfilePhoto from '../../assets/default.jpg';
+import defaultProfilePhoto from '../../assets/default-profile.jpg';
 import ROUTES from '../../constants/routes';
 
 const Navigation = () => {

@@ -10,7 +10,7 @@ import Heading from '../Heading/index';
 import Button from '../Button/index';
 import RequestActions from '../RequestActions';
 import ProfileThumbnail from '../ProfileThumbnail';
-import defaultProfilePhoto from '../../assets/default.jpg';
+import defaultProfilePhoto from '../../assets/default-profile.jpg';
 import ROUTES from '../../constants/routes';
 
 const SearchResults = () => {

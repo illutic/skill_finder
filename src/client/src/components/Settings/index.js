@@ -14,7 +14,8 @@ import Heading from '../Heading/index';
 import FormSuccess from '../FormSuccess';
 import FormError from '../FormError/index';
 import CloseButton from '../CloseButton/index';
-import defaultProfilePhoto from '../../assets/default.jpg';
+import defaultProfilePhoto from '../../assets/default-profile.jpg';
+import defaultBackgroundImage from '../../assets/default-background.jpg';
 import PHOTO_TYPES from '../../constants/photoTypes';
 
 const Settings = () => {
@@ -166,7 +167,11 @@ const Settings = () => {
                                 >
                                     <Styled.BackgroundImageBox>
                                         <Styled.BackgroundImage
-                                            src={user?.backgroundImage}
+                                            src={
+                                                user?.backgroundImage
+                                                    ? user.backgroundImage
+                                                    : defaultBackgroundImage
+                                            }
                                             ref={backgroundImagePreviewRef}
                                         />
                                     </Styled.BackgroundImageBox>
