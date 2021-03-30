@@ -72,13 +72,15 @@ export const FileSubmit = styled(Button)`
 
 export const Skills = styled.div`
     display: flex;
-    margin-top: 35px;
+    flex-wrap: wrap;
+    margin-top: 5px;
+    max-width: 750px;
 `;
 
 export const Skill = styled.div`
     display: flex;
     align-items: center;
-    margin-right: 15px;
+    margin: 25px 15px 0 0;
     padding: 10px 15px;
     border: 1px solid ${({ theme }) => theme.colors.subtle};
     border-radius: 7px;
