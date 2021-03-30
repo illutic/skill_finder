@@ -52,6 +52,13 @@ const User = database.define(
             type: Sequelize.BOOLEAN,
             defaultValue: false,
         },
+        verified: {
+            // ^ Marks users that
+            // have been verified
+            // by service administrators
+            type: Sequelize.BOOLEAN,
+            defaultValue: false,
+        },
     },
     { timestamps: false }
 );

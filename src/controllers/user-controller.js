@@ -1,3 +1,4 @@
+import { Sequelize } from 'sequelize';
 import User from '../models/User.js';
 import Skill from '../models/Skill.js';
 import encodeEmail from '../utils/encodeEmail.js';
@@ -47,6 +48,23 @@ export const getUser = async (req, res) => {
         if (!user) {
             throw Error('Incorrect user ID.');
         }
+        res.status(200).json(user);
+    } catch (err) {
+        res.status(400).json({ error: err.message });
+    }
+};
+
+/** Get two users that have been verified by service administrators */
+export const getVerifiedUsers = async (req, res) => {
+    try {
+        const user = await User.findAll({
+            where: { verified: true },
+            attributes: {
+                exclude: ['email', 'password'],
+            },
+            order: [Sequelize.literal('random()')],
+            limit: 2,
+        });
         res.status(200).json(user);
     } catch (err) {
         res.status(400).json({ error: err.message });
