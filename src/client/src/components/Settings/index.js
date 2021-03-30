@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useRef } from 'react';
 import * as Styled from './styled';
 import useUploadImage from '../../hooks/api/useUploadImage';
 import useUpdateTitle from '../../hooks/api/useUpdateTitle';
@@ -14,10 +14,17 @@ import Heading from '../Heading/index';
 import FormSuccess from '../FormSuccess';
 import FormError from '../FormError/index';
 import CloseButton from '../CloseButton/index';
+import defaultProfilePhoto from '../../assets/default.jpg';
 import PHOTO_TYPES from '../../constants/photoTypes';
 
 const Settings = () => {
     const { user } = useContext(UserContext);
+    const profilePhotoInputRef = useRef();
+    const backgroundImageInputRef = useRef();
+    const profilePhotoPreviewRef = useRef();
+    const backgroundImagePreviewRef = useRef();
+    const profilePhotoLabelRef = useRef();
+    const backgroundImageLabelRef = useRef();
     const {
         uploadImage: uploadProfilePhoto,
         success: profilePhotoSuccess,
@@ -52,6 +59,39 @@ const Settings = () => {
     } = useUpdatePassword();
     const { deleteAccount, error: accountError } = useDeleteAccount();
 
+    const openProfilePhotoInput = () => {
+        profilePhotoInputRef.current.click();
+    };
+
+    const openBackgroundImageInput = () => {
+        backgroundImageInputRef.current.click();
+    };
+
+    const updateProfilePhotoPreview = () => {
+        const newProfilePhoto = profilePhotoInputRef.current.files[0];
+        profilePhotoPreviewRef.current.src = URL.createObjectURL(
+            newProfilePhoto
+        );
+    };
+
+    const updateBackgroundImagePreview = () => {
+        const newBackgroundImage = backgroundImageInputRef.current.files[0];
+        backgroundImagePreviewRef.current.src = URL.createObjectURL(
+            newBackgroundImage
+        );
+    };
+
+    const updateProfilePhotoLabel = () => {
+        const newProfilePhotoLabel = profilePhotoInputRef.current.files[0].name;
+        profilePhotoLabelRef.current.textContent = newProfilePhotoLabel;
+    };
+
+    const updateBackgroundImageLabel = () => {
+        const newBackgroundImageLabel =
+            backgroundImageInputRef.current.files[0].name;
+        backgroundImageLabelRef.current.textContent = newBackgroundImageLabel;
+    };
+
     return (
         <Container spaced>
             <Styled.Section>
@@ -64,19 +104,45 @@ const Settings = () => {
                                 uploadProfilePhoto(e, PHOTO_TYPES.profile)
                             }
                         >
-                            <Styled.Group>
-                                <Styled.Label htmlFor="newPhoto">
-                                    Upload a photo from your computer
-                                </Styled.Label>
-                                <Styled.File
-                                    name="image"
-                                    id="newPhoto"
-                                    type="file"
-                                />
-                            </Styled.Group>
-                            <Styled.FileSubmit outlined>
-                                Upload
-                            </Styled.FileSubmit>
+                            <Styled.FileGroup>
+                                <Styled.ProfilePhotoPreview
+                                    onClick={openProfilePhotoInput}
+                                >
+                                    <Styled.ProfilePhotoBox>
+                                        <Styled.ProfilePhoto
+                                            src={
+                                                user?.profilePhoto
+                                                    ? user.profilePhoto
+                                                    : defaultProfilePhoto
+                                            }
+                                            ref={profilePhotoPreviewRef}
+                                        />
+                                    </Styled.ProfilePhotoBox>
+                                </Styled.ProfilePhotoPreview>
+                                <Styled.FileInputGroup>
+                                    <Styled.Label
+                                        interactive
+                                        htmlFor="newPhoto"
+                                        ref={profilePhotoLabelRef}
+                                    >
+                                        Load a photo from your disk
+                                    </Styled.Label>
+                                    <input
+                                        name="image"
+                                        id="newPhoto"
+                                        type="file"
+                                        hidden
+                                        ref={profilePhotoInputRef}
+                                        onChange={() => {
+                                            updateProfilePhotoPreview();
+                                            updateProfilePhotoLabel();
+                                        }}
+                                    />
+                                    <Styled.FileSubmit outlined>
+                                        Upload
+                                    </Styled.FileSubmit>
+                                </Styled.FileInputGroup>
+                            </Styled.FileGroup>
                         </Styled.FileForm>
                         {profilePhotoSuccess ? (
                             <FormSuccess spaced>
@@ -94,19 +160,41 @@ const Settings = () => {
                                 uploadBackgroundImage(e, PHOTO_TYPES.background)
                             }
                         >
-                            <Styled.Group>
-                                <Styled.Label htmlFor="newBackground">
-                                    Upload an image from your computer
-                                </Styled.Label>
-                                <Styled.File
-                                    name="image"
-                                    id="newBackground"
-                                    type="file"
-                                />
-                            </Styled.Group>
-                            <Styled.FileSubmit outlined>
-                                Upload
-                            </Styled.FileSubmit>
+                            <Styled.FileGroup>
+                                <Styled.BackgroundImagePreview
+                                    onClick={openBackgroundImageInput}
+                                >
+                                    <Styled.BackgroundImageBox>
+                                        <Styled.BackgroundImage
+                                            src={user?.backgroundImage}
+                                            ref={backgroundImagePreviewRef}
+                                        />
+                                    </Styled.BackgroundImageBox>
+                                </Styled.BackgroundImagePreview>
+                                <Styled.FileInputGroup>
+                                    <Styled.Label
+                                        interactive
+                                        htmlFor="newBackground"
+                                        ref={backgroundImageLabelRef}
+                                    >
+                                        Load an image from your disk
+                                    </Styled.Label>
+                                    <input
+                                        name="image"
+                                        id="newBackground"
+                                        type="file"
+                                        hidden
+                                        ref={backgroundImageInputRef}
+                                        onChange={() => {
+                                            updateBackgroundImagePreview();
+                                            updateBackgroundImageLabel();
+                                        }}
+                                    />
+                                    <Styled.FileSubmit outlined>
+                                        Upload
+                                    </Styled.FileSubmit>
+                                </Styled.FileInputGroup>
+                            </Styled.FileGroup>
                         </Styled.FileForm>
                         {backgroundPhotoSuccess ? (
                             <FormSuccess spaced>
