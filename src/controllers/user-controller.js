@@ -1,5 +1,6 @@
 import User from '../models/User.js';
 import Skill from '../models/Skill.js';
+import encodeEmail from '../utils/encodeEmail.js';
 import hashPassword from '../utils/hashPassword.js';
 import checkPassword from '../utils/checkPassword.js';
 import removeToken from '../utils/removeToken.js';
@@ -13,9 +14,10 @@ export const getCurrentUser = async (req, res) => {
         },
         include: Skill,
         attributes: {
-            exclude: ['email', 'password'],
+            exclude: ['password'],
         },
     });
+    user.email = encodeEmail(user.email);
     res.json(user);
 };
 

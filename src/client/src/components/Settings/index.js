@@ -185,8 +185,7 @@ const Settings = () => {
                     <Styled.Header>
                         <Styled.Subheading>Email Address</Styled.Subheading>
                         <Styled.CurrentEmail>
-                            Your current email address is
-                            m***********n@*****.com
+                            Your current email address is {user.email}
                         </Styled.CurrentEmail>
                     </Styled.Header>
                     <Styled.Form onSubmit={(e) => e.preventDefault()}>
