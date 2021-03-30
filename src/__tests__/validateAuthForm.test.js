@@ -18,7 +18,7 @@ test('password under 6 chars on signup', () => {
     const mockUser = {  firstName: "Bob", lastName: "Smith", email: "b.smith@myport.ac.uk", password: "1234", confirmPassword: "1234"}; 
         didValidate=true; 
         try{
-            test = form.validateAuthForm(mockUser, FORM_TYPES.signup);
+            test = form.validateAuthzForm(mockUser, FORM_TYPES.signup);
         }catch (error) {
             didValidate=false; 
         }
