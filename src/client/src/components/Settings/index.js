@@ -7,6 +7,7 @@ import useAddSkill from '../../hooks/api/useAddSkill';
 import useDeleteSkill from '../../hooks/api/useDeleteSkill';
 import useUpdateEmail from '../../hooks/api/useUpdateEmail';
 import useUpdatePassword from '../../hooks/api/useUpdatePassword';
+import useDeleteAccount from '../../hooks/api/useDeleteAccount';
 import { UserContext } from '../../contexts/UserContextProvider';
 import Container from '../Container/index';
 import Heading from '../Heading/index';
@@ -49,6 +50,7 @@ const Settings = () => {
         success: passwordSuccess,
         error: passwordError,
     } = useUpdatePassword();
+    const { deleteAccount, error: accountError } = useDeleteAccount();
 
     return (
         <Container spaced>
@@ -288,16 +290,16 @@ const Settings = () => {
                 )}
                 <Styled.Subsection>
                     <Styled.Subheading>Delete Account</Styled.Subheading>
-                    <Styled.Form onSubmit={(e) => e.preventDefault()}>
+                    <Styled.Form onSubmit={deleteAccount}>
                         <Styled.Group>
                             <Styled.Split>
                                 <Styled.Side>
-                                    <Styled.Label htmlFor="confirm">
+                                    <Styled.Label htmlFor="confirmPhrase">
                                         Type "Delete account"
                                     </Styled.Label>
                                     <Styled.Input
-                                        name="confirm"
-                                        id="confirm"
+                                        name="confirmPhrase"
+                                        id="confirmPhrase"
                                         type="text"
                                         placeholder="Aa"
                                         autoComplete="off"
@@ -319,7 +321,9 @@ const Settings = () => {
                         </Styled.Group>
                         <Styled.Submit outlined>Delete</Styled.Submit>
                     </Styled.Form>
-                    {/* <FormError>Error</FormError> */}
+                    {accountError ? (
+                        <FormError spaced>{accountError}</FormError>
+                    ) : null}
                 </Styled.Subsection>
             </Styled.Section>
         </Container>

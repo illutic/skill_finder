@@ -7,18 +7,25 @@ import removeToken from '../utils/removeToken.js';
 
 /** Get Current User Data */
 export const getCurrentUser = async (req, res) => {
-    const { userId } = req;
-    const user = await User.findOne({
-        where: {
-            id: userId,
-        },
-        include: Skill,
-        attributes: {
-            exclude: ['password'],
-        },
-    });
-    user.email = encodeEmail(user.email);
-    res.json(user);
+    try {
+        const { userId } = req;
+        const user = await User.findOne({
+            where: {
+                id: userId,
+            },
+            include: Skill,
+            attributes: {
+                exclude: ['password'],
+            },
+        });
+        if (!user) {
+            throw Error('Oops! Something went wrong.');
+        }
+        user.email = encodeEmail(user.email);
+        res.json(user);
+    } catch (err) {
+        res.json({ error: err.message });
+    }
 };
 
 /** Get Any User Data
@@ -176,15 +183,22 @@ export const deleteAccount = async (req, res) => {
          * [ ] destroy any requests linked to user
          * [ ] remove uploaded files
          * [ ] remove chats
+         * [ ] remove skills
          * [X] remove token
          * [X] destroy database entity
          */
         const { userId } = req;
-        const { password } = req.body;
-        await checkPassword(userId, password);
+        const { confirmPhrase, confirmPassword } = req.body;
+        if (!confirmPhrase || confirmPhrase !== 'Delete account') {
+            throw Error('Please type "Delete account" to continue.');
+        }
+        if (!confirmPassword) {
+            throw Error('Please confirm your password.');
+        }
+        await checkPassword(userId, confirmPassword);
         User.destroy({ where: { id: userId } });
         removeToken(res);
-        res.status(200);
+        res.sendStatus(200);
     } catch (err) {
         res.status(400).json({ error: err.message });
     }
