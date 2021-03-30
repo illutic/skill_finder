@@ -1,6 +1,7 @@
 FROM node:current-alpine3.13
 WORKDIR /home/app
 COPY ./package.json .
+COPY ./client/package.json ./client
 RUN npm install
 COPY . .
 EXPOSE 8081
