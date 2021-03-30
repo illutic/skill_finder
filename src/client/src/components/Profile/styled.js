@@ -28,11 +28,11 @@ export const Bar = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 35px 10px;
+    padding: 40px 10px 35px 10px;
     @media (min-width: ${SCREENS.medium}) {
         flex-direction: row;
         justify-content: space-between;
-        padding: 35px 35px 35px 75px;
+        padding: 40px 35px 35px 35px;
     }
 `;
 
@@ -52,7 +52,7 @@ export const User = styled.div`
     text-align: center;
     @media (min-width: ${SCREENS.medium}) {
         position: relative;
-        left: 108px;
+        left: 148px;
         transform: translateX(-50%);
     }
 `;
