@@ -201,6 +201,7 @@ const Settings = () => {
                                         id="newEmail"
                                         type="email"
                                         placeholder="@"
+                                        autoComplete="email"
                                     />
                                 </Styled.Side>
                                 <Styled.Side>
@@ -212,6 +213,7 @@ const Settings = () => {
                                         id="confirmPassword-1"
                                         type="password"
                                         placeholder="*"
+                                        autoComplete="current-password"
                                     />
                                 </Styled.Side>
                             </Styled.Split>
@@ -232,8 +234,9 @@ const Settings = () => {
                                     <Styled.Input
                                         name="newPassword"
                                         id="newPassword"
-                                        type="passwod"
+                                        type="password"
                                         placeholder="*"
+                                        autoComplete="new-password"
                                     />
                                 </Styled.Side>
                                 <Styled.Side>
@@ -245,6 +248,7 @@ const Settings = () => {
                                         id="oldPassword"
                                         type="password"
                                         placeholder="*"
+                                        autoComplete="current-password"
                                     />
                                 </Styled.Side>
                             </Styled.Split>
@@ -267,6 +271,7 @@ const Settings = () => {
                                         id="confirm"
                                         type="text"
                                         placeholder="Aa"
+                                        autoComplete="off"
                                     />
                                 </Styled.Side>
                                 <Styled.Side>
@@ -278,6 +283,7 @@ const Settings = () => {
                                         id="confirmPassword-2"
                                         type="password"
                                         placeholder="*"
+                                        autoComplete="current-password"
                                     />
                                 </Styled.Side>
                             </Styled.Split>
