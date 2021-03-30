@@ -17,7 +17,6 @@ export const WebSockets = (io) => {
      */
     io.on('connection', async (socket) => {
         let id;
-
         socket.on('authentication', async () => {
             try {
                 const cookies = cookie.parse(socket.request.headers.cookie);
@@ -184,22 +183,17 @@ export const WebSockets = (io) => {
          * @param {string} message - The message content that the client sent.
          * The server creates a new database entity for the message and emits the database object to the room that was specified.
          */
-        socket.on('sendMessage', async (chatId, message) => {
-            let newMessage = message;
-            if (newMessage.length > 255) {
-                newMessage = newMessage.substring(0, 255);
+        socket.on('sendMessage', async (chatId, message, type) => {
+            if (!message) {
+                return;
             }
-            const databaseMessage = await Message.create({
-                content: newMessage,
+            const newMessage = await Message.create({
+                type,
+                content: message,
                 userId: id,
                 ChatId: chatId,
             });
-            io.to(chatId).emit('message', {
-                id: databaseMessage.id,
-                userId: id,
-                createdAt: databaseMessage.createdAt,
-                content: message,
-            });
+            io.to(chatId).emit('message', newMessage);
         });
     });
 };

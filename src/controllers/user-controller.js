@@ -1,21 +1,31 @@
 import User from '../models/User.js';
 import Skill from '../models/Skill.js';
+import encodeEmail from '../utils/encodeEmail.js';
 import hashPassword from '../utils/hashPassword.js';
 import checkPassword from '../utils/checkPassword.js';
 import removeToken from '../utils/removeToken.js';
 
 /** Get Current User Data */
 export const getCurrentUser = async (req, res) => {
-    const { userId } = req;
-    const user = await User.findOne({
-        where: {
-            id: userId,
-        },
-        attributes: {
-            exclude: ['email', 'password'],
-        },
-    });
-    res.json(user);
+    try {
+        const { userId } = req;
+        const user = await User.findOne({
+            where: {
+                id: userId,
+            },
+            include: Skill,
+            attributes: {
+                exclude: ['password'],
+            },
+        });
+        if (!user) {
+            throw Error('Oops! Something went wrong.');
+        }
+        user.email = encodeEmail(user.email);
+        res.json(user);
+    } catch (err) {
+        res.json({ error: err.message });
+    }
 };
 
 /** Get Any User Data
@@ -61,17 +71,22 @@ export const patchEmail = async (req, res) => {
             throw Error('No password provided.');
         }
         await checkPassword(userId, password);
-        User.update(
-            {
+        const existingUser = await User.findOne({
+            where: {
                 email,
             },
-            {
-                where: {
-                    id: userId,
-                },
-            }
-        );
-        res.status(200);
+        });
+        if (existingUser) {
+            throw Error('This e-mail address is already in use.');
+        }
+        const user = await User.findOne({
+            where: {
+                id: userId,
+            },
+        });
+        user.email = email;
+        user.save();
+        res.sendStatus(200);
     } catch (err) {
         res.status(400).json({ error: err.message });
     }
@@ -86,16 +101,21 @@ export const patchPassword = async (req, res) => {
         const { userId } = req;
         const { password, confirmPassword } = req.body;
         if (!password) {
-            throw Error('No old password provided.');
+            throw Error('Please enter your new password.');
+        }
+        if (password.length < 6) {
+            throw Error('Your password must be at least 6 characters long.');
+        }
+        if (!confirmPassword) {
+            throw Error('Please confirm your old password');
         }
         await checkPassword(userId, confirmPassword);
         const user = await User.findOne({
             where: { id: userId },
         });
-        user.update({
-            password: await hashPassword(password),
-        });
-        res.status(200).json({ message: user });
+        user.password = await hashPassword(password);
+        user.save();
+        res.sendStatus(200);
     } catch (err) {
         res.status(400).json({ error: err.message });
     }
@@ -109,7 +129,12 @@ export const patchTitle = async (req, res) => {
         const { userId } = req;
         const { title } = req.body;
         if (!title) {
-            throw Error('No title provided.');
+            throw Error('Please enter your new title.');
+        }
+        if (title.length > 35) {
+            throw Error(
+                'Your new title cannot not be longer than 35 characters.'
+            );
         }
         const user = await User.findOne({
             where: { id: userId },
@@ -131,7 +156,12 @@ export const patchDescription = async (req, res) => {
         const { userId } = req;
         const { description } = req.body;
         if (!description) {
-            throw Error('No description provided');
+            throw Error('Please enter your new description.');
+        }
+        if (description.length > 500) {
+            throw Error(
+                'Your new description cannot not be longer than 500 characters.'
+            );
         }
         const user = await User.findOne({
             where: { id: userId },
@@ -153,15 +183,22 @@ export const deleteAccount = async (req, res) => {
          * [ ] destroy any requests linked to user
          * [ ] remove uploaded files
          * [ ] remove chats
+         * [ ] remove skills
          * [X] remove token
          * [X] destroy database entity
          */
         const { userId } = req;
-        const { password } = req.body;
-        await checkPassword(userId, password);
+        const { confirmPhrase, confirmPassword } = req.body;
+        if (!confirmPhrase || confirmPhrase !== 'Delete account') {
+            throw Error('Please type "Delete account" to continue.');
+        }
+        if (!confirmPassword) {
+            throw Error('Please confirm your password.');
+        }
+        await checkPassword(userId, confirmPassword);
         User.destroy({ where: { id: userId } });
         removeToken(res);
-        res.status(200);
+        res.sendStatus(200);
     } catch (err) {
         res.status(400).json({ error: err.message });
     }

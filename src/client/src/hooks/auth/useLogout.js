@@ -5,6 +5,7 @@ import useAuthCheck from '../auth/useAuthCheck';
 import useGlobalDataSync from '../sync/useGlobalDataSync';
 import { SocketContext } from '../../contexts/SocketContextProvider';
 import ENDPOINTS from '../../constants/endpoints';
+import ROUTES from '../../constants/routes';
 
 const useLogout = () => {
     const history = useHistory();
@@ -18,9 +19,15 @@ const useLogout = () => {
         syncGlobalData();
         if (socket) {
             socket.disconnect();
-            setSocket(io({ autoConnect: false }));
+            setSocket(
+                io({
+                    autoConnect: false,
+                    reconnection: false,
+                    forceNew: true,
+                })
+            );
         }
-        history.push('/login');
+        history.push(ROUTES.login);
     };
 
     return logOut;

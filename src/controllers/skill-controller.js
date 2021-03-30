@@ -44,7 +44,10 @@ export const postSkill = async (req, res) => {
         const { name } = req.body;
         const { userId } = req;
         if (!name) {
-            throw Error('No skill name provided.');
+            throw Error('Please enter a skill name.');
+        }
+        if (name.length > 35) {
+            throw Error('A skill name cannot be longer than 35 characters');
         }
         const user = await User.findOne({
             where: {

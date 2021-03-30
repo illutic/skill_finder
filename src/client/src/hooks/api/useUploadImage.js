@@ -2,7 +2,7 @@ import { useState } from 'react';
 import useUserSync from '../sync/useUserSync';
 import ENDPOINTS from '../../constants/endpoints';
 
-const useImageUpload = () => {
+const useUploadImage = () => {
     const syncUser = useUserSync();
     const [success, setSuccess] = useState();
     const [error, setError] = useState();
@@ -23,7 +23,7 @@ const useImageUpload = () => {
                 throw payload.error;
             }
             syncUser();
-            setSuccess('Image updated.');
+            setSuccess('Image has been updated.');
             setError(null);
             form.reset();
         } catch (err) {
@@ -35,4 +35,4 @@ const useImageUpload = () => {
     return { uploadImage, success, error };
 };
 
-export default useImageUpload;
+export default useUploadImage;

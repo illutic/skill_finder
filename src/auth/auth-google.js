@@ -20,6 +20,7 @@ const authGoogle = async (token) => {
                 email: payload.email,
                 firstName: payload.given_name,
                 lastName: payload.family_name,
+                foreign: true,
             },
         });
         if (!user[0].profilePhoto) {

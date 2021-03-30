@@ -1,23 +1,29 @@
-import { useEffect } from 'react';
-import useLocationId from '../../hooks/other/useLocationId';
-import useFiles from '../../hooks/api/useFiles';
-import useFilesDownload from '../../hooks/api/useFileDownload';
+import { useState, useContext } from 'react';
+import { FilesContext } from '../../contexts/FilesContextProvider';
+import useDownloadFile from '../../hooks/api/useDownloadFile';
 import stopPropagation from '../../utils/stopPropagation';
 import * as Styled from './styled';
 
 const FilesDrawer = ({ isActive }) => {
-    const { locationId } = useLocationId();
-    const { files, setFilesFor } = useFiles();
-    const { downloadFile } = useFilesDownload();
+    const [areFilesShown, setAreFilesShown] = useState(false);
+    const { files } = useContext(FilesContext);
+    const { downloadFile } = useDownloadFile();
 
-    useEffect(() => {
-        setFilesFor(locationId);
-    }, [locationId, setFilesFor]);
+    const toggleFiles = () => {
+        setAreFilesShown((previous) => !previous);
+    };
 
     return (
-        <Styled.FilesDrawer active={isActive} onClick={stopPropagation}>
-            <Styled.Shared>Shared Files</Styled.Shared>
-            <Styled.Files>
+        <Styled.FilesDrawer
+            active={isActive}
+            areFilesShown={areFilesShown}
+            onClick={stopPropagation}
+        >
+            <Styled.Shared onClick={toggleFiles}>
+                Shared Files
+                <Styled.DisappearingArrowButton areFilesShown={areFilesShown} />
+            </Styled.Shared>
+            <Styled.Files areFilesShown={areFilesShown}>
                 {files?.map((file) => {
                     return (
                         <Styled.File key={file.id}>

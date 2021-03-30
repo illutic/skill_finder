@@ -31,11 +31,11 @@ const User = database.define(
             // ^ Set to true for Google users
         },
         title: {
-            type: Sequelize.STRING,
+            type: Sequelize.STRING(35),
             allowNull: true,
         },
         description: {
-            type: Sequelize.TEXT,
+            type: Sequelize.STRING(500),
             allowNull: true,
         },
         profilePhoto: {
@@ -45,6 +45,12 @@ const User = database.define(
         backgroundImage: {
             type: Sequelize.STRING,
             allowNull: true,
+        },
+        foreign: {
+            // ^ Used to identify users
+            // signed up using identity providers i.e. Google
+            type: Sequelize.BOOLEAN,
+            defaultValue: false,
         },
     },
     { timestamps: false }

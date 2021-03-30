@@ -1,8 +1,13 @@
 import { useState, useContext, useCallback, useEffect } from 'react';
+import useFilesSync from '../sync/useFilesSync';
 import { SocketContext } from '../../contexts/SocketContextProvider';
 import ENDPOINTS from '../../constants/endpoints';
+import { codeMarkdown, htmlEncoder } from '../../helpers/htmlEncoder';
+import checkMessageFile from '../../helpers/checkMessageFile';
+import MESSAGE_TYPES from '../../constants/messageTypes';
 
 const useChat = (chatId) => {
+    const syncFiles = useFilesSync();
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState();
     const { socket } = useContext(SocketContext);
@@ -28,17 +33,44 @@ const useChat = (chatId) => {
         }
     }, [chatId]);
 
-    const sendMessage = (e) => {
-        const isKeydown = e.type === 'keydown' && e.keyCode === 13;
-        const isClick = e.type === 'click';
-        if (isKeydown || isClick) {
-            e.preventDefault();
-            if (newMessage) {
-                socket.emit('sendMessage', chatId, newMessage);
-                setNewMessage(null);
+    const loadFiles = useCallback(() => {
+        syncFiles(chatId);
+    }, [chatId, syncFiles]);
+
+    const sendMessage = useCallback(
+        (e) => {
+            const isKeydown = e.type === 'keydown' && e.keyCode === 13;
+            const isClick = e.type === 'click';
+            if (isKeydown || isClick) {
+                e.preventDefault();
+                if (newMessage) {
+                    let cappedMessage = newMessage;
+                    if (cappedMessage.length > 255) {
+                        cappedMessage = cappedMessage.substring(0, 255);
+                    }
+                    let encodedMessage = htmlEncoder(cappedMessage);
+                    encodedMessage = codeMarkdown(encodedMessage);
+                    socket.emit(
+                        'sendMessage',
+                        chatId,
+                        encodedMessage,
+                        MESSAGE_TYPES.text
+                    );
+                    setNewMessage(null);
+                }
             }
-        }
-    };
+        },
+        [socket, chatId, newMessage]
+    );
+
+    const sendFile = useCallback(
+        (file, uri) => {
+            const messageType = checkMessageFile(file);
+            socket.emit('sendMessage', chatId, uri, messageType);
+            syncFiles(chatId);
+        },
+        [socket, chatId, syncFiles]
+    );
 
     const listenForNewMessages = useCallback(() => {
         if (socket) {
@@ -54,16 +86,17 @@ const useChat = (chatId) => {
     useEffect(() => {
         joinCurrentChat();
         loadMessages();
+        loadFiles();
         return () => {
             leaveCurrentChat();
         };
-    }, [joinCurrentChat, loadMessages, leaveCurrentChat]);
+    }, [joinCurrentChat, loadMessages, loadFiles, leaveCurrentChat]);
 
     useEffect(() => {
         listenForNewMessages();
     }, [listenForNewMessages]);
 
-    return { messages, setNewMessage, sendMessage };
+    return { messages, setNewMessage, sendMessage, sendFile };
 };
 
 export default useChat;
