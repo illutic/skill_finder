@@ -87,6 +87,9 @@ export const TextArea = styled.textarea`
     &:disabled {
         background: transparent:
     }
+    &::-webkit-scrollbar {
+        width: 0;
+    }
 `;
 
 export const Buttons = styled.div`
@@ -94,10 +97,6 @@ export const Buttons = styled.div`
 
     & > * {
         align-self: center;
-    }
-
-    & > *:first-child {
-        margin-right: 10px;
     }
 
     & > *:last-child {

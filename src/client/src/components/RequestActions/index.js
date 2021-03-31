@@ -15,7 +15,7 @@ const RequestActions = ({ userId }) => {
         if (!userId) {
             return;
         }
-        // Connected Button
+        // "Connected" Button
         const isAccepted = requests?.acceptedRequests?.find((request) => {
             return (
                 (request.fromId === userId || request.toId === userId) &&
@@ -28,7 +28,7 @@ const RequestActions = ({ userId }) => {
             setRequestId(null);
             return;
         }
-        // Accept/Deny Buttons
+        // "Accept/Deny" Buttons
         const isPending = requests?.incomingRequests?.find((request) => {
             return (
                 request.fromId === userId &&
@@ -41,7 +41,7 @@ const RequestActions = ({ userId }) => {
             setRequestId(isPending.id);
             return;
         }
-        // Sent Button
+        // "Sent" Button
         const isSent = requests?.sentRequests?.find((request) => {
             return (
                 request.toId === userId &&
@@ -53,7 +53,7 @@ const RequestActions = ({ userId }) => {
             setActionType(REQUEST_STATUS.sent);
             return;
         }
-
+        // "Reach out" Button
         setActionType(null);
     }, [userId, requests, setActionType]);
 

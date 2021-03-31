@@ -5,8 +5,8 @@ const ArrowButton = ({ ...props }) => {
         <Styled.Button {...props}>
             <Styled.SVG
                 xmlns="http://www.w3.org/2000/svg"
-                width="21.616"
-                height="11.503"
+                width="19.616"
+                height="9.503"
                 viewBox="0 0 23.616 13.503"
             >
                 <path
