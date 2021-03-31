@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useCallback } from 'react';
+import { useContext, useState, useEffect, useRef, useCallback } from 'react';
 import useLocationId from '../../hooks/other/useLocationId';
 import useChat from '../../hooks/api/useChat';
 import useChatUpload from '../../hooks/api/useChatUpload';
@@ -16,6 +16,7 @@ const Chat = () => {
     const { downloadFile } = useDownloadFile();
     const { uploadFile, setFilePayload } = useChatUpload();
     const { messages, setNewMessage, sendMessage } = useChat(locationId);
+    const [isMessageBoxActive, setIsMessageBoxActive] = useState(true);
     const messagesFormRef = useRef();
     const messagesContainerRef = useRef();
     const fileInputRef = useRef();
@@ -25,6 +26,10 @@ const Chat = () => {
 
     const clearMessageBox = useCallback(() => {
         messagesFormRef.current.reset();
+    }, []);
+
+    const clearMessageContent = useCallback(() => {
+        messageBoxRef.current.value = '';
     }, []);
 
     const scrollMessageBox = useCallback(() => {
@@ -39,18 +44,19 @@ const Chat = () => {
             }
             fileNameRef.current.textContent = e.target.files[0].name;
             fileLabelRef.current.classList.add('active');
-            messageBoxRef.current.value = '';
-            messageBoxRef.current.setAttribute('disabled', '');
+            messageBoxRef.current.focus();
+            clearMessageContent();
             setFilePayload(e.target.files[0]);
             setNewMessage('');
+            setIsMessageBoxActive(false);
         },
-        [setFilePayload, setNewMessage]
+        [clearMessageContent, setFilePayload, setNewMessage]
     );
 
     const clearFilePayload = useCallback(() => {
         fileLabelRef.current.classList.remove('active');
-        messageBoxRef.current.removeAttribute('disabled');
         setFilePayload(null);
+        setIsMessageBoxActive(true);
     }, [setFilePayload]);
 
     const openFileInput = useCallback((e) => {
@@ -58,12 +64,16 @@ const Chat = () => {
         fileInputRef.current.click();
     }, []);
 
-    const sendAll = useCallback(
+    const sendNewMessage = useCallback(
         (e) => {
-            e.preventDefault();
-            uploadFile();
-            sendMessage(e);
-            clearFilePayload();
+            const isKeydown = e.type === 'keydown' && e.keyCode === 13;
+            const isClick = e.type === 'click';
+            if (isKeydown || isClick) {
+                e.preventDefault();
+                sendMessage();
+                uploadFile();
+                clearFilePayload();
+            }
         },
         [sendMessage, uploadFile, clearFilePayload]
     );
@@ -129,8 +139,12 @@ const Chat = () => {
                     placeholder="Aa"
                     name="newMessage"
                     id="newMessage"
-                    onChange={(e) => setNewMessage(e.target.value)}
-                    onKeyDown={sendMessage}
+                    onChange={(e) =>
+                        isMessageBoxActive
+                            ? setNewMessage(e.target.value)
+                            : clearMessageContent()
+                    }
+                    onKeyDown={(e) => sendNewMessage(e)}
                     ref={messageBoxRef}
                 ></Styled.TextArea>
                 <Styled.FileUpload>
@@ -155,7 +169,7 @@ const Chat = () => {
                     <AttachButton onClick={openFileInput}>
                         Add file
                     </AttachButton>
-                    <SendButton onClick={(e) => sendAll(e)} />
+                    <SendButton onClick={(e) => sendNewMessage(e)} />
                 </Styled.Buttons>
             </Styled.MessageBox>
         </Styled.Chat>

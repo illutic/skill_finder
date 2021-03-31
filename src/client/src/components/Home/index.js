@@ -36,7 +36,10 @@ const Home = () => {
                         <Styled.Profiles>
                             {verifiedUsers?.length
                                 ? verifiedUsers.map((user) => (
-                                      <Link to={`/profile/${user.id}`}>
+                                      <Link
+                                          key={user.id}
+                                          to={`/profile/${user.id}`}
+                                      >
                                           <ProfileThumbnail
                                               name={`${user.firstName} ${user.lastName}`}
                                               title={user.title}

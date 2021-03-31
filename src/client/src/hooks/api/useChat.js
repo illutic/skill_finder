@@ -4,6 +4,7 @@ import { SocketContext } from '../../contexts/SocketContextProvider';
 import ENDPOINTS from '../../constants/endpoints';
 import { codeMarkdown, htmlEncoder } from '../../helpers/htmlEncoder';
 import checkMessageFile from '../../helpers/checkMessageFile';
+import capMessage from '../../utils/capMessage';
 import MESSAGE_TYPES from '../../constants/messageTypes';
 
 const useChat = (chatId) => {
@@ -37,31 +38,20 @@ const useChat = (chatId) => {
         syncFiles(chatId);
     }, [chatId, syncFiles]);
 
-    const sendMessage = useCallback(
-        (e) => {
-            const isKeydown = e.type === 'keydown' && e.keyCode === 13;
-            const isClick = e.type === 'click';
-            if (isKeydown || isClick) {
-                e.preventDefault();
-                if (newMessage) {
-                    let cappedMessage = newMessage;
-                    if (cappedMessage.length > 255) {
-                        cappedMessage = cappedMessage.substring(0, 255);
-                    }
-                    let encodedMessage = htmlEncoder(cappedMessage);
-                    encodedMessage = codeMarkdown(encodedMessage);
-                    socket.emit(
-                        'sendMessage',
-                        chatId,
-                        encodedMessage,
-                        MESSAGE_TYPES.text
-                    );
-                    setNewMessage(null);
-                }
-            }
-        },
-        [socket, chatId, newMessage]
-    );
+    const sendMessage = useCallback(() => {
+        if (newMessage && newMessage.trim()) {
+            const cappedMessage = capMessage(newMessage);
+            let encodedMessage = htmlEncoder(cappedMessage);
+            encodedMessage = codeMarkdown(encodedMessage);
+            socket.emit(
+                'sendMessage',
+                chatId,
+                encodedMessage,
+                MESSAGE_TYPES.text
+            );
+            setNewMessage(null);
+        }
+    }, [socket, chatId, newMessage]);
 
     const sendFile = useCallback(
         (file, uri) => {

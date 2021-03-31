@@ -112,14 +112,15 @@ export const FileLabel = styled.label`
     top: 25px;
     left: 25px;
     display: none;
+    padding: 10px 15px;
+    transform: translateX(-1px);
+    background-color: ${({ theme }) => theme.colors.positive};
+    border: 1px solid ${({ theme }) => theme.colors.subtle};
+    border-radius: 7px;
+    cursor: pointer;
     &.active {
         display: flex;
         align-items: center;
-        padding: 10px 15px;
-        background-color: ${({ theme }) => theme.colors.positive};
-        border: 1px solid ${({ theme }) => theme.colors.subtle};
-        border-radius: 7px;
-        cursor: pointer;
     }
 `;
 
