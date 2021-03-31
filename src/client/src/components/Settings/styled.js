@@ -40,10 +40,26 @@ export const Group = styled.div`
     }
 `;
 
-export const Label = styled.label``;
+export const FileGroup = styled.div`
+    display: flex;
+`;
+
+export const FileInputGroup = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 25px;
+`;
+
+export const Label = styled.label`
+    margin-bottom: ${({ spaced }) => (spaced ? '10px' : '5px')};
+    text-decoration: ${({ interactive }) =>
+        interactive ? 'underline' : 'none'};
+    cursor: ${({ interactive }) => (interactive ? 'pointer' : 'auto')}; ;
+`;
 
 export const Input = styled.input`
-    padding: 10px 0;
+    padding: 5px 0 10px 0;
     border-bottom: 1px solid ${({ theme }) => theme.colors.subtle};
     transition: border 0.15s ease-in-out;
     &[type='password'] {
@@ -54,21 +70,62 @@ export const Input = styled.input`
     }
 `;
 
-export const File = styled.input`
-    padding: 10px 0;
+export const CustomFileInput = styled.div`
+    align-self: flex-start;
+    margin-top: 35px;
+    padding: 10px 15px;
+    border: 1px solid ${({ theme }) => theme.colors.subtle};
+    border-radius: 7px;
+`;
+
+export const ProfilePhotoPreview = styled.div`
+    cursor: pointer;
+`;
+
+export const BackgroundImagePreview = styled.div`
+    cursor: pointer;
+`;
+
+export const ProfilePhotoBox = styled.div`
+    width: 75px;
+    height: 75px;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 1px solid ${({ theme }) => theme.colors.subtle};
+`;
+
+export const BackgroundImageBox = styled.div`
+    width: 75px;
+    height: 75px;
+    overflow: hidden;
+    background-color: ${({ theme }) => theme.colors.unique};
+    border-radius: 15px;
+    border: 1px solid ${({ theme }) => theme.colors.subtle};
+`;
+
+export const ProfilePhoto = styled.img`
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+`;
+
+export const BackgroundImage = styled.img`
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    object-fit: cover;
 `;
 
 export const Submit = styled(Button)`
     margin-top: 25px;
     @media (min-width: ${SCREENS.medium}) {
         margin-top: 0;
-        margin-left: 50px;
+        margin-left: 30px;
     }
 `;
 
-export const FileSubmit = styled(Button)`
-    margin-top: 25px;
-`;
+export const FileSubmit = styled(Button)``;
 
 export const Skills = styled.div`
     display: flex;

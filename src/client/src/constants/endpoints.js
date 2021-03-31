@@ -5,6 +5,7 @@ const ENDPOINTS = {
     check: '/auth/check',
     api: '/api',
     user: '/api/user',
+    verified: '/api/users/verified',
     title: '/api/user/title',
     description: '/api/user/description',
     photo: '/api/user/photo',

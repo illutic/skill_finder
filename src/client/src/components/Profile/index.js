@@ -9,7 +9,7 @@ import LoadingScreen from '../LoadingScreen';
 import Container from '../Container/index';
 import Heading from '../Heading/index';
 import Button from '../Button/index';
-import defaultProfilePhoto from '../../assets/default.jpg';
+import defaultProfilePhoto from '../../assets/default-profile.jpg';
 import ROUTES from '../../constants/routes';
 
 import RequestActions from '../RequestActions/index';

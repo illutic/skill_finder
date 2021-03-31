@@ -4,7 +4,7 @@ import * as Styled from './styled';
 import ProfilePhoto from '../ProfilePhoto';
 import CloseButton from '../CloseButton/index';
 import RequestActions from '../RequestActions';
-import defaultProfilePhoto from '../../assets/default.jpg';
+import defaultProfilePhoto from '../../assets/default-profile.jpg';
 import ROUTES from '../../constants/routes';
 import NOTIFICATION_TYPES from '../../constants/notificationTypes';
 

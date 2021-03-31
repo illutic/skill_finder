@@ -3,7 +3,7 @@ import * as Styled from './styled';
 import { ChatsContext } from '../../contexts/ChatsContextProvider';
 import ProfileThumbnail from '../ProfileThumbnail/index';
 import stopPropagation from '../../utils/stopPropagation';
-import defaultProfilePhoto from '../../assets/default.jpg';
+import defaultProfilePhoto from '../../assets/default-profile.jpg';
 import ROUTES from '../../constants/routes';
 
 const ContactsDrawer = ({ isActive, closeAllDrawers }) => {

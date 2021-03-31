@@ -87,6 +87,9 @@ export const TextArea = styled.textarea`
     &:disabled {
         background: transparent:
     }
+    &::-webkit-scrollbar {
+        width: 0;
+    }
 `;
 
 export const Buttons = styled.div`
@@ -94,10 +97,6 @@ export const Buttons = styled.div`
 
     & > * {
         align-self: center;
-    }
-
-    & > *:first-child {
-        margin-right: 10px;
     }
 
     & > *:last-child {
@@ -112,14 +111,15 @@ export const FileLabel = styled.label`
     top: 25px;
     left: 25px;
     display: none;
+    padding: 10px 15px;
+    transform: translateX(-1px);
+    background-color: ${({ theme }) => theme.colors.positive};
+    border: 1px solid ${({ theme }) => theme.colors.subtle};
+    border-radius: 7px;
+    cursor: pointer;
     &.active {
         display: flex;
         align-items: center;
-        padding: 10px 15px;
-        background-color: ${({ theme }) => theme.colors.positive};
-        border: 1px solid ${({ theme }) => theme.colors.subtle};
-        border-radius: 7px;
-        cursor: pointer;
     }
 `;
 

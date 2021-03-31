@@ -1,11 +1,16 @@
-import Container from '../Container/index';
+import { Link } from 'react-router-dom';
+import useVerifiedUsers from '../../hooks/api/useVerifiedUsers';
 import * as Styled from './styled';
+import Container from '../Container/index';
 import Heading from '../Heading/index';
 import HomeSlider from '../HomeSlider';
 import ProfileThumbnail from '../ProfileThumbnail/index';
+import defaultProfilePhoto from '../../assets/default-profile.jpg';
 import communityPhoto from '../../assets/community.jpg';
 
 const Home = () => {
+    const { verifiedUsers } = useVerifiedUsers();
+
     return (
         <Container spaced={true}>
             <Styled.Section>
@@ -29,16 +34,24 @@ const Home = () => {
                             voluptua.
                         </Styled.Paragraph>
                         <Styled.Profiles>
-                            <ProfileThumbnail
-                                name="John Smith"
-                                title="Mathematics Passionate"
-                                photo="https://picsum.photos/150/150"
-                            />
-                            <ProfileThumbnail
-                                name="Rich Oswald"
-                                title="Computer Science Teacher"
-                                photo="https://picsum.photos/150/150"
-                            />
+                            {verifiedUsers?.length
+                                ? verifiedUsers.map((user) => (
+                                      <Link
+                                          key={user.id}
+                                          to={`/profile/${user.id}`}
+                                      >
+                                          <ProfileThumbnail
+                                              name={`${user.firstName} ${user.lastName}`}
+                                              title={user.title}
+                                              photo={
+                                                  user.profilePhoto
+                                                      ? user.profilePhoto
+                                                      : defaultProfilePhoto
+                                              }
+                                          />
+                                      </Link>
+                                  ))
+                                : null}
                         </Styled.Profiles>
                     </Styled.Content>
                     <Styled.Display>
