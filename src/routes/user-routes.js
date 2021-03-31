@@ -15,7 +15,7 @@ import auth from '../auth/auth.js';
 const router = Router();
 
 router.get('/user/:id', getUser);
-router.get('/verified', getVerifiedUsers);
+router.get('/users/verified', getVerifiedUsers);
 router.get('/user', auth, getCurrentUser);
 router.post('/user/photo/:photoType', auth, postPhoto);
 router.delete('/user/photo/:photoType', auth, removePhoto);
