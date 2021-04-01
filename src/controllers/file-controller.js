@@ -5,8 +5,8 @@ import User from '../models/User.js';
 import File from '../models/File.js';
 import { uploadImage, uploadFile } from '../data-access/storage.js';
 
-/** Post / Update Photo
- *  @param {string} photoType - requires photoType parameter ('profilePhoto' or 'backgroundImage')
+/** Post photo - updates (or adds new) currently logged in user's photo. It is meant to operate on protected routes only.
+ *  @param {string} photoType - requires photoType URL parameter equal to 'profilePhoto' or 'backgroundImage'.
  */
 export const postPhoto = async (req, res) => {
     uploadImage(req, res, async (fileError) => {
@@ -39,8 +39,8 @@ export const postPhoto = async (req, res) => {
     });
 };
 
-/** Remove Photo
- *  @param {string} photoType - requires photoType parameter ('profilePhoto' or 'backgroundImage')
+/** Remove photo - removes currently logged in user's photo. It is meant to operate on protected routes only.
+ *  @param {string} photoType - requires photoType URL parameter equal to 'profilePhoto' or 'backgroundImage'
  */
 export const removePhoto = async (req, res) => {
     const { userId } = req;
@@ -63,8 +63,9 @@ export const removePhoto = async (req, res) => {
     });
 };
 
-/** Get Photo
- * @param {URL} photoURI - requires the URI of the photo passed as a request parameter.
+/** Get photo - responds with a photo (profile, background) of a particular user defined by the user ID.
+ * @param {uuid} userId - requires a user ID passed as URL parameter. The URL is, in fact, a URI pointing at the photo resource.
+ * @param {string} photoName - requires a photo name passed as URL parameter.
  */
 export const getPhoto = async (req, res) => {
     try {
@@ -86,9 +87,9 @@ export const getPhoto = async (req, res) => {
     }
 };
 
-/** Uploads any file to the user's (chat) upload directory
- *  @param {String} chatId - requires a chatId field in the request body. Otherwise, it defaults to photos directory).
- *  @param {file} file - the file to be uploaded.
+/** Post file - uploads any file to a chat directory. It is meant to operate on protected routes only.
+ *  @param {String} chatId - requires a chat ID passed in the request body.
+ *  @param {file} file - requires a file attached to the request itself (it should be done automatically by multer package).
  */
 export const postFile = async (req, res) => {
     uploadFile(req, res, async (fileError) => {
@@ -117,7 +118,7 @@ export const postFile = async (req, res) => {
     });
 };
 
-/** Remove File
+/** Remove file - removes a particular file based on the file ID. It is meant to operate on protected routes only.
  * @param {UUID} fileId - requires the ID of the file to be removed passed in the request body.
  */
 export const removeFile = async (req, res) => {
@@ -139,8 +140,10 @@ export const removeFile = async (req, res) => {
     });
 };
 
-/** Get File
- * @param {URL} fileURI - requires the URI of the file passed as a request parameter.
+/** Get file - responds with a file uploaded by a particular user defined by the user ID to a particular chat defined by the chat ID.
+ * @param {uuid} chatId - requires a chat ID passed as URL parameter. The URL is, in fact, a URI pointing at the file resource.
+ * @param {uuid} userId - requires a chat ID passed as URL parameter.
+ * @param {string} fileName - requires a file name passed as URL parameter.
  */
 export const getFile = async (req, res) => {
     try {
@@ -163,6 +166,9 @@ export const getFile = async (req, res) => {
     }
 };
 
+/** Get files - responds with data (IDs, URIs) of all files uploaded to a particular chat defined by the chat ID. It is meant to operate on protected routes only.
+ * @param {uuid} chatId - requires a chat ID passed as URL parameter.
+ */
 export const getFiles = async (req, res) => {
     try {
         const { chatId } = req.params;

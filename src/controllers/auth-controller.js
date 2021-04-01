@@ -72,7 +72,7 @@ export const logOut = async (req, res) => {
     res.sendStatus(200);
 };
 
-/** Auth check controller function - used to quickly check user's auth status without fetching any data. */
+/** Auth check controller function - used to quickly check user's auth status without fetching any data. It is meant to operate on protected routes only. */
 export const check = async (req, res) => {
     res.sendStatus(200);
 };

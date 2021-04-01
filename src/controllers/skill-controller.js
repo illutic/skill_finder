@@ -37,7 +37,7 @@ export const getSkill = async (req, res) => {
     }
 };
 
-/** Add user's skill - adds a skill to the current user's account.
+/** Add user's skill - adds a skill to the current user's account. It is meant to operate on protected routes only.
  * @param {string} name - requires a skill name parameter passed in the request body.
  */
 export const postSkill = async (req, res) => {
@@ -67,7 +67,7 @@ export const postSkill = async (req, res) => {
     }
 };
 
-/** Delete user's skill - deletes current user's skill based on the skill ID.
+/** Delete user's skill - deletes current user's skill based on the skill ID. It is meant to operate on protected routes only.
  * @param {uuid} skillId - requires a skill ID parameter passed in the request body.
  */
 export const deleteSkill = async (req, res) => {

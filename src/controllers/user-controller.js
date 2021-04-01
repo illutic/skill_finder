@@ -7,7 +7,7 @@ import hashPassword from '../utils/hashPassword.js';
 import checkPassword from '../utils/checkPassword.js';
 import removeToken from '../utils/removeToken.js';
 
-/** Get current user - responds with currently logged in user's data. It does not include any sensitive data. */
+/** Get current user - responds with currently logged in user's data. It does not include any sensitive data. It is meant to operate on protected routes only. */
 export const getCurrentUser = async (req, res) => {
     try {
         const { userId } = req;
@@ -72,7 +72,7 @@ export const getVerifiedUsers = async (req, res) => {
     }
 };
 
-/** Update email function - updates user's email after double-checking the auth.
+/** Update email function - updates user's email after double-checking the auth. It is meant to operate on protected routes only.
  * @param {string} email - requires an email address passed in the request body.
  * @param {string} password - requires a password passed in the request body.
  */
@@ -111,7 +111,7 @@ export const patchEmail = async (req, res) => {
     }
 };
 
-/** Update password - updates user's password after double-checking the auth.
+/** Update password - updates user's password after double-checking the auth. It is meant to operate on protected routes only.
  * @param {string} password - requires a new password passed in the request body.
  * @param {string} confirmPassword - requires an old password passed in the request body.
  */
@@ -140,7 +140,7 @@ export const patchPassword = async (req, res) => {
     }
 };
 
-/** Update title - updates users's profile title.
+/** Update title - updates users's profile title. It is meant to operate on protected routes only.
  * @param {string} title - requires a title string in the request body.
  */
 export const patchTitle = async (req, res) => {
@@ -167,7 +167,7 @@ export const patchTitle = async (req, res) => {
     }
 };
 
-/** Update description - updates user's profile description.
+/** Update description - updates user's profile description. It is meant to operate on protected routes only.
  * @param {string} description - requires a new description passed in the request body.
  */
 export const patchDescription = async (req, res) => {
@@ -194,7 +194,7 @@ export const patchDescription = async (req, res) => {
     }
 };
 
-/** Delete account - delets user's account after double-checking the auth.
+/** Delete account - delets user's account after double-checking the auth. It is meant to operate on protected routes only.
  * @param {string} confirmPassword - requires the user to confirm his password.
  * @param {string} confirmPhrase - requires the user to confirm his/her intention to delete the account by typing the "Delete account" phrase.
  */
