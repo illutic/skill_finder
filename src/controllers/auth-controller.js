@@ -17,14 +17,25 @@ import AUTH_EXPIRY from '../constants/auth-expiry.js';
  */
 export const signUp = async (req, res) => {
     try {
-        const { firstName, lastName, email, password } = req.body;
+        const { id, firstName, lastName, email, password } = req.body;
         validateAuthForm(req.body, FORM_TYPES.signup);
-        const user = await User.create({
-            firstName,
-            lastName,
-            email,
-            password: await hashPassword(password),
-        });
+        let user;
+        if (id) {
+            user = await User.create({
+                id,
+                firstName,
+                lastName,
+                email,
+                password: await hashPassword(password),
+            });
+        } else {
+            user = await User.create({
+                firstName,
+                lastName,
+                email,
+                password: await hashPassword(password),
+            });
+        }
         const token = createToken(user.id);
         res.cookie('origin', token, {
             httpOnly: true,

@@ -5,7 +5,11 @@ import makeAssociations from './data-access/associations.js';
 import { WebSockets } from './sockets/WebSockets.js';
 
 const PORT = process.env.PORT ?? 8081;
-
+if (process.env.TEST === 'false') {
+    process.env.DB_URI = `postgresql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@localhost:5432/skillfinder`;
+} else {
+    process.env.DB_URI = `postgresql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@localhost:5430/skillfinder`;
+}
 /** Initialize the database and listen for connections. */
 (async () => {
     try {
