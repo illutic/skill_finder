@@ -31,7 +31,7 @@ export const getCurrentUser = async (req, res) => {
 };
 
 /** Get Any User Data
- * @param {uuid} userId - Requires user ID passed as URL parameter.
+ * @param {uuid} userId - requires user ID passed as URL parameter.
  */
 export const getUser = async (req, res) => {
     try {
@@ -73,8 +73,8 @@ export const getVerifiedUsers = async (req, res) => {
 };
 
 /** Update Email
- * @param {string} email - Requires an email address passed in the request body.
- * @param {string} password - Requires a password passed in the request body.
+ * @param {string} email - requires an email address passed in the request body.
+ * @param {string} password - requires a password passed in the request body.
  */
 export const patchEmail = async (req, res) => {
     try {
@@ -112,8 +112,8 @@ export const patchEmail = async (req, res) => {
 };
 
 /** Update Password
- * @param {string} password - Requires a new password passed in the request body.
- * @param {string} confirmPassword - Requires an old password passed in the request body.
+ * @param {string} password - requires a new password passed in the request body.
+ * @param {string} confirmPassword - requires an old password passed in the request body.
  */
 export const patchPassword = async (req, res) => {
     try {
@@ -141,7 +141,7 @@ export const patchPassword = async (req, res) => {
 };
 
 /** Update Title
- * @param {string} title - Requires a title string in the request body
+ * @param {string} title - requires a title string in the request body
  */
 export const patchTitle = async (req, res) => {
     try {
@@ -168,7 +168,7 @@ export const patchTitle = async (req, res) => {
 };
 
 /** Update Description
- * @param {string} description - Requires a new description passed in the request body.
+ * @param {string} description - requires a new description passed in the request body.
  */
 export const patchDescription = async (req, res) => {
     try {

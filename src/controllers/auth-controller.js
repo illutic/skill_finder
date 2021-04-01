@@ -9,11 +9,11 @@ import removeToken from '../utils/removeToken.js';
 import FORM_TYPES from '../constants/form-types.js';
 import AUTH_EXPIRY from '../constants/auth-expiry.js';
 
-/** Signup controller function - Uses the data provided in the request body to register a user.
- * @param {string} firstName - Requires a first name string provided in the request body.
- * @param {string} lastName - Requires a last name string provided in the request body.
- * @param {string} email - Requires an email string provided in the request body.
- * @param {string} password - Requires a password string provided in the request body.
+/** Signup controller function - uses the data provided in the request body to register a user.
+ * @param {string} firstName - requires a first name string provided in the request body.
+ * @param {string} lastName - requires a last name string provided in the request body.
+ * @param {string} email - requires an email string provided in the request body.
+ * @param {string} password - requires a password string provided in the request body.
  */
 export const signUp = async (req, res) => {
     try {
@@ -36,9 +36,9 @@ export const signUp = async (req, res) => {
     }
 };
 
-/** Login controller function - Uses the data provided in the request body to log in a user.
- * @param {string} email - Requires an email string found in the request body.
- * @param {string} password - Requires a password string found in the request body.
+/** Login controller function - sses the data provided in the request body to log in a user.
+ * @param {string} email - requires an email string found in the request body.
+ * @param {string} password - requires a password string found in the request body.
  */
 export const logIn = async (req, res) => {
     try {
@@ -67,13 +67,13 @@ export const logIn = async (req, res) => {
     }
 };
 
-/** Logout controller function - Overwrites auth cookies with empty, short-lived cookies. */
+/** Logout controller function - overwrites auth cookies with empty, short-lived cookies. */
 export const logOut = async (req, res) => {
     removeToken(res);
     res.sendStatus(200);
 };
 
-/** Auth check controller function - Used to quickly check user's auth status without requiring any data */
+/** Auth check controller function - used to quickly check user's auth status without requiring any data */
 export const check = async (req, res) => {
     res.sendStatus(200);
 };

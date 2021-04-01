@@ -1,3 +1,4 @@
+/** @module WebSockets */
 import cookie from 'cookie';
 import auth from '../auth/sockets-auth.js';
 import NOTIFICATION_TYPES from '../constants/notification-types.js';
@@ -8,12 +9,12 @@ import User from '../models/User.js';
 import Notification from '../models/Notification.js';
 
 /** Web Socket Configuration
- * @param {Server} io - Requires a Websocket Server created from the HTTP Server.
+ * @param {Server} io - requires a Websocket Server created from the HTTP Server.
  */
 export const WebSockets = (io) => {
     /** WebSocket Server On Connection
      * On connection the server emits an authentication event to the socket that just connected. On authorisation, emits an 'authorized' event, otherwise - 'unauthorised'.
-     * @param {websocket} socket - Requires a WebSocket object.
+     * @param {websocket} socket - requires a WebSocket object.
      */
     io.on('connection', async (socket) => {
         let id;
@@ -29,7 +30,7 @@ export const WebSockets = (io) => {
         });
 
         /** Disconnection
-         * @param {string} chatId - A chatId is passed when the socket disconnects.
+         * @param {string} chatId - a chatId is passed when the socket disconnects.
          * On socket disconnection the server removes the socket from the specified chat room.
          */
         socket.on('disconnect', (chatId) => {
@@ -88,7 +89,7 @@ export const WebSockets = (io) => {
         });
 
         /** On Receiving a Request Accept
-         * @param {string} requestId - Request ID, passed in from the client-side.
+         * @param {string} requestId - request ID, passed in from the client-side.
          * The server finds the database entity for the request, creates a chatroom, deactivates the request and emits to the user who sent it that it was accepted.
          */
         socket.on('acceptRequest', async (requestId) => {
@@ -136,7 +137,7 @@ export const WebSockets = (io) => {
         });
 
         /** On Receiving a Request Deny
-         * @param {string} requestId - Request ID passed from the client-side.
+         * @param {string} requestId - request ID passed from the client-side.
          * The server finds the database entity for the request, deactivates the request and emits to the user who sent it that it was denied.
          */
         socket.on('denyRequest', async (requestId) => {
@@ -179,8 +180,8 @@ export const WebSockets = (io) => {
         });
 
         /** On Receiving a message,
-         * @param {string} chatId - Chat ID, passed from the client-side.
-         * @param {string} message - The message content that the client sent.
+         * @param {string} chatId - chat ID, passed from the client-side.
+         * @param {string} message - the message content that the client sent.
          * The server creates a new database entity for the message and emits the database object to the room that was specified.
          */
         socket.on('sendMessage', async (chatId, message, type) => {

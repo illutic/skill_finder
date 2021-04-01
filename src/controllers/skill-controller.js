@@ -4,7 +4,7 @@ import User from '../models/User.js';
 import Skill from '../models/Skill.js';
 
 /** Get Users By Skill Name
- * @param {string} name - Requires a skill name passed as URL parameter.
+ * @param {string} name - requires a skill name passed as URL parameter.
  */
 export const getSkill = async (req, res) => {
     try {
@@ -38,7 +38,7 @@ export const getSkill = async (req, res) => {
 };
 
 /** Add User Skill
- * @param {string} name - Requires a skill name parameter passed in the request body.
+ * @param {string} name - requires a skill name parameter passed in the request body.
  */
 export const postSkill = async (req, res) => {
     try {
@@ -68,7 +68,7 @@ export const postSkill = async (req, res) => {
 };
 
 /** Delete User Skill
- * @param {uuid} skillId - Requires a skill ID parameter passed in the request body.
+ * @param {uuid} skillId - requires a skill ID parameter passed in the request body.
  */
 export const deleteSkill = async (req, res) => {
     try {

@@ -26,7 +26,7 @@ export const getChatrooms = async (req, res) => {
 };
 
 /** Get Chat Messages
- * @param {uuid} chatId - Requires a chatId passed as URL parameter.
+ * @param {uuid} chatId - requires a chatId passed as URL parameter.
  * */
 export const getMessages = async (req, res) => {
     try {

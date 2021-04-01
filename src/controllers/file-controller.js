@@ -6,7 +6,7 @@ import File from '../models/File.js';
 import { uploadImage, uploadFile } from '../data-access/storage.js';
 
 /** Post / Update Photo
- *  @param {string} photoType - Requires photoType parameter ('profilePhoto' or 'backgroundImage')
+ *  @param {string} photoType - requires photoType parameter ('profilePhoto' or 'backgroundImage')
  */
 export const postPhoto = async (req, res) => {
     uploadImage(req, res, async (fileError) => {
@@ -40,7 +40,7 @@ export const postPhoto = async (req, res) => {
 };
 
 /** Remove Photo
- *  @param {string} photoType - Requires photoType parameter ('profilePhoto' or 'backgroundImage')
+ *  @param {string} photoType - requires photoType parameter ('profilePhoto' or 'backgroundImage')
  */
 export const removePhoto = async (req, res) => {
     const { userId } = req;
@@ -64,7 +64,7 @@ export const removePhoto = async (req, res) => {
 };
 
 /** Get Photo
- * @param {URL} photoURI - Requires the URI of the photo passed as a request parameter.
+ * @param {URL} photoURI - requires the URI of the photo passed as a request parameter.
  */
 export const getPhoto = async (req, res) => {
     try {
@@ -87,8 +87,8 @@ export const getPhoto = async (req, res) => {
 };
 
 /** Uploads any file to the user's (chat) upload directory
- *  @param {String} chatId - Requires a chatId field in the request body. Otherwise, it defaults to photos directory).
- *  @param {file} file - The file to be uploaded.
+ *  @param {String} chatId - requires a chatId field in the request body. Otherwise, it defaults to photos directory).
+ *  @param {file} file - the file to be uploaded.
  */
 export const postFile = async (req, res) => {
     uploadFile(req, res, async (fileError) => {
@@ -118,7 +118,7 @@ export const postFile = async (req, res) => {
 };
 
 /** Remove File
- * @param {UUID} fileId - Requires the ID of the file to be removed passed in the request body.
+ * @param {UUID} fileId - requires the ID of the file to be removed passed in the request body.
  */
 export const removeFile = async (req, res) => {
     const { fileId } = req.body;
@@ -140,7 +140,7 @@ export const removeFile = async (req, res) => {
 };
 
 /** Get File
- * @param {URL} fileURI - Requires the URI of the file passed as a request parameter.
+ * @param {URL} fileURI - requires the URI of the file passed as a request parameter.
  */
 export const getFile = async (req, res) => {
     try {
