@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>constants/form-types.js - Documentation</title>
+    <title>data-access/database.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">constants/form-types.js</h1>
+    <h1 class="page-title">data-access/database.js</h1>
     
 
     
@@ -39,15 +39,18 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/** @constant FORM_TYPES */
-/**  Specifies the type of form to be validated.
- */
-const FORM_TYPES = {
-    signup: 0,
-    login: 1,
-};
+            <pre class="prettyprint source linenums"><code>/** @module DatabaseConnection */
+import { Sequelize } from 'sequelize';
+import dotenv from 'dotenv';
 
-export default FORM_TYPES;
+dotenv.config();
+
+const database = new Sequelize(process.env.DB_URI, {
+    logging: false,
+    // ^ Comment if you prefer logging
+});
+
+export default database;
 </code></pre>
         </article>
     </section>
