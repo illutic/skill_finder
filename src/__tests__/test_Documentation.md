@@ -1,4 +1,4 @@
-##Getting started 
+## Getting started 
 
 We started off my creating a new folder called _ _tests__. This was followed by creating a new file within the __tests__ folder called validateAuthForm.test.js, this naming convention allows for proper functionality to be executed, in this case, test.
 
