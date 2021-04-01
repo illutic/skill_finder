@@ -1,3 +1,4 @@
+/** @module ChatController */
 import sequelize from 'sequelize';
 import User from '../models/User.js';
 import Message from '../models/Message.js';

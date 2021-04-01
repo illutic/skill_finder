@@ -1,3 +1,4 @@
+/** @module SkillController */
 import Fuse from 'fuse.js';
 import User from '../models/User.js';
 import Skill from '../models/Skill.js';

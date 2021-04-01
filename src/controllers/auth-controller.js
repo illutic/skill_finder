@@ -1,4 +1,4 @@
-/** @module auth-controller */
+/** @module AuthController */
 /** Provides authentication related callback functions. */
 import bcrypt from 'bcrypt';
 import validateAuthForm from '../utils/validateAuthForm.js';
@@ -9,9 +9,9 @@ import removeToken from '../utils/removeToken.js';
 import FORM_TYPES from '../constants/form-types.js';
 import AUTH_EXPIRY from '../constants/auth-expiry.js';
 
-/** Sign Up callback function - Uses the data provided in the request body to register a user.
- * @param {string} firstName - Requires a firstname string provided in the request body.
- * @param {string} lastName - Requires a lastname string provided in the request body.
+/** Signup controller function - Uses the data provided in the request body to register a user.
+ * @param {string} firstName - Requires a first name string provided in the request body.
+ * @param {string} lastName - Requires a last name string provided in the request body.
  * @param {string} email - Requires an email string provided in the request body.
  * @param {string} password - Requires a password string provided in the request body.
  */
@@ -36,10 +36,9 @@ export const signUp = async (req, res) => {
     }
 };
 
-/** Log In callback function - Uses the data provided in the request body to login a user.
+/** Login controller function - Uses the data provided in the request body to log in a user.
  * @param {string} email - Requires an email string found in the request body.
  * @param {string} password - Requires a password string found in the request body.
- * @returns {cookie} Responds a cookie with a verification token attached.
  */
 export const logIn = async (req, res) => {
     try {
@@ -68,13 +67,13 @@ export const logIn = async (req, res) => {
     }
 };
 
-/** Log out callback function - Overwrites auth cookies with empty, short-lived cookies. */
+/** Logout controller function - Overwrites auth cookies with empty, short-lived cookies. */
 export const logOut = async (req, res) => {
     removeToken(res);
     res.sendStatus(200);
 };
 
-/** Auth check callback function - Evaluates on a protected route. */
+/** Auth check controller function - Used to quickly check user's auth status without requiring any data */
 export const check = async (req, res) => {
     res.sendStatus(200);
 };

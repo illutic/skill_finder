@@ -1,3 +1,4 @@
+/** @module FileController */
 import fs from 'fs';
 import path from 'path';
 import User from '../models/User.js';

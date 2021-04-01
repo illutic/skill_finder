@@ -1,5 +1,6 @@
-import Notification from '../models/Notification.js';
+/** @module NotificationController */
 import User from '../models/User.js';
+import Notification from '../models/Notification.js';
 
 /** Get User Notifications */
 export const getNotifications = async (req, res) => {

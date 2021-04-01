@@ -1,3 +1,4 @@
+/** @module DatabaseAssociations */
 import User from '../models/User.js';
 import Skill from '../models/Skill.js';
 import Request from '../models/Request.js';
@@ -7,7 +8,6 @@ import Chat from '../models/Chat.js';
 import Message from '../models/Message.js';
 import File from '../models/File.js';
 
-/** Database Associations */
 /** Sequelize auto generated tables and their columns:
  * @table UserSkill - Columns: [UserId, SkillId]
  * @table UserConnection - Columns: [UserId, ConnectionID] - Might be redundant

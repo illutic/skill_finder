@@ -1,3 +1,4 @@
+/** @module UserController */
 import { Sequelize } from 'sequelize';
 import User from '../models/User.js';
 import Skill from '../models/Skill.js';

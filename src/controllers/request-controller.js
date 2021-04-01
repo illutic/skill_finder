@@ -1,3 +1,4 @@
+/** @module RequestController */
 import sequelize from 'sequelize';
 import Request from '../models/Request.js';
 
