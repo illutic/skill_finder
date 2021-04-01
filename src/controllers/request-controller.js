@@ -4,7 +4,7 @@ import Request from '../models/Request.js';
 
 const { Op } = sequelize;
 
-/** Get requests - responds with data on requests received by currently logged in user. It sorts the requests into three categories - accepted requests, incoming requests and sent requests. It is meant to operate on protected routes only. */
+/** Get requests - responds with data about requests received by currently logged in user. It sorts the requests into three categories - accepted requests, incoming requests and sent requests. It is meant to operate on protected routes only. */
 const getRequests = async (req, res) => {
     try {
         const { userId } = req;

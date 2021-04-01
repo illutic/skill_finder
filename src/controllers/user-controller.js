@@ -55,7 +55,7 @@ export const getUser = async (req, res) => {
     }
 };
 
-/** Ger verified users functions - responds with two users that have been verified by the service administrators. */
+/** Ger verified users - responds with data on two users that have been verified by the service administrators. It is used to display users in the "Community" section on the home page. */
 export const getVerifiedUsers = async (req, res) => {
     try {
         const user = await User.findAll({
