@@ -1,12 +1,12 @@
-const form = require('../utils/validateAuthForm.js');
-const FORM_TYPES = require('../constants/form-types.js');
+const validateAuthForm = require('../utils/validateAuthForm.js');
+const FORM_TYPES = require ('../constants/form-types.js');
 
 test('User does not exist', () => {
 
-    const mockUser = { email: "jasonOwen@gmail.com", password: "Le7m£Enter"}; 
+    const mockUser = { email: "jasonOwengmail.com", password: "Le7m£Enter"}; 
         didValidate = false; 
         try{
-            test = form.validateAuthForm(mockUser, FORM_TYPES.signin);
+            validateAuthForm(mockUser, FORM_TYPES.login);
             didValidate = true;
         }catch (error) {
 
@@ -16,10 +16,10 @@ test('User does not exist', () => {
 
 test('User exists but password is incorrect', () => {
 
-    const mockUser = {  email: "Up903124@myport.ac.uk", password: "P4r1s!"}; 
+    const mockUser = {email: "Up903124@myport.ac.uk", password: "ioip"}; 
         didValidate = false; 
         try{
-            test = form.validateAuthForm(mockUser, FORM_TYPES.signin);
+            validateAuthForm(mockUser, FORM_TYPES.login);
             didValidate = true;
         }catch (error) {
 
@@ -30,10 +30,10 @@ test('User exists but password is incorrect', () => {
 
 test('Empty input', () => {
 
-    const mockUser = {  email: " ", password: " "}; 
+    const mockUser = {  email: "", password: ""}; 
         didValidate = false; 
         try{
-            test = form.validateAuthForm(mockUser, FORM_TYPES.signin);
+            validateAuthForm(mockUser, FORM_TYPES.login);
             didValidate = true;
         }catch (error) {
 
@@ -43,13 +43,13 @@ test('Empty input', () => {
 
 test('Correct input', () => {
 
-    const mockUser = {  email: "up75857myport.ac.uk", password: "Sm311yJ£11y"}; 
+    const mockUser = {email: "up75857@myport.ac.uk", password: "osjuhuhuhuh"}; 
         didValidate = false; 
         try{
-            test = form.validateAuthForm(mockUser, FORM_TYPES.signin);
+            validateAuthForm(mockUser, FORM_TYPES.login);
             didValidate = true;
         }catch (error) {
-
+        console.log(error)
         }
         expect (didValidate).toBe (true);
     });
