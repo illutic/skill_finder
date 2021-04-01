@@ -1,5 +1,4 @@
 /** @module AuthController */
-/** Provides authentication related callback functions. */
 import bcrypt from 'bcrypt';
 import validateAuthForm from '../utils/validateAuthForm.js';
 import User from '../models/User.js';
@@ -36,7 +35,7 @@ export const signUp = async (req, res) => {
     }
 };
 
-/** Login controller function - sses the data provided in the request body to log in a user.
+/** Login controller function - uses the data provided in the request body to log in a user.
  * @param {string} email - requires an email string found in the request body.
  * @param {string} password - requires a password string found in the request body.
  */
@@ -67,13 +66,13 @@ export const logIn = async (req, res) => {
     }
 };
 
-/** Logout controller function - overwrites auth cookies with empty, short-lived cookies. */
+/** Logout controller function - overwrites current auth cookies with empty, short-lived ones. */
 export const logOut = async (req, res) => {
     removeToken(res);
     res.sendStatus(200);
 };
 
-/** Auth check controller function - used to quickly check user's auth status without requiring any data */
+/** Auth check controller function - used to quickly check user's auth status without fetching any data. */
 export const check = async (req, res) => {
     res.sendStatus(200);
 };

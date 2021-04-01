@@ -7,7 +7,7 @@ import hashPassword from '../utils/hashPassword.js';
 import checkPassword from '../utils/checkPassword.js';
 import removeToken from '../utils/removeToken.js';
 
-/** Get Current User Data */
+/** Get current user - responds with currently logged in user's data. It does not include any sensitive data. */
 export const getCurrentUser = async (req, res) => {
     try {
         const { userId } = req;
@@ -30,7 +30,7 @@ export const getCurrentUser = async (req, res) => {
     }
 };
 
-/** Get Any User Data
+/** Get any user - responds with any user's data based on user ID passed in the request body. It does not include any sensitive data.
  * @param {uuid} userId - requires user ID passed as URL parameter.
  */
 export const getUser = async (req, res) => {
@@ -55,7 +55,7 @@ export const getUser = async (req, res) => {
     }
 };
 
-/** Get two users that have been verified by service administrators */
+/** Ger verified users functions - responds with two users that have been verified by the service administrators. */
 export const getVerifiedUsers = async (req, res) => {
     try {
         const user = await User.findAll({
@@ -72,7 +72,7 @@ export const getVerifiedUsers = async (req, res) => {
     }
 };
 
-/** Update Email
+/** Update email function - updates user's email after double-checking the auth.
  * @param {string} email - requires an email address passed in the request body.
  * @param {string} password - requires a password passed in the request body.
  */
@@ -111,7 +111,7 @@ export const patchEmail = async (req, res) => {
     }
 };
 
-/** Update Password
+/** Update password - updates user's password after double-checking the auth.
  * @param {string} password - requires a new password passed in the request body.
  * @param {string} confirmPassword - requires an old password passed in the request body.
  */
@@ -140,8 +140,8 @@ export const patchPassword = async (req, res) => {
     }
 };
 
-/** Update Title
- * @param {string} title - requires a title string in the request body
+/** Update title - updates users's profile title.
+ * @param {string} title - requires a title string in the request body.
  */
 export const patchTitle = async (req, res) => {
     try {
@@ -167,7 +167,7 @@ export const patchTitle = async (req, res) => {
     }
 };
 
-/** Update Description
+/** Update description - updates user's profile description.
  * @param {string} description - requires a new description passed in the request body.
  */
 export const patchDescription = async (req, res) => {
@@ -194,18 +194,12 @@ export const patchDescription = async (req, res) => {
     }
 };
 
-/** Delete Account */
+/** Delete account - delets user's account after double-checking the auth.
+ * @param {string} confirmPassword - requires the user to confirm his password.
+ * @param {string} confirmPhrase - requires the user to confirm his/her intention to delete the account by typing the "Delete account" phrase.
+ */
 export const deleteAccount = async (req, res) => {
     try {
-        /** TODO
-         * [ ] destroy all m:n table entities related to user
-         * [ ] destroy any requests linked to user
-         * [ ] remove uploaded files
-         * [ ] remove chats
-         * [ ] remove skills
-         * [X] remove token
-         * [X] destroy database entity
-         */
         const { userId } = req;
         const { confirmPhrase, confirmPassword } = req.body;
         if (!confirmPhrase || confirmPhrase !== 'Delete account') {

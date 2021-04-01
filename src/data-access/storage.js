@@ -33,8 +33,8 @@ const createUploadDirectory = async (userId, chatId, callback) => {
     });
 };
 
-/** Creates a multer storage component.
- * @param {Request} req - content-type must be of: 'multipart/form-data'
+/** Creates a multer storage specifically for images.
+ * @param {object} req - content-type must be of: 'multipart/form-data'.
  * @param {file} file - the file information included in the Request parameter.
  * @param {function} cb - callback function to be called when the file operation is complete.
  */
@@ -44,14 +44,13 @@ const storage = multer.diskStorage({
             cb(null, userDir);
         });
     },
-    /** Generates a new random uuid for the file name */
     filename(req, file, cb) {
         cb(null, `${v4() + path.extname(file.originalname)}`);
     },
 });
 
-/** Creates a multer Storage Component.
- * @param {Request} req - content-type must be of: 'multipart/form-data'.
+/** Creates a multer storage for any files.
+ * @param {object} req - content-type must be of: 'multipart/form-data'.
  * @param {file} file - the file passed by Multer middleware.
  * @param {function} cb - a callback function to be called when the file operation is complete.
  */
@@ -61,7 +60,6 @@ const fileStorage = multer.diskStorage({
             cb(null, userDir);
         });
     },
-    /** Keeps file name intact */
     filename(req, file, cb) {
         cb(null, `${file.originalname}`);
     },
@@ -76,16 +74,14 @@ const imageFilter = (req, file, cb) => {
     return cb(null, true);
 };
 
-/** Creates a Multer object and passes the configuration.
- * @requires [storage,fileFilter,limits] - requires a multer diskStorage component, optionally a fileFilter function and a limits object.
- * @middleware [.single('tag')] - populates the Request with the file that has the specified string tagged. eg. ['image', image]
- */
+/** Creates multer middleware for parsing incoming images. */
 export const uploadImage = multer({
     storage,
     fileFilter: imageFilter,
     limits: { fileSize: 2048 * 2048 },
 }).single('image');
 
+/** Creates multer middleware for parsing incoming binary files. */
 export const uploadFile = multer({
     storage: fileStorage,
 }).single('file');

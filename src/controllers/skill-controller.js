@@ -3,7 +3,7 @@ import Fuse from 'fuse.js';
 import User from '../models/User.js';
 import Skill from '../models/Skill.js';
 
-/** Get Users By Skill Name
+/** Get users by skill name - responds with data of users who are associated with a given skill name. It acts as a provisional search engine at the moment.
  * @param {string} name - requires a skill name passed as URL parameter.
  */
 export const getSkill = async (req, res) => {
@@ -37,7 +37,7 @@ export const getSkill = async (req, res) => {
     }
 };
 
-/** Add User Skill
+/** Add user's skill - adds a skill to the current user's account.
  * @param {string} name - requires a skill name parameter passed in the request body.
  */
 export const postSkill = async (req, res) => {
@@ -67,7 +67,7 @@ export const postSkill = async (req, res) => {
     }
 };
 
-/** Delete User Skill
+/** Delete user's skill - deletes current user's skill based on the skill ID.
  * @param {uuid} skillId - requires a skill ID parameter passed in the request body.
  */
 export const deleteSkill = async (req, res) => {
