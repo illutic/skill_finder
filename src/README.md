@@ -1,18 +1,39 @@
 # Skill Finder
 
-## Prerequisites
+## Installation using Docker
 
-- Node.js ([Download](https://nodejs.org/en/))
+### Prerequisites
 
-- npm ([Docs](https://www.npmjs.com/get-npm))
+-   Docker ([Download](https://www.docker.com/get-started))
 
-- PostgreSQL ([Download/Windows](https://www.postgresql.org/download/) | [Download/MacOS](https://postgresapp.com/))
+### Steps
 
-- Prettier ([Downlad/VSC](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) | [Download/Atom](https://atom.io/packages/prettier-atom))
+1.  Create a .env file in the project root directory.
 
-- ESLint ([Download/VSC](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) | [Download/Atom](https://atom.io/packages/linter-eslint))
+2.  Put the following variables in the .env file:
 
-## Installation
+```bash
+DB_USER=<user_name>
+DB_PASSWORD=<user_password>
+DB_DATABASE=<database_name>
+DB_PORT=5432
+SERVER_PORT=8081
+CLIENT_PORT=3000
+ADMIN_PORT=8080
+DB_URI=""
+```
+
+## Standard Installation
+
+### Prerequisites
+
+-   Node.js ([Download](https://nodejs.org/en/))
+
+-   npm ([Docs](https://www.npmjs.com/get-npm))
+
+-   PostgreSQL ([Download/Windows](https://www.postgresql.org/download/) | [Download/MacOS](https://postgresapp.com/))
+
+### Steps
 
 1. Run the installation script:
 
@@ -32,37 +53,35 @@
 
 4. Create a .env file in the project root directory:
 
-- The name must be exact.
+-   The name must be exact.
 
-- This file will hold environment variables that might be different for each of us.
+-   This file will hold environment variables that might be different for each of us.
 
-- This file will not (and should not) be pushed into GitHub.
+-   This file will not (and should not) be pushed into GitHub.
 
 5. Put database URI in the .env file:
 
 ```
-    DB_URI=postgres://USERNAME:PASSWORD@localhost:5432/skillfinder
+    DB_URI=postgres://<username>:<password>@localhost:5432/skillfinder
 ```
 
-- Replace the USERNAME with the one your database uses.
+-   Replace the \<username> with the one your database uses.
 
-- It is probably a username visible at the beginning of the psql command prompt.
+-   If you use Postgres for MacOS (Postgres.app), then you can skip setting the password.
 
-- If you use Postgres for MacOS (Postgres.app), then you can skip the password.
+-   If you use Postgres for Windows, then the default password should be set to "root".
 
-- If you use Postgres for Windows, then the default password should be "root".
-
-- If you named your database other than "skillfinder", change the last bit of the connection URI as well.
+-   If you named your database different than "skillfinder", change the last bit of the connection URI as well.
 
 6. Put JWT secret in the .env file:
 
 ```
-    JWT_SECRET=ANYTHING
+    JWT_SECRET=<anything>
 ```
 
-- Replace ANTYHING with... anything...
+-   Replace \<anything> with any secret string.
 
-- The secret will be used as a key for decrypting JSON web tokens.
+-   The secret will be used as a key for decrypting JSON web tokens.
 
 7. Test your local version of the project:
 
@@ -70,13 +89,13 @@
     npm run dev
 ```
 
-- Wait for http://localhost:3000 to open up in your browser (it might take a while).
+-   Wait for http://localhost:3000 to open up in your browser (it might take a while).
 
-- Check if the API server is running by visiting http://localhost:8081/api/user.
+-   Check if the API server is running by visiting http://localhost:8081
 
 ## Available Scripts
 
-- Start the development server for the client code:
+-   Start the development server for the client code:
 
 ```zsh
     npm run client
@@ -84,16 +103,15 @@
 
 It will start a Browsersync process which should open your browser at http://localhost:3000. This is the development representation of the client code, which will refresh on each client code change.
 
-- Start the API server:
+-   Start the API server:
 
 ```zsh
     npm run server
 ```
 
-It will start an Express server available at http://localhost:8081. That is the server that responds to HTTP requests, communicates with the database, etc.
+It will start an Express server available at http://localhost:8081.
 
-
-- Run both servers:
+-   Run both servers:
 
 ```zsh
     npm run dev
@@ -101,48 +119,35 @@ It will start an Express server available at http://localhost:8081. That is the 
 
 It will run both the development server for the client code and the API server.
 
-- Build client code:
+-   Build client code:
 
 ```zsh
     npm run build
 ```
 
-It will compile the development version of the client code into a production version. The output code will appear at the ./client/build directory.
+It will compile the development version of the client code into a production version. The output code will appear at the ./client/build directory. The production version of the application will be served at http://localhost:8081.
 
 ## Directory Structure
 
 ```
     .
     ├── app.js           # Server initialisation
+    ├── auth             # Auth-related files
     ├── controllers      # Controller functions
+    ├── sockets          # WebSockets-related files
     ├── models           # Database models
-    ├── database         # Database connection
-    ├── routes           # Subrouters
+    ├── data-access      # Data storage files
+    ├── routes           # Express subrouters
     ├── constants        # Reusable constants
     ├── utils            # Reusable functions
     ├── client           # UI/Front-end code
-    ├── node_modules     # Installed npm packages
+    ├── docker           # Docker-related files
+    ├── __tests__        # Jest unit tests
     ├── package.json     # Required npm packages
     ├── .env             # Environment variables
     ├── .gitignore       # Files ignored by Git
+    ├── .dockerignore    # Files ignored by Docker
+    ├── .conf.json       # JSDoc configuration
     ├── .prettierrc      # Prettier configuration
     └── .eslintrc.json   # ESLint configuration
 ```
-
-## Tips
-
-- Do not push to the main branch. Switch to the dev branch. The main branch should only hold a working, clean production code.
-
-- When you start working on a new feature, create a new branch growing from the dev branch.
-
-- If you only work on the API functionality, use the API server (npm run server).
-
-- If you only work on the UI part of the application, use the development server (npm run client).
-
-- If you want to work on both sides, run both servers simultaneously (npm run dev).
-
-- When you are done with your work, open a pull request so we check it and merge your branch into the dev branch.
-
-- The build script is only needed for deployment. It does the compilation, minification and other optimation stuff. The output code will eventually end up on a hosting service, such as Heroku.
-
-- We will merge the dev branch into the main branch from time to time. We will also set up a Heroku process that will automatically deploy the main branch code.

@@ -16,9 +16,8 @@ IF EXIST .env (
     @echo .env File not found!
 )
 
-
 SET /P input="Do you want to stop all the containers? [y]Yes or [n]No or [c]Clear All: "
-   goto sub_%input%  
+   goto sub_%input%
 :sub_y
     @echo STOPPING CONTAINERS!
     docker stop docker_app_1

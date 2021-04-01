@@ -1,4 +1,4 @@
-docker-compose up -d 
+docker-compose up -d
 echo =================================================================
 echo 				Commands:
 echo The API server is running Automatically.
