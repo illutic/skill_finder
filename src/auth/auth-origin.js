@@ -1,9 +1,8 @@
-/** @module authOrigin */
-/** Server-side token Authentication */
+/** @module AuthMiddleware */
 import jwt from 'jsonwebtoken';
 
-/** Verify user token and return the userID.
- * @param {string} token - An Authentication token
+/** Verify user's token and return the userID.
+ * @param {string} token - JWT authentication token
  */
 const authOrigin = async (token) => {
     return jwt.verify(token, process.env.JWT_SECRET, (error, payload) => {

@@ -1,9 +1,7 @@
-/** @module auth */
-/** This module authenticates the user based on their cookies. */
 import authOrigin from './auth-origin.js';
 import authGoogle from './auth-google.js';
 
-/** User authentication from cookies,
+/** User authentication from cookies adjusted to WebSockets protocol
  *  @param {Cookies} cookies - the list of cookies received from the socket header
  */
 const auth = async (cookies) => {

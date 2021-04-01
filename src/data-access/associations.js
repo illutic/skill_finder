@@ -8,7 +8,7 @@ import Chat from '../models/Chat.js';
 import Message from '../models/Message.js';
 import File from '../models/File.js';
 
-/** Sequelize auto generated tables and their columns:
+/** Sequelize auto-generated tables, their columns and SQL relations between them.
  * @table UserSkill - Columns: [UserId, SkillId]
  * @table UserConnection - Columns: [UserId, ConnectionID] - Might be redundant
  *

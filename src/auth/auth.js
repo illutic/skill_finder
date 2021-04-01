@@ -1,9 +1,8 @@
-/** @module auth */
-/** This module authenticates the user based on their cookies. */
+/** @module AuthMiddleware */
 import authOrigin from './auth-origin.js';
 import authGoogle from './auth-google.js';
 
-/** User authentication from cookies,
+/** Authenticate users based on their cookies
  *  @param {Request} req - HTTP Request
  * @param {Response} res - HTTP Response
  * @param {Function} next - Function Callback
