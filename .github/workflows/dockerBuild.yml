@@ -58,13 +58,6 @@ jobs:
           CLIENT_PORT: 3000
           ADMIN_PORT: 8080
 
-#      - name: Build Client Dependencies.
-#        run: docker exec docker_app_1 sh -c "npm install --prefix client"
-      - name: Run Tests.
-        if: steps.wait-for-tests.outputs.conclusion == 'success'
-        run: docker exec -t docker_app_1 sh -c "npm test"
-
-        
       - name: Tag the Application Image.
         if: steps.wait-for-tests.outputs.conclusion == 'success'
         run: docker tag docker_app docker.pkg.github.com/m30819-2020/cw-code-t33/skill-finder:latest
