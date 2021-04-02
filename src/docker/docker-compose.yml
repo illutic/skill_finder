@@ -30,9 +30,6 @@ services:
       - ${SERVER_PORT}:8081
     environment: 
       - DB_URI=postgresql://${DB_USER}:${DB_PASSWORD}@docker_db_1:${DB_PORT}/${DB_DATABASE}
-    depends_on:
-      - db
-      - test-db
     mem_reservation: 300m
   adminer:
     image: adminer

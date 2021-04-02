@@ -1,10 +1,10 @@
-name: Super Builder (and tester)
+name: Docker Compose Action Workflow
 on: 
   push:
     branches:
       - main
 jobs:
-  megaSuperBuilderAndTester:
+  build:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -20,7 +20,9 @@ jobs:
           DB_PORT: 5432
           SERVER_PORT: 8081
           CLIENT_PORT: 3000
-          ADMIN_PORT: 8080
+          ADMIN_PORT: 8080  
+          JWT_SECRET: test
+          TEST: false
       - name: Run Docker Compose.
         id: run
         run: |
@@ -70,12 +72,12 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v2
-      - name: Wait for megaSuperBuilderAndTester to succeed
+      - name: Wait for build to succeed
         uses: fountainhead/action-wait-for-check@v1.0.0
         id: wait-for-build
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          checkName: megaSuperBuilderAndTester
+          checkName: build
 
       - name: Generate Documents
         uses: andstor/jsdoc-action@v1
