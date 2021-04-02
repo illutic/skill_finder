@@ -16,17 +16,19 @@ jobs:
         working-directory: ./src
       - name: Run Tests
         run: npm test
+        working-directory: ./src
+
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v2
-      - name: Wait for build to succeed
+      - name: Wait for tests to succeed
         uses: fountainhead/action-wait-for-check@v1.0.0
         id: wait-for-tests
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          checkName: build
+          checkName: tests
       - name: Clear Previous Containers
         if: steps.wait-for-tests.outputs.conclusion == 'success'
         run: |
