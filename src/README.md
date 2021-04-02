@@ -151,3 +151,23 @@ It will compile the development version of the client code into a production ver
     ├── .prettierrc      # Prettier configuration
     └── .eslintrc.json   # ESLint configuration
 ```
+
+## This is extremely important
+
+## .env File Template
+
+```
+DB_USER=databaseuser
+DB_PASSWORD=password
+DB_DATABASE=skillfinder
+DB_PORT=5432
+PWD=full/path/to/project/src
+DOMAIN_NAME=http://localhost:8081
+SERVER_PORT=8081
+CLIENT_PORT=3000
+ADMIN_PORT=8080
+JWT_SECRET=secret
+TEST=false
+DB_URI=postgresql://databaseuser:password@localhost:5430/skillfinder
+DB_HOST=localhost:8081
+```
