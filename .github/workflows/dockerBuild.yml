@@ -4,7 +4,7 @@ on:
     branches:
       - main
 jobs:
-  build:
+  MegaSuperBuilder(andTester):
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -70,12 +70,12 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v2
-      - name: Wait for build to succeed
+      - name: Wait for MegaSuperBuilder(andTester) to succeed
         uses: fountainhead/action-wait-for-check@v1.0.0
         id: wait-for-build
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          checkName: build
+          checkName: MegaSuperBuilder(andTester)
 
       - name: Generate Documents
         uses: andstor/jsdoc-action@v1
