@@ -19,7 +19,6 @@ let cookie;
 describe('Backend API Test Suite', () => {
     step('Switch to TEST Environment', async () => {
         process.env.JWT_SECRET = 'secret';
-        process.env.TEST = 'true';
         makeAssociations();
         await database.sync({ force: true });
     });
