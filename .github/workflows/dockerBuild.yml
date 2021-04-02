@@ -4,7 +4,7 @@ on:
     branches:
       - main
 jobs:
-  build:
+  dockerBuild:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -77,7 +77,7 @@ jobs:
         id: wait-for-build
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          checkName: build
+          checkName: dockerBuild
 
       - name: Generate Documents
         uses: andstor/jsdoc-action@v1
