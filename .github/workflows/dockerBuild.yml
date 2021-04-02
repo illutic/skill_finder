@@ -39,7 +39,7 @@ jobs:
 #      - name: Build Client Dependencies.
 #        run: docker exec docker_app_1 sh -c "npm install --prefix client"
       - name: Run Tests.
-        run: docker exec -t docker_app_1 sh -c "npm test" || docker exec -t docker_app_1 sh -c "npm test"
+        run: docker exec -t docker_app_1 sh -c "npm test"
 
         
       - name: Tag the Application Image.
