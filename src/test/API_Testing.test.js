@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-undef */
 import faker from 'faker';
 import fs from 'fs';
@@ -7,16 +8,21 @@ import supertest from 'supertest';
 import { step } from 'mocha-steps';
 import app from '../app.js';
 import makeAssociations from '../data-access/associations.js';
+import database from '../data-access/database.js';
 
 const should = chai.should();
 chai.use(chaiHttp);
 const request = supertest(app);
-makeAssociations();
 let userId;
 let cookie;
 
 describe('Backend API Test Suite', () => {
-    process.env.TEST = 'true';
+    step('Switch to TEST Database', async () => {
+        process.env.TEST = 'true';
+        makeAssociations();
+        await database.sync({ force: true });
+    });
+
     let userPass = faker.internet.password(10, true);
     const mockUser = {
         firstName: faker.name.firstName(),
@@ -26,7 +32,7 @@ describe('Backend API Test Suite', () => {
         confirmPassword: userPass,
     };
 
-    describe('User Authentication Test Suite', () => {
+    describe('User Authentication API Test Suite', () => {
         step('Create a User', async () => {
             await request
                 .post('/auth/signup')
@@ -66,7 +72,7 @@ describe('Backend API Test Suite', () => {
         });
     });
 
-    describe('User Controller Test', () => {
+    describe('User API Test', () => {
         step('Get Unauthenticated User', async () => {
             await request.get(`/api/user/${userId}`).then((res) => {
                 console.log(res.body);
@@ -127,7 +133,7 @@ describe('Backend API Test Suite', () => {
                 });
         });
         step('Patch User Title', async () => {
-            const title = faker.name.title();
+            const title = faker.random.word();
             await request
                 .patch(`/api/user/title`)
                 .set('Cookie', cookie)
@@ -185,7 +191,7 @@ describe('Backend API Test Suite', () => {
                 });
         });
     });
-    describe('Skill Testing Suite', () => {
+    describe('Skill API Testing Suite', () => {
         const skillName = faker.random.word();
         let skill;
         step('Create a User', async () => {
@@ -249,7 +255,7 @@ describe('Backend API Test Suite', () => {
         });
     });
 
-    describe('Chat Testing Suite', () => {
+    describe('Chat API Testing Suite', () => {
         step('Get All Chats', async () => {
             await request
                 .get(`/api/chats`)
@@ -259,5 +265,55 @@ describe('Backend API Test Suite', () => {
                     res.should.have.status(200);
                 });
         });
+    });
+
+    describe('Request API Testing Suite', () => {
+        step('Get All Requests', async () => {
+            await request
+                .get(`/api/requests`)
+                .set('Cookie', cookie)
+                .then((res) => {
+                    console.log(res.body);
+                    res.should.have.status(200);
+                });
+        });
+    });
+
+    describe('File API Testing Suite', () => {
+        let testFile;
+        step('Post File', async () => {
+            await request
+                .post(`/api/file`)
+                .set('Cookie', cookie)
+                .set('Content-Type', `multipart/form-data`)
+                .attach('file', fs.readFileSync(`test/TEST.txt`), 'TEST.txt')
+                .then((res) => {
+                    console.log(res.body);
+                    testFile = res.body;
+                    res.should.have.status(200);
+                });
+        });
+    });
+
+    describe('Notification API Testing Suite', () => {
+        step('Get Notifications', async () => {
+            await request
+                .get(`/api/notifications`)
+                .set('Cookie', cookie)
+                .then((res) => {
+                    console.log(res.body);
+                    res.should.have.status(200);
+                });
+        });
+
+        // step('Delete Notifications', async () => {
+        //     await request
+        //         .delete(`/api/notifications`)
+        //         .set('Cookie', cookie)
+        //         .then((res) => {
+        //             console.log(res.body);
+        //             res.should.have.status(200);
+        //         });
+        // });
     });
 });
