@@ -47,12 +47,12 @@ export const Split = styled.div`
 export const Buttons = styled.div`
     margin-top: 50px;
     & > *:first-child {
+        margin-right: 15px;
         margin-bottom: 15px;
     }
     @media (min-width: 355px) {
         & > *:first-child {
             margin-bottom: 0px;
-            margin-right: 15px;
         }
     }
 `;
