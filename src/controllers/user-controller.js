@@ -34,7 +34,6 @@ export const getCurrentUser = async (req, res) => {
 export const getUser = async (req, res) => {
     try {
         const userId = req.params.id;
-        console.log(userId);
         if (!userId) {
             throw Error('No user ID provided.');
         }
@@ -50,7 +49,6 @@ export const getUser = async (req, res) => {
         }
         res.status(200).json(user);
     } catch (err) {
-        console.log(err);
         res.status(400).json({ error: err.message });
     }
 };
