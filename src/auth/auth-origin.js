@@ -1,7 +1,7 @@
 /** @module AuthMiddleware */
 import jwt from 'jsonwebtoken';
 
-/** Origin verification - verifies user's JWT token and returns the user ID. Used as a part of auth middleware components.
+/** Origin verification - verifies user's JWT token and returns the user ID. Used as part of auth middleware components.
  * @param {string} token - JWT authentication token
  */
 const authOrigin = async (token) => {

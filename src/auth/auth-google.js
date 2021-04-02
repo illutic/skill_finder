@@ -3,7 +3,7 @@ import { OAuth2Client } from 'google-auth-library';
 import User from '../models/User.js';
 import CLIENT_ID from '../constants/client-id.js';
 
-/** Google verification - verifies user's Google token and accesses the Google API. Creates a database entry for non-existing Google users, as this is the only place where Google users are handled independently from other users. Returns the user ID. Used as a part of auth middleware components.
+/** Google verification - verifies user's Google token and accesses the Google API. Creates a database entry for non-existing Google users, as this is the only place where Google users are handled independently from other users. Returns the user ID. Used as part of auth middleware components.
  * @param {string} token - Google authentication token
  */
 const authGoogle = async (token) => {

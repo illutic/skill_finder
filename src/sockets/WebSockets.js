@@ -8,9 +8,6 @@ import Request from '../models/Request.js';
 import User from '../models/User.js';
 import Notification from '../models/Notification.js';
 
-/** Web Socket Configuration
- * @param {Server} io - requires a Websocket Server created from the HTTP Server.
- */
 export const WebSockets = (io) => {
     /** WebSocket Server On Connection
      * On connection the server emits an authentication event to the socket that just connected. On authorisation, emits an 'authorized' event, otherwise - 'unauthorised'.

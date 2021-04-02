@@ -3,7 +3,7 @@ import authOrigin from './auth-origin.js';
 import authGoogle from './auth-google.js';
 
 /** WebSockets auth - used to authenticate users that sent requests through WebSockets protocol. It's a standalone auth component, independent from the main auth middleware, which only works for HTTP requests.
- *  @param {Cookies} cookies - the list of cookies received from the socket header.
+ *  @param {object} cookies - the list of cookies received from the socket header.
  */
 const auth = async (cookies) => {
     const originToken = cookies.origin;
