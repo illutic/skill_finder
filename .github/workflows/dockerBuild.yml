@@ -1,36 +1,15 @@
-name: Docker Compose Action Workflow
+name: Super Builder (and tester)
 on: 
   push:
     branches:
       - main
 jobs:
-  run_tests:
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    steps:
-      - uses: actions/checkout@v2
-      - name: Install Node
-        uses: actions/setup-node@v2
-      - name: Install Dependencies
-        run: npm install
-        working-directory: ./src
-      - name: Run Tests
-        run: npm test
-        working-directory: ./src
-
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v2
-      - name: Wait for tests to succeed
-        uses: fountainhead/action-wait-for-check@v1.0.0
-        id: wait-for-tests
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          checkName: tests
       - name: Clear Previous Containers
-        if: steps.wait-for-tests.outputs.conclusion == 'success'
         run: |
           docker-compose -f src/docker/*.yml down --rmi all && \
           docker system prune -f
@@ -41,11 +20,8 @@ jobs:
           DB_PORT: 5432
           SERVER_PORT: 8081
           CLIENT_PORT: 3000
-          ADMIN_PORT: 8080  
-          JWT_SECRET: test
-          TEST: false
+          ADMIN_PORT: 8080
       - name: Run Docker Compose.
-        if: steps.wait-for-tests.outputs.conclusion == 'success'
         id: run
         run: |
           docker-compose -f src/docker/*.yml up -d --build --force-recreate
@@ -58,8 +34,13 @@ jobs:
           CLIENT_PORT: 3000
           ADMIN_PORT: 8080
 
+#      - name: Build Client Dependencies.
+#        run: docker exec docker_app_1 sh -c "npm install --prefix client"
+      - name: Run Tests.
+        run: docker exec -t docker_app_1 sh -c "npm test"
+
+        
       - name: Tag the Application Image.
-        if: steps.wait-for-tests.outputs.conclusion == 'success'
         run: docker tag docker_app docker.pkg.github.com/m30819-2020/cw-code-t33/skill-finder:latest
       - name: Tag the Database Image.
         run: docker tag docker_db docker.pkg.github.com/m30819-2020/cw-code-t33/skill-finder-db:latest
@@ -68,12 +49,10 @@ jobs:
         run: docker login https://docker.pkg.github.com -u ${{github.actor}} -p ${{ secrets.GITHUB_TOKEN }}
         
       - name: Push Images.
-        if: steps.wait-for-tests.outputs.conclusion == 'success'
         id: push
         run: docker push docker.pkg.github.com/m30819-2020/cw-code-t33/skill-finder:latest && docker push docker.pkg.github.com/m30819-2020/cw-code-t33/skill-finder-db:latest
       
       - name: Stop & Clear Containers
-        if: steps.wait-for-tests.outputs.conclusion == 'success'
         run: | 
           docker-compose -f src/docker/*.yml down --rmi all && \
           docker system prune -f
