@@ -10,18 +10,23 @@
 
 1.  Create a .env file in the project root directory.
 
-2.  Put the following variables in the .env file:
+2.  Use the following template for the .env file:
 
-```bash
-DB_USER=<user_name>
-DB_PASSWORD=<user_password>
-DB_DATABASE=<database_name>
-DB_PORT=5432
-SERVER_PORT=8081
-CLIENT_PORT=3000
-ADMIN_PORT=8080
-DB_URI=""
-```
+    ```bash
+    DB_USER=<database_user>
+    DB_PASSWORD=<database_password>
+    DB_DATABASE=<database_name>
+    DB_PORT=5432
+    PWD=<full/path/to/project/src>
+    DOMAIN_NAME=http://localhost:8081
+    SERVER_PORT=8081
+    CLIENT_PORT=3000
+    ADMIN_PORT=8080
+    JWT_SECRET=<secret_string>
+    TEST=false
+    DB_URI=postgresql://<database_user>:<database_password>@localhost:5430/<database_name>
+    DB_HOST=localhost:8081
+    ```
 
 ## Standard Installation
 
@@ -37,95 +42,95 @@ DB_URI=""
 
 1. Run the installation script:
 
-```zsh
-    npm install
-```
+    ```zsh
+        npm install
+    ```
 
 2. Run your local PostgreSQL server.
 
 3. Create a database for the project:
 
-```zsh
-    psql
-    CREATE DATABASE skillfinder;
-    \q
-```
+    ```zsh
+        psql
+        CREATE DATABASE skillfinder;
+        \q
+    ```
 
 4. Create a .env file in the project root directory:
 
--   The name must be exact.
+    - The name must be exact.
 
--   This file will hold environment variables that might be different for each of us.
+    - This file will hold environment variables that might be different for each of us.
 
--   This file will not (and should not) be pushed into GitHub.
+    - This file will not (and should not) be pushed into GitHub.
 
 5. Put database URI in the .env file:
 
-```
-    DB_URI=postgres://<username>:<password>@localhost:5432/skillfinder
-```
+    ```
+        DB_URI=postgres://<username>:<password>@localhost:5432/skillfinder
+    ```
 
--   Replace the \<username> with the one your database uses.
+    - Replace the \<username> with the one your database uses.
 
--   If you use Postgres for MacOS (Postgres.app), then you can skip setting the password.
+    - If you use Postgres for MacOS (Postgres.app), then you can skip setting the password.
 
--   If you use Postgres for Windows, then the default password should be set to "root".
+    - If you use Postgres for Windows, then the default password should be set to "root".
 
--   If you named your database different than "skillfinder", change the last bit of the connection URI as well.
+    - If you named your database different than "skillfinder", change the last bit of the connection URI as well.
 
 6. Put JWT secret in the .env file:
 
-```
-    JWT_SECRET=<anything>
-```
+    ```
+        JWT_SECRET=<anything>
+    ```
 
--   Replace \<anything> with any secret string.
+    - Replace \<anything> with any secret string.
 
--   The secret will be used as a key for decrypting JSON web tokens.
+    - The secret will be used as a key for decrypting JSON web tokens.
 
 7. Test your local version of the project:
 
-```zsh
-    npm run dev
-```
+    ```zsh
+        npm run dev
+    ```
 
--   Wait for http://localhost:3000 to open up in your browser (it might take a while).
+    - Wait for http://localhost:3000 to open up in your browser (it might take a while).
 
--   Check if the API server is running by visiting http://localhost:8081
+    - Check if the API server is running by visiting http://localhost:8081
 
 ## Available Scripts
 
 -   Start the development server for the client code:
 
-```zsh
-    npm run client
-```
+    ```zsh
+        npm run client
+    ```
 
-It will start a Browsersync process which should open your browser at http://localhost:3000. This is the development representation of the client code, which will refresh on each client code change.
+    -   It will start a Browsersync process which should open your browser at http://localhost:3000. This is the development representation of the client code, which will refresh on each client code change.
 
 -   Start the API server:
 
-```zsh
-    npm run server
-```
+    ```zsh
+        npm run server
+    ```
 
-It will start an Express server available at http://localhost:8081.
+    -   It will start an Express server available at http://localhost:8081.
 
 -   Run both servers:
 
-```zsh
-    npm run dev
-```
+    ```zsh
+        npm run dev
+    ```
 
-It will run both the development server for the client code and the API server.
+    -   It will run both the development server for the client code and the API server.
 
 -   Build client code:
 
-```zsh
-    npm run build
-```
+    ```zsh
+        npm run build
+    ```
 
-It will compile the development version of the client code into a production version. The output code will appear at the ./client/build directory. The production version of the application will be served at http://localhost:8081.
+    -   It will compile the development version of the client code into a production version. The output code will appear at the ./client/build directory. The production version of the application will be served at http://localhost:8081.
 
 ## Directory Structure
 
@@ -150,24 +155,4 @@ It will compile the development version of the client code into a production ver
     ├── .conf.json       # JSDoc configuration
     ├── .prettierrc      # Prettier configuration
     └── .eslintrc.json   # ESLint configuration
-```
-
-## This is extremely important
-
-## .env File Template
-
-```
-DB_USER=databaseuser
-DB_PASSWORD=password
-DB_DATABASE=skillfinder
-DB_PORT=5432
-PWD=full/path/to/project/src
-DOMAIN_NAME=http://localhost:8081
-SERVER_PORT=8081
-CLIENT_PORT=3000
-ADMIN_PORT=8080
-JWT_SECRET=secret
-TEST=false
-DB_URI=postgresql://databaseuser:password@localhost:5430/skillfinder
-DB_HOST=localhost:8081
 ```
