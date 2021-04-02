@@ -24,7 +24,6 @@ services:
          - CONNECTION_STRING=postgresql://${DB_USER}:${DB_PASSWORD}@docker_db_1:${DB_PORT}/${DB_DATABASE}
   app:
     build: ..
-    restart: always
     ports:
       - ${CLIENT_PORT}:3000
       - ${SERVER_PORT}:8081
