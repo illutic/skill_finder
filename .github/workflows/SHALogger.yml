@@ -1,0 +1,59 @@
+# This is a basic workflow to help you get started with Actions
+
+name: SHALogger
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  #DO NOT CHANGE
+  workflow_dispatch:
+  push:
+    branches: [ master , main ]
+
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-20.04
+    #if: ${{ github.actor != 'Ossonts'}} # Not by me
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      # Runs a single command using the runners shell
+      - name: Get SHA
+
+        run: |
+          pwd
+          echo $GITHUB_REPOSITORY
+          echo $GITHUB_SHA
+          echo $GITHUB_ACTOR
+          chmod +x  .Ossonts/SHALogger.sh
+          .Ossonts/SHALogger.sh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # Commit auto generated files
+      - uses: EndBug/add-and-commit@v7
+        with:
+          message: "Submit SHA updated"
+          author_name: "OssontsBOT"
+          #branch: feedback
+          #add: ".Ossonts/*.log .Ossonts/*.md --force"
+          add: ".Ossonts/*.log .Ossonts/*.md --force"
+          #tag: 'Submit  --force'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # - uses: github-actions-x/commit@v2.6 # ERRORS?
+      #   with:
+      #     github-token: ${{ secrets.GITHUB_TOKEN }}
+      #     rebase: 'true'
+      #     #push-branch: 'feedback' # does not quite work yet
+      #     commit-message: 'SHA-Logger'
+      #     force-add: 'true'
+      #     files: .Ossonts/*.log .Ossonts/*.md
+      #     name: OssontsBOT
+      #     #email: my.github@email.com
