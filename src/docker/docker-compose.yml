@@ -11,6 +11,17 @@ services:
        - POSTGRES_USER=${DB_USER}
        - POSTGRES_DB=${DB_DATABASE}
        - CONNECTION_STRING=postgresql://${DB_USER}:${DB_PASSWORD}@docker_db_1:${DB_PORT}/${DB_DATABASE}
+  test_db:
+      image: docker_db
+      build: ../data-access
+      restart: always
+      ports:
+         - 5430:5432
+      environment:
+         - POSTGRES_PASSWORD=${DB_PASSWORD}
+         - POSTGRES_USER=${DB_USER}
+         - POSTGRES_DB=${DB_DATABASE}
+         - CONNECTION_STRING=postgresql://${DB_USER}:${DB_PASSWORD}@docker_db_1:${DB_PORT}/${DB_DATABASE}
   app:
     build: ..
     restart: always
@@ -19,7 +30,14 @@ services:
       - ${SERVER_PORT}:8081
     environment: 
       - DB_URI=postgresql://${DB_USER}:${DB_PASSWORD}@docker_db_1:${DB_PORT}/${DB_DATABASE}
+    depends_on:
+      - db
+      - test_db
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - ${ADMIN_PORT}:8080
 volumes:
   postgres-data:
     driver: local
-  
