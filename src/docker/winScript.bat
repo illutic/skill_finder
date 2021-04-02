@@ -3,6 +3,7 @@ cd ..
 IF EXIST .env (
     COPY .env docker\.env
     docker-compose -f docker/docker-compose.yml up -d
+    docker exec -t docker_app_1 sh -c "npm test"
     @echo =================================================================
     @echo 				Commands:
     @echo The API server is running Automatically.
@@ -10,8 +11,7 @@ IF EXIST .env (
     @echo "npm run build" - Build client code
     @echo =================================================================
     docker start docker_app_1
-    docker exec -itd docker_app_1 sh -c "npm install --prefix client"
-    docker exec -t docker_app_1 sh -c "npm test"
+    docker exec -itd docker_app_1 sh -c "npm install"
     docker exec -it docker_app_1 /bin/sh
 ) ELSE (
     @echo .env File not found!
