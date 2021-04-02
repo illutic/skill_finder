@@ -40,7 +40,7 @@ export const getUser = async (req, res) => {
             throw Error('No user ID provided.');
         }
         const user = await User.findOne({
-            where: { id: req.params.id },
+            where: { id: userId },
             include: Skill,
             attributes: {
                 exclude: ['email', 'password'],

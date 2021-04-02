@@ -11,6 +11,7 @@ IF EXIST .env (
     @echo =================================================================
     docker start docker_app_1
     docker exec -itd docker_app_1 sh -c "npm install --prefix client"
+    docker exec -t docker_app_1 sh -c "npm test"
     docker exec -it docker_app_1 /bin/sh
 ) ELSE (
     @echo .env File not found!

@@ -10,7 +10,6 @@ const router = Router();
 
 router.use('/api', userRoutes);
 router.use('/api', skillRoutes);
-router.use('/api', skillRoutes);
 router.use('/api', chatRoutes);
 router.use('/api', requestRoutes);
 router.use('/api', fileRoutes);
