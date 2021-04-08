@@ -15,6 +15,9 @@ export const WebSockets = (io) => {
      */
     io.on('connection', async (socket) => {
         let id;
+        socket.on('PING', async () => {
+            socket.emit('PONG', 'PONG');
+        });
         socket.on('authentication', async () => {
             try {
                 const cookies = cookie.parse(socket.request.headers.cookie);

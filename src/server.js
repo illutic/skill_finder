@@ -7,6 +7,9 @@ import { WebSockets } from './sockets/WebSockets.js';
 const PORT = process.env.PORT ?? 8081;
 process.env.DB_URI = `postgresql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@localhost:5432/skillfinder`;
 /** Initialize the database and listen for connections. */
+const httpServer = app.listen(PORT, () => {
+    console.log(`Server running at port ${PORT}`);
+});
 (async () => {
     try {
         makeAssociations();
@@ -16,12 +19,11 @@ process.env.DB_URI = `postgresql://${process.env.DB_USER}:${process.env.DB_PASSW
             // ^ Uncomment whenever you update the schema
             // eg. when creating a new model, updating an old one.
         });
-        const httpServer = app.listen(PORT, () =>
-            console.log(`Server running at port ${PORT}`)
-        );
         const io = new Server(httpServer);
         WebSockets(io);
     } catch (err) {
         console.log(Error(err));
     }
 })();
+
+export default httpServer;

@@ -20,6 +20,7 @@
         "sequelize": "^6.5.0",
         "sequelize-mock": "^0.10.2",
         "socket.io": "^4.0.0",
+        "socket.io-client": "^4.0.1",
         "uuid": "^8.3.2"
     },
     "devDependencies": {
@@ -45,7 +46,7 @@
         "lint": "eslint .",
         "build": "npm run build --prefix client",
         "test": "mocha --require mocha-steps --exit",
-        "coverage":"nyc --all --reporter=html npm test"
+        "coverage": "nyc --all --reporter=html --reporter=text npm test"
     },
     "nyc": {
         "exclude": [
@@ -54,7 +55,6 @@
             "docker",
             "client",
             "coverage"
-          ]
+        ]
     }
-    
 }
