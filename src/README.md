@@ -8,7 +8,7 @@
 
 ### Steps
 
-1.  Create a .env file in the project root directory.
+1.  Create a .env file in the ```src/``` directory.
 
 2.  Use the following template for the .env file:
 
@@ -23,10 +23,11 @@
     CLIENT_PORT=3000
     ADMIN_PORT=8080
     JWT_SECRET=<secret_string>
-    TEST=false
     DB_URI=postgresql://<database_user>:<database_password>@localhost:5430/<database_name>
     DB_HOST=localhost:8081
     ```
+
+3. Run a a script found in the ```src/docker``` directory.
 
 ## Standard Installation
 
