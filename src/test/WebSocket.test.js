@@ -18,7 +18,7 @@ const request = supertest(app);
 let cookie;
 let wsClient;
 let secondUser;
-
+let requests;
 describe('Websocket httpServer tests', () => {
     step('Initialize Database', async () => {
         makeAssociations();
@@ -107,23 +107,48 @@ describe('Websocket httpServer tests', () => {
             wsClient.on('authorized', () => {
                 done();
             });
-            wsClient.on('unauthorized', () => {
-                return false;
-            });
+            wsClient.on('unauthorized', () => {});
         });
-        step('Send Request', (done) => {
+        step('New Request to Deny', (done) => {
             wsClient.emit('newRequest', secondUser.id);
-            wsClient.on('incomingRequest', () => {
+            wsClient.once('incomingRequest', async () => {
+                await request
+                    .get(`/api/requests`)
+                    .set('Cookie', cookie)
+                    .then((res) => {
+                        requests = res.body;
+                        // console.log(requests);
+                        res.should.have.status(200);
+                    });
                 done();
             });
         });
-        // Find the requestId
         step('Deny Request', (done) => {
-            done();
+            wsClient.emit('denyRequest', requests.sentRequests[0].id);
+            wsClient.on('deniedRequest', () => {
+                done();
+            });
+        });
+        step('New Request to Accept', (done) => {
+            wsClient.emit('newRequest', secondUser.id);
+            wsClient.once('incomingRequest', async () => {
+                await request
+                    .get(`/api/requests`)
+                    .set('Cookie', cookie)
+                    .then((res) => {
+                        requests = res.body;
+                        res.should.have.status(200);
+                        done();
+                    });
+            });
         });
         step('Accept Request', (done) => {
-            done();
+            wsClient.emit('acceptRequest', requests.sentRequests[0].id);
+            wsClient.on('acceptedRequest', () => {
+                done();
+            });
         });
+
         step('Send Message', (done) => {
             done();
         });
