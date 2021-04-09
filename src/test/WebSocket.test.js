@@ -6,16 +6,24 @@ import faker from 'faker';
 import supertest from 'supertest';
 import io from 'socket.io-client';
 import { Server } from 'socket.io';
-import WebSockets from '../sockets/WebSockets.js';
 import httpServer from '../server.js';
 import app from '../app.js';
+import { WebSockets } from '../sockets/WebSockets.js';
+import makeAssociations from '../data-access/associations.js';
+import database from '../data-access/database.js';
 
 const should = chai.should();
 chai.use(chaiHttp);
 const request = supertest(app);
 let cookie;
 let wsClient;
+let secondUser;
+
 describe('Websocket httpServer tests', () => {
+    step('Initialize Database', async () => {
+        makeAssociations();
+        await database.sync({ force: true });
+    });
     before((done) => {
         const ioServer = new Server(httpServer);
         WebSockets(ioServer);
@@ -37,10 +45,28 @@ describe('Websocket httpServer tests', () => {
                 .set('content-type', 'application/json')
                 .send(mockUser)
                 .then((res) => {
-                    console.log(res.body);
                     res.should.have.status(200);
                     expect(res).to.have.cookie('origin');
                     cookie = res.header['set-cookie'];
+                });
+        });
+        step('Create a 2nd User', async () => {
+            const secondUserPass = faker.internet.password(10, true);
+            const secondMockUser = {
+                firstName: faker.name.firstName(),
+                lastName: faker.name.lastName(),
+                email: faker.internet.email(),
+                password: secondUserPass,
+                confirmPassword: secondUserPass,
+            };
+            await request
+                .post('/auth/signup')
+                .set('content-type', 'application/json')
+                .send(secondMockUser)
+                .then((res) => {
+                    res.should.have.status(200);
+                    expect(res).to.have.cookie('origin');
+                    secondUser = res.body;
                 });
         });
         step('Log In a User', async () => {
@@ -53,7 +79,6 @@ describe('Websocket httpServer tests', () => {
                 .set('Content-Type', 'application/json')
                 .send(loginObj)
                 .then((res) => {
-                    console.log(res.body);
                     res.should.have.status(200);
                     cookie = res.header['set-cookie'];
                 });
@@ -85,6 +110,22 @@ describe('Websocket httpServer tests', () => {
             wsClient.on('unauthorized', () => {
                 return false;
             });
+        });
+        step('Send Request', (done) => {
+            wsClient.emit('newRequest', secondUser.id);
+            wsClient.on('incomingRequest', () => {
+                done();
+            });
+        });
+        // Find the requestId
+        step('Deny Request', (done) => {
+            done();
+        });
+        step('Accept Request', (done) => {
+            done();
+        });
+        step('Send Message', (done) => {
+            done();
         });
     });
 });
