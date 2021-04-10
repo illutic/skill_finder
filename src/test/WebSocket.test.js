@@ -170,8 +170,7 @@ describe('Websocket httpServer tests', () => {
             const chatId = chats.chats[0].id;
             const message = 'TestMessage';
             wsClient.emit('sendMessage', chatId, message, MESSAGE_TYPES.text);
-            wsClient.on('message', (socketMessage) => {
-                console.log(socketMessage);
+            wsClient.on('message', () => {
                 done();
             });
         });
