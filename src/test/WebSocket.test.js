@@ -6,11 +6,11 @@ import faker from 'faker';
 import supertest from 'supertest';
 import io from 'socket.io-client';
 import { Server } from 'socket.io';
-import httpServer from '../server.js';
 import app from '../app.js';
 import { WebSockets } from '../sockets/WebSockets.js';
 import makeAssociations from '../data-access/associations.js';
 import database from '../data-access/database.js';
+import MESSAGE_TYPES from '../constants/message-types.js';
 
 const should = chai.should();
 chai.use(chaiHttp);
@@ -19,7 +19,11 @@ let cookie;
 let wsClient;
 let secondUser;
 let requests;
+let chats;
+let httpServer;
+
 describe('Websocket httpServer tests', () => {
+    httpServer = app.listen(8082, () => {});
     step('Initialize Database', async () => {
         makeAssociations();
         await database.sync({ force: true });
@@ -93,7 +97,7 @@ describe('Websocket httpServer tests', () => {
                     },
                 },
             };
-            wsClient = io('http://localhost:8081', options);
+            wsClient = io('http://localhost:8082', options);
         });
         step('PING Test', (done) => {
             wsClient.emit('PING', '');
@@ -144,13 +148,32 @@ describe('Websocket httpServer tests', () => {
         });
         step('Accept Request', (done) => {
             wsClient.emit('acceptRequest', requests.sentRequests[0].id);
-            wsClient.on('acceptedRequest', () => {
-                done();
+            wsClient.on('acceptedRequest', async () => {
+                await request
+                    .get(`/api/chats`)
+                    .set('Cookie', cookie)
+                    .then((res) => {
+                        chats = res.body;
+                        res.should.have.status(200);
+                        done();
+                    });
             });
         });
 
-        step('Send Message', (done) => {
+        step('Join Chatroom', (done) => {
+            const chatId = chats.chats[0].id;
+            wsClient.emit('joinChat', chatId);
             done();
+        });
+
+        step('Send Message', (done) => {
+            const chatId = chats.chats[0].id;
+            const message = 'TestMessage';
+            wsClient.emit('sendMessage', chatId, message, MESSAGE_TYPES.text);
+            wsClient.on('message', (socketMessage) => {
+                console.log(socketMessage);
+                done();
+            });
         });
     });
 });
