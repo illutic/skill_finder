@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 /* eslint-disable no-undef */
 import faker from 'faker';
 import fs from 'fs';
@@ -39,7 +38,6 @@ describe('Backend API Test Suite', () => {
                 .set('content-type', 'application/json')
                 .send(mockUser)
                 .then((res) => {
-                    console.log(res.body);
                     res.should.have.status(200);
                     expect(res).to.have.cookie('origin');
                     cookie = res.header['set-cookie'];
@@ -55,7 +53,6 @@ describe('Backend API Test Suite', () => {
                 .set('Content-Type', 'application/json')
                 .send(loginObj)
                 .then((res) => {
-                    console.log(res.body);
                     res.should.have.status(200);
                     cookie = res.header['set-cookie'];
                     userId = res.text;
@@ -66,7 +63,6 @@ describe('Backend API Test Suite', () => {
                 .get('/auth/logout')
                 .set('Cookie', cookie)
                 .then((res) => {
-                    console.log(res.body);
                     res.should.have.status(200);
                 });
         });
@@ -75,7 +71,6 @@ describe('Backend API Test Suite', () => {
     describe('User API Test', () => {
         step('Get Unauthenticated User', async () => {
             await request.get(`/api/user/${userId}`).then((res) => {
-                console.log(res.body);
                 res.should.have.status(200);
                 expect(res.body).to.have.property('id');
             });
@@ -85,7 +80,6 @@ describe('Backend API Test Suite', () => {
                 .get(`/api/user/`)
                 .set('Cookie', cookie)
                 .then((res) => {
-                    console.log(res.body);
                     res.should.have.status(200);
                     expect(res.body).to.have.property('id');
                 });
@@ -98,7 +92,6 @@ describe('Backend API Test Suite', () => {
                 .set('Content-Type', `multipart/form-data`)
                 .attach('image', fs.readFileSync(`test/${filename}`), filename)
                 .then((res) => {
-                    console.log(res.body);
                     res.should.have.status(200);
                 });
         });
@@ -110,7 +103,6 @@ describe('Backend API Test Suite', () => {
                 .set('Content-Type', `multipart/form-data`)
                 .attach('image', fs.readFileSync(`test/${filename}`), filename)
                 .then((res) => {
-                    console.log(res.body);
                     res.should.have.status(200);
                 });
         });
@@ -119,7 +111,6 @@ describe('Backend API Test Suite', () => {
                 .delete(`/api/user/photo/profilePhoto`)
                 .set('Cookie', cookie)
                 .then((res) => {
-                    console.log(res.body);
                     res.should.have.status(200);
                 });
         });
@@ -128,7 +119,6 @@ describe('Backend API Test Suite', () => {
                 .delete(`/api/user/photo/backgroundImage`)
                 .set('Cookie', cookie)
                 .then((res) => {
-                    console.log(res.body);
                     res.should.have.status(200);
                 });
         });
@@ -139,7 +129,6 @@ describe('Backend API Test Suite', () => {
                 .set('Cookie', cookie)
                 .send({ title })
                 .then((res) => {
-                    console.log(res.body);
                     res.should.have.status(200);
                     expect(res.body.user).to.have.property('title');
                 });
@@ -151,7 +140,6 @@ describe('Backend API Test Suite', () => {
                 .set('Cookie', cookie)
                 .send({ description })
                 .then((res) => {
-                    console.log(res.body);
                     res.should.have.status(200);
                     expect(res.body.user).to.have.property('description');
                 });
@@ -163,7 +151,6 @@ describe('Backend API Test Suite', () => {
                 .set('Cookie', cookie)
                 .send({ email, password: userPass })
                 .then((res) => {
-                    console.log(res.body);
                     res.should.have.status(200);
                 });
         });
@@ -174,7 +161,6 @@ describe('Backend API Test Suite', () => {
                 .set('Cookie', cookie)
                 .send({ password, confirmPassword: userPass })
                 .then((res) => {
-                    console.log(res.body);
                     res.should.have.status(200);
                     userPass = password;
                 });
@@ -186,7 +172,6 @@ describe('Backend API Test Suite', () => {
                 .set('Cookie', cookie)
                 .send({ confirmPhrase, confirmPassword: userPass })
                 .then((res) => {
-                    console.log(res.body);
                     res.should.have.status(200);
                 });
         });
@@ -200,7 +185,6 @@ describe('Backend API Test Suite', () => {
                 .set('content-type', 'application/json')
                 .send(mockUser)
                 .then((res) => {
-                    console.log(res.body);
                     res.should.have.status(200);
                     expect(res).to.have.cookie('origin');
                     cookie = res.header['set-cookie'];
@@ -216,7 +200,6 @@ describe('Backend API Test Suite', () => {
                 .set('Content-Type', 'application/json')
                 .send(loginObj)
                 .then((res) => {
-                    console.log(res.body);
                     res.should.have.status(200);
                     cookie = res.header['set-cookie'];
                 });
@@ -228,7 +211,6 @@ describe('Backend API Test Suite', () => {
                 .set('Cookie', cookie)
                 .send({ name: skillName })
                 .then((res) => {
-                    console.log(res.body);
                     res.should.have.status(200);
                     // eslint-disable-next-line prefer-destructuring
                     skill = res.body.skill[0];
@@ -239,7 +221,6 @@ describe('Backend API Test Suite', () => {
                 .get(`/api/skill/${skillName}`)
                 .set('Cookie', cookie)
                 .then((res) => {
-                    console.log(res.body);
                     res.should.have.status(200);
                 });
         });
@@ -249,7 +230,6 @@ describe('Backend API Test Suite', () => {
                 .set('Cookie', cookie)
                 .send({ skillId: skill.id })
                 .then((res) => {
-                    console.log(res.body);
                     res.should.have.status(200);
                 });
         });
@@ -261,7 +241,6 @@ describe('Backend API Test Suite', () => {
                 .get(`/api/chats`)
                 .set('Cookie', cookie)
                 .then((res) => {
-                    console.log(res.body);
                     res.should.have.status(200);
                 });
         });
@@ -273,7 +252,6 @@ describe('Backend API Test Suite', () => {
                 .get(`/api/requests`)
                 .set('Cookie', cookie)
                 .then((res) => {
-                    console.log(res.body);
                     res.should.have.status(200);
                 });
         });
@@ -288,7 +266,6 @@ describe('Backend API Test Suite', () => {
                 .set('Content-Type', `multipart/form-data`)
                 .attach('file', fs.readFileSync(`test/TEST.txt`), 'TEST.txt')
                 .then((res) => {
-                    console.log(res.body);
                     testFile = res.body;
                     res.should.have.status(200);
                 });
@@ -301,7 +278,6 @@ describe('Backend API Test Suite', () => {
                 .get(`/api/notifications`)
                 .set('Cookie', cookie)
                 .then((res) => {
-                    console.log(res.body);
                     res.should.have.status(200);
                 });
         });
