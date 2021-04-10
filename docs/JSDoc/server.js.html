@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>data-access/storage.js - Documentation</title>
+    <title>server.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">data-access/storage.js</h1>
+    <h1 class="page-title">server.js</h1>
     
 
     
@@ -39,95 +39,35 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/** @module FileStorage */
-import path from 'path';
-import fs from 'fs';
-import multer from 'multer';
-import { v4 } from 'uuid';
+            <pre class="prettyprint source linenums"><code>import { Server } from 'socket.io';
+import app from './app.js';
+import database from './data-access/database.js';
+import makeAssociations from './data-access/associations.js';
+import { WebSockets } from './sockets/WebSockets.js';
 
-/** Creates a user upload directory if it doesn't exist.
- * @param {string} userId - the user the directory is for.
- * @param {string} chatId - can be undefined, defaults to photos directory.
- * @param {function} callback - a callback function that is executed after creating the directory.
- */
-const createUploadDirectory = async (userId, chatId, callback) => {
-    let userDir;
-    if (!chatId) {
-        userDir = path.join('.', 'data-access', 'uploads', 'users', userId);
-    } else {
-        userDir = path.join(
-            '.',
-            'data-access',
-            'uploads',
-            'chats',
-            chatId,
-            userId
-        );
-    }
-    fs.stat(userDir, async (error) => {
-        if (error) {
-            fs.mkdirSync(userDir, { recursive: true });
-            callback(userDir);
-            return;
-        }
-        callback(userDir);
-    });
-};
-
-/** Creates a multer storage specifically for images.
- * @param {object} req - content-type must be of: 'multipart/form-data'.
- * @param {file} file - the file information included in the Request parameter.
- * @param {function} cb - callback function to be called when the file operation is complete.
- */
-const storage = multer.diskStorage({
-    destination(req, file, cb) {
-        createUploadDirectory(req.userId, req.body.chatId, (userDir) => {
-            cb(null, userDir);
-        });
-    },
-    filename(req, file, cb) {
-        cb(null, `${v4() + path.extname(file.originalname)}`);
-    },
+const PORT = process.env.PORT ?? 8081;
+process.env.DB_URI = `postgresql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@localhost:5432/skillfinder`;
+/** Initialize the database and listen for connections. */
+const httpServer = app.listen(PORT, () => {
+    console.log(`Server running at port ${PORT}`);
 });
-
-/** Creates a multer storage for any files.
- * @param {object} req - content-type must be of: 'multipart/form-data'.
- * @param {file} file - the file passed by Multer middleware.
- * @param {function} cb - a callback function to be called when the file operation is complete.
- */
-const fileStorage = multer.diskStorage({
-    destination(req, file, cb) {
-        createUploadDirectory(req.userId, req.body.chatId, (userDir) => {
-            cb(null, userDir);
+(async () => {
+    try {
+        makeAssociations();
+        await database.sync({
+            // force: true,
+            // alter: true,
+            // ^ Uncomment whenever you update the schema
+            // eg. when creating a new model, updating an old one.
         });
-    },
-    filename(req, file, cb) {
-        cb(null, `${file.originalname}`);
-    },
-});
-
-const imageFilter = (req, file, cb) => {
-    if (!file.originalname.match(/\.(jpg|JPG|jpeg|JPEG|png|PNG|gif|GIF)$/)) {
-        req.fileValidationError =
-            'Only image files are allowed (.jpg, .jpeg, .png, .gif).';
-        return cb('Only image files are allowed.');
+        const io = new Server(httpServer);
+        WebSockets(io);
+    } catch (err) {
+        console.log(Error(err));
     }
-    return cb(null, true);
-};
+})();
 
-/** Creates multer middleware for parsing incoming images. */
-export const uploadImage = multer({
-    storage,
-    fileFilter: imageFilter,
-    limits: { fileSize: 2048 * 2048 },
-}).single('image');
-
-/** Creates multer middleware for parsing incoming binary files. */
-export const uploadFile = multer({
-    storage: fileStorage,
-}).single('file');
-
-export default { uploadImage, uploadFile };
+export default httpServer;
 </code></pre>
         </article>
     </section>
