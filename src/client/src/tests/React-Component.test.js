@@ -1,6 +1,7 @@
 import React from 'react';
 import { unmountComponentAtNode, render } from 'react-dom';
 import './matchMedia.mock';
+import ReactDOM from 'react-dom';
 import { act } from 'react-dom/test-utils';
 import ArrowButton from '../components/ArrowButton';
 import AttachButton from '../components/ArrowButton';
@@ -41,6 +42,14 @@ import SendButton from '../components/SendButton';
 import Settings from '../components/Settings';
 import Signup from '../components/Signup';
 import ThemeContextProvider from '../contexts/ThemeContextProvider';
+import App from '../App';
+import AuthContextProvider from '../contexts/AuthContextProvider';
+import UserContextProvider from '../contexts/UserContextProvider';
+import SocketContextProvider from '../contexts/SocketContextProvider';
+import ChatsContextProvider from '../contexts/ChatsContextProvider';
+import FilesContextProvider from '../contexts/FilesContextProvider';
+import RequestsContextProvider from '../contexts/RequestsContextProvider';
+import NotificationsContextProvider from '../contexts/NotificationsContextProvider';
 
 let container = null;
 beforeEach(() => {
@@ -82,10 +91,24 @@ it('render an attach button.', () => {
 
 // it('render the Authentication Form', () => {
 //     act(() => {
-//         render(
-//             <ThemeContextProvider>
-//                 <AuthForm />
-//             </ThemeContextProvider>,
+//         ReactDOM.render(
+//             <AuthContextProvider>
+//                 <UserContextProvider>
+//                     <SocketContextProvider>
+//                         <ChatsContextProvider>
+//                             <FilesContextProvider>
+//                                 <RequestsContextProvider>
+//                                     <NotificationsContextProvider>
+//                                         <ThemeContextProvider>
+//                                             <App />
+//                                         </ThemeContextProvider>
+//                                     </NotificationsContextProvider>
+//                                 </RequestsContextProvider>
+//                             </FilesContextProvider>
+//                         </ChatsContextProvider>
+//                     </SocketContextProvider>
+//                 </UserContextProvider>
+//             </AuthContextProvider>,
 //             container
 //         );
 //     });
