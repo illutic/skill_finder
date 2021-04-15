@@ -51,6 +51,7 @@ import NotificationsContextProvider from '../contexts/NotificationsContextProvid
 import FORM_TYPES from '../constants/formTypes';
 import ROUTES from '../constants/routes';
 import FilesContextProvider from '../contexts/FilesContextProvider';
+import NavigationContextProvider from '../contexts/NavigationContextProvider';
 import LogoutModalContextProvider from '../contexts/LogoutModalContextProvider';
 
 let container = null;
@@ -443,9 +444,11 @@ it('Render Loading Screen', () => {
 //                                 <RequestsContextProvider>
 //                                     <NotificationsContextProvider>
 //                                         <ThemeContextProvider>
-//                                             <LogoutModalContextProvider>
-//                                                 <LogoutModal />
-//                                             </LogoutModalContextProvider>
+//                                             <NavigationContextProvider>
+//                                                 <LogoutModalContextProvider>
+//                                                     <LogoutModal />
+//                                                 </LogoutModalContextProvider>
+//                                             </NavigationContextProvider>
 //                                         </ThemeContextProvider>
 //                                     </NotificationsContextProvider>
 //                                 </RequestsContextProvider>
@@ -498,4 +501,178 @@ it('Render Messages', () => {
             container
         );
     });
+});
+
+it('Render Navigation', () => {
+    act(() => {
+        render(
+            <Router>
+                <React.StrictMode>
+                    <AuthContextProvider>
+                        <UserContextProvider>
+                            <SocketContextProvider>
+                                <ChatsContextProvider>
+                                    <FilesContextProvider>
+                                        <RequestsContextProvider>
+                                            <NotificationsContextProvider>
+                                                <ThemeContextProvider>
+                                                    <NavigationContextProvider>
+                                                        <LogoutModalContextProvider>
+                                                            <Navigation />
+                                                        </LogoutModalContextProvider>
+                                                    </NavigationContextProvider>
+                                                </ThemeContextProvider>
+                                            </NotificationsContextProvider>
+                                        </RequestsContextProvider>
+                                    </FilesContextProvider>
+                                </ChatsContextProvider>
+                            </SocketContextProvider>
+                        </UserContextProvider>
+                    </AuthContextProvider>
+                </React.StrictMode>
+            </Router>,
+            container
+        );
+    });
+});
+
+it('Render Navigation Button', () => {
+    act(() => {
+        render(
+            <ThemeContextProvider>
+                <NavigationButton />
+            </ThemeContextProvider>,
+            container
+        );
+    });
+});
+
+it('Render Not Found Screen', () => {
+    act(() => {
+        render(
+            <ThemeContextProvider>
+                <NotFound />
+            </ThemeContextProvider>,
+            container
+        );
+    });
+});
+
+it('Render Notification', () => {
+    act(() => {
+        render(
+            <Router>
+                <React.StrictMode>
+                    <AuthContextProvider>
+                        <UserContextProvider>
+                            <SocketContextProvider>
+                                <RequestsContextProvider>
+                                    <NotificationsContextProvider>
+                                        <ThemeContextProvider>
+                                            <NavigationContextProvider>
+                                                <LogoutModalContextProvider>
+                                                    <Notification />
+                                                </LogoutModalContextProvider>
+                                            </NavigationContextProvider>
+                                        </ThemeContextProvider>
+                                    </NotificationsContextProvider>
+                                </RequestsContextProvider>
+                            </SocketContextProvider>
+                        </UserContextProvider>
+                    </AuthContextProvider>
+                </React.StrictMode>
+            </Router>,
+            container
+        );
+    });
+});
+
+it('Render Notification Button', () => {
+    act(() => {
+        render(
+            <ThemeContextProvider>
+                <NotificationsButton />
+            </ThemeContextProvider>,
+            container
+        );
+    });
+});
+
+it('Render Notification Panel', () => {
+    act(() => {
+        render(
+            <Router>
+                <React.StrictMode>
+                    <AuthContextProvider>
+                        <UserContextProvider>
+                            <SocketContextProvider>
+                                <RequestsContextProvider>
+                                    <NotificationsContextProvider>
+                                        <ThemeContextProvider>
+                                            <NavigationContextProvider>
+                                                <LogoutModalContextProvider>
+                                                    <NotificationsPanel />
+                                                </LogoutModalContextProvider>
+                                            </NavigationContextProvider>
+                                        </ThemeContextProvider>
+                                    </NotificationsContextProvider>
+                                </RequestsContextProvider>
+                            </SocketContextProvider>
+                        </UserContextProvider>
+                    </AuthContextProvider>
+                </React.StrictMode>
+            </Router>,
+            container
+        );
+    });
+});
+
+it('Render Profile', () => {
+    act(() => {});
+});
+
+it('Render Profile Photo', () => {
+    act(() => {
+        render(
+            <ThemeContextProvider>
+                <ProfilePhoto />
+            </ThemeContextProvider>,
+            container
+        );
+    });
+});
+
+it('Render Profile Thumbnail', () => {
+    act(() => {});
+});
+
+it('Render Protected Route', () => {
+    act(() => {});
+});
+
+it('Render Request Actions', () => {
+    act(() => {});
+});
+
+it('Render Search Bar', () => {
+    act(() => {});
+});
+
+it('Render Search Results', () => {
+    act(() => {});
+});
+
+it('Render Send Button', () => {
+    act(() => {
+        render(
+            <ThemeContextProvider>
+                <SendButton />
+            </ThemeContextProvider>,
+            container
+        );
+    });
+});
+
+it('Render Settings', () => {
+    act(() => {});
 });
