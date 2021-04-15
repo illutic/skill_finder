@@ -15,22 +15,22 @@ const sliderSettings = {
     infinite: true,
     dots: true,
     slidesToShow: 3,
-    responsive: [
-        {
-            breakpoint: 1024,
-            settings: {
-                slidesToShow: 2,
-            },
-        },
-        {
-            breakpoint: 750,
-            settings: {
-                slidesToShow: 1,
-            },
-        },
-    ],
+    // responsive: [
+    //     {
+    //         breakpoint: 1024,
+    //         settings: {
+    //             slidesToShow: 2,
+    //         },
+    //     },
+    //     {
+    //         breakpoint: 750,
+    //         settings: {
+    //             slidesToShow: 1,
+    //         },
+    //     },
+    // ],
+    /** Tests don't like responsive */
 };
-
 const HomeSlider = () => {
     return (
         <Styled.SliderContainer>

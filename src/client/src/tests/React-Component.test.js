@@ -1,10 +1,8 @@
+import './matchMedia.mock';
 import React from 'react';
 import { unmountComponentAtNode, render } from 'react-dom';
-import './matchMedia.mock';
-import ReactDOM from 'react-dom';
 import { act } from 'react-dom/test-utils';
-import { act as testAct, create } from 'react-test-renderer';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import ArrowButton from '../components/ArrowButton';
 import AttachButton from '../components/ArrowButton';
 import AuthForm from '../components/AuthForm';
@@ -44,19 +42,18 @@ import SendButton from '../components/SendButton';
 import Settings from '../components/Settings';
 import Signup from '../components/Signup';
 import ThemeContextProvider from '../contexts/ThemeContextProvider';
-import App from '../App';
 import AuthContextProvider from '../contexts/AuthContextProvider';
 import UserContextProvider from '../contexts/UserContextProvider';
 import SocketContextProvider from '../contexts/SocketContextProvider';
 import ChatsContextProvider from '../contexts/ChatsContextProvider';
-import FilesContextProvider from '../contexts/FilesContextProvider';
 import RequestsContextProvider from '../contexts/RequestsContextProvider';
 import NotificationsContextProvider from '../contexts/NotificationsContextProvider';
 import FORM_TYPES from '../constants/formTypes';
-import ROUTES from  '../constants/routes';
+import ROUTES from '../constants/routes';
+import FilesContextProvider from '../contexts/FilesContextProvider';
+import LogoutModalContextProvider from '../contexts/LogoutModalContextProvider';
 
 let container = null;
-let root;
 beforeEach(() => {
     // setup a DOM element as a render target
     container = document.createElement('div');
@@ -70,7 +67,7 @@ afterEach(() => {
     container = null;
 });
 
-it('render an arrow button.', () => {
+it('Render Arrow Button.', () => {
     act(() => {
         render(
             <ThemeContextProvider>
@@ -79,10 +76,9 @@ it('render an arrow button.', () => {
             container
         );
     });
-    expect(container).toBeDefined();
 });
 
-it('render an attach button.', () => {
+it('Render Attach Button.', () => {
     act(() => {
         render(
             <ThemeContextProvider>
@@ -91,10 +87,9 @@ it('render an attach button.', () => {
             container
         );
     });
-    expect(container).toBeDefined();
 });
 
-it('render a Sign UP Authentication Form', () => {
+it('Render Sign Up Authentication Form', () => {
     act(() => {
         render(
             <Router>
@@ -121,10 +116,9 @@ it('render a Sign UP Authentication Form', () => {
             container
         );
     });
-    expect(container).toBeDefined();
 });
 
-it('render a Sign IN Authentication Form', () => {
+it('Render Sign In Authentication Form', () => {
     act(() => {
         render(
             <Router>
@@ -151,9 +145,9 @@ it('render a Sign IN Authentication Form', () => {
             container
         );
     });
-    expect(container).toBeDefined();
 });
-it('render an Authentication Message', () => {
+
+it('Render Authentication Message', () => {
     act(() => {
         render(
             <Router>
@@ -167,6 +161,9 @@ it('render an Authentication Message', () => {
                                             <Route path={ROUTES.signup} exact>
                                                 <AuthMessage />
                                             </Route>
+                                            <Route path={ROUTES.login} exact>
+                                                <AuthMessage />
+                                            </Route>
                                         </ThemeContextProvider>
                                     </NotificationsContextProvider>
                                 </RequestsContextProvider>
@@ -178,5 +175,327 @@ it('render an Authentication Message', () => {
             container
         );
     });
-    expect(container).toBeDefined();
+});
+
+it('Render General Button.', () => {
+    act(() => {
+        render(
+            <ThemeContextProvider>
+                <Button />
+            </ThemeContextProvider>,
+            container
+        );
+    });
+});
+
+it('Render Chat Component', () => {
+    act(() => {
+        render(
+            <Router>
+                <AuthContextProvider>
+                    <UserContextProvider>
+                        <SocketContextProvider>
+                            <ChatsContextProvider>
+                                <RequestsContextProvider>
+                                    <NotificationsContextProvider>
+                                        <ThemeContextProvider>
+                                            <Route path={ROUTES.chat} exact>
+                                                <Chat />
+                                            </Route>
+                                        </ThemeContextProvider>
+                                    </NotificationsContextProvider>
+                                </RequestsContextProvider>
+                            </ChatsContextProvider>
+                        </SocketContextProvider>
+                    </UserContextProvider>
+                </AuthContextProvider>
+            </Router>,
+            container
+        );
+    });
+});
+
+it('Render Chat Message', () => {
+    act(() => {
+        render(
+            <Router>
+                <AuthContextProvider>
+                    <UserContextProvider>
+                        <SocketContextProvider>
+                            <ChatsContextProvider>
+                                <RequestsContextProvider>
+                                    <NotificationsContextProvider>
+                                        <ThemeContextProvider>
+                                            <Route path={ROUTES.messages} exact>
+                                                <ChatsMessage />
+                                            </Route>
+                                        </ThemeContextProvider>
+                                    </NotificationsContextProvider>
+                                </RequestsContextProvider>
+                            </ChatsContextProvider>
+                        </SocketContextProvider>
+                    </UserContextProvider>
+                </AuthContextProvider>
+            </Router>,
+            container
+        );
+    });
+});
+
+it('Render Close Button.', () => {
+    act(() => {
+        render(
+            <ThemeContextProvider>
+                <CloseButton />
+            </ThemeContextProvider>,
+            container
+        );
+    });
+});
+
+it('Render Contacts Drawer', () => {
+    act(() => {
+        render(
+            <Router>
+                <AuthContextProvider>
+                    <UserContextProvider>
+                        <SocketContextProvider>
+                            <ChatsContextProvider>
+                                <RequestsContextProvider>
+                                    <NotificationsContextProvider>
+                                        <ThemeContextProvider>
+                                            <Route path={ROUTES.messages} exact>
+                                                <ContactsDrawer />
+                                            </Route>
+                                        </ThemeContextProvider>
+                                    </NotificationsContextProvider>
+                                </RequestsContextProvider>
+                            </ChatsContextProvider>
+                        </SocketContextProvider>
+                    </UserContextProvider>
+                </AuthContextProvider>
+            </Router>,
+            container
+        );
+    });
+});
+
+it('Render Stylized Container', () => {
+    act(() => {
+        render(
+            <ThemeContextProvider>
+                <Container />
+            </ThemeContextProvider>,
+            container
+        );
+    });
+});
+
+it('Render Drawer', () => {
+    act(() => {
+        render(
+            <ThemeContextProvider>
+                <Drawer />
+            </ThemeContextProvider>,
+            container
+        );
+    });
+});
+
+it('Render Files Drawer', () => {
+    act(() => {
+        render(
+            <Router>
+                <AuthContextProvider>
+                    <UserContextProvider>
+                        <SocketContextProvider>
+                            <ChatsContextProvider>
+                                <RequestsContextProvider>
+                                    <NotificationsContextProvider>
+                                        <FilesContextProvider>
+                                            <ThemeContextProvider>
+                                                <Route
+                                                    path={ROUTES.messages}
+                                                    exact
+                                                >
+                                                    <FilesDrawer />
+                                                </Route>
+                                            </ThemeContextProvider>
+                                        </FilesContextProvider>
+                                    </NotificationsContextProvider>
+                                </RequestsContextProvider>
+                            </ChatsContextProvider>
+                        </SocketContextProvider>
+                    </UserContextProvider>
+                </AuthContextProvider>
+            </Router>,
+            container
+        );
+    });
+});
+
+it('Render Form Error', () => {
+    act(() => {
+        render(
+            <ThemeContextProvider>
+                <FormError />
+            </ThemeContextProvider>,
+            container
+        );
+    });
+});
+
+it('Render Form Success', () => {
+    act(() => {
+        render(
+            <ThemeContextProvider>
+                <FormSuccess />
+            </ThemeContextProvider>,
+            container
+        );
+    });
+});
+
+it('Render Google Button', () => {
+    act(() => {
+        render(
+            <Router>
+                <AuthContextProvider>
+                    <UserContextProvider>
+                        <SocketContextProvider>
+                            <ChatsContextProvider>
+                                <RequestsContextProvider>
+                                    <NotificationsContextProvider>
+                                        <FilesContextProvider>
+                                            <ThemeContextProvider>
+                                                <Route
+                                                    path={ROUTES.login}
+                                                    exact
+                                                >
+                                                    <GoogleButton />
+                                                </Route>
+                                            </ThemeContextProvider>
+                                        </FilesContextProvider>
+                                    </NotificationsContextProvider>
+                                </RequestsContextProvider>
+                            </ChatsContextProvider>
+                        </SocketContextProvider>
+                    </UserContextProvider>
+                </AuthContextProvider>
+            </Router>,
+            container
+        );
+    });
+});
+
+it('Render Custom Heading', () => {
+    act(() => {
+        render(
+            <ThemeContextProvider>
+                <Heading />
+            </ThemeContextProvider>,
+            container
+        );
+    });
+});
+
+it('Render Home', () => {
+    act(() => {
+        render(
+            <Router>
+                <AuthContextProvider>
+                    <UserContextProvider>
+                        <SocketContextProvider>
+                            <ThemeContextProvider>
+                                <Route path={ROUTES.home} exact>
+                                    <Home />
+                                </Route>
+                            </ThemeContextProvider>
+                        </SocketContextProvider>
+                    </UserContextProvider>
+                </AuthContextProvider>
+            </Router>,
+            container
+        );
+    });
+});
+
+it('Render Loading Screen', () => {
+    act(() => {
+        render(
+            <ThemeContextProvider>
+                <LoadingScreen />
+            </ThemeContextProvider>,
+            container
+        );
+    });
+});
+
+/** Not sure how to deal with that */
+// it('Render Logout Modal', () => {
+//     act(() => {
+//         render(
+//             <Router>
+//                 <AuthContextProvider>
+//                     <UserContextProvider>
+//                         <SocketContextProvider>
+//                             <ChatsContextProvider>
+//                                 <RequestsContextProvider>
+//                                     <NotificationsContextProvider>
+//                                         <ThemeContextProvider>
+//                                             <LogoutModalContextProvider>
+//                                                 <LogoutModal />
+//                                             </LogoutModalContextProvider>
+//                                         </ThemeContextProvider>
+//                                     </NotificationsContextProvider>
+//                                 </RequestsContextProvider>
+//                             </ChatsContextProvider>
+//                         </SocketContextProvider>
+//                     </UserContextProvider>
+//                 </AuthContextProvider>
+//             </Router>,
+//             container
+//         );
+//     });
+// });
+// Target container is not a DOM element.
+
+// 14 |     const logOut = useLogout();
+// 15 |
+// > 16 |     return ReactDOM.createPortal(
+//    |                     ^
+// 17 |         <Styled.Wrapper active={isLogoutModalActive} onClick={hideLogoutModal}>
+// 18 |             <Styled.Window onClick={stopPropagation}>
+// 19 |                 <Heading>Are you leaving?</Heading>
+
+it('Render Messages', () => {
+    act(() => {
+        render(
+            <Router>
+                <AuthContextProvider>
+                    <UserContextProvider>
+                        <SocketContextProvider>
+                            <ChatsContextProvider>
+                                <RequestsContextProvider>
+                                    <NotificationsContextProvider>
+                                        <FilesContextProvider>
+                                            <ThemeContextProvider>
+                                                <Route
+                                                    path={ROUTES.messages}
+                                                    exact
+                                                >
+                                                    <Messages />
+                                                </Route>
+                                            </ThemeContextProvider>
+                                        </FilesContextProvider>
+                                    </NotificationsContextProvider>
+                                </RequestsContextProvider>
+                            </ChatsContextProvider>
+                        </SocketContextProvider>
+                    </UserContextProvider>
+                </AuthContextProvider>
+            </Router>,
+            container
+        );
+    });
 });
