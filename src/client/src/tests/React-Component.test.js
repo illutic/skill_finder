@@ -3,6 +3,8 @@ import { unmountComponentAtNode, render } from 'react-dom';
 import './matchMedia.mock';
 import ReactDOM from 'react-dom';
 import { act } from 'react-dom/test-utils';
+import { act as testAct, create } from 'react-test-renderer';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import ArrowButton from '../components/ArrowButton';
 import AttachButton from '../components/ArrowButton';
 import AuthForm from '../components/AuthForm';
@@ -50,8 +52,11 @@ import ChatsContextProvider from '../contexts/ChatsContextProvider';
 import FilesContextProvider from '../contexts/FilesContextProvider';
 import RequestsContextProvider from '../contexts/RequestsContextProvider';
 import NotificationsContextProvider from '../contexts/NotificationsContextProvider';
+import FORM_TYPES from '../constants/formTypes';
+import ROUTES from  '../constants/routes';
 
 let container = null;
+let root;
 beforeEach(() => {
     // setup a DOM element as a render target
     container = document.createElement('div');
@@ -89,28 +94,89 @@ it('render an attach button.', () => {
     expect(container).toBeDefined();
 });
 
-// it('render the Authentication Form', () => {
-//     act(() => {
-//         ReactDOM.render(
-//             <AuthContextProvider>
-//                 <UserContextProvider>
-//                     <SocketContextProvider>
-//                         <ChatsContextProvider>
-//                             <FilesContextProvider>
-//                                 <RequestsContextProvider>
-//                                     <NotificationsContextProvider>
-//                                         <ThemeContextProvider>
-//                                             <App />
-//                                         </ThemeContextProvider>
-//                                     </NotificationsContextProvider>
-//                                 </RequestsContextProvider>
-//                             </FilesContextProvider>
-//                         </ChatsContextProvider>
-//                     </SocketContextProvider>
-//                 </UserContextProvider>
-//             </AuthContextProvider>,
-//             container
-//         );
-//     });
-//     expect(container).toBeDefined();
-// });
+it('render a Sign UP Authentication Form', () => {
+    act(() => {
+        render(
+            <Router>
+                <AuthContextProvider>
+                    <UserContextProvider>
+                        <SocketContextProvider>
+                            <ChatsContextProvider>
+                                <RequestsContextProvider>
+                                    <NotificationsContextProvider>
+                                        <ThemeContextProvider>
+                                            <Route path={ROUTES.signup} exact>
+                                                <AuthForm
+                                                    type={FORM_TYPES.signup}
+                                                />
+                                            </Route>
+                                        </ThemeContextProvider>
+                                    </NotificationsContextProvider>
+                                </RequestsContextProvider>
+                            </ChatsContextProvider>
+                        </SocketContextProvider>
+                    </UserContextProvider>
+                </AuthContextProvider>
+            </Router>,
+            container
+        );
+    });
+    expect(container).toBeDefined();
+});
+
+it('render a Sign IN Authentication Form', () => {
+    act(() => {
+        render(
+            <Router>
+                <AuthContextProvider>
+                    <UserContextProvider>
+                        <SocketContextProvider>
+                            <ChatsContextProvider>
+                                <RequestsContextProvider>
+                                    <NotificationsContextProvider>
+                                        <ThemeContextProvider>
+                                            <Route path={ROUTES.login} exact>
+                                                <AuthForm
+                                                    type={FORM_TYPES.login}
+                                                />
+                                            </Route>
+                                        </ThemeContextProvider>
+                                    </NotificationsContextProvider>
+                                </RequestsContextProvider>
+                            </ChatsContextProvider>
+                        </SocketContextProvider>
+                    </UserContextProvider>
+                </AuthContextProvider>
+            </Router>,
+            container
+        );
+    });
+    expect(container).toBeDefined();
+});
+it('render an Authentication Message', () => {
+    act(() => {
+        render(
+            <Router>
+                <AuthContextProvider>
+                    <UserContextProvider>
+                        <SocketContextProvider>
+                            <ChatsContextProvider>
+                                <RequestsContextProvider>
+                                    <NotificationsContextProvider>
+                                        <ThemeContextProvider>
+                                            <Route path={ROUTES.signup} exact>
+                                                <AuthMessage />
+                                            </Route>
+                                        </ThemeContextProvider>
+                                    </NotificationsContextProvider>
+                                </RequestsContextProvider>
+                            </ChatsContextProvider>
+                        </SocketContextProvider>
+                    </UserContextProvider>
+                </AuthContextProvider>
+            </Router>,
+            container
+        );
+    });
+    expect(container).toBeDefined();
+});
