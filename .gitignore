@@ -137,14 +137,4 @@ src/client/package-lock.json
 .vscode/settings.json
 src/coverage/
 src/.nyc_output/
-src/client/coverage/clover.xml
-src/client/coverage/coverage-final.json
-src/client/coverage/lcov.info
-src/client/coverage/lcov-report/base.css
-src/client/coverage/lcov-report/block-navigation.js
-src/client/coverage/lcov-report/favicon.png
-src/client/coverage/lcov-report/index.html
-src/client/coverage/lcov-report/prettify.css
-src/client/coverage/lcov-report/prettify.js
-src/client/coverage/lcov-report/sort-arrow-sprite.png
-src/client/coverage/lcov-report/sorter.js
+src/client/coverage/
