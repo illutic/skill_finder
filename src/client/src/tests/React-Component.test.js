@@ -20,9 +20,7 @@ import FormSuccess from '../components/FormSuccess';
 import GoogleButton from '../components/GoogleButton';
 import Heading from '../components/Heading';
 import Home from '../components/Home';
-import HomeSlider from '../components/HomeSlider';
 import LoadingScreen from '../components/LoadingScreen';
-import Login from '../components/Login';
 import LogoutModal from '../components/LogoutModal';
 import Messages from '../components/Messages';
 import Navigation from '../components/Navigation';
@@ -40,7 +38,6 @@ import SearchBar from '../components/SearchBar';
 import SearchResults from '../components/SearchResults';
 import SendButton from '../components/SendButton';
 import Settings from '../components/Settings';
-import Signup from '../components/Signup';
 import ThemeContextProvider from '../contexts/ThemeContextProvider';
 import AuthContextProvider from '../contexts/AuthContextProvider';
 import UserContextProvider from '../contexts/UserContextProvider';
@@ -628,7 +625,32 @@ it('Render Notification Panel', () => {
 });
 
 it('Render Profile', () => {
-    act(() => {});
+    act(() => {
+        render(
+            <Router>
+                <React.StrictMode>
+                    <AuthContextProvider>
+                        <UserContextProvider>
+                            <SocketContextProvider>
+                                <RequestsContextProvider>
+                                    <NotificationsContextProvider>
+                                        <ThemeContextProvider>
+                                            <NavigationContextProvider>
+                                                <LogoutModalContextProvider>
+                                                    <Profile />
+                                                </LogoutModalContextProvider>
+                                            </NavigationContextProvider>
+                                        </ThemeContextProvider>
+                                    </NotificationsContextProvider>
+                                </RequestsContextProvider>
+                            </SocketContextProvider>
+                        </UserContextProvider>
+                    </AuthContextProvider>
+                </React.StrictMode>
+            </Router>,
+            container
+        );
+    });
 });
 
 it('Render Profile Photo', () => {
@@ -643,23 +665,124 @@ it('Render Profile Photo', () => {
 });
 
 it('Render Profile Thumbnail', () => {
-    act(() => {});
+    act(() => {
+        render(
+            <Router>
+                <React.StrictMode>
+                    <AuthContextProvider>
+                        <UserContextProvider>
+                            <SocketContextProvider>
+                                <RequestsContextProvider>
+                                    <NotificationsContextProvider>
+                                        <ThemeContextProvider>
+                                            <NavigationContextProvider>
+                                                <LogoutModalContextProvider>
+                                                    <ProfileThumbnail />
+                                                </LogoutModalContextProvider>
+                                            </NavigationContextProvider>
+                                        </ThemeContextProvider>
+                                    </NotificationsContextProvider>
+                                </RequestsContextProvider>
+                            </SocketContextProvider>
+                        </UserContextProvider>
+                    </AuthContextProvider>
+                </React.StrictMode>
+            </Router>,
+            container
+        );
+    });
 });
 
-it('Render Protected Route', () => {
-    act(() => {});
+it('Test Protected Route', () => {
+    act(() => {
+        render(
+            <Router>
+                <React.StrictMode>
+                    <AuthContextProvider>
+                        <UserContextProvider>
+                            <SocketContextProvider>
+                                <RequestsContextProvider>
+                                    <NotificationsContextProvider>
+                                        <ThemeContextProvider>
+                                            <NavigationContextProvider>
+                                                <LogoutModalContextProvider>
+                                                    <ProtectedRoute />
+                                                </LogoutModalContextProvider>
+                                            </NavigationContextProvider>
+                                        </ThemeContextProvider>
+                                    </NotificationsContextProvider>
+                                </RequestsContextProvider>
+                            </SocketContextProvider>
+                        </UserContextProvider>
+                    </AuthContextProvider>
+                </React.StrictMode>
+            </Router>,
+            container
+        );
+    });
 });
 
 it('Render Request Actions', () => {
-    act(() => {});
+    act(() => {
+        render(
+            <Router>
+                <React.StrictMode>
+                    <AuthContextProvider>
+                        <UserContextProvider>
+                            <SocketContextProvider>
+                                <ChatsContextProvider>
+                                    <FilesContextProvider>
+                                        <RequestsContextProvider>
+                                            <NotificationsContextProvider>
+                                                <ThemeContextProvider>
+                                                    <NavigationContextProvider>
+                                                        <LogoutModalContextProvider>
+                                                            <RequestActions />
+                                                        </LogoutModalContextProvider>
+                                                    </NavigationContextProvider>
+                                                </ThemeContextProvider>
+                                            </NotificationsContextProvider>
+                                        </RequestsContextProvider>
+                                    </FilesContextProvider>
+                                </ChatsContextProvider>
+                            </SocketContextProvider>
+                        </UserContextProvider>
+                    </AuthContextProvider>
+                </React.StrictMode>
+            </Router>,
+            container
+        );
+    });
 });
 
 it('Render Search Bar', () => {
-    act(() => {});
+    act(() => {
+        render(
+            <Router>
+                <ThemeContextProvider>
+                    <SearchBar />
+                </ThemeContextProvider>
+            </Router>,
+            container
+        );
+    });
 });
 
 it('Render Search Results', () => {
-    act(() => {});
+    act(() => {
+        render(
+            <Router>
+                <AuthContextProvider>
+                    <UserContextProvider>
+                        <ThemeContextProvider>
+                            <SearchResults />
+                        </ThemeContextProvider>
+                    </UserContextProvider>
+                </AuthContextProvider>
+            </Router>,
+            container
+        );
+    });
 });
 
 it('Render Send Button', () => {
@@ -674,5 +797,9 @@ it('Render Send Button', () => {
 });
 
 it('Render Settings', () => {
-    act(() => {});
+    act(() => {
+        <UserContextProvider>
+            <Settings />
+        </UserContextProvider>;
+    });
 });
