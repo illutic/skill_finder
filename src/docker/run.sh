@@ -1,6 +1,7 @@
+cp ../.env ./.env
 docker-compose up -d
-docker exec -t docker_app_1 sh -c "npm test"
 docker exec -it docker_app_1 sh -c "npm install --legacy-peer-deps --prefix client"
+docker exec -t docker_app_1 sh -c "npm test"
 docker start docker_app_1
 echo =================================================================
 echo The API server is running.
