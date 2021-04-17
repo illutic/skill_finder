@@ -36,8 +36,9 @@ jobs:
           CLIENT_PORT: 3000
           ADMIN_PORT: 8080
 
-#      - name: Build Client Dependencies.
-#        run: docker exec docker_app_1 sh -c "npm install --prefix client"
+      - name: Build Client Dependencies.
+        run: docker exec -t docker_app_1 sh -c "npm install --legacy-peer-deps --prefix client"
+
       - name: Run Tests.
         run: docker exec -t docker_app_1 sh -c "npm test" || docker exec -t docker_app_1 sh -c "npm test"
 

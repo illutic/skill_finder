@@ -137,3 +137,4 @@ src/client/package-lock.json
 .vscode/settings.json
 src/coverage/
 src/.nyc_output/
+src/client/coverage/

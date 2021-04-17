@@ -40,12 +40,12 @@
     },
     "scripts": {
         "postinstall": "npm install --legacy-peer-deps --prefix client",
-        "server": "nodemon app.js",
+        "server": "nodemon server.js",
         "client": "npm start --prefix client",
         "dev": "concurrently \"npm run server\" \"npm run client\"",
         "lint": "eslint .",
         "build": "npm run build --prefix client",
-        "test": "mocha --require mocha-steps --exit",
+        "test": "mocha --require mocha-steps --exit && cd client && npm test",
         "coverage": "nyc --all --reporter=html --reporter=text npm test"
     },
     "nyc": {
