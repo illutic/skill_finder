@@ -1,0 +1,602 @@
+{
+	"gitinspector": {
+		"version": "0.5.0dev",
+		"repository": "cw-code-t33",
+		"report_date": "2021/06/21",
+		"changes": {
+			"message": "The following historical commit information, by author, was found",
+			"authors": [
+			{
+				"name": "George Sigalas",
+				"email": "57220574+UP933287@users.noreply.github.com",
+				"gravatar": "https://www.gravatar.com/avatar/dd12ce9664ffc444ca83f009348ff4c3?default=identicon",
+				"commits": 29,
+				"insertions": 546,
+				"deletions": 452,
+				"percentage_of_changes": 0.44
+			},{
+				"name": "Mubanga Chisanga",
+				"email": "up773284@myport.ac.uk",
+				"gravatar": "https://www.gravatar.com/avatar/95213dd224c73edd390f0465933eefbb?default=identicon",
+				"commits": 7,
+				"insertions": 814,
+				"deletions": 263,
+				"percentage_of_changes": 0.48
+			},{
+				"name": "OssontsBOT",
+				"email": "UP933287@users.noreply.github.com",
+				"gravatar": "https://www.gravatar.com/avatar/f123be213ad78e0ef11f5907857a4401?default=identicon",
+				"commits": 38,
+				"insertions": 112,
+				"deletions": 70,
+				"percentage_of_changes": 0.08
+			},{
+				"name": "Steven Ossont",
+				"email": "472243+ossonts@users.noreply.github.com",
+				"gravatar": "https://www.gravatar.com/avatar/088bff13283d3ed5ffd807e92636a3af?default=identicon",
+				"commits": 9,
+				"insertions": 472,
+				"deletions": 9,
+				"percentage_of_changes": 0.21
+			},{
+				"name": "UP773284",
+				"email": "UP773284@users.noreply.github.com",
+				"gravatar": "https://www.gravatar.com/avatar/81e41394b393692f699b2442e5e53d7d?default=identicon",
+				"commits": 5,
+				"insertions": 239,
+				"deletions": 157,
+				"percentage_of_changes": 0.18
+			},{
+				"name": "UP933287",
+				"email": "up933287@myport.ac.uk",
+				"gravatar": "https://www.gravatar.com/avatar/9038e5af22622068ecda4c5f54b84c99?default=identicon",
+				"commits": 250,
+				"insertions": 69874,
+				"deletions": 56169,
+				"percentage_of_changes": 55.98
+			},{
+				"name": "kamilmuzyka",
+				"email": "kamil.muzyka@gmail.com",
+				"gravatar": "https://www.gravatar.com/avatar/c4ab820e274c7567279b8089bdcb25d1?default=identicon",
+				"commits": 360,
+				"insertions": 52528,
+				"deletions": 42704,
+				"percentage_of_changes": 42.30
+			},{
+				"name": "ossonts",
+				"email": "ossonts@users.noreply.github.com",
+				"gravatar": "https://www.gravatar.com/avatar/595dcf92c923fc15f3ad0b3db707af8f?default=identicon",
+				"commits": 13,
+				"insertions": 290,
+				"deletions": 173,
+				"percentage_of_changes": 0.21
+			},{
+				"name": "up933287",
+				"email": "up933287@myport.ac.uk",
+				"gravatar": "https://www.gravatar.com/avatar/9038e5af22622068ecda4c5f54b84c99?default=identicon",
+				"commits": 1,
+				"insertions": 268,
+				"deletions": 1,
+				"percentage_of_changes": 0.12
+			}]
+		},
+		"blame": {
+			"message": "Below are the number of rows from each author that have survived and are still intact in the current revision",
+			"authors": [
+			{
+				"name": "George Sigalas",
+				"email": "57220574+UP933287@users.noreply.github.com",
+				"gravatar": "https://www.gravatar.com/avatar/dd12ce9664ffc444ca83f009348ff4c3?default=identicon",
+				"rows": 20,
+				"stability": 3.7,
+				"age": 5.9,
+				"percentage_in_comments": 0.00
+			},{
+				"name": "Mubanga Chisanga",
+				"email": "up773284@myport.ac.uk",
+				"gravatar": "https://www.gravatar.com/avatar/95213dd224c73edd390f0465933eefbb?default=identicon",
+				"rows": 79,
+				"stability": 9.7,
+				"age": 4.1,
+				"percentage_in_comments": 0.00
+			},{
+				"name": "OssontsBOT",
+				"email": "UP933287@users.noreply.github.com",
+				"gravatar": "https://www.gravatar.com/avatar/f123be213ad78e0ef11f5907857a4401?default=identicon",
+				"rows": 2,
+				"stability": 1.8,
+				"age": 2.7,
+				"percentage_in_comments": 0.00
+			},{
+				"name": "Steven Ossont",
+				"email": "472243+ossonts@users.noreply.github.com",
+				"gravatar": "https://www.gravatar.com/avatar/088bff13283d3ed5ffd807e92636a3af?default=identicon",
+				"rows": 309,
+				"stability": 65.5,
+				"age": 0.0,
+				"percentage_in_comments": 0.00
+			},{
+				"name": "UP933287",
+				"email": "up933287@myport.ac.uk",
+				"gravatar": "https://www.gravatar.com/avatar/9038e5af22622068ecda4c5f54b84c99?default=identicon",
+				"rows": 5550,
+				"stability": 7.9,
+				"age": 4.9,
+				"percentage_in_comments": 5.46
+			},{
+				"name": "kamilmuzyka",
+				"email": "kamil.muzyka@gmail.com",
+				"gravatar": "https://www.gravatar.com/avatar/c4ab820e274c7567279b8089bdcb25d1?default=identicon",
+				"rows": 30795,
+				"stability": 58.6,
+				"age": 4.0,
+				"percentage_in_comments": 1.78
+			},{
+				"name": "ossonts",
+				"email": "ossonts@users.noreply.github.com",
+				"gravatar": "https://www.gravatar.com/avatar/595dcf92c923fc15f3ad0b3db707af8f?default=identicon",
+				"rows": 203,
+				"stability": 70.0,
+				"age": 6.2,
+				"percentage_in_comments": 0.00
+			}]
+		},
+		"timeline": {
+			"message": "The following history timeline has been gathered from the repository",
+			"period_length": "week",
+			"periods": [
+			{
+				"name": "2020W44",
+				"authors": [
+				{
+					"name": "Steven Ossont",
+					"email": "472243+ossonts@users.noreply.github.com",
+					"gravatar": "https://www.gravatar.com/avatar/088bff13283d3ed5ffd807e92636a3af?default=identicon",
+					"work": "++++++++++++++++++++++++"
+				}],
+				"modified_rows": 462
+			},{
+				"name": "2020W45",
+				"authors": [
+				{
+					"name": "Steven Ossont",
+					"email": "472243+ossonts@users.noreply.github.com",
+					"gravatar": "https://www.gravatar.com/avatar/088bff13283d3ed5ffd807e92636a3af?default=identicon",
+					"work": "------------++++++++++++"
+				},{
+					"name": "kamilmuzyka",
+					"email": "kamil.muzyka@gmail.com",
+					"gravatar": "https://www.gravatar.com/avatar/c4ab820e274c7567279b8089bdcb25d1?default=identicon",
+					"work": "++++++"
+				}],
+				"modified_rows": 10
+			},{
+				"name": "2020W47",
+				"authors": [
+				{
+					"name": "Steven Ossont",
+					"email": "472243+ossonts@users.noreply.github.com",
+					"gravatar": "https://www.gravatar.com/avatar/088bff13283d3ed5ffd807e92636a3af?default=identicon",
+					"work": "------------++++++++++++"
+				}],
+				"modified_rows": 8
+			},{
+				"name": "2020W50",
+				"authors": [
+				{
+					"name": "George Sigalas",
+					"email": "57220574+UP933287@users.noreply.github.com",
+					"gravatar": "https://www.gravatar.com/avatar/dd12ce9664ffc444ca83f009348ff4c3?default=identicon",
+					"work": "."
+				},{
+					"name": "up933287",
+					"email": "up933287@myport.ac.uk",
+					"gravatar": "https://www.gravatar.com/avatar/9038e5af22622068ecda4c5f54b84c99?default=identicon",
+					"work": "++++++++++++++++++++++++"
+				}],
+				"modified_rows": 276
+			},{
+				"name": "2021W06",
+				"authors": [
+				{
+					"name": "ossonts",
+					"email": "ossonts@users.noreply.github.com",
+					"gravatar": "https://www.gravatar.com/avatar/595dcf92c923fc15f3ad0b3db707af8f?default=identicon",
+					"work": "---++++++++++++++++++++"
+				}],
+				"modified_rows": 68
+			},{
+				"name": "2021W07",
+				"authors": [
+				{
+					"name": "UP933287",
+					"email": "up933287@myport.ac.uk",
+					"gravatar": "https://www.gravatar.com/avatar/9038e5af22622068ecda4c5f54b84c99?default=identicon",
+					"work": "+++++++"
+				},{
+					"name": "ossonts",
+					"email": "ossonts@users.noreply.github.com",
+					"gravatar": "https://www.gravatar.com/avatar/595dcf92c923fc15f3ad0b3db707af8f?default=identicon",
+					"work": "-------------------++++"
+				}],
+				"modified_rows": 117
+			},{
+				"name": "2021W08",
+				"authors": [
+				{
+					"name": "UP933287",
+					"email": "up933287@myport.ac.uk",
+					"gravatar": "https://www.gravatar.com/avatar/9038e5af22622068ecda4c5f54b84c99?default=identicon",
+					"work": "--------------------+++"
+				},{
+					"name": "ossonts",
+					"email": "ossonts@users.noreply.github.com",
+					"gravatar": "https://www.gravatar.com/avatar/595dcf92c923fc15f3ad0b3db707af8f?default=identicon",
+					"work": "."
+				}],
+				"modified_rows": 374
+			},{
+				"name": "2021W09",
+				"authors": [
+				{
+					"name": "George Sigalas",
+					"email": "57220574+UP933287@users.noreply.github.com",
+					"gravatar": "https://www.gravatar.com/avatar/dd12ce9664ffc444ca83f009348ff4c3?default=identicon",
+					"work": "."
+				},{
+					"name": "UP933287",
+					"email": "up933287@myport.ac.uk",
+					"gravatar": "https://www.gravatar.com/avatar/9038e5af22622068ecda4c5f54b84c99?default=identicon",
+					"work": "-------++++++++++++++"
+				},{
+					"name": "kamilmuzyka",
+					"email": "kamil.muzyka@gmail.com",
+					"gravatar": "https://www.gravatar.com/avatar/c4ab820e274c7567279b8089bdcb25d1?default=identicon",
+					"work": "-------++++++++++++++++"
+				}],
+				"modified_rows": 9645
+			},{
+				"name": "2021W10",
+				"authors": [
+				{
+					"name": "UP933287",
+					"email": "up933287@myport.ac.uk",
+					"gravatar": "https://www.gravatar.com/avatar/9038e5af22622068ecda4c5f54b84c99?default=identicon",
+					"work": "-----------+++++++++++++"
+				},{
+					"name": "kamilmuzyka",
+					"email": "kamil.muzyka@gmail.com",
+					"gravatar": "https://www.gravatar.com/avatar/c4ab820e274c7567279b8089bdcb25d1?default=identicon",
+					"work": "."
+				}],
+				"modified_rows": 109698
+			},{
+				"name": "2021W11",
+				"authors": [
+				{
+					"name": "George Sigalas",
+					"email": "57220574+UP933287@users.noreply.github.com",
+					"gravatar": "https://www.gravatar.com/avatar/dd12ce9664ffc444ca83f009348ff4c3?default=identicon",
+					"work": "."
+				},{
+					"name": "UP933287",
+					"email": "up933287@myport.ac.uk",
+					"gravatar": "https://www.gravatar.com/avatar/9038e5af22622068ecda4c5f54b84c99?default=identicon",
+					"work": "+"
+				},{
+					"name": "kamilmuzyka",
+					"email": "kamil.muzyka@gmail.com",
+					"gravatar": "https://www.gravatar.com/avatar/c4ab820e274c7567279b8089bdcb25d1?default=identicon",
+					"work": "----------++++++++++++++"
+				},{
+					"name": "ossonts",
+					"email": "ossonts@users.noreply.github.com",
+					"gravatar": "https://www.gravatar.com/avatar/595dcf92c923fc15f3ad0b3db707af8f?default=identicon",
+					"work": "."
+				}],
+				"modified_rows": 22229
+			},{
+				"name": "2021W12",
+				"authors": [
+				{
+					"name": "George Sigalas",
+					"email": "57220574+UP933287@users.noreply.github.com",
+					"gravatar": "https://www.gravatar.com/avatar/dd12ce9664ffc444ca83f009348ff4c3?default=identicon",
+					"work": "."
+				},{
+					"name": "Mubanga Chisanga",
+					"email": "up773284@myport.ac.uk",
+					"gravatar": "https://www.gravatar.com/avatar/95213dd224c73edd390f0465933eefbb?default=identicon",
+					"work": "+"
+				},{
+					"name": "UP773284",
+					"email": "UP773284@users.noreply.github.com",
+					"gravatar": "https://www.gravatar.com/avatar/81e41394b393692f699b2442e5e53d7d?default=identicon",
+					"work": "."
+				},{
+					"name": "UP933287",
+					"email": "up933287@myport.ac.uk",
+					"gravatar": "https://www.gravatar.com/avatar/9038e5af22622068ecda4c5f54b84c99?default=identicon",
+					"work": "-------++++++++++++++++"
+				},{
+					"name": "kamilmuzyka",
+					"email": "kamil.muzyka@gmail.com",
+					"gravatar": "https://www.gravatar.com/avatar/c4ab820e274c7567279b8089bdcb25d1?default=identicon",
+					"work": "-------+++++++++"
+				}],
+				"modified_rows": 12332
+			},{
+				"name": "2021W13",
+				"authors": [
+				{
+					"name": "George Sigalas",
+					"email": "57220574+UP933287@users.noreply.github.com",
+					"gravatar": "https://www.gravatar.com/avatar/dd12ce9664ffc444ca83f009348ff4c3?default=identicon",
+					"work": "."
+				},{
+					"name": "Mubanga Chisanga",
+					"email": "up773284@myport.ac.uk",
+					"gravatar": "https://www.gravatar.com/avatar/95213dd224c73edd390f0465933eefbb?default=identicon",
+					"work": "."
+				},{
+					"name": "OssontsBOT",
+					"email": "UP933287@users.noreply.github.com",
+					"gravatar": "https://www.gravatar.com/avatar/f123be213ad78e0ef11f5907857a4401?default=identicon",
+					"work": "."
+				},{
+					"name": "UP773284",
+					"email": "UP773284@users.noreply.github.com",
+					"gravatar": "https://www.gravatar.com/avatar/81e41394b393692f699b2442e5e53d7d?default=identicon",
+					"work": "."
+				},{
+					"name": "UP933287",
+					"email": "up933287@myport.ac.uk",
+					"gravatar": "https://www.gravatar.com/avatar/9038e5af22622068ecda4c5f54b84c99?default=identicon",
+					"work": "-"
+				},{
+					"name": "kamilmuzyka",
+					"email": "kamil.muzyka@gmail.com",
+					"gravatar": "https://www.gravatar.com/avatar/c4ab820e274c7567279b8089bdcb25d1?default=identicon",
+					"work": "-----------++++++++++++"
+				},{
+					"name": "ossonts",
+					"email": "ossonts@users.noreply.github.com",
+					"gravatar": "https://www.gravatar.com/avatar/595dcf92c923fc15f3ad0b3db707af8f?default=identicon",
+					"work": "."
+				}],
+				"modified_rows": 67519
+			},{
+				"name": "2021W14",
+				"authors": [
+				{
+					"name": "George Sigalas",
+					"email": "57220574+UP933287@users.noreply.github.com",
+					"gravatar": "https://www.gravatar.com/avatar/dd12ce9664ffc444ca83f009348ff4c3?default=identicon",
+					"work": "."
+				},{
+					"name": "Mubanga Chisanga",
+					"email": "up773284@myport.ac.uk",
+					"gravatar": "https://www.gravatar.com/avatar/95213dd224c73edd390f0465933eefbb?default=identicon",
+					"work": "++++"
+				},{
+					"name": "OssontsBOT",
+					"email": "UP933287@users.noreply.github.com",
+					"gravatar": "https://www.gravatar.com/avatar/f123be213ad78e0ef11f5907857a4401?default=identicon",
+					"work": "."
+				},{
+					"name": "Steven Ossont",
+					"email": "472243+ossonts@users.noreply.github.com",
+					"gravatar": "https://www.gravatar.com/avatar/088bff13283d3ed5ffd807e92636a3af?default=identicon",
+					"work": "."
+				},{
+					"name": "UP933287",
+					"email": "up933287@myport.ac.uk",
+					"gravatar": "https://www.gravatar.com/avatar/9038e5af22622068ecda4c5f54b84c99?default=identicon",
+					"work": "---------------+++++++++"
+				}],
+				"modified_rows": 1308
+			},{
+				"name": "2021W15",
+				"authors": [
+				{
+					"name": "OssontsBOT",
+					"email": "UP933287@users.noreply.github.com",
+					"gravatar": "https://www.gravatar.com/avatar/f123be213ad78e0ef11f5907857a4401?default=identicon",
+					"work": "."
+				},{
+					"name": "Steven Ossont",
+					"email": "472243+ossonts@users.noreply.github.com",
+					"gravatar": "https://www.gravatar.com/avatar/088bff13283d3ed5ffd807e92636a3af?default=identicon",
+					"work": "."
+				},{
+					"name": "UP933287",
+					"email": "up933287@myport.ac.uk",
+					"gravatar": "https://www.gravatar.com/avatar/9038e5af22622068ecda4c5f54b84c99?default=identicon",
+					"work": "--+++++++++++++++++++++"
+				}],
+				"modified_rows": 1083
+			},{
+				"name": "2021W17",
+				"authors": [
+				{
+					"name": "OssontsBOT",
+					"email": "UP933287@users.noreply.github.com",
+					"gravatar": "https://www.gravatar.com/avatar/f123be213ad78e0ef11f5907857a4401?default=identicon",
+					"work": "------++++++++++"
+				},{
+					"name": "UP933287",
+					"email": "up933287@myport.ac.uk",
+					"gravatar": "https://www.gravatar.com/avatar/9038e5af22622068ecda4c5f54b84c99?default=identicon",
+					"work": "-----------------++++++"
+				}],
+				"modified_rows": 12
+			}]
+		},
+		"metrics": {
+			"violations": [
+			{
+				"type": "estimated-lines-of-code",
+				"file_name": "src/client/src/tests/React-Component.test.js",
+				"value": 766
+			}{
+				"type": "cyclomatic-complexity-density",
+				"file_name": "docs/JSDoc/scripts/prettify/prettify.js",
+				"value": 1.786
+			}]
+		},
+		"responsibilities": {
+			"message": "The following responsibilities, by author, were found in the current revision of the repository (comments are excluded from the line count, if possible)",
+			"authors": [
+			{
+				"name": "George Sigalas",
+				"email": "57220574+UP933287@users.noreply.github.com",
+				"gravatar": "https://www.gravatar.com/avatar/dd12ce9664ffc444ca83f009348ff4c3?default=identicon",
+				"files": [
+				{
+					"name": ".github/workflows/dockerBuild.yml",
+					"rows": 20
+				}]
+			},{
+				"name": "Mubanga Chisanga",
+				"email": "up773284@myport.ac.uk",
+				"gravatar": "https://www.gravatar.com/avatar/95213dd224c73edd390f0465933eefbb?default=identicon",
+				"files": [
+				{
+					"name": "docs/Tests.md",
+					"rows": 79
+				}]
+			},{
+				"name": "OssontsBOT",
+				"email": "UP933287@users.noreply.github.com",
+				"gravatar": "https://www.gravatar.com/avatar/f123be213ad78e0ef11f5907857a4401?default=identicon",
+				"files": [
+				{
+					"name": ".Ossonts/latestHistory.log",
+					"rows": 1
+				},{
+					"name": ".Ossonts/lateSHA.log",
+					"rows": 1
+				}]
+			},{
+				"name": "Steven Ossont",
+				"email": "472243+ossonts@users.noreply.github.com",
+				"gravatar": "https://www.gravatar.com/avatar/088bff13283d3ed5ffd807e92636a3af?default=identicon",
+				"files": [
+				{
+					"name": "docs/JSDoc/scripts/prettify/Apache-License-2.0.txt",
+					"rows": 201
+				},{
+					"name": "FolderStructure.md",
+					"rows": 107
+				},{
+					"name": ".Ossonts/EC.valid",
+					"rows": 1
+				}]
+			},{
+				"name": "UP933287",
+				"email": "up933287@myport.ac.uk",
+				"gravatar": "https://www.gravatar.com/avatar/9038e5af22622068ecda4c5f54b84c99?default=identicon",
+				"files": [
+				{
+					"name": "src/client/src/tests/React-Component.test.js",
+					"rows": 766
+				},{
+					"name": "docs/JSDoc/module-auth.html",
+					"rows": 739
+				},{
+					"name": "src/docker/scripts/skillfinder.sql",
+					"rows": 386
+				},{
+					"name": "src/test/API_Testing.test.js",
+					"rows": 284
+				},{
+					"name": "docs/JSDoc/module-authOrigin.html",
+					"rows": 227
+				},{
+					"name": "docs/JSDoc/module-authGoogle.html",
+					"rows": 227
+				},{
+					"name": "src/test/WebSocket.test.js",
+					"rows": 176
+				},{
+					"name": "docs/JSDoc/controllers_file-controller.js.html",
+					"rows": 118
+				},{
+					"name": "src/controllers/file-controller.js",
+					"rows": 116
+				},{
+					"name": "docs/JSDoc/global.html",
+					"rows": 95
+				}]
+			},{
+				"name": "kamilmuzyka",
+				"email": "kamil.muzyka@gmail.com",
+				"gravatar": "https://www.gravatar.com/avatar/c4ab820e274c7567279b8089bdcb25d1?default=identicon",
+				"files": [
+				{
+					"name": "docs/JSDoc/module-AuthMiddleware.html",
+					"rows": 2591
+				},{
+					"name": "docs/JSDoc/fonts/OpenSans-LightItalic-webfont.svg",
+					"rows": 1835
+				},{
+					"name": "docs/JSDoc/fonts/OpenSans-Regular-webfont.svg",
+					"rows": 1831
+				},{
+					"name": "docs/JSDoc/fonts/OpenSans-Light-webfont.svg",
+					"rows": 1831
+				},{
+					"name": "docs/JSDoc/fonts/OpenSans-SemiboldItalic-webfont.svg",
+					"rows": 1830
+				},{
+					"name": "docs/JSDoc/fonts/OpenSans-Semibold-webfont.svg",
+					"rows": 1830
+				},{
+					"name": "docs/JSDoc/fonts/OpenSans-Italic-webfont.svg",
+					"rows": 1830
+				},{
+					"name": "docs/JSDoc/fonts/OpenSans-BoldItalic-webfont.svg",
+					"rows": 1830
+				},{
+					"name": "docs/JSDoc/fonts/OpenSans-Bold-webfont.svg",
+					"rows": 1830
+				},{
+					"name": "docs/JSDoc/global.html",
+					"rows": 976
+				}]
+			},{
+				"name": "ossonts",
+				"email": "ossonts@users.noreply.github.com",
+				"gravatar": "https://www.gravatar.com/avatar/595dcf92c923fc15f3ad0b3db707af8f?default=identicon",
+				"files": [
+				{
+					"name": ".github/workflows/SuperLinter.yml",
+					"rows": 71
+				},{
+					"name": ".github/workflows/SHALogger.yml",
+					"rows": 59
+				},{
+					"name": ".Ossonts/SHALogger.sh",
+					"rows": 50
+				},{
+					"name": "ProgressReports/ProgressReports.list",
+					"rows": 11
+				},{
+					"name": ".github/linters/.eslintrc.yml",
+					"rows": 7
+				},{
+					"name": ".Ossonts/latestHistory.log",
+					"rows": 4
+				},{
+					"name": ".Ossonts/Trigger.md",
+					"rows": 1
+				}]
+			}]
+		},
+		"extensions": {
+			"message": "The extensions below were found in the repository history",
+			"used": [ "*", "bat", "css", "delme", "html", "js", "json", "list", "log", "md", "sh", "sql", "svg", "txt", "valid", "yml" ],
+			"unused": [  ]
+		}
+	}
+}
